@@ -22,4 +22,7 @@ jobs:
     - name: Censoring the index file
       run: earthly --ci +generate-public-index
     - name: Updating index.wiki
-      run: git add index.wiki && git commit -m "updating index.wiki"
+      run: |
+        git config --global user.email "<>"
+        git config --global user.name "Github Action Bot"
+        git add index.wiki && git commit -m "updating index.wiki"
