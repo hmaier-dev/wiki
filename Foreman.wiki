@@ -1,0 +1,18 @@
+= Foreman =
+Falls man einen Überblick über seine vielen Maschinen haben, sowie diese automatisch installieren, möchte, ist Foreman möglicherweise das passende Tool.
+
+== Windows Server ==
+
+This is gold if you want to learn more about Windows: https://github.com/UXabre/WIMan
+
+
+Foreman verwaltet physische Ressourcen sowie kennt alle virtuellen Hosts.
+
+== Suche ==
+Hier einige Suchebeispiele:
+
+- `params.foreman_cluster = kvm` findet alle die im _kvm_ im Cluster-Namen haben.
+
+== Foreman-Proxy ==
+Werden auch Smarty-Proxy genannt.
+

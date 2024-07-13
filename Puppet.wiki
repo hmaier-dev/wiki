@@ -1,0 +1,161 @@
+= Puppet =
+Puppet-Code muss nach (Babiel-Standards) dem `Role`- und `Profile`-Pattern erstellt werden.
+Eine Rolle entspricht dabei einem Maschinentyp und kann durch Profile ergänzt werden.
+
+== TL;DR ==
+
+- _Ich möchte wissen, ob meine Änderungen für eine Maschine kompilieren_: `earthly +catalog --HOST <host>`
+- _Welche Auswirkungen haben meine Änderungen?_: `earthly +catalog-diff --HOST <host>`
+
+== Standard Configuration ==
+Die Standard-Konfiguration für alle Maschinen befindet sich in der `./puppet-control/manifests/site.pp`.
+
+== Normaler Workflow ==
+
+1. Im `Vagrantfile` unter `./puppet-control` eine neue Box anlegen. 
+2. Dann die Rollen-Klasse erstellen: `./puppet-control/modules/role/manifests/$ROLLE`. *Die Vagrant-Box hat erhält somit nun die Standardkonfiguration.*
+3. Profile der Rollen-Klasse zuweisen.
+4. Mit `vagrant up $ROLLE` die maschine starten.
+5. Mit `vagrant provision --provision-with puppet $ROLLE` die Maschine von puppet konfigurieren lassen (????)
+
+=== Box erstellen (mit [[Vagrant]]) ===
+Um eine Rolle zu erstellen, benötigt man zu allererst eine VM die diese Rolle ausführen kann.
+Daher muss im `Vagrantfile` (im [[https://gitlab.rz.babiel.com/provid/puppet-control|puppet-repo]]) die VM angelegt werden.
+Dabei ist es sinnvoll, wenn der *Name der VM dem Namen der Rolle* entspricht. 
+Die Basis-VMs können aus diesem Repo bezogen werden: https://app.vagrantup.com/bento.
+
+{{{ruby
+config.vm.define "$ROLLE" do |box| # box == vm in vagrant
+  box.vm.provider "docker" do |v, override| # provider => backend welches vagrant für die box verwendet
+    override.image = "docker-registry.rz.babiel.com/provid/puppet-control/debian:10"
+  end
+  box.vm.provider "virtualbox" do |v, override|
+    override.vm.box = "bento/debian-10" 
+  end   
+  box.vm.provision "puppet", type: "puppet" do |puppet| # provisioniere mit puppet (könnte hier auch ansible stehen?)
+    puppet.facter = {
+      "foreman_role" => "$ROLLE" # muss mit Dateinamen in modules/role/manifests/ übereinstimmen
+    }
+  end
+end
+}}}
+
+Hat man im `Vagrantfile` die Basis-VM definiert, kann man sich nun der Rollen-Klasse zuwenden.
+Diese definiert man als Puppet-Code (file.pp).
+
+-`./puppet-control/modules/role/manifests/$ROLLE.pp`
+
+{{{puppet
+class role::$ROLLE {
+   
+}
+}}}
+
+Danach kann man mit `vagrant up $ROLLE` die Box starten.
+
+=== Rollen ===
+Jegliche Attribute die einer Rolle zugeordnet werden sollen, müssen als Profile in eine Rolle includet werden.
+
+-`./puppet-control/modules/role/manifests/$ROLLE.pp`
+{{{puppet
+class role::$ROLLE {
+	include profile::keepalived
+}
+}}}
+
+Im Hiera sollte die Rolle ebenfalls angelegt sein. Damit die Daten für die Profile dort deklariert werden könnene ebenfalls angelegt sein.
+Damit die Daten für die Profile dort deklariert werden können.
+
+-`./puppet-control/hieradata/roles/$ROLLE.yaml`
+
+{{{yaml
+profile::keepalived::password: passwort
+profile::keepalived::interfaces:
+  eth0: 192.168.110.123
+}}}
+
+*ACHTUNG*: die Rolle wird nicht gelanden, wenn fpür die Node eine Node-Manifest existiert.
+Zu finden sind diese unter `./manifests/node`. Die Logik dazu ist folgende:
+{{{ruby
+## Nach Baselines restliche Manifeste
+node default {
+  if !($::foreman_role.empty) {
+    include "role::${::foreman_role}"
+  }
+}
+}}}
+
+
+=== Profile ===
+Alle Puppet-Profile befinden sich unter:
+
+- `./puppet-control/modules/profile/manifests/$PROFILE.pp`
+
+=== Files ===
+Unter `modules` gibt es nochmal einen Pfad unter dem alle Files liegen.
+Ist in einem Profile bspw. die Rede von 
+
+- `source  => 'puppet:///modules/profile/apache/apache_filter_log.pl'`
+
+dann liegt `apache_filter_log.pl` unter:
+
+- `./puppet-control/modules/profile/files/apache/apache_filter_log.pl`
+
+Es gibt auch noch einen Ordner für globale files:
+
+- `.puppet-control/files` bzw. `./puppet-control/modules/global/files`
+
+
+== Wie finde ich heraus, welcher Host welches Profile benutzt ==
+
+Da Profile immer von Rollen inkludiert werden, kann man nach der Rolle suchen,
+welche das Profil includet. Bspw.: `grep -r "profile::<mein-profil> ."`. Mit dieser Information der Rolle kann man nun ins Foreman gehen
+und mit dieser Query nach den betreffenden Hosts suchen: `params.foreman_role = <gefundene-rolle>`.
+
+== Würden meine Änderungen für das Profile/Rolle kompilieren? ==
+
+1. Herausfinden welches Maschine meine Rolle (und somit mein Profil) verwendet: [[Wie finde ich heraus, welcher Host welches Profile benutzt|siehe hier]]
+2. Mit [[Earthly]] den Katalog kompilieren: `earthly +catalog --HOST <host>`. Dieser wird hier gespeichert: `./puppet-control/catalogs`.
+
+Pro-Tipp: Im Catalog kann man jegliche Logik angewendet sehen.
+
+== Ist meine Variable der gewollte Typ? ==
+
+Dafür kann man `assert_type(<Type>, <$var>)` nutzen.
+
+=== `undef` als Wert für Parameter erlauben ===
+Möchte man bspw. einen Default Paramter setzen, sowohl aber auch erlauben, dass dieser `undef` sein kann,
+muss man den Type des Parameters mit `Optional[]` wrappen.
+
+== Ausgeben von Variablen == 
+
+{{{puppet
+ notify {"debug message plus variable: ${my_var}":
+      loglevel => debug,
+    }
+}}}
+
+== Was Puppet nicht tut ==
+
+- Zustand der Maschine festhalten und Änderungen somit rückgängig machen. D.h.: Ist ein Profil includet und provisioniert, kann man durch löschen des includes die Maschine nicht wieder auf den vorherigen Zustand bringen.
+
+== `octocatalog-diff` ==
+
+Exit-Code Bedeutungen: https://github.com/github/octocatalog-diff/blob/ab6429e521bf72dd94e8594c1863e54530e1bc61/lib/octocatalog-diff/cli.rb#L24
+ 
+
+
+== Glossar ==
+
+=== Was sind `Module`? ===
+Jegliche Logik (Puppet-Code) für die Konfiguration wird in Modulen aufgewahrt.
+Module enthalten:
+- classes
+- defined types
+- tasks
+- task plans
+- functions
+- resource types
+- providers
+
+Source: https://www.puppet.com/docs/puppet/7/modules_fundamentals.html

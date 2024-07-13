@@ -1,0 +1,10 @@
+
+
+=== Add at the end of every line ===
+{{{
+:%norm A<stuff-that-you-want-to-add>
+}}}
+Which means:
+* %       = for every line
+* norm    = type the following commands
+* A*      = append ' * ' to the end of current line
