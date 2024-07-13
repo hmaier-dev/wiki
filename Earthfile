@@ -1,6 +1,6 @@
 VERSION 0.8
 
-FROM ubuntu:latest
+FROM python:3.12
 
 generate-public-index:
     FROM python:3.10
