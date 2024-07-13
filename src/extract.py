@@ -31,7 +31,7 @@ def censor_table_of_contents(private_toc):
     public = ""
     f = os.listdir(".")
     wiki_files = [file for file in f if file.endswith('.wiki')]
-    pattern = "\*\s\[\[(.*)\]\]|\*\s(.*)"
+    pattern = r"\*\s\[\[(.*)\]\]|\*\s(.*)"
     for line in private_toc:
         matches = re.findall(pattern, line)
         link = matches[0][0]
