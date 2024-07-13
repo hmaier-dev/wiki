@@ -51,5 +51,5 @@ public_name = sys.argv[2]
 toc = extract_table_of_contents(private)
 public, censored = censor_table_of_contents(toc)
 
-print(censored)
-print(public)
+with open(public_name, 'w') as file:
+    file.write(public)
