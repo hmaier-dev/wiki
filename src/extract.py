@@ -34,8 +34,11 @@ def censor_table_of_contents(private_toc):
     pattern = "\*\s\[\[(.*)\]\]|\*\s(.*)"
     for line in private_toc:
         matches = re.findall(pattern, line)
-        match = results = [match[0] if match[0] else match[1] for match in matches]
-        if f"{match[0]}.wiki" in wiki_files:
+        link = matches[0][0]
+        no_link = matches[0][1]
+        if f"{link}.wiki" in wiki_files:
+            public = public + line
+        elif no_link:
             public = public + line
         else:
             censored.append(line)
