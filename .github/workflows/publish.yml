@@ -21,3 +21,5 @@ jobs:
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
     - name: Censoring the index file
       run: earthly --ci +generate-public-index
+    - name: Updating index.wiki
+      run: git add index.wiki && git commit -m "updating index.wiki"
