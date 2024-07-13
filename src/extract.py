@@ -49,7 +49,11 @@ private = sys.argv[1]
 public_name = sys.argv[2]
 
 toc = extract_table_of_contents(private)
-public, censored = censor_table_of_contents(toc)
 
-with open(public_name, 'w') as file:
-    file.write(public)
+if toc is not None:
+    public, censored = censor_table_of_contents(toc)
+    with open(public_name, 'w') as file:
+        file.write(public)
+else:
+    print("No blank lines found.")
+    exit(0)

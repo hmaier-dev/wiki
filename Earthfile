@@ -8,5 +8,5 @@ generate-public-index:
     COPY src/extract.py ./tmp/
     RUN ls -la ./tmp
     WORKDIR ./tmp
-    RUN python ./extract.py index.wiki public_index.wiki
+    RUN python extract.py index.wiki public_index.wiki
     SAVE ARTIFACT public_index.wiki AS LOCAL ./index.wiki
