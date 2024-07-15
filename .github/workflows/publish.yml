@@ -26,3 +26,9 @@ jobs:
       run: earthly --ci +all-wiki-to-md
     - name: Converting markdown to html
       run: earthly --ci +all-md-to-html
+    - name: Commit html
+      run: |
+        git config --global user.email "<>"
+        git config --global user.name "Github Action Bot"
+        git add ./html/* && git commit -m "html updated"
+
