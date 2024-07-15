@@ -25,15 +25,14 @@ all-wiki-to-md:
     COPY *.wiki ./tmp/
     RUN ls -la ./tmp
     # COPY +generate-public-index/public_index.wiki ./tmp/index.wiki
-    RUN cat ./tmp/index.wiki
     RUN mkdir -p ./md
     RUN find ./tmp -name "*.wiki" -exec sh -c 'pandoc --from vimwiki --to markdown "$1" -o "./md/$(basename "$1" .wiki).md"' _ {} \;
-    RUN ls -la
     SAVE ARTIFACT ./md AS LOCAL ./md
 
-
-              
-
-
-
-
+all-md-to-html:
+    FROM pandoc/core
+    COPY ./md/*.md ./tmp/
+    RUN mkdir -p ./html
+    RUN find ./tmp -name "*.md" -exec sh -c 'pandoc --from markdown --to html "$1" -o "./html/$(basename "$1" .md).html"' _ {} \;
+    SAVE ARTIFACT ./html AS LOCAL ./html
+    

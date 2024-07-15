@@ -24,3 +24,5 @@ jobs:
       run: earthly --ci +generate-public-index
     - name: Converting wiki-files to markdown
       run: earthly --ci +all-wiki-to-md
+    - name: Converting markdown to html
+      run: earthly --ci +all-md-to-html
