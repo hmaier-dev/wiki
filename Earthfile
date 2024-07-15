@@ -21,15 +21,15 @@ wiki-to-md:
     SAVE ARTIFACT $FILENAME.md AS LOCAL ./md/$FILENAME.md
 
 all-wiki-to-md:
-    FROM ubuntu:latest
+    FROM pandoc/core
     COPY *.wiki ./tmp/
-    WORKDIR tmp
+    RUN mkdir -p ./md
+    RUN find ./tmp -name "*.wiki" -exec sh -c 'pandoc --from vimwiki --to markdown "$1" -o "./md/$(basename "$1" .wiki).md"' _ {} \;
     RUN ls -la
-    FOR file IN $(find . -name '*.wiki' -type f )
-        FROM +wiki-to-md --FILENAME=$(basename $file .wiki)  
-        RUN ls -la
-        RUN ls -la md
-    END
+    SAVE ARTIFACT ./md AS LOCAL ./md
+
+
+              
 
 
 
