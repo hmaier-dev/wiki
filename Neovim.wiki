@@ -68,6 +68,14 @@ From there on, `:cdo` is your friend. Replacing a variable-name goes like this:
 {{{vimscript
 :'<,'>norm A <the-string-of-my-choice>
 }}}
+== Add at the end of every line ==
+{{{
+:%norm A<stuff-that-you-want-to-add>
+}}}
+Which means:
+* %       = for every line
+* norm    = type the following commands
+* A*      = append ' * ' to the end of current line
 
 = Lua =
 Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen übersichtlicher zu machen ist `stylua`.

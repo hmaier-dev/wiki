@@ -1,3 +1,5 @@
+= Hendriks gutes Wiki =
+
 * [[Ansible]]
 * [[Docker]]
     * [[crane]]
@@ -7,6 +9,8 @@
     * [[Github]]
 * [[Foreman]]
 * [[Golang]]
+* [[Icinga]]
+* [[Intune]]
 * Linux
     * [[Gnome]]
     * [[apt]]
@@ -17,6 +21,8 @@
 * [[Postgres]]
     * [[pgTAP]]
     * [[Goose]]
+* [[Prometheus]]
+* [[Loadbalancer]]
 * [[Puppet]]
 * [[Python]]
 * [[Vagrant]]
@@ -27,3 +33,29 @@
 * [[htmx]]
 * [[Raspberry_Pi]]
 * [[tmux]]
+
+== Hilfreiche Links ==
+
+Some little test for ci
+yet another test
+
+Gutes Grafik Tool: https://asciiflow.com/#/
+
+How to ask questions the smart way: http://catb.org/~esr/faqs/smart-questions.html
+
+Googles Book about Site Reliability Engineering: [[https://sre.google/sre-book/table-of-contents/]]
+
+Interessante Artikel: www.systemli.org
+
+== Bewerbungs Gespräche ==
+
+Practicing Job Interviews: https://interviewing.io/blog
+
+General Things to know about: [[Linux]]
+
+== Miscellaneous ==
+
+- [[Business]]
+- [[Projekt-Ideen]]
+- Buchtipps
+    - Ein Sachcomic-Serie des Tibia-Press Verlags
