@@ -10,11 +10,10 @@ generate-public-index:
     RUN python extract.py index.wiki public_index.wiki
     SAVE ARTIFACT public_index.wiki AS LOCAL ./index.wiki
 
-
+#
 wiki-to-md:
     ARG FILENAME
-    FROM ubuntu:latest
-    RUN apt-get -y update && apt-get install pandoc -y
+    FROM pandoc/core
     COPY *.wiki ./tmp/
     WORKDIR ./tmp
     RUN pandoc --from vimwiki --to markdown $FILENAME.wiki -o $FILENAME.md
