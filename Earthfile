@@ -10,7 +10,7 @@ generate-public-index:
     RUN python extract.py index.wiki public_index.wiki
     SAVE ARTIFACT public_index.wiki AS LOCAL ./index.wiki
 
-#
+# convert a single file wiki to md by filename (without extension) e.g. --FILENAME index
 wiki-to-md:
     ARG FILENAME
     FROM pandoc/core
@@ -19,6 +19,7 @@ wiki-to-md:
     RUN pandoc --from vimwiki --to markdown $FILENAME.wiki -o $FILENAME.md
     SAVE ARTIFACT $FILENAME.md AS LOCAL ./md/$FILENAME.md
 
+# convert all wiki files to md
 all-wiki-to-md:
     FROM pandoc/core
     COPY *.wiki ./tmp/
