@@ -28,4 +28,4 @@ all-md-to-html:
 
 build:
     BUILD +all-wiki-to-md
-    BUILD +all-md-html
+    BUILD +all-md-to-html
