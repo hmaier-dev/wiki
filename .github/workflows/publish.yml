@@ -12,7 +12,6 @@ jobs:
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      TOKEN: ${{ secrets.RW_TOKEN }}
       FORCE_COLOR: 1
     steps:
     - uses: actions/checkout@v4
@@ -23,11 +22,17 @@ jobs:
     - name: Converting wiki-files to html
       run: |
         earthly +build
-        ls -la html
-        ls -la
         git config --global user.email "<>"
         git config --global user.name "Github Action Bot"
         git add ./html/* && git commit -m "html updated"
+    - name: Deploy to GitHub pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        # you don't need to create this token. It is created by the runner itself
+        deploy_key: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./html
+        force_orphan: true
     - name: Debug
       run: ls -la
 
