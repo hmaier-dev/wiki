@@ -56,4 +56,4 @@ if toc is not None:
         file.write(public)
 else:
     print("No blank lines found.")
-    exit(0)
+    exit(1)
