@@ -12,6 +12,7 @@ jobs:
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      TOKEN: ${{ secrets.RW_TOKEN }}
       FORCE_COLOR: 1
     steps:
     - uses: actions/checkout@v4
@@ -19,15 +20,9 @@ jobs:
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
     - name: Download latest earthly
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
-    - name: Debug
-      run: |
-        echo "Hello World" > test.txt
-    - name: Debug
-      run: |
-        cat test.txt
     - name: Converting wiki-files to html
       run: |
-        earthly --ci +build
+        earthly +build
         ls -la html
         ls -la
         git config --global user.email "<>"
