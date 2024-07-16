@@ -29,7 +29,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v4
       with:
         # you don't need to create this token. It is created by the runner itself
-        deploy_key: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: ./html
         force_orphan: true
