@@ -19,12 +19,16 @@ jobs:
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
     - name: Download latest earthly
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+    - name: Debug
+      run: ls -la
     - name: Converting wiki-files to markdown
       run: earthly --ci +all-wiki-to-md
     - name: Debug
-      run: ls -la 
+      run: ls -la
     - name: Converting markdown to html
       run: earthly --ci +all-md-to-html
+    - name: Debug
+      run: ls -la
     - name: Commit html
       run: |
         git config --global user.email "<>"
