@@ -26,7 +26,7 @@ jobs:
         git config --global user.name "Github Action Bot"
         git add ./html/* && git commit -m "html updated"
     - name: Deploy to GitHub pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         # you don't need to create this token. It is created by the runner itself
         deploy_key: ${{ secrets.GITHUB_TOKEN }}
