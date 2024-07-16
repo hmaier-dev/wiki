@@ -21,12 +21,8 @@ jobs:
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
     - name: Debug
       run: ls -la
-    - name: Converting wiki-files to markdown
-      run: earthly --ci +all-wiki-to-md
-    - name: Debug
-      run: ls -la
-    - name: Converting markdown to html
-      run: earthly --ci +all-md-to-html
+    - name: Converting wiki-files to html
+      run: earthly --ci +build
     - name: Debug
       run: ls -la
     - name: Commit html
