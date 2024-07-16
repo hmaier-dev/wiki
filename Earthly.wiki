@@ -25,4 +25,5 @@ test-all:
     BUILD +test-database
 }}}
 
-
+= `SAVE ARTIFACT` =
+Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie impliziert).

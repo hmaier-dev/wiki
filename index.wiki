@@ -5,7 +5,6 @@
     * [[Earthly]]
     * [[Gitlab]]
     * [[Github]]
-* [[Foreman]]
 * [[Golang]]
 * Linux
     * [[Gnome]]
@@ -17,7 +16,6 @@
 * [[Postgres]]
     * [[pgTAP]]
     * [[Goose]]
-* [[Puppet]]
 * [[Python]]
 * [[Vagrant]]
 * [[Windows]]
