@@ -20,7 +20,11 @@ jobs:
     - name: Download latest earthly
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
     - name: Debug
-      run: ls -la
+      run: |
+        echo "Hello World" > test.txt
+    - name: Debug
+      run: |
+        cat test.txt
     - name: Converting wiki-files to html
       run: |
         earthly --ci +build
