@@ -22,12 +22,11 @@ jobs:
     - name: Debug
       run: ls -la
     - name: Converting wiki-files to html
-      run: earthly --ci +build
-    - name: Debug
-      run: ls -la
-    - name: Commit html
       run: |
+        earthly --ci +build
         git config --global user.email "<>"
         git config --global user.name "Github Action Bot"
         git add ./html/* && git commit -m "html updated"
+    - name: Debug
+      run: ls -la
 
