@@ -1,36 +1,31 @@
 VERSION 0.8
 
-# removes links (in index.wiki) for articles, which have not been copied
-generate-public-index:
-    FROM python:3.12
-    COPY index.wiki ./tmp/
-    COPY *.wiki ./tmp/
-    COPY src/extract.py ./tmp/
-    WORKDIR ./tmp
-    RUN python extract.py index.wiki public_index.wiki
-    SAVE ARTIFACT public_index.wiki AS LOCAL ./index.wiki
-
-
+# convert a single file wiki to md by filename (without extension) e.g. --FILENAME index
 wiki-to-md:
     ARG FILENAME
-    FROM ubuntu:latest
-    RUN apt-get -y update && apt-get install pandoc -y
+    FROM pandoc/core
     COPY *.wiki ./tmp/
     WORKDIR ./tmp
     RUN pandoc --from vimwiki --to markdown $FILENAME.wiki -o $FILENAME.md
     SAVE ARTIFACT $FILENAME.md AS LOCAL ./md/$FILENAME.md
 
+# convert all wiki files to md
 all-wiki-to-md:
-    FROM ubuntu:latest
+    FROM pandoc/core
     COPY *.wiki ./tmp/
-    WORKDIR tmp
-    RUN ls -la
-    FOR file IN $(find . -name '*.wiki' -type f )
-        FROM +wiki-to-md --FILENAME=$(basename $file .wiki)  
-        RUN ls -la
-        RUN ls -la md
-    END
+    # COPY +generate-public-index/public_index.wiki ./tmp/index.wiki
+    RUN mkdir -p ./md
+    RUN find ./tmp -name "*.wiki" -exec sh -c 'pandoc --from vimwiki --to markdown "$1" -o "./md/$(basename "$1" .wiki).md"' _ {} \;
+    SAVE ARTIFACT ./md AS LOCAL ./md
 
+all-md-to-html:
+    FROM pandoc/core
+    COPY +all-wiki-to-md/md/* ./tmp/
+    RUN mkdir -p ./html
+    RUN find ./tmp -name "*.md" -exec sh -c 'pandoc --from markdown --to html "$1" -o "./html/$(basename "$1" .md).html"' _ {} \;
+    RUN ls html
+    SAVE ARTIFACT ./html AS LOCAL ./html
 
-
-
+build:
+    BUILD +all-wiki-to-md
+    BUILD +all-md-to-html

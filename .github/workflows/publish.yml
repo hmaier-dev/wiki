@@ -13,19 +13,28 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       FORCE_COLOR: 1
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
     - name: Download latest earthly
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
-    - name: Censoring the index file
-      run: earthly --ci +generate-public-index
-
-    # Do I need to commit the new index.wiki?
-    # Try: remove this section
-    - name: Updating index.wiki
+    - name: Converting wiki-files to html
       run: |
+        earthly +build
         git config --global user.email "<>"
         git config --global user.name "Github Action Bot"
-        git add index.wiki && git commit -m "updating index.wiki"
+        git add ./html/* && git commit -m "html updated"
+    - name: Deploy to GitHub pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        # you don't need to create this token. It is created by the runner itself
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./html
+        force_orphan: true
+    - name: Debug
+      run: ls -la
+

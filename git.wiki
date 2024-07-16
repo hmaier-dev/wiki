@@ -26,6 +26,8 @@
 - Wie kann ich ein gelöschtes File wiederherstellen.
     - `git checkout <commit-hash>^ -- <filename>`
     - `git add <filename>`
+- This feature helps Git remember how you resolved conflicts previously, so if the same conflict arises again, Git can automatically apply the same resolution.
+    - `git config --global rerere.enabled true`
 
 
 == rebase ==

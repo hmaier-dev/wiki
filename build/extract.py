@@ -45,15 +45,17 @@ def censor_table_of_contents(private_toc):
     return public, censored
 
 
-private = sys.argv[1]
-public_name = sys.argv[2]
+file_path = sys.argv[1]
 
-toc = extract_table_of_contents(private)
-
-if toc is not None:
-    public, censored = censor_table_of_contents(toc)
-    with open(public_name, 'w') as file:
-        file.write(public)
+toc = extract_table_of_contents(file_path)
+public_string, censored = censor_table_of_contents(toc)
+if toc is not None and len(censored) > 0:
+    print("These links have been censored")
+    print(censored)
+    with open(file_path, 'w') as file:
+        file.write(public_string)
 else:
     print("No blank lines found.")
-    exit(0)
+    print("No links have been censored.")
+    print("Exiting...")
+    exit(1)
