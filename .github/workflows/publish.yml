@@ -24,6 +24,8 @@ jobs:
     - name: Converting wiki-files to html
       run: |
         earthly --ci +build
+        ls -la html
+        ls -la
         git config --global user.email "<>"
         git config --global user.name "Github Action Bot"
         git add ./html/* && git commit -m "html updated"
