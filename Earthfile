@@ -13,16 +13,17 @@ hugo:
     FROM ubuntu:latest
     # Hugo cannot work in root (/)
     WORKDIR tmp
-    COPY ./content ./content
-    COPY hugo.toml .
-    RUN apt-get update -y && \
-        apt-get install hugo git -y > /dev/null
-    RUN mv ./content/index.md ./content/_index.md
-    RUN mkdir -p themes && \
-        git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
-    RUN echo 'themes = "ananke"' >> hugo.toml
-    RUN hugo --config hugo.toml --themesDir ./themes --contentDir ./content
-    RUN ls -la ./public
+    COPY content content
+    COPY hugo.toml hugo.toml
+    COPY layouts layouts
+
+    RUN apt-get -qq update -y && \
+        apt-get -qqy install hugo
+    # This needs be renamed for Hugo
+    RUN mv content/index.md content/_index.md
+    RUN hugo
+    RUN hugo
+    RUN ls -la public
     SAVE ARTIFACT ./public AS LOCAL ./public
 
 build:
