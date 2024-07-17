@@ -1,4 +1,0 @@
-= Move pane to new window =
-{{{ bash
-CTRL+b; !
-}}}
