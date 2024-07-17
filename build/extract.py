@@ -1,10 +1,17 @@
 import sys
 import os
 import re
+from pathlib import Path
 
 
 # 1st/2nd empty line are used as delimiters
 def extract_table_of_contents(file_path):
+    try:
+        Path(file_path).resolve(strict=True)
+    except FileNotFoundError:
+        print(file_path + " hasn't been found...")
+        exit(1)
+
     with open(file_path, 'r') as file:
         lines = file.readlines()
 
@@ -26,11 +33,11 @@ def extract_table_of_contents(file_path):
 
 
 # Just use the present articles names as links
-def censor_table_of_contents(private_toc):
+def censor_table_of_contents(private_toc, ext):
     censored = []
     public = ""
     f = os.listdir(".")
-    wiki_files = [file for file in f if file.endswith('.wiki')]
+    wiki_files = [file for file in f if file.endswith("." + ext)]
     pattern = r"\*\s\[\[(.*)\]\]|\*\s(.*)"
     for line in private_toc:
         matches = re.findall(pattern, line)
@@ -46,9 +53,11 @@ def censor_table_of_contents(private_toc):
 
 
 file_path = sys.argv[1]
+extension = file_path.split('.')[-1]
 
 toc = extract_table_of_contents(file_path)
-public_string, censored = censor_table_of_contents(toc)
+public_string, censored = censor_table_of_contents(toc, extension)
+
 if toc is not None and len(censored) > 0:
     print("These links have been censored")
     print(censored)
