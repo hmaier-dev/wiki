@@ -27,5 +27,21 @@ all-md-to-html:
     RUN ls html
     SAVE ARTIFACT ./html AS LOCAL ./html
 
+generate-site:
+    FROM ubuntu:latest
+    # Hugo cannot work in /
+    WORKDIR tmp
+    ARG source
+    COPY $source ./content
+    COPY hugo.toml .
+    RUN apt-get update -y && \
+        apt-get install hugo git -y
+    RUN mkdir -p themes && \
+        git clone https://github.com/monkeyWzr/hugo-theme-cactus.git themes/cactus
+    RUN hugo version
+    RUN hugo --config hugo.toml --themesDir ./themes
+    SAVE ARTICAT ./public AS LOCAL ./public
+
 build:
-    BUILD +all-md-to-html --source ./content
+    # BUILD +all-md-to-html --source ./content
+    BUILD +generate-site --source ./content
