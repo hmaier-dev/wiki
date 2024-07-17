@@ -38,12 +38,14 @@ def censor_table_of_contents(private_toc, ext):
     public = ""
     f = os.listdir(".")
     wiki_files = [file for file in f if file.endswith("." + ext)]
-    pattern = r"\*\s\[\[(.*)\]\]|\*\s(.*)"
+    # Regex-Pattern hardcoded for Markdown-Links 
+    # (e.g. * [Python](Python))
+    pattern = r"\*\s\[(.*)\]|\*\s(.*)"
     for line in private_toc:
         matches = re.findall(pattern, line)
         link = matches[0][0]
         no_link = matches[0][1]
-        if f"{link}.wiki" in wiki_files:
+        if f"{link}.{ext}" in wiki_files:
             public = public + line
         elif no_link:
             public = public + line
