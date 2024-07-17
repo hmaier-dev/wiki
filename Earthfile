@@ -18,7 +18,7 @@ all-wiki-to-md:
     RUN find ./tmp -name "*.wiki" -exec sh -c 'pandoc --from vimwiki --to markdown "$1" -o "./md/$(basename "$1" .wiki).md"' _ {} \;
     SAVE ARTIFACT ./md AS LOCAL ./md
 
-all-md-to-html:
+pandoc-md-to-html:
     FROM pandoc/core
     ARG source
     COPY $source/* ./tmp/
@@ -27,7 +27,7 @@ all-md-to-html:
     RUN ls html
     SAVE ARTIFACT ./html AS LOCAL ./html
 
-generate-site:
+hugo:
     FROM ubuntu:latest
     # Hugo cannot work in /
     WORKDIR tmp
@@ -43,5 +43,4 @@ generate-site:
     SAVE ARTICAT ./public AS LOCAL ./public
 
 build:
-    # BUILD +all-md-to-html --source ./content
-    BUILD +generate-site --source ./content
+    BUILD +hugo --source ./content
