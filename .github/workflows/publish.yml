@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - content/**
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -21,19 +23,16 @@ jobs:
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
     - name: Download latest earthly
       run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.13/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
-    - name: Converting wiki-files to html
+    - name: Earthly +build
       run: |
         earthly +build
-        git config --global user.email "<>"
-        git config --global user.name "Github Action Bot"
-        git add ./html/* && git commit -m "html updated"
     - name: Deploy to GitHub pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         # you don't need to create this token. It is created by the runner itself
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: ./html
+        publish_dir: ./public
         force_orphan: true
     - name: Debug
       run: ls -la
