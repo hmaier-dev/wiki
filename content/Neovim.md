@@ -118,4 +118,7 @@ Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
 In einer Vielzahl von Fällen treten Probleme nach Updates von Plugins
 auf. Lässt sich der Fehler nicht zur eigenen Konfiguration, sondern in
 den Quellcode des Plugin zurückverfolgen, ist es am einfachsten das
-Plugin einfach neu zu installieren.
+Plugin einfach neu zu installieren. 
+
+Dies funktioniert unter `Lazy.nvim` in dem 
+man das geklonte Repository unter `~/.local/share/nvim/lazy/<repo>` löscht.
