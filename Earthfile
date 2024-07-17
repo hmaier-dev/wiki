@@ -40,7 +40,7 @@ hugo:
         git clone https://github.com/monkeyWzr/hugo-theme-cactus.git themes/cactus
     RUN hugo version
     RUN hugo --config hugo.toml --themesDir ./themes
-    SAVE ARTICAT ./public AS LOCAL ./public
+    SAVE ARTIFACT ./public AS LOCAL ./public
 
 build:
     BUILD +hugo --source ./content
