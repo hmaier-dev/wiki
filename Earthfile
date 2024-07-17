@@ -16,6 +16,7 @@ hugo:
     # Hugo cannot work in root (/)
     WORKDIR tmp
     COPY content content
+    COPY static static
     COPY hugo.toml hugo.toml
     COPY layouts layouts
 
