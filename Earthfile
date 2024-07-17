@@ -36,8 +36,9 @@ hugo:
     COPY hugo.toml .
     RUN apt-get update -y && \
         apt-get install hugo git -y
-    RUN mkdir -p themes && \
-        git clone https://github.com/monkeyWzr/hugo-theme-cactus.git themes/cactus
+    # RUN mkdir -p themes && \
+    #     git clone https://github.com/1bl4z3r/hermit-V2 themes/hermit-v2
+    # RUN echo 'themes = "hermit-v2"' >> hugo.toml
     RUN hugo version
     RUN hugo --config hugo.toml --themesDir ./themes
     SAVE ARTIFACT ./public AS LOCAL ./public

@@ -1,4 +1,3 @@
 baseURL = 'https://hmaier-dev.github.io/wiki/'
 languageCode = 'de-de'
 title = 'hmaier-dev wiki'
-theme = 'cactus'
