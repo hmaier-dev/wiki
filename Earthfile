@@ -31,16 +31,16 @@ hugo:
     FROM ubuntu:latest
     # Hugo cannot work in /
     WORKDIR tmp
-    ARG source
-    COPY $source ./content
+    COPY ./content ./content
     COPY hugo.toml .
     RUN apt-get update -y && \
-        apt-get install hugo git -y
-    # RUN mkdir -p themes && \
-    #     git clone https://github.com/1bl4z3r/hermit-V2 themes/hermit-v2
-    # RUN echo 'themes = "hermit-v2"' >> hugo.toml
-    RUN hugo version
-    RUN hugo --config hugo.toml --themesDir ./themes
+        apt-get install hugo git -y > /dev/null
+    RUN mv ./content/index.md ./content/_index.md
+    RUN mkdir -p themes && \
+        git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+    RUN echo 'themes = "ananke"' >> hugo.toml
+    RUN hugo --config hugo.toml --themesDir ./themes --contentDir ./content
+    RUN ls -la ./public
     SAVE ARTIFACT ./public AS LOCAL ./public
 
 build:
