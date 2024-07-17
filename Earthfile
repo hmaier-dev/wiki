@@ -27,5 +27,5 @@ hugo:
     SAVE ARTIFACT ./public AS LOCAL ./public
 
 build:
-    # BUILD +hugo --source ./content
-    BUILD +pandoc --source ./content
+    BUILD +hugo --source ./content
+    # BUILD +pandoc --source ./content
