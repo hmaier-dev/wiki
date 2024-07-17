@@ -20,12 +20,11 @@ all-wiki-to-md:
 
 all-md-to-html:
     FROM pandoc/core
-    COPY +all-wiki-to-md/md/* ./tmp/
+    COPY ./*.md ./tmp/
     RUN mkdir -p ./html
     RUN find ./tmp -name "*.md" -exec sh -c 'pandoc --from markdown --to html "$1" -o "./html/$(basename "$1" .md).html"' _ {} \;
     RUN ls html
     SAVE ARTIFACT ./html AS LOCAL ./html
 
 build:
-    BUILD +all-wiki-to-md
     BUILD +all-md-to-html
