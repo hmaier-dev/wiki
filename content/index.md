@@ -19,6 +19,7 @@
     * [Goose](Goose)
 * [Python](Python)
 * [Vagrant](Vagrant)
+* [Wireguard](Wireguard)
 * [Windows](Windows)
 * [Wordpress](Wordpress)
 * [bash](bash)
