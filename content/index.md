@@ -21,6 +21,7 @@
 * [Vagrant](Vagrant)
 * [Wireguard](Wireguard)
 * [Windows](Windows)
+    * [Powershell](Powershell)
 * [Wordpress](Wordpress)
 * [bash](bash)
 * [git](git)
