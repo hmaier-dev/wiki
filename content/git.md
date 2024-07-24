@@ -140,7 +140,8 @@ git checkout -b <neuer-branch>
 git checkout -B <neuer-branch> production
 ```
 
-=== Variante 2 (update-refs)=== Ab der Version 2.38, kann man in einem
+### Variante 2 (update-refs)
+Ab der Version 2.38, kann man in einem
 interactive rebase den Command `update-ref refs/heads/<anderer-branch>`
 angeben. Damit kann man entweder auf einen bestehenden Branch verweisen
 oder einen neuen Branch anlegen. Diese ist dann als Referenz zum
