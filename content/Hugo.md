@@ -6,6 +6,27 @@ You will need several things for Hugo.
 - a `./content`-directory with your knowlegde written in markdown (`.md`)
 - some layout files under `./layouts/_default`, so Hugo knows how to structure the site
 - and a config file, which can be `toml`, `json` or something else 
+  
+Default directory structure looks like this
+```bash
+
+├── content
+│   ├── _index.md
+│   └── some-page.md
+├── hugo.toml
+├── layouts
+│   ├── _default
+│   │   ├── baseof.html
+│   │   ├── index.html
+│   │   └── single.html
+│   └── partials
+│       ├── footer.html
+│       ├── header.html
+│       └── head.html
+└── static
+    └── css
+
+```
 
 ### Layouts
 There is a lookup-routine over which Hugo iterates. If it finds no Theme or other layouts, it will use the files in `./layouts/_default/`.
@@ -22,14 +43,23 @@ For example, these files could look like this.
 </body>
 </html>
 ```
-- `single.html`
+- `index.html`: uses `_index.md` to generate the landing page (the underscores is mandatory)
 
 ``` html
 {{ define "main" }}
     {{.Content}}
 {{ end }}
 ```
-If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
+- `single.html`: defines how a normal page (like `some-page.md`) would look
+
+``` html
+{{ define "main" }}
+    {{.Content}}
+{{ end }}
+```
+There is no logic at all. Therefore your markdown gets converted in the most basic way.
+
+> If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
 
 
 ### Config-file
