@@ -10,6 +10,16 @@ Die folgende Anleitungen leiten im Theme _Twenty Seventeen_ an.
 
 - Möchte man es entfernen, muss man statt `Löschen` auf `Zurücksetzen` gehen.
 
+## Wie ändere ich die Startseite?
+1. Im Admin-Dashboard auf `Design > Customizer` gehen.
+2. Unter `Theme-Optionen` und `Inhalt im Startseiten-Abschnitt 1-5` kann man die verschiedene Seiten auswählen, die auf der Startseite angezeigt werden sollen.
+
+## Wie ändere ich die URL einer Seite?
+1. Im Admin-Dashboard auf `Seiten > Alle Seiten` gehen.
+2. Mit der Maus über den Listeneintrag der Seiten fahren.
+3. `QuickEdit` auswählen.
+4. In dem Feld `Titelform` lässt sich der Name der Seite in der URL ändern.
+
 
 ## Ressouren
 
