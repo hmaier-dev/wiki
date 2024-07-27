@@ -36,3 +36,22 @@ test-all:
 Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
 `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie
 impliziert).
+
+# Errors
+## Error: could not determine buildkit address - is Docker or Podman running?
+If you encounter this error, first look if the systemd-service is running.
+```bash
+systemctl status docker.service
+```
+If it is, you/Earthly probably don't have sufficient rights to call docker. You can test this, by manually calling docker without sudo/doas.
+
+```bash
+docker ps -a
+# Output:
+# permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.46/containers/json?all=1": dial unix /var/run/docker.sock: connect: permission denied
+```
+The solution to this problem, is to add your user-group to the docker group.
+```bash
+sudo usermod -aG docker <username>
+```
+
