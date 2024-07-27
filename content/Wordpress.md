@@ -15,15 +15,13 @@ Die folgende Anleitungen leiten im Theme _Twenty Seventeen_ an.
 2. Unter `Theme-Optionen` und `Inhalt im Startseiten-Abschnitt 1-5` kann man die verschiedene Seiten auswählen, die auf der Startseite angezeigt werden sollen.
 
 ## Wie ändere ich die URL einer Seite?
+
 1. Im Admin-Dashboard auf `Seiten > Alle Seiten` gehen.
 2. Mit der Maus über den Listeneintrag der Seiten fahren.
 3. `QuickEdit` auswählen.
 4. In dem Feld `Titelform` lässt sich der Name der Seite in der URL ändern.
 
 
-## Ressouren
-
-- Basic Setup: <https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview>
 
 ## Errors 
 
@@ -38,3 +36,7 @@ cwebp -q 80 bild.jpg -o bild.webp
 
 Damit wird das Bild verkleinert und \"sichtbarer\" (?) für Suchmaschinen
 gemacht.
+
+## Ressouren
+
+- Basic Setup: <https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview>
