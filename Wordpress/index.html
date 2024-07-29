@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+  <header>
+    
+  </header>
+  <main>
+    
+  <h1 id="wordpress">Wordpress</h1>
+<p>Die folgende Anleitungen leiten im Theme <em>Twenty Seventeen</em> an.</p>
+<h2 id="wie-ändere-ich-das-header-bild-einer-seite">Wie ändere ich das Header-Bild einer Seite?</h2>
+<ol>
+<li>Im Admin-Dashboard auf <code>Seiten &gt; Alle Seiten</code> gehen und die betreffende Seite <code>Bearbeiten</code>.</li>
+<li>Auf das blaue Plus auf der oberen linken Seite drücken, was dem Block-Inserter erscheinen lässt.</li>
+<li>Im Suchfeld oder manuell (Unterpunkt: Theme) nach <code>Beitragsbild</code> suchen und darauf klicken.</li>
+<li>Das aktuelle Beitragsbild/Header-Bild erscheint im Editor und lässt sich mit einem Klick auf die drei Punkte ändern.</li>
+</ol>
+<ul>
+<li>Möchte man es entfernen, muss man statt <code>Löschen</code> auf <code>Zurücksetzen</code> gehen.</li>
+</ul>
+<h2 id="wie-ändere-ich-die-startseite">Wie ändere ich die Startseite?</h2>
+<ol>
+<li>Im Admin-Dashboard auf <code>Design &gt; Customizer</code> gehen.</li>
+<li>Unter <code>Theme-Optionen</code> und <code>Inhalt im Startseiten-Abschnitt 1-5</code> kann man die verschiedene Seiten auswählen, die auf der Startseite angezeigt werden sollen.</li>
+</ol>
+<h2 id="wie-ändere-ich-die-url-einer-seite">Wie ändere ich die URL einer Seite?</h2>
+<ol>
+<li>Im Admin-Dashboard auf <code>Seiten &gt; Alle Seiten</code> gehen.</li>
+<li>Mit der Maus über den Listeneintrag der Seiten fahren.</li>
+<li><code>QuickEdit</code> auswählen.</li>
+<li>In dem Feld <code>Titelform</code> lässt sich der Name der Seite in der URL ändern.</li>
+</ol>
+<h2 id="errors">Errors</h2>
+<h3 id="der-server-kann-das-bild-nicht-verarbeiten-dies-kann-vorkommen-wenn-der-server-beschäftigt-ist-oder-nicht-genug-ressourcen-hat-um-die-aufgabe-abzuschließen-es-könnte-helfen-ein-kleineres-bild-hochzuladen-die-maximale-größe-sollte-2560-pixel-nicht-überschreiten">Der Server kann das Bild nicht verarbeiten. Dies kann vorkommen, wenn der Server beschäftigt ist oder nicht genug Ressourcen hat, um die Aufgabe abzuschließen. Es könnte helfen, ein kleineres Bild hochzuladen. Die maximale Größe sollte 2560 Pixel nicht überschreiten.</h3>
+<p>Wahrscheinlich ist das Bild im Format <code>.jpeg</code> oder <code>.png</code> vorhanden.
+Hier kann eine Konvertierung zu <code>.webp</code> helfen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cwebp -q <span style="color:#ae81ff">80</span> bild.jpg -o bild.webp 
+</span></span></code></pre></div><p>Damit wird das Bild verkleinert und &quot;sichtbarer&quot; (?) für Suchmaschinen
+gemacht.</p>
+<h2 id="ressouren">Ressouren</h2>
+<ul>
+<li>Basic Setup: <a href="https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview">https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview</a></li>
+</ul>
+
+
+  </main>
+  <footer>
+    
+  </footer>
+</body>
+</html>
