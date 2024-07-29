@@ -6,6 +6,7 @@
     * [Gitlab](Gitlab)
     * [Github](Github)
 * [Golang](Golang)
+* [Helix](Helix)
 * [Hugo](Hugo)
 * Linux
     * [Gnome](Gnome)
