@@ -13,6 +13,7 @@
     * [apt](apt)
     * [systemd](systemd)
     * [Arch](Arch)
+    * [ffmpeg](ffmpeg)
 * [Neovim](Neovim)
     * [lua](lua)
 * [Postgres](Postgres)
