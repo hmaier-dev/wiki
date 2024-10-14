@@ -16,6 +16,7 @@
     * [ffmpeg](ffmpeg)
 * [Neovim](Neovim)
     * [lua](lua)
+* [Nginx](Nginx)
 * [Postgres](Postgres)
     * [pgTAP](pgTAP)
     * [Goose](Goose)
