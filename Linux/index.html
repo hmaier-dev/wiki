@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+  <header>
+    
+  </header>
+  <main>
+    
+  <h1 id="Linux">Linux</h1>
+<p>Here I collect interview questions.</p>
+<h3 id="tell-me-about-some-projects-your-into-right-now-tell-me-about-some-projects-your-into-right-now">Tell me about some projects your into right now {#Tell me about some projects your into right now}</h3>
+<ul>
+<li>Self-Made Storage Array driven by a raspberry pi</li>
+<li>Upgrade old MP3-Player (from 3GB to min. 64 GB)</li>
+<li>1 Year ago I was into hacking old nintendo 3ds</li>
+<li>I run some custom android rom on my phone (LineageOS)</li>
+</ul>
+<h3 id="how-would-you-connect-to-a-machine-in-the-cloud-how-would-you-connect-to-a-machine-in-the-cloud">How would you connect to a machine in the cloud? {#How would you connect to a machine in the cloud?}</h3>
+<ul>
+<li><code>ssh</code> (Secure Shell, Port 22) is the tool</li>
+<li>Is there a []{#VPN}<strong>VPN</strong> involved?</li>
+<li>Is my public-key known to the machine? (auth via ssh-keys)</li>
+<li>A password is also possible but unsecure, like root-login</li>
+</ul>
+<h3 id="what-is-does-the-directory-proc-represent-what-is-does-the-directory-proc-represent">What is does the directory /proc represent? {#What is does the directory /proc represent?}</h3>
+<p>/proc displays the current state of the kernel, inside the filesystem.
+This is possible because everything in linux is treated as a file.</p>
+<h3 id="how-to-find-out-the-total-disk-usage-how-to-find-out-the-total-disk-usage">How to find out the total disk usage? {#How to find out the total disk usage?}</h3>
+<ul>
+<li><code>df -h</code>: for all filesystems, with <code>-h</code> for human-readable</li>
+<li><code>du -sh</code>: for a single directory, <code>-s</code> stands for <code>--summarize</code></li>
+</ul>
+<h3 id="how-to-check-for-open-ports-how-to-check-for-open-ports">How to check for open ports? {#How to check for open ports?}</h3>
+<p>There are ways to find out the open ports of a system.</p>
+<ul>
+<li><code>netstat</code>: gets the data from /proc/net</li>
+<li><code>ss</code>: gets the data from Netlink API from kernel-space</li>
+</ul>
+<p>To find the process which opened the port you can use:</p>
+<ul>
+<li><code>netstat</code>: with the <code>-tupln</code> flags the processes are already shown</li>
+<li><code>ss</code>: same shit</li>
+</ul>
+<h3 id="check-the-version-of-kernel-check-the-version-of-kernel">Check the version of kernel {#Check the version of kernel}</h3>
+<ul>
+<li><code>uname -r</code></li>
+</ul>
+<h3 id="how-to-manage-services-how-to-manage-services">How to manage services {#How to manage services}</h3>
+<ul>
+<li><code>systemctl start &lt;unit&gt;</code></li>
+<li><code>systemctl enable &lt;unit&gt;</code></li>
+<li><code>systemctl stop &lt;unit&gt;</code></li>
+<li><code>systemctl disable &lt;unit&gt;</code></li>
+<li><code>systemctl status &lt;unit&gt;</code></li>
+</ul>
+<h3 id="how-to-check-for-cpu-usage-how-to-check-for-cpu-usage">How to check for cpu usage? {#How to check for cpu usage?}</h3>
+<ul>
+<li><code>ps aux</code>: <code>a</code> means all processes, <code>x</code> includes processes not
+associated with a terminal, <code>u</code> formats for the output for a user</li>
+<li><code>top</code>/<code>htop</code>: equivalent to the taskmanager</li>
+</ul>
+<p>Press <code>h</code> in <code>top</code> to get help.</p>
+<h4 id="top"><code>top</code></h4>
+<ul>
+<li><code>t</code>: cpu usage</li>
+<li><code>m</code>: memory usage</li>
+<li><code>R</code>: toogle sorting (desc/asc)</li>
+</ul>
+<h3 id="what-filesystems-are-and-which-would-you-choose-for-which-job-what-filesystems-are-and-which-would-you-choose-for-which-job">What filesystems are and which would you choose for which job {#What filesystems are and which would you choose for which job}</h3>
+<ul>
+<li><code>NTFS</code> (New Technology File System): commonly used on Windows</li>
+<li><code>FAT</code> (File Allocation Table): only small files, commly used for the
+boot-partition</li>
+<li><code>exFAT</code> (Extended File Allocation Table): like FAT but with bigger
+files</li>
+<li><code>btrfs</code></li>
+<li><code>ext4</code></li>
+</ul>
+<h3 id="explain-the-filesystem-hierarchy-explain-the-filesystem-hierarchy">Explain the filesystem hierarchy {#Explain the filesystem hierarchy}</h3>
+<ul>
+<li><code>/bin</code>: binarys for the proper functioning of the system</li>
+<li><code>/sbin</code>: binarys critical for system administration</li>
+<li><code>/usr</code>: user-related programs and files</li>
+</ul>
+<h3 id="find-all-mounted-devices-find-all-mounted-devices">Find all mounted devices {#Find all mounted devices}</h3>
+<ul>
+<li><code>mount</code></li>
+</ul>
+<h3 id="what-is-a-init-system-what-is-a-init-system">What is a init-system? {#What is a init-system?}</h3>
+<p>The standard init-system as for today is <code>systemd</code>. systemd is
+responsible for reparenting orphaned processes. To see which init-system
+a system runs, go into htop and search for PID 1. If the name of the
+binary does not already tell (cuz maybe its just says init), you can use
+<code>file /sbin/init</code> and see the output which would be
+<code>/sbin/init: symbolic link to ../lib/systemd/systemd</code>.</p>
+<h3 id="what-is-a-process-what-is-a-process">What is a process? {#What is a process?}</h3>
+<p>A process is nothing but a executing binary. The multiple kind of
+processes:</p>
+<ul>
+<li>user-process: call by the user</li>
+<li>daemon-process: runs in the background</li>
+<li>kernel-process: full access to kernel data structures</li>
+</ul>
+<h3 id="what-is-a-user-what-is-a-user">What is a user? {#What is a user?}</h3>
+<p>A user is just a few entry in some config-files:</p>
+<ul>
+<li>/etc/group</li>
+</ul>
+<h3 id="there-is-a-weird-process-find-out-things-about-it-there-is-a-weird-process-find-out-things-about-it">There is a weird process. Find out things about it {#There is a weird process. Find out things about it}</h3>
+<p>You can use <code>top</code> or <code>htop</code> to start the investigation. With PID and
+name you could also use <code>ps aux</code>. With <code>lsof -p &lt;PID&gt;</code> you could see,
+which files/sockets are opened by the process.</p>
+<h3 id="please-explain-more-about-proc-please-explain-more-about-proc">Please explain more about <code>/proc</code> {#Please explain more about /proc}</h3>
+<p>In /proc you can see multiple directory named as numbers. These are
+processes. More about these things: <a href="https://linuxwiki.de/proc/pid">https://linuxwiki.de/proc/pid</a></p>
+<ul>
+<li><code>cmdline</code>: command plus arguments which started the process</li>
+<li><code>maps</code>: memory mapping (which library are used by the process)</li>
+<li><code>cwd</code>: current working directory of the process</li>
+<li><code>environ</code>: environment-variables for this process</li>
+</ul>
+<h3 id="hardlinks-and-symlinks-hardlinks-and-symlinks">Hardlinks and Symlinks {#Hardlinks and Symlinks}</h3>
+<ul>
+<li>Hardlink: ln &lt;source&gt; &lt;dest&gt;</li>
+<li>Symlink: ln -s &lt;source&gt; &lt;dest&gt;</li>
+</ul>
+<h3 id="what-are-inodes-what-are-inodes">What are inodes? {#What are inodes?}</h3>
+<p>Inodes are metadata (filesize, read-write-date, permissions) in the
+linux filesystem. In some instances, inodes could occupy more space than
+the actual data stored on the system. To find out about inode-usage use
+<code>df -i</code>.</p>
+<h3 id="difference-between-a-process-and-a-thread-difference-between-a-process-and-a-thread">Difference between a process and a thread? {#Difference between a process and a thread?}</h3>
+<p>A thread is a segment of process, which means: a process can hold
+multiple threads. Thread are less isolated, which means they share
+memory with other threads.</p>
+<h3 id="what-command-used-to-find-processes-as-well-as-cpu-and-memory-usage-what-command-used-to-find-processes-as-well-as-cpu-and-memory-usage">What command used to find processes as well as cpu and memory usage? {#What command used to find processes as well as cpu and memory usage?}</h3>
+<p>For memory usage you can use <code>free -h</code>. For the cpu usage you could look
+at <code>/proc/stat</code>. For a nice summary <code>top</code> or <code>htop</code> would be good.</p>
+<h3 id="how-to-automize-a-repeating-task-how-to-automize-a-repeating-task">How to automize a repeating task? {#How to automize a repeating task?}</h3>
+<p>You could write script and give it to <code>cron</code> or on <code>systemd</code>-systems you
+could use a unit-file with a <code>[Timer]</code>-Section.</p>
+<h3 id="how-to-find-a-file-how-to-find-a-file">How to find a file? {#How to find a file?}</h3>
+<p>Usually I would use <code>locate</code>. It is faster than <code>find</code> because it does
+not search in realtime. But I also does not search in realtime. To
+update the cache/database <code>locate</code> is referring to, type
+<code>sudo updatedb</code>.</p>
+<p>Examples of using <code>find</code>:</p>
+<ul>
+<li><code>find / -wholename *nvim/init.lua*</code></li>
+<li><code>find /some/path -name someFile -type f</code>: all files not directorys</li>
+<li><code>find /path/to/search -name &quot;*.jpg&quot; -exec mv {} /destination/path \;</code>:
+move all .jpg gets moved</li>
+<li><code>find ./ -mtime -7</code>: files that have been modified in the last seven
+days</li>
+</ul>
+<h3 id="Networking">Networking</h3>
+<p>For troubleshooting the network-connection. You should always have <code>ip</code>,
+<code>dhcp</code> and <code>dns</code> in mind.</p>
+<ul>
+<li>What is my ip-address? =&gt; <code>ip addr</code></li>
+<li>Where is my gateway? =&gt; usually at the <code>.1</code></li>
+<li>Is my default route configured? =&gt; <code>ip route</code> look for
+<code>default via ...</code></li>
+<li>What is my name-server for dns? =&gt; look into /etc/resolv.conf</li>
+<li>Are there any services handling <code>dhcp</code> and <code>dns</code>?
+<ul>
+<li>For <code>dhcp</code>: <code>systemd-networkd</code> or <code>dhcpcd</code></li>
+<li>For <code>dns</code>: <code>systemd-resolved</code> or <code>dhcpcd</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="find-out-the-mac-address-of-an-interface-find-out-the-mac-address-of-an-interface">Find out the mac-address of an interface {#Find out the mac-address of an interface}</h4>
+<ul>
+<li><code>ip link</code></li>
+</ul>
+<h4 id="how-to-get-the-ip-address-of-the-interface-eth0-how-to-get-the-ip-address-of-the-interface-eth0">How to get the ip-address of the interface <code>eth0</code>? {#How to get the ip-address of the interface eth0?}</h4>
+<ul>
+<li><code>ip addr show dev eth0</code></li>
+</ul>
+<h4 id="turn-networking-interface-onoff-turn-networking-interface-onoff">Turn networking interface on/off {#Turn networking interface on/off}</h4>
+<p>&gt; Have you tried to turning your device off and on again?</p>
+<p>I case you do not get a ip-address</p>
+<ul>
+<li><code>ip link set eno1 down</code></li>
+<li><code>ip link set eno1 up</code></li>
+</ul>
+<h4 id="how-to-restrict-access-to-a-certain-port-how-to-restrict-access-to-a-certain-port">How to restrict access to a certain port? {#How to restrict access to a certain port?}</h4>
+<p>To directly restirct access, you would use the <code>iptables</code>-tool. With
+this tool you can configure rules for network connection. Because this
+tool itself is hard to handle (because of complexity), therefore there
+is a wrapper-tool called <code>ufw</code> for the home user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Drop everything accessing port 22</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j DROP
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Accept &lt;ip&gt; on port 22</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -s &lt;ip&gt; -j ACCEPT
+</span></span></code></pre></div><p>More about <code>iptables</code> on <a href="https://www.netfilter.org/">https://www.netfilter.org/</a></p>
+<p>The successor of <code>iptables</code> is <code>nftables</code>.</p>
+<h4 id="setting-up-a-new-interface-setting-up-a-new-interface">Setting up a new interface {#Setting up a new interface}</h4>
+<p>Adding a new dummy interface for testing &amp; simulation:</p>
+<ul>
+<li><code>ip link add dev eno2 type dummy</code></li>
+</ul>
+<h4 id="change-the-ip-address-for-an-interface-change-the-ip-address-for-an-interface">Change the ip-address for an interface {#Change the ip-address for an interface}</h4>
+<ul>
+<li>Add a new one: <code>ip addr add 192.168.178.200/24 dev eno1</code></li>
+<li>Delete the old one: <code>ip addr del 192.168.178.104/24 dev eno1</code></li>
+</ul>
+<h4 id="how-to-find-out-which-network-manager-is-in-use-right-now-how-to-find-out-which-network-manager-is-in-use-right-now">How to find out which network-manager is in use right now? {#How to find out which network-manager is in use right now?}</h4>
+<p>There is no other way than searching for all know managers.</p>
+<ul>
+<li><code>ps aux | grep -E 'NetworkManager|systemd-networkd|wpa_supplicant|connman|dhcpcd'</code></li>
+</ul>
+<h3 id="advanced-topics-advanced-topics">Advanced Topics {#Advanced Topics}</h3>
+<h4 id="Filesystem">Filesystem</h4>
+<ul>
+<li>inodes</li>
+<li>superblock</li>
+<li>fsck</li>
+<li>journaling</li>
+</ul>
+<h4 id="Memory">Memory</h4>
+<ul>
+<li>MMU</li>
+<li>malloc(s)</li>
+<li>page</li>
+<li>memory allocation</li>
+<li>life of an I/O</li>
+</ul>
+<h4 id="Processes">Processes</h4>
+<ul>
+<li>mutex/semaphore</li>
+<li>deadlock/livelock</li>
+<li>IPC (FIFO, fork, pipes signals)</li>
+<li>file descriptor</li>
+<li>context switching</li>
+<li>scheduling</li>
+<li>load balancing</li>
+</ul>
+
+
+  </main>
+  <footer>
+    
+  </footer>
+</body>
+</html>
