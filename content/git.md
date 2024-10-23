@@ -34,6 +34,11 @@
     previously, so if the same conflict arises again, Git can
     automatically apply the same resolution.
     -   `git config --global rerere.enabled true`
+- Wie kriege ich mein lokales Repo auf den Stand des Remote-Repos?
+    - Falls `origin` `main` ist: `git rebase origin/main`
+- Welches ist Remote-Repo?
+    - `git branch -a` um alle Branches zu sehen.
+    - Um nur die Remote-Branches zu sehen ein `git branch -r`
 
 ## rebase
 
