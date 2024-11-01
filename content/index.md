@@ -23,6 +23,7 @@
 * [Postgres](Postgres)
     * [pgTAP](pgTAP)
     * [Goose](Goose)
+* [LaTex](LaTex)
 * [Python](Python)
 * [Vagrant](Vagrant)
 * [Wireguard](Wireguard)
