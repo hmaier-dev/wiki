@@ -144,3 +144,19 @@ func maintain() {
 }
 
 ```
+
+## Modules forken
+Hat man ein Module was nicht so funktioniert, wie man es möchte, macht man sich einfach einen Fork davon.
+Nun hat man die Macht Änderungen um Code vorzunehmen. Sollen diese Änderungen direkt im Hauptprojekt nutzbar sein, kann
+man das geforkte Repository klonen und Go dazu bringen, dies zu nutzen. Dies tut man in der `go.mod` mit dem `replace`-Kommando.
+
+```go
+require (
+	github.com/emersion/go-vcard v0.0.0-00010101000000-000000000000
+)
+
+replace github.com/emersion/go-vcard => ../go-vcard
+
+```
+Den Pfad des geforkten Repositorys muss man von den root des Hauptprojekts angeben.
+
