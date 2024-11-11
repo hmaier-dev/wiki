@@ -5,7 +5,8 @@
 -   *Ich möchte alles rückgängig machen was ich bisher gemacht habe*:
     -   `reset --hard`
 -   *Ich habe ungewollte Commits in meinem Branch*:
-    -   `rebase -i`
+    -   `rebase -i <commit-hash>^`
+        - Das *Circumflex* macht den `rebase --interactive` inklusiv. Es gibt den Parent des Commits an, und nimmt den angegebenen Commit daher in den `rebase -i` mit hinein.
 -   *Ich muss nachträglich Änderungen zu einem Commit hinzufügen*:
     -   `commit --fixup <commit>` und `rebase -i --autosquash`
 -   *Ich möchte Änderungen aus dem Hauptbranch (z.B. production) in
