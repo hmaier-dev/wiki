@@ -2,6 +2,29 @@
 
 Go ist eine kompilierte Sprache die von Google entwickelt wurde.
 
+## Imports
+
+Go mag keine relativen Imports. Daher muss immer der absolute Pfad angeben werden.
+
+```go
+import (
+    // Module befindet sich in ./pkg/loading
+	"github.com/hmaier-dev/contacts_converter/pkg/loading"
+    // Falsch wäre:
+    "../pkg/loading"
+)
+```
+
+Ein Underscore stellt eine Blank-Import dar. Das heißt, man selbst greift nicht auf das Module zu, sondern andere 
+Module die man importiert hat. Man sieht dies bspw. beim Import eines SQLite-Drivers
+```go
+import (
+    "database/sql"
+    _ "github.com/mattn/go-sqlite3" // needed for database/sql when working with sqlite3
+)
+```
+
+
 ## Typen 
 
 Go stellt alle gängigen Typen bereit. Besonderheiten sind:
