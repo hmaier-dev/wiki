@@ -11,3 +11,5 @@ ubuntu provide a solution to this, with the
 You can do this, with the following command:
 
     sudo update-alternatives --config x-terminal-emulator
+    
+
