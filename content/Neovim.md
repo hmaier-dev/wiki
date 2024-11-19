@@ -12,7 +12,8 @@ installable languages.
 With the `:InspectTree` you can display the the AST
 (Abstract-Syntax-Tree) in a speperate window.
 
-= Renaming a variable = There are several cases where you would want to
+# Renaming a variable
+There are several cases where you would want to
 rename a variable. The place before the `s` is reserved for the scope,
 which is:
 
@@ -49,6 +50,22 @@ know what this means) and if you want confirmation with `c`.
 
 ```vimscript
 :%s/\<string\>/mynewstring/gc
+```
+
+## With LSP
+If you have lsp configured, you can do it with `vim.lsp.buf.rename`:
+```lua
+-- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration
+-- Keymaps for LSP
+v.keymap.set("n", "<space>e", v.diagnostic.open_float)
+v.api.nvim_create_autocmd("LspAttach", {
+	group = v.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf }
+		v.keymap.set("n", "<space>rn", v.lsp.buf.rename, opts)
+	end,
+})
+
 ```
 
 ## in you entire project
