@@ -1,6 +1,6 @@
 # Golang 
 
-Go ist eine kompilierte Sprache die von Google entwickelt wurde.
+Go ist eine kompilierte Sprache die von Google entwickelt wurde. 
 
 ## Imports
 
@@ -22,23 +22,6 @@ import (
     "database/sql"
     _ "github.com/mattn/go-sqlite3" // needed for database/sql when working with sqlite3
 )
-```
-
-
-## Typen 
-
-Go stellt alle gängigen Typen bereit. Besonderheiten sind:
-
--   `byte`: dieser ist ein alias für uint8
--   `rune`: ein alias für int32 welches ein Unicode-Zeichen
-    repräsentiert
-
-``` 
-package main
-
-func main() {
-    println("Hello World")
-}
 ```
 
 ## Context 
@@ -74,8 +57,8 @@ func main() {
 ## Go-Routines 
 
 Goroutines make concurrency possible. That means, running two seperate
-function seperatly without dependency between them. Different goruntes
-communicate via []{#channels}**channels**.
+function seperatly without dependency between them. Different goroutines
+communicate via **channels**.
 
 ``` go
 package main
@@ -199,3 +182,20 @@ Den Pfad des geforkten Repositorys muss man von den root des Hauptprojekts angeb
     fmt.Printf("%v\n", allRows)
 
 ```
+## Commandline Arguments
+If you need something quick, without a variable info, just use this snippet:
+```go
+if len(os.Args) > 1{
+    for _ , s := range os.Args[1:]{ // index 0 is the name of the program, so slice it away
+        switch s {
+        case "--exporter":
+            db.Export()
+        default:
+            fmt.Printf("Argument unknown: %s \n", s)
+            os.Exit(0)
+        }
+    }
+
+}
+```
+For more complex stuff, use the `flag`-package.
