@@ -122,6 +122,10 @@ Which means:
 -   norm = type the following commands
 -   A\* = append \' \* \' to the end of current line
 
+## How to enter the commandline history?
+
+Just press `q:` (not `:q`). Now you can browse through are executed commands and copy them.
+
 # Lua 
 
 Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
