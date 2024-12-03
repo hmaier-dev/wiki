@@ -27,7 +27,8 @@
 * [Python](Python)
 * [Vagrant](Vagrant)
 * [Wireguard](Wireguard)
-* [Windows](Windows)
+* Windows
+    * [Windows_Terminal](Windows_Terminal)
     * [Powershell](Powershell)
 * [Wordpress](Wordpress)
 * [htmx](htmx)

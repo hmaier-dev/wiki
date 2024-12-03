@@ -1,7 +1,3 @@
-# Windows 
-
-Windows ist ein tolles Betriebssystem!
-
 ## Nerd-Fonts fürs Windows Terminal 
 
 Link herunterladen:
