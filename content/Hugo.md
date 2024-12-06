@@ -8,7 +8,19 @@ look, just use
 ```bash
 hugo server
 ```
-and `hugo` will provide a local webserver for you.
+and `hugo` will provide a local webserver for you. 
+
+Make sure to change the `baseURL`:
+```toml
+# baseURL = "https://hmaier-dev.github.io/wiki/"
+baseURL = "http://localhost:1313/wiki"
+```
+
+Otherwise the local `css` won't load correctly.
+
+If you ever change something under the `layouts`-directory, make sure to `earthly +build` the whole thing.
+
+At last make sure to `git restore hugo.toml`!
 
 
 ## Configuration
