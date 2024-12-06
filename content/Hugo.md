@@ -1,5 +1,16 @@
 # Hugo
 Is a generator for static html. 
+
+## Develop locally with Hugo
+
+If you already have the needed directory structure and you'd want to know how the website will
+look, just use 
+```bash
+hugo server
+```
+and `hugo` will provide a local webserver for you.
+
+
 ## Configuration
 You will need several things for Hugo.
 
