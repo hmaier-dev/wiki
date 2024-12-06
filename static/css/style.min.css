@@ -8,6 +8,15 @@ main {
     width: 50%;
 }
 
+/* Block code */
 code {
     padding: 0.5rem;
+}
+
+/* Inline Code  */
+:not(pre) > code {
+    padding: 2px;
+    border-radius: 25px;
+    border: 1px solid #BCBEC0;
+    background: #F1F3F5;
 }
