@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+  <header>
+    
+  </header>
+  <main>
+    
+    <h1 id="converting-filetypes">Converting filetypes</h1>
+<p>If you want to convert a single ogg-file into mp3.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -i <span style="color:#e6db74">&#34;file.ogg&#34;</span> <span style="color:#e6db74">&#34;file.mp3&#34;</span>
+</span></span></code></pre></div><p>If there are multiple files, instead of writing a script, you could use gnu/parallel to use all of your CPU cores.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>parallel ffmpeg -i <span style="color:#e6db74">&#34;{}&#34;</span> <span style="color:#e6db74">&#34;{.}.mp3&#34;</span> ::: *.ogg
+</span></span></code></pre></div><h1 id="changing-bitrate">Changing bitrate</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -i sounds.mp3 -b:a 128k sounds.mp3
+</span></span></code></pre></div><p>These are the different bitrates.</p>
+<ul>
+<li>32 kbps: Very low quality, generally used for voice recordings or very small files.</li>
+<li>64 kbps: Low quality, suitable for voice recordings and some music where size is a significant concern.</li>
+<li>96 kbps: Moderate quality, often used for streaming audio over low-bandwidth connections.</li>
+<li>128 kbps: Standard quality, often considered the minimum acceptable quality for music. A common choice for streaming and digital downloads.</li>
+<li>160 kbps: Above average quality, providing better sound than 128 kbps but with a slightly larger file size.</li>
+<li>192 kbps: Good quality, often used for higher-quality music streaming and digital downloads.</li>
+<li>224 kbps: Higher quality, offering better audio fidelity than 192 kbps.</li>
+<li>256 kbps: High quality, used for better sound reproduction, often used in high-quality digital downloads.</li>
+<li>320 kbps: Highest quality for MP3, offering the best audio fidelity, often indistinguishable from the original CD-quality sound.</li>
+</ul>
+
+
+  </main>
+  <footer>
+    
+  </footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+  <header>
+    
+  </header>
+  <main>
+    
+    <h1 id="how-this-wiki-works">How this wiki works</h1>
+<p>The wiki-files are stored inside my dotfiles repository. Because reasons
+I don't want to have my dotfiles repo public, but for Github-Pages it
+needs to be. So I'm pushing the wanted files to my public repos, where
+I publish them.</p>
+<ol>
+<li>Changes in <code>docs/vimwiki</code> getting committed/pushed to the private-remote-repository</li>
+<li>Workflow <code>.github/workflows/wiki.yml</code> clones the public-wiki-repository, updates all registered files (whitelist) and committes/pushes the changes.
+<ul>
+<li>For this you need a access token, which you can generate at <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>. Fill out the repo-permissions.</li>
+<li>The token will passed in when cloning the public-repository. It could look like this:</li>
+</ul>
+</li>
+</ol>
+<pre tabindex="0"><code>            git clone --single-branch --branch main \
+              &#34;https://x-access-token:$TOKEN@github.com/user/public-repo.git&#34; &#34;repo&#34;
+</code></pre><ol start="3">
+<li>When the changes arrive in the public-repository <code>.github/workflows/publish.yml</code> converts the markdown to html via Hugo.
+<ul>
+<li>The complete logic for the markdown-to-html-conversion is written inside an <code>Earthfile</code> which is part of Eahrtly. That's because, with Earthly you can debug/test your CI-Pipeline locally. This way you do not need to push you changes to Github and wait for the Runner.</li>
+</ul>
+</li>
+</ol>
+
+
+  </main>
+  <footer>
+    
+  </footer>
+</body>
+</html>
