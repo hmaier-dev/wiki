@@ -3,7 +3,7 @@
 Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen
 Maschinen.
 
-## Kommandos 
+## TL;DR
 
 - `vagrant init`: erstellt in der derzeitigen Directory ein
   sogenanntes `Vagrantfile`
@@ -15,6 +15,7 @@ Maschinen.
 - `vagrant up <name>`: Startet mit `<name>` benannte Maschine
 - `vagrant destroy`: Stoppt und verwirft alle Maschinen
 - `vagrant provision <name>`: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible
+- Wenn man etwas am `Vagrantfile` ändern, kann man seine Änderungen mit `vagrant reload` für alle Maschine anwenden.
 
 ## Virtualbox als Default-Provider 
 
