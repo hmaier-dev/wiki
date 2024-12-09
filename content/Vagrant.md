@@ -13,7 +13,7 @@ Maschinen.
   Host-Maschine
 - `vagrant up`: Startet alle definierten Maschinen
 - `vagrant up <name>`: Startet mit `<name>` benannte Maschine
-- `vagrant destory`: Stoppt und verwirft alle Maschinen
+- `vagrant destroy`: Stoppt und verwirft alle Maschinen
 - `vagrant provision <name>`: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible
 
 ## Virtualbox als Default-Provider 
