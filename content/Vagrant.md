@@ -5,15 +5,16 @@ Maschinen.
 
 ## Kommandos 
 
--   `vagrant init`: erstellt in der derzeitigen Directory ein
-    sogenanntes `Vagrantfile`
--   `vagrant status`: zeigt den Status der sogenannten Boxes (VMs) in
-    der derzeitigen Directory
--   `vagrant global-status`: zeigt Status alles Boxes auf der
-    Host-Maschine
--   `vagrant up`: Startet alle definierten Maschinen
--   `vagrant up <name>`: Startet mit `<name>` benannte Maschine
+- `vagrant init`: erstellt in der derzeitigen Directory ein
+  sogenanntes `Vagrantfile`
+- `vagrant status`: zeigt den Status der sogenannten Boxes (VMs) in
+  der derzeitigen Directory
+- `vagrant global-status`: zeigt Status alles Boxes auf der
+  Host-Maschine
+- `vagrant up`: Startet alle definierten Maschinen
+- `vagrant up <name>`: Startet mit `<name>` benannte Maschine
 - `vagrant destory`: Stoppt und verwirft alle Maschinen
+- `vagrant provision <name>`: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible
 
 ## Virtualbox als Default-Provider 
 
