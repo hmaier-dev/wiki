@@ -13,8 +13,7 @@ Maschinen.
     Host-Maschine
 -   `vagrant up`: Startet alle definierten Maschinen
 -   `vagrant up <name>`: Startet mit `<name>` benannte Maschine
-
-## Normaler Workflow 
+- `vagrant destory`: Stoppt und verwirft alle Maschinen
 
 ## Virtualbox als Default-Provider 
 
