@@ -40,6 +40,9 @@
 - Welches ist Remote-Repo?
     - `git branch -a` um alle Branches zu sehen.
     - Um nur die Remote-Branches zu sehen ein `git branch -r`
+- Wie arbeite ich mit meinem Remote-Branch lokal?
+    - Zuerst, alle Remote-Branches anzeigen lasse: `git branch -r`
+    - Dann, neuen lokalen Branch auf Remote-Branch als Startpunkt zeigen lassen: `git checkout -b <branch> origin/<branch>`
 
 ## rebase
 
