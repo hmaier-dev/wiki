@@ -1,13 +1,11 @@
 body {
     font-family: 'Inter', sans-serif;
-    margin: 20px;
 }
 
 main {
     margin: 0 auto;
     width: 50%;
 }
-
 /* Block code */
 code {
     padding: 0.5rem;
@@ -21,8 +19,13 @@ code {
     background: #F1F3F5;
 }
 
-header > a {
-    margin: auto 0;
-    align: center;
+header {
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer {
+    margin: 0 auto;
+    text-align: center;
 
 }
