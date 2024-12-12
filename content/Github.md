@@ -18,7 +18,7 @@ A GitHub Actions workflow automates the process of syncing changes to the public
 
 The workflow located in `~/.github/workflow/wiki.yml` looks like this:
 
-```yaml
+```
 
 name: Update all wiki articles
 
@@ -46,7 +46,6 @@ jobs:
         run: |
             git config --global user.email "<>"
             git config --global user.name "Github Actions Runner"
-            # Example for acces token found at: https://github.com/dmnemec/copy_file_to_another_repo_action/blob/main/entrypoint.sh#L28
             git clone --single-branch --branch main \
               "https://x-access-token:$TOKEN@github.com/hmaier-dev/wiki.git" "wiki"
       - name: Removing old files
@@ -82,6 +81,7 @@ jobs:
 ```
     
 #### Access Token Setup
+
 To enable this process, you need a GitHub personal access token with repo permissions. You can generate one at [GitHub Settings > Tokens](https://github.com/settings/tokens). When cloning the public repository, the token is passed as part of the URL, like this:
 ```
             git clone --single-branch --branch main \
@@ -91,5 +91,3 @@ To enable this process, you need a GitHub personal access token with repo permis
 ### 3. Publishing via Hugo
 When the changes arrive in the public-repository `.github/workflows/publish.yml` converts the markdown to html via Hugo.
 
-### Why Earthly?
-Earthly allows you to debug and test the CI pipeline locally. This eliminates the need to push changes to GitHub and wait for the Runner, significantly speeding up the development process.
