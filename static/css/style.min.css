@@ -20,3 +20,9 @@ code {
     border: 1px solid #BCBEC0;
     background: #F1F3F5;
 }
+
+header > a {
+    margin: auto 0;
+    align: center;
+
+}
