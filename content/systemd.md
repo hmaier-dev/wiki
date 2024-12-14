@@ -1,6 +1,6 @@
 # systemd
 
-## mount untis 
+## mount units 
 
 Um zu vermeiden in der `/etc/fstab` herumzupfuschen, kann man
 alternative (auto-)mount.units verwenden. Folgendes Schema ist dabei
