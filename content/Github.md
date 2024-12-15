@@ -18,7 +18,7 @@ A GitHub Actions workflow automates the process of syncing changes to the public
 
 The workflow located in `~/.github/workflow/wiki.yml` looks like this:
 
-```
+```ci
 
 name: Update all wiki articles
 
