@@ -1,6 +1,6 @@
 # Gitlab
 
-``` ci
+```ci
 include:
   - remote: https://gitlab.com/repo/dir/-/raw/version/jobs.yml
 
