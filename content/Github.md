@@ -56,7 +56,6 @@ jobs:
         run: |
             # Whitelist of all publishable wiki articles
             cp index.md $content
-            # more publishable markdown files...
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
