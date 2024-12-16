@@ -30,5 +30,5 @@ hugo:
     SAVE ARTIFACT ./public AS LOCAL ./public
 
 build:
-    BUILD +hugo --source ./content
+    BUILD +hugo
     # BUILD +pandoc --source ./content
