@@ -1,3 +1,7 @@
+---
+title: Linux
+---
+
 # Linux {#Linux}
 
 Here I collect interview questions.

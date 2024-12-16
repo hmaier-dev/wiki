@@ -1,3 +1,7 @@
+---
+title: bash
+---
+
 #  Nützliche Kommandos
 
   Kommando                                                     Erklärung                                                                  

@@ -1,3 +1,7 @@
+---
+title: Kubernetes
+---
+
 # Kubernetes
 
 Um zu lernen, wie Kubernetes funktioniert gibt es folgendes Repo:

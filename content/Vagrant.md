@@ -1,3 +1,7 @@
+---
+title: Vagrant
+---
+
 # Vagrant 
 
 Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen

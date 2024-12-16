@@ -1,3 +1,7 @@
+---
+title: Ansible
+---
+
 # Ansible 
 
 -   `ansible-playbook -i inventory.ini add_admin_user.yml`

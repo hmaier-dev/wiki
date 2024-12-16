@@ -1,3 +1,7 @@
+---
+title: Wordpress
+---
+
 # Wordpress 
 
 Die folgende Anleitungen leiten im Theme _Twenty Seventeen_ an. 

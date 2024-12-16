@@ -1,3 +1,7 @@
+---
+title: Nginx
+---
+
 # Nginx
 
 ## Reverse Proxy

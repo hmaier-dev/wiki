@@ -1,3 +1,7 @@
+---
+title: Arch
+---
+
 # Dualbooting with Windows 
 
 With `systemd-boot` it is relativly easy to install Linux and Windows

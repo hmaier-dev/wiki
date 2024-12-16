@@ -1,3 +1,7 @@
+---
+title: Earthly
+---
+
 # Earthly 
 
 Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
@@ -54,4 +58,3 @@ The solution to this problem, is to add your user-group to the docker group.
 ```bash
 sudo usermod -aG docker <username>
 ```
-

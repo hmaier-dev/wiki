@@ -1,3 +1,7 @@
+---
+title: LaTex
+---
+
 # LaTex
 
 ## How to pass variables to LaTex?

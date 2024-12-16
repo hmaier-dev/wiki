@@ -1,3 +1,7 @@
+---
+title: lua
+---
+
 # Printing tables to the console 
 
 Found on

@@ -1,3 +1,7 @@
+---
+title: Neovim
+---
+
 # Treesitter 
 
 You can install treesitter-parsers just with the following command.

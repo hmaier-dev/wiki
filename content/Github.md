@@ -1,3 +1,7 @@
+---
+title: Github
+---
+
 # How this wiki works
 
 The wiki files are stored in my private dotfiles repository.
@@ -89,4 +93,3 @@ To enable this process, you need a GitHub personal access token with repo permis
 
 ### 3. Publishing via Hugo
 When the changes arrive in the public-repository `.github/workflows/publish.yml` converts the markdown to html via Hugo.
-

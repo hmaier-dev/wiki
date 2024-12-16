@@ -1,3 +1,7 @@
+---
+title: htmx
+---
+
 # Basis 
 
 This is how you basically send an empty POST-request to the

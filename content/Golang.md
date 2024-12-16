@@ -1,3 +1,7 @@
+---
+title: Golang
+---
+
 # Golang 
 
 Go ist eine kompilierte Sprache die von Google entwickelt wurde. 

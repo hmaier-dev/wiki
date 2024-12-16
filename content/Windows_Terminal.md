@@ -1,3 +1,7 @@
+---
+title: Windows_Terminal
+---
+
 ## Nerd-Fonts fürs Windows Terminal 
 
 Link herunterladen:

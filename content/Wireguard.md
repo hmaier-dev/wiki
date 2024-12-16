@@ -1,3 +1,7 @@
+---
+title: Wireguard
+---
+
 # Wireguard 
 Wie auch beim Tunneln mit anderen Protokollen, brauchen meine wg-Clients
 einen öffentlichen Ansprechpartner im Internet, den wg-Server.

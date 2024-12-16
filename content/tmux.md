@@ -1,3 +1,7 @@
+---
+title: tmux
+---
+
 # Move pane to new window 
 
 ``` 
