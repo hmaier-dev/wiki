@@ -99,7 +99,7 @@ Running the workflow sets up `earthly` and uses it running hugo and publishes th
 Earthly is like a Makefile for CI. All logic is declared in the `Earthfile`. This file enables me to declare different targets, which every of them spawns a docker-container.
 By using Earthly I can run my CI locally without waiting for a runner.
 
-```earthly
+```
 VERSION 0.8
 
 hugo:
