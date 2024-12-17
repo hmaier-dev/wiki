@@ -2,7 +2,12 @@
 title: Wireguard
 ---
 
-# Wireguard 
+## TL;DR
+
+- `wg-quick down <interface>`: Wireguard ausschalten
+- `ip link delete <interface>`: Wireguard-Interface löschen
+
+## Wireguard 
 Wie auch beim Tunneln mit anderen Protokollen, brauchen meine wg-Clients
 einen öffentlichen Ansprechpartner im Internet, den wg-Server.
 
@@ -15,7 +20,7 @@ Dabei kriegt man einerseits eine Config-Datei ausgeworfen sowie einen QR-Code an
 
 Ich kann mir also theoretisch Clients vorgenerieren lassen und die später an die jeweiligen Leute verteilen (cool!).
 
-## Indicator für Gnome
+### Indicator für Gnome
 Mit dem Indicator kann ich über die Gnome-Oberfläche (siehe Extenstion-Repo) die Verbindung per Mausklick an und aus schalten.
 
 - Extension für den Indicator: https://github.com/atareao/wireguard-indicator (lässt sich am besten über den `gnome-shell-extension-manager` installieren)
