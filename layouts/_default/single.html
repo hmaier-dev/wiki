@@ -1,6 +1,9 @@
 {{ define "main" }}
 <main>
-    {{ .Content }}
+
+    {{  with .Content  }}
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` | safeHTML }}
+    {{  end  }}
 
 </main>
 {{ end }}
