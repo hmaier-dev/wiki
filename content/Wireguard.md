@@ -4,6 +4,7 @@ title: Wireguard
 
 ## TL;DR
 
+- `wg show <interface>`:
 - `wg-quick down <interface>`: Wireguard ausschalten
 - `ip link delete <interface>`: Wireguard-Interface löschen
 
@@ -20,6 +21,18 @@ Dabei kriegt man einerseits eine Config-Datei ausgeworfen sowie einen QR-Code an
 
 Ich kann mir also theoretisch Clients vorgenerieren lassen und die später an die jeweiligen Leute verteilen (cool!).
 
+## `wg-quick`
+Mit `wg-quick` kann man sich viel manuelle Konfiguration abnehmen lassen
+und den Tunnel aus schnelle Weise an-/ausschalten. Es werden root-Rechte benötigt.
+Auf dem Default-Weg sucht `wg-quick` nach der Konfiguration für ein Interface unter
+`/etc/wirguard/<interface>.conf`. Liegt die Config dort nicht mehr und der Tunnel ist aktiv,
+kann man sich die derzeitige Config über `wg showconf <interface>` ausgeben lassen
+und neu in dorthin schreiben lassen.
+
+```bash
+wg showconf <interface> > /etc/wireguard/<interface>.conf
+```
+
 ### Indicator für Gnome
 Mit dem Indicator kann ich über die Gnome-Oberfläche (siehe Extenstion-Repo) die Verbindung per Mausklick an und aus schalten.
 
@@ -27,7 +40,7 @@ Mit dem Indicator kann ich über die Gnome-Oberfläche (siehe Extenstion-Repo) d
 
 Das Config-File welches man vom Server bekommt, muss wie das zu erstellende Interface heißen.
 ```bash
-mv hp-laptop-hmaier-wg0.conf wg0.conf
+mv my-laptop-wg0.conf wg0.conf
 ```
 Dann kann man es per `nmcli` hinzufügen.
 ```bash
