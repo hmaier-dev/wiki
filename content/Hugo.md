@@ -55,7 +55,7 @@ Default directory structure looks like this
 
 ```
 
-### Layouts
+## Layouts
 There is a lookup-routine over which Hugo iterates. If it finds no Theme or other layouts, it will use the files in `./layouts/_default/`.
 For example, these files could look like this.
 
@@ -84,12 +84,36 @@ For example, these files could look like this.
     {{.Content}}
 {{ end }}
 ```
-There is no logic at all. Therefore your markdown gets converted in the most basic way.
+In this example, there is no logic at all. Therefore your markdown gets converted in the most basic way.
 
-> If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
+## Templating System
+If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
+Indeed you can use native Golang-functions, like `printf` or `date`. Also there is Metadata like `.RelPermalink` or `.Title` which is provided by Hugo.
+Use both docs for problem solving:
+
+- https://gohugo.io/quick-reference/
+- https://pkg.go.dev/text/template
+
+### Examples
+
+#### Adding a variable to the `REPLACEMENT` when using `replaceRE`
+At first I glance it tried to manually insert the variable `$Link` (which is `.RelPermalink`) into the `REPLACEMENT`.
+```html
+{{  with .Content  }}
+{{ $Link := .RelPermalink }}
+{{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="$Link#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` | safeHTML }}
+{{  end  }}
+```
+Doing it this way, the variable just won't get display. Turns out I can use `printf` to alter the string before `replaceRE` does it jobs.
+```html
+{{  with .Content  }}
+    {{ $Link := $.RelPermalink }}
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
+{{  end  }}
+```
 
 
-### Config-file
+## Config-file
 
 Hugo needs config-file, which default is `hugo.toml`.
 ```toml
