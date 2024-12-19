@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/</link>
+    <description>Recent content on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ansible</title>
+      <link>https://hmaier-dev.github.io/wiki/Ansible/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Ansible/</guid>
+      <description>Ansible ansible-playbook -i inventory.ini add_admin_user.yml Mit Vagrant Muss muss in der inventory.ini mit angeben, an welchem Ort sich der Private-Key befindet. Sonst kann Ansible sich nicht mit der VM verbinden.&#xA;[test_machine] 192.168.56.10 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key missing sudo password Falls der Zieluser (ansible_ssh_user) auf dem System nicht root ist, muss dieser in der sudo-Gruppe sein, als auch sein Password mitgegeben werden. Dies tut man mit folgender Flag.&#xA;ansible-playbook -i inventory.ini basic_setup.yml --ask-become-pass </description>
+    </item>
+    <item>
+      <title>apt</title>
+      <link>https://hmaier-dev.github.io/wiki/apt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/apt/</guid>
+      <description>Unsupported architectures Viele Paket-Repos supporten nicht alle existierenden Architekutren:&#xA;N: Skipping acquire of configured file &#39;main/binary-i386/Packages&#39; as repository &#39;http://dl.google.com/linux/chrome/deb stable InRelease&#39; doesn&#39;t support architecture &#39;i386&#39; Diese Warnung kann man umgehen, wenn man die Architekture festzurrt:&#xA;deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main Bei mehreren Variablen in den Brackets, einfach durch ein Leerzeichen trennen.&#xA;Source: https://askubuntu.com/questions/741410/skipping-acquire-of-configured-file-main-binary-i386-packages-as-repository-x&#xA;Information über Paket Dabei ist apt-cache dein Freund.</description>
+    </item>
+    <item>
+      <title>Arch</title>
+      <link>https://hmaier-dev.github.io/wiki/Arch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Arch/</guid>
+      <description>Dualbooting with Windows With systemd-boot it is relativly easy to install Linux and Windows alongside. My suggestion would be to install Linux first and then make space for the Windows install. systemd-boot will automatically find all UEFI-partitions to boot from.&#xA;Over the time, problems can occure because Windows will do ugly things to foreign partitions, when it updates. So be prepared.&#xA;Error Preparing initrd: Volume corrupted The Windows install will probably still boot.</description>
+    </item>
+    <item>
+      <title>bash</title>
+      <link>https://hmaier-dev.github.io/wiki/bash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/bash/</guid>
+      <description>Nützliche Kommandos Kommando Erklärung&#xA;+set -o vi vim-like movement in der shell aktivieren CTRL+R Suche in der History. Mit &amp;lt;ESC&amp;gt; beenden. xdotool getactivewindow set_window --name &amp;quot;Hello World&amp;quot; Change current window-name to &amp;quot;Hello World&amp;quot; (works from within tmux!!)&#xA;find . -type f \ entr -r go run ./cmd/web Führt Kommando erneut aus sobald sich ein Datei in einem Unterordner ändert.&#xA;Colors and Effects in Terminal https://misc.flogisoft.com/bash/tip_colors_and_formatting Change the extension of all files in a directory In this case all *.</description>
+    </item>
+    <item>
+      <title>crane</title>
+      <link>https://hmaier-dev.github.io/wiki/crane/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/crane/</guid>
+      <description>crane Ein Tool zum Arbeiten mit Container-Images und -Registrys. https://github.com/google/go-containerregistry/blob/main/cmd/crane/recipes.md</description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://hmaier-dev.github.io/wiki/Docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Docker/</guid>
+      <description>Docker TL;DR Alle Container; both running &amp;amp; stopped: docker ps -a Alle Container die gerade laufen: docker ps IP-Adresses aller Container: docker inspect -f &#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $(docker ps -q) Shell in Container öffnen docker exec -it &amp;lt;container_id_or_name&amp;gt; /bin/bash Directory in Container mounten: docker run -v &amp;lt;absolute-local-path&amp;gt;:&amp;lt;path-inside-container&amp;gt; &amp;lt;image&amp;gt; Einzelnen Container aus docker-compose-File neustarten docker compose up --no-deps &amp;lt;service-name&amp;gt; Herausfinden was sich in einem Volume alles befindet: docker run -it -v deploy-wordpress_wordpress:/mnt ubuntu /bin/bash docker inspect Um Mehr Über das Image zu erfahren kann man mit</description>
+    </item>
+    <item>
+      <title>Earthly</title>
+      <link>https://hmaier-dev.github.io/wiki/Earthly/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Earthly/</guid>
+      <description>Earthly Ist ein Buildtool welches Container nutzt, um die Toolchain bereit zustellen. Verschiedene Targets werden über ein sogennates Earthfile deklariert. Erinnern tut earthly dabei, an klassiche Makefiles.&#xA;Der große Vorteil an earthly ist die Portabilität. Man kann seine CI-Pipeline lokal zusammenbauen und erhält bei Runs enau die gleichen Ergebnisse wie im Gitlab.&#xA;Ein einziges Target, welches Python-Skripte auf ihre Richtigkeit testet, kann beispielsweise so aussehen:&#xA;syntax-python: FROM python:3.12.3 # pullt python-image WORKDIR /src COPY --dir my/project/path container/path COPY some/other/dir/*.</description>
+    </item>
+    <item>
+      <title>ffmpeg</title>
+      <link>https://hmaier-dev.github.io/wiki/ffmpeg/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/ffmpeg/</guid>
+      <description>Converting filetypes If you want to convert a single ogg-file into mp3.&#xA;ffmpeg -i &amp;#34;file.ogg&amp;#34; &amp;#34;file.mp3&amp;#34; If there are multiple files, instead of writing a script, you could use gnu/parallel to use all of your CPU cores.&#xA;parallel ffmpeg -i &amp;#34;{}&amp;#34; &amp;#34;{.}.mp3&amp;#34; ::: *.ogg Changing bitrate ffmpeg -i sounds.mp3 -b:a 128k sounds.mp3 These are the different bitrates.&#xA;32 kbps: Very low quality, generally used for voice recordings or very small files.</description>
+    </item>
+    <item>
+      <title>git</title>
+      <link>https://hmaier-dev.github.io/wiki/git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/git/</guid>
+      <description>git TL;DR Ich möchte alles rückgängig machen was ich bisher gemacht habe: reset --hard Ich habe ungewollte Commits in meinem Branch: rebase -i &amp;lt;commit-hash&amp;gt;^ Das Circumflex macht den rebase --interactive inklusiv. Es gibt den Parent des Commits an, und nimmt den angegebenen Commit daher in den rebase -i mit hinein. Ich muss nachträglich Änderungen zu einem Commit hinzufügen: commit --fixup &amp;lt;commit&amp;gt; und rebase -i --autosquash Ich möchte Änderungen aus dem Hauptbranch (z.</description>
+    </item>
+    <item>
+      <title>Github</title>
+      <link>https://hmaier-dev.github.io/wiki/Github/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Github/</guid>
+      <description>How this wiki works The wiki files are stored in my private dotfiles repository. Since I prefer to keep this repository private, but GitHub Pages requires a public repository, I push the necessary files to a separate public repository for publishing.&#xA;1. Committing Changes to the Private Repository Any changes made in docs/vimwiki are committed and pushed to the private remote repository.&#xA;2. Syncing to the Public Repository A GitHub Actions workflow automates the process of syncing changes to the public repository.</description>
+    </item>
+    <item>
+      <title>Gitlab</title>
+      <link>https://hmaier-dev.github.io/wiki/Gitlab/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Gitlab/</guid>
+      <description>Gitlab include: - remote: https://gitlab.com/repo/dir/-/raw/version/jobs.yml stages: - test - deploy - apply test: stage: test extends: [.gj_earthly] script: - earthly --no-output +test only: - branches except: - production extends: Inherits this job (could be keept in a seperate file and imported) e.g.: gj_earthly is keept in a different repo in the jobs.yml which is imported at the top only/except: https://docs.gitlab.com/ee/ci/yaml/#only--except Basic Syntax: https://docs.gitlab.com/ee/ci/yaml/</description>
+    </item>
+    <item>
+      <title>Gnome</title>
+      <link>https://hmaier-dev.github.io/wiki/Gnome/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Gnome/</guid>
+      <description>System-Tray By default Gnome 45 does not provide a build in system-tray, where application like steam, can display their tray icon. The people from ubuntu provide a solution to this, with the gnome-shell-extension-appindicator. It can be found in the AUR under gnome-shell-extension-appindicator-git.&#xA;Changing the default terminal emulator You can do this, with the following command:&#xA;sudo update-alternatives --config x-terminal-emulator </description>
+    </item>
+    <item>
+      <title>Golang</title>
+      <link>https://hmaier-dev.github.io/wiki/Golang/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Golang/</guid>
+      <description>Golang Go ist eine kompilierte Sprache die von Google entwickelt wurde.&#xA;Imports Go mag keine relativen Imports. Daher muss immer der absolute Pfad angeben werden.&#xA;import ( // Module befindet sich in ./pkg/loading &amp;#34;github.com/hmaier-dev/contacts_converter/pkg/loading&amp;#34; // Falsch wäre: &amp;#34;../pkg/loading&amp;#34; ) Ein Underscore stellt eine Blank-Import dar. Das heißt, man selbst greift nicht auf das Module zu, sondern andere Module die man importiert hat. Man sieht dies bspw. beim Import eines SQLite-Drivers</description>
+    </item>
+    <item>
+      <title>Goose</title>
+      <link>https://hmaier-dev.github.io/wiki/Goose/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Goose/</guid>
+      <description>Goose Ist ein gutes Tool für Datenbank-Migrationen. Damit ist möglich inkrementell sql-Files einzuspielen. Verschiedenen Migrationen bauen also aufeinander auf. Mit Goose bildet man also die Evolution seiner Datenbank ab. Es ist möglich mit up und down zwischen den verschiedenen Evolutionsstufen zu switchen.&#xA;Normaler Use-Case export DB_URL=postgres://postgres:password@172.17.0.3:5432/cmdb goose -allow-missing -dir ./migrations postgres $DB_URL up ## Wie sieht es in ./migrations aus? ## z.b. so: # . # ├── 00001_audit_log.sql # ├── 00002_cmdb.</description>
+    </item>
+    <item>
+      <title>Helix</title>
+      <link>https://hmaier-dev.github.io/wiki/Helix/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Helix/</guid>
+      <description>Helix Helix is a modal text-editor. It is written in Rust (very important).</description>
+    </item>
+    <item>
+      <title>htmx</title>
+      <link>https://hmaier-dev.github.io/wiki/htmx/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/htmx/</guid>
+      <description>Basis This is how you basically send an empty POST-request to the HTTP-Endpoint /disabled. Regarding golang, the htmx.min.js doesn&#39;t even have to be embedded into the binary.&#xA;&amp;lt;head&amp;gt; &amp;lt;script src=&amp;#34;/htmx.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form hx-post=&amp;#34;/disable&amp;#34; &amp;gt; &amp;lt;button type=&amp;#34;submit&amp;#34; title=&amp;#34;Löscht /var/lib/automaintainer/enabled&amp;#34;&amp;gt; Deaktivieren &amp;lt;/button&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/body&amp;gt; Errorhandling Leider gibt es keine Magie um Errors mit htmx zu behandeln. Allerdings gibt es htmx-Event mit dem man arbeiten kann.&#xA;document.body.addEventListener(&amp;#39;htmx:responseError&amp;#39;, function (evt) { document.querySelector(&amp;#39;body&amp;#39;).innerHTML = &amp;#39;&amp;#39;; document.</description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://hmaier-dev.github.io/wiki/Hugo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Hugo/</guid>
+      <description>Hugo Is a generator for static html.&#xA;Develop locally with Hugo If you already have the needed directory structure and you&amp;rsquo;d want to know how the website will look, just use&#xA;hugo server and hugo will provide a local webserver for you.&#xA;Make sure to change the baseURL:&#xA;# baseURL = &amp;#34;https://hmaier-dev.github.io/wiki/&amp;#34; baseURL = &amp;#34;http://localhost:1313/wiki&amp;#34; Otherwise the local css won&amp;rsquo;t load correctly.&#xA;If you ever change something under the layouts-directory, make sure to earthly +build the whole thing.</description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://hmaier-dev.github.io/wiki/Kubernetes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Kubernetes/</guid>
+      <description>Kubernetes Um zu lernen, wie Kubernetes funktioniert gibt es folgendes Repo:&#xA;https://github.com/hmaier-dev/kubernetes-lab Damit kann man lokal ein Kubernetes-Cluster mit virtuellen Maschinen ausetzen.</description>
+    </item>
+    <item>
+      <title>LaTex</title>
+      <link>https://hmaier-dev.github.io/wiki/LaTex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/LaTex/</guid>
+      <description>LaTex How to pass variables to LaTex? If you have a markdown-document and you have e.g. $fontsize$ in you documentclass, you can pass the variable into the YAML-header of the markdown-document.&#xA;This is the LaTex:&#xA;\documentclass[ $fontsize$, $for(classoption)$ $classoption$$sep$, $endfor$ ]{scrlttr2} And the markdown will look like this:&#xA;--- fontsize: 12pt classoption: enlargefirstpage,firstfoot=false --- The actual text starts here... </description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://hmaier-dev.github.io/wiki/Linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Linux/</guid>
+      <description>Linux Here I collect interview questions.&#xA;Tell me about some projects your into right now {#Tell me about some projects your into right now} Self-Made Storage Array driven by a raspberry pi Upgrade old MP3-Player (from 3GB to min. 64 GB) 1 Year ago I was into hacking old nintendo 3ds I run some custom android rom on my phone (LineageOS) How would you connect to a machine in the cloud?</description>
+    </item>
+    <item>
+      <title>lua</title>
+      <link>https://hmaier-dev.github.io/wiki/lua/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/lua/</guid>
+      <description>Printing tables to the console Found on https://stackoverflow.com/questions/9168058/how-to-dump-a-table-to-console&#xA;function dump(o) if type(o) == &amp;#39;table&amp;#39; then local s = &amp;#39;{ &amp;#39; for k,v in pairs(o) do if type(k) ~= &amp;#39;number&amp;#39; then k = &amp;#39;&amp;#34;&amp;#39;..k..&amp;#39;&amp;#34;&amp;#39; end s = s .. &amp;#39;[&amp;#39;..k..&amp;#39;] = &amp;#39; .. dump(v) .. &amp;#39;,&amp;#39; end return s .. &amp;#39;} &amp;#39; else return tostring(o) end end #### ODER local inspect = require(&amp;#39;inspect&amp;#39;) # externe lib print(inspect(out)) </description>
+    </item>
+    <item>
+      <title>Neovim</title>
+      <link>https://hmaier-dev.github.io/wiki/Neovim/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Neovim/</guid>
+      <description>Treesitter You can install treesitter-parsers just with the following command.&#xA;:TSInstall &amp;lt;tab&amp;gt; By pressing &amp;lt;TAB&amp;gt; the autocompletion shows you a plethora of installable languages.&#xA;With the :InspectTree you can display the the AST (Abstract-Syntax-Tree) in a speperate window.&#xA;Renaming a variable There are several cases where you would want to rename a variable. The place before the s is reserved for the scope, which is:&#xA;&#39;&amp;lt;,&#39;&amp;gt; currently selected % entire file Go to the string of your choice and press *.</description>
+    </item>
+    <item>
+      <title>Nginx</title>
+      <link>https://hmaier-dev.github.io/wiki/Nginx/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Nginx/</guid>
+      <description>Nginx Reverse Proxy Ein gängies Setup beim Umgang mit Docker-Containern ist, vor diese einen Reverse Proxy zu schalten. Eine einfache Config die auf Port 80 lauscht und an Port 8080 weiterleitet, kann so aussehen:&#xA;server { server_name my-server-com; listen 80; listen [::]:80; location / { proxy_pass http://localhost:8080; proxy_redirect off; proxy_set_header Host $http_host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_set_header X-Forwarded-Proto $scheme; proxy_read_timeout 900; } } SSL Mit certbot lässt sich SSL relativ einfach ab-frühstücken.</description>
+    </item>
+    <item>
+      <title>pgTAP</title>
+      <link>https://hmaier-dev.github.io/wiki/pgTAP/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/pgTAP/</guid>
+      <description>Testing mit pgTAP https://pgtap.org/pg_prove.html Pass if insertion fails BEGIN; -- Test to check if the INSERT statement fails as expected SELECT plan(1); PREPARE status_insert AS INSERT INTO cmdb (name, beschreibung, status) VALUES (&amp;#39;foobar&amp;#39;, &amp;#39;barfoo&amp;#39;, &amp;#39;online&amp;#39;); -- Passes if code and message match the thrown error when &amp;#39;status_insert&amp;#39; is executed SELECT throws_ok( &amp;#39;status_insert&amp;#39;, &amp;#39;23514&amp;#39;, -- wanted error code https://www.postgresql.org/docs/current/errcodes-appendix.html &amp;#39;new row for relation &amp;#34;cmdb&amp;#34; violates check constraint &amp;#34;status_format&amp;#34;&amp;#39;); -- wanted shown message SELECT * FROM finish(); ROLLBACK; </description>
+    </item>
+    <item>
+      <title>Postgres</title>
+      <link>https://hmaier-dev.github.io/wiki/Postgres/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Postgres/</guid>
+      <description>Postgres Nützliche Kommandos Get all databases: \l Connect to or better, use a database: \c &amp;lt;db_name&amp;gt; Connect to db from shell: psql -h 172.17.0.2 -U postgres Import data into database: psql -h 172.17.0.3 -U postgres cmdb &amp;lt; ~/cmdb.sql Adminer in Docker starten, um Frontend für die Datenbank zu haben: docker run --name adminer --link cmdb -p 8080:8080 adminer Datenbank mit Docker aufsetzen: docker create --name cmdb -e POSTGRES_PASSWORD=password postgres:15 Postgres-URL: url=&amp;quot;postgres://postgres:password@172.</description>
+    </item>
+    <item>
+      <title>Powershell</title>
+      <link>https://hmaier-dev.github.io/wiki/Powershell/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Powershell/</guid>
+      <description>Powershell A collection of some powershell-snippets I found useful, can be found under:&#xA;https://github.com/hmaier-dev/powershell-library/tree/main/src Constructing an alias with arguments You can use the builtin-args variable for that.&#xA;function DotFilesRepo(){ $base = &amp;#34;git.exe --git-dir=$env:USERPROFILE\repos\dotfiles\ --work-tree=$env:USERPROFILE&amp;#34; $cmd = &amp;#34;$base $args&amp;#34; # The $args-variable is builtin and gets all arguments. Discoverd by accident. Invoke-Expression -Command $cmd } function DotFilesReposStatus(){ dfr status } Set-Alias -Name dfr -Value DotFilesRepo Set-Alias -Name dfrs -Value DotFilesReposStatus </description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://hmaier-dev.github.io/wiki/Python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Python/</guid>
+      <description>I want to see the traceback import traceback import sys try: do_stuff() except Exception: print(traceback.format_exc()) # or print(sys.exc_info()[2]) </description>
+    </item>
+    <item>
+      <title>Raspberry_Pi</title>
+      <link>https://hmaier-dev.github.io/wiki/Raspberry_Pi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Raspberry_Pi/</guid>
+      <description>Wlan to Ethernet-Bridge Hier ein Script welches, benötigte Programme herunterlädt, sowie ein systemd-unit baut, mit welchem sich die Bridge start lässt.&#xA;#!/usr/bin/env bash set -e [ $EUID -ne 0 ] &amp;amp;&amp;amp; echo &amp;#34;run as root&amp;#34; &amp;gt;&amp;amp;2 &amp;amp;&amp;amp; exit 1 ########################################################## # You should not need to update anything below this line # ########################################################## # Because of the following two programs wifi and ethernet will share the same subnet # # parprouted - Proxy ARP IP bridging daemon # dhcp-helper - DHCP/BOOTP relay agent apt update &amp;amp;&amp;amp; apt install -y parprouted dhcp-helper systemctl stop dhcp-helper systemctl enable dhcp-helper # Enable ipv4 forwarding.</description>
+    </item>
+    <item>
+      <title>systemd</title>
+      <link>https://hmaier-dev.github.io/wiki/systemd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/systemd/</guid>
+      <description>systemd mount units Um zu vermeiden in der /etc/fstab herumzupfuschen, kann man alternative (auto-)mount.units verwenden. Folgendes Schema ist dabei einzuhalten:&#xA;/etc/systemd/system/path-to-mount.mount /etc/systemd/system/path-to-mount.automount ## path-to-mount.automount [Unit] Description=Automount networkshare [Automount] Where=/path/to/mount [Install] WantedBy=multi-user.target ## path-to-mount.mount [Unit] Description=some networkshare Wants=network-online.target After=network-online.target [Mount] What=//192.168.137.42 Where=/path/to/mount Type=cifs Options=credentials=/home/user/.smbcredentials,vers=2.1,noserverino,uid=1000,gid=1000 [Install] WantedBy=multi-user.target Source: Mount Network Drive with systemd on Startup&#xA;systemd-boot An einigen Rechner kann es vorkommen, dass bootctl install mit folgender Fehlermeldung fehlschlägt:&#xA;Unable to write &amp;#39;LoaderSystemToken&amp;#39; EFI variable Dies sei laut systemd Github-Issue ein Hardware-Problem.</description>
+    </item>
+    <item>
+      <title>tmux</title>
+      <link>https://hmaier-dev.github.io/wiki/tmux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/tmux/</guid>
+      <description>Move pane to new window CTRL+b; ! Resize pane in tty You need to remap the keys, because tty isn&amp;rsquo;t very advanced. https://superuser.com/questions/688807/how-to-resize-tmux-panes-inside-tty</description>
+    </item>
+    <item>
+      <title>Vagrant</title>
+      <link>https://hmaier-dev.github.io/wiki/Vagrant/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Vagrant/</guid>
+      <description>Vagrant Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen Maschinen.&#xA;TL;DR vagrant init: erstellt in der derzeitigen Directory ein sogenanntes Vagrantfile vagrant status: zeigt den Status der sogenannten Boxes (VMs) in der derzeitigen Directory vagrant global-status: zeigt Status alles Boxes auf der Host-Maschine vagrant up: Startet alle definierten Maschinen vagrant up &amp;lt;name&amp;gt;: Startet mit &amp;lt;name&amp;gt; benannte Maschine vagrant destroy: Stoppt und verwirft alle Maschinen vagrant provision &amp;lt;name&amp;gt;: Wiederholung der Provision einer Machine.</description>
+    </item>
+    <item>
+      <title>Windows_Terminal</title>
+      <link>https://hmaier-dev.github.io/wiki/Windows_Terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Windows_Terminal/</guid>
+      <description>Nerd-Fonts fürs Windows Terminal Link herunterladen:&#xA;https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip Diesen Link findet man auch unter https://www.nerdfonts.com/font-downloads&#xA;Den Ordner extrahieren und mit CTRL+a alle Dateien auswählen. Mit Rechtsklick kann man dann alle auf einmal installieren.</description>
+    </item>
+    <item>
+      <title>Wireguard</title>
+      <link>https://hmaier-dev.github.io/wiki/Wireguard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Wireguard/</guid>
+      <description>TL;DR wg show &amp;lt;interface&amp;gt;: wg-quick down &amp;lt;interface&amp;gt;: Wireguard ausschalten ip link delete &amp;lt;interface&amp;gt;: Wireguard-Interface löschen Wireguard Wie auch beim Tunneln mit anderen Protokollen, brauchen meine wg-Clients einen öffentlichen Ansprechpartner im Internet, den wg-Server.&#xA;Mit diesen Script kann ein Großteil der gängigen Linux-Distros in einen solchen wg-Server umwandeln.&#xA;Installer-Script für den Server: https://github.com/angrisnttan/wireguard-install Außerdem lassen sich nach erstmaliger Installation, weitere Clients erstellen. Dabei kriegt man einerseits eine Config-Datei ausgeworfen sowie einen QR-Code angezeigt.</description>
+    </item>
+    <item>
+      <title>Wordpress</title>
+      <link>https://hmaier-dev.github.io/wiki/Wordpress/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/Wordpress/</guid>
+      <description>Wordpress Die folgende Anleitungen leiten im Theme Twenty Seventeen an.&#xA;Wie ändere ich das Header-Bild einer Seite? Im Admin-Dashboard auf Seiten &amp;gt; Alle Seiten gehen und die betreffende Seite Bearbeiten. Auf das blaue Plus auf der oberen linken Seite drücken, was dem Block-Inserter erscheinen lässt. Im Suchfeld oder manuell (Unterpunkt: Theme) nach Beitragsbild suchen und darauf klicken. Das aktuelle Beitragsbild/Header-Bild erscheint im Editor und lässt sich mit einem Klick auf die drei Punkte ändern.</description>
+    </item>
+  </channel>
+</rss>
