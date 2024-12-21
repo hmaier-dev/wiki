@@ -26,4 +26,10 @@ Set-Alias -Name dfr -Value DotFilesRepo
 Set-Alias -Name dfrs -Value DotFilesReposStatus
 ```
 
+## Aliases
+
+When constructing an alias with the corresponding function, keep in mind that `powershell` is not case-sensitive.
+That means, `Set-Alias -Name wiki -Value Wiki` would set alias that overwrites the function.
+My approach to this is to add the appropriate verb to the function name, e.g. `Set-Alias -Name wiki -Value EnterWiki`.
+
 
