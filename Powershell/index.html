@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="powershell">Powershell<a href="/wiki/Powershell/#powershell" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>A collection of some powershell-snippets I found useful, can be found under:</p>
+<ul>
+<li><a href="https://github.com/hmaier-dev/powershell-library/tree/main/src">https://github.com/hmaier-dev/powershell-library/tree/main/src</a></li>
+</ul>
+<h2 id="constructing-an-alias-with-arguments">Constructing an alias with arguments<a href="/wiki/Powershell/#constructing-an-alias-with-arguments" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>You can use the builtin-args variable for that.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesRepo(){
+</span></span><span style="display:flex;"><span>	$base = <span style="color:#e6db74">&#34;git.exe --git-dir=</span>$env:USERPROFILE<span style="color:#e6db74">\repos\dotfiles\ --work-tree=</span>$env:USERPROFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	$cmd = <span style="color:#e6db74">&#34;</span>$base<span style="color:#e6db74"> </span>$args<span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># The $args-variable is builtin and gets all arguments. Discoverd by accident.</span>
+</span></span><span style="display:flex;"><span>	Invoke-Expression -Command $cmd
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesReposStatus(){
+</span></span><span style="display:flex;"><span>    dfr status
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfr -Value DotFilesRepo
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfrs -Value DotFilesReposStatus
+</span></span></code></pre></div><h2 id="aliases">Aliases<a href="/wiki/Powershell/#aliases" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>When constructing an alias with the corresponding function, keep in mind that <code>powershell</code> is not case-sensitive.
+That means, <code>Set-Alias -Name wiki -Value Wiki</code> would set alias that overwrites the function.
+My approach to this is to add the appropriate verb to the function name, e.g. <code>Set-Alias -Name wiki -Value EnterWiki</code>.</p>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>

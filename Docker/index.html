@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="docker">Docker<a href="/wiki/Docker/#docker" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h2 id="tldr">TL;DR<a href="/wiki/Docker/#tldr" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Alle Container; both running &amp; stopped:
+<ul>
+<li><code>docker ps -a</code></li>
+</ul>
+</li>
+<li>Alle Container die gerade laufen:
+<ul>
+<li><code>docker ps</code></li>
+</ul>
+</li>
+<li>IP-Adresses aller Container:
+<ul>
+<li><code>docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q)</code></li>
+</ul>
+</li>
+<li>Shell in Container öffnen
+<ul>
+<li><code>docker exec -it &lt;container_id_or_name&gt; /bin/bash</code></li>
+</ul>
+</li>
+<li>Directory in Container mounten:
+<ul>
+<li><code>docker run -v &lt;absolute-local-path&gt;:&lt;path-inside-container&gt; &lt;image&gt;</code></li>
+</ul>
+</li>
+<li>Einzelnen Container aus <code>docker-compose</code>-File neustarten
+<ul>
+<li><code>docker compose up --no-deps &lt;service-name&gt;</code></li>
+</ul>
+</li>
+<li>Herausfinden was sich in einem Volume alles befindet:
+<ul>
+<li><code> docker run -it -v deploy-wordpress_wordpress:/mnt ubuntu /bin/bash</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="docker-inspect"><code>docker inspect</code><a href="/wiki/Docker/#docker-inspect" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Um Mehr Über das Image zu erfahren kann man mit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker inspect &lt;image:version&gt;
+</span></span></code></pre></div><p>jegliche Daten ausgegeben kriegen, die von vom Ersteller:in eingegeben
+wurden.</p>
+<h2 id="entrypoint">Entrypoint<a href="/wiki/Docker/#entrypoint" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man das vorgegebene Verhalten, beim Starten des Containers,
+ändern, kann man den <code>--entrypoint</code> überschreiben. Dies kann hilfreich
+sein, wenn man sich bspw. nur das <em>innere</em> des Containers anschauen
+möchte ohne das irgendetwas gestartet wird.</p>
+<p>Überschreiben mit der Bash-Shell würde wie folgt funktionieren:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --entrypoint /bin/bash <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -it <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &lt;image:version&gt;
+</span></span></code></pre></div><p>Das <code>-it</code> ist nötig, um ein <code>Exit(0)</code> des Containers zu verhindern.
+<code>Exit(0)</code> würde passieren, wenn die Shell merkt, dass sich niemand
+verbindet.</p>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>
