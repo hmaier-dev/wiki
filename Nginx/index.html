@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="nginx">Nginx<a href="/wiki/Nginx/#nginx" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h2 id="reverse-proxy">Reverse Proxy<a href="/wiki/Nginx/#reverse-proxy" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Ein gängies Setup beim Umgang mit Docker-Containern ist, vor diese einen Reverse Proxy zu schalten.
+Eine einfache Config die auf Port 80 lauscht und an Port 8080 weiterleitet, kann so aussehen:</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    server_name my-server-com;
+    listen 80;
+    listen [::]:80;
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_redirect                      off;
+        proxy_set_header  Host              $http_host;
+        proxy_set_header  X-Real-IP         $remote_addr;
+        proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header  X-Forwarded-Proto $scheme;
+        proxy_read_timeout                  900;
+    }
+}
+</code></pre><h2 id="ssl">SSL<a href="/wiki/Nginx/#ssl" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Mit <code>certbot</code> lässt sich SSL relativ einfach ab-frühstücken.</p>
+<h3 id="sub-domäne-zu-bestehenden-zertifikat-hinzufügen">Sub-Domäne zu bestehenden Zertifikat hinzufügen<a href="/wiki/Nginx/#sub-domäne-zu-bestehenden-zertifikat-hinzufügen" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Bevor man eine neue (Sub-)Domäne zum Zertifikat hinzufügt, muss der DNS-Eintrag schon live sein.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certbot --expand -d existing.com -d www.exisiting.com -d newdomain.com
+</span></span></code></pre></div><ul>
+<li><a href="https://eff-certbot.readthedocs.io/en/latest/using.html#re-creating-and-updating-existing-certificates">https://eff-certbot.readthedocs.io/en/latest/using.html#re-creating-and-updating-existing-certificates</a></li>
+</ul>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>

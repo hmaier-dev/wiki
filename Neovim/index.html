@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="treesitter">Treesitter<a href="/wiki/Neovim/#treesitter" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>You can install treesitter-parsers just with the following command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>:TSInstall <span style="color:#f92672">&lt;</span>tab<span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><p>By pressing &lt;TAB&gt; the autocompletion shows you a plethora of
+installable languages.</p>
+<p>With the <code>:InspectTree</code> you can display the the AST
+(Abstract-Syntax-Tree) in a speperate window.</p>
+<h1 id="renaming-a-variable">Renaming a variable<a href="/wiki/Neovim/#renaming-a-variable" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>There are several cases where you would want to
+rename a variable. The place before the <code>s</code> is reserved for the scope,
+which is:</p>
+<ul>
+<li><code>'&lt;,'&gt;</code> currently selected</li>
+<li><code>%</code> entire file</li>
+</ul>
+<p>Go to the string of your choice and press <code>*</code>. All matched occurences
+will be highlighted. Then do</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:%s/
+</code></pre><p>With <code>C-r</code> you can paste the highlighted string. At first it looks like
+this</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:%s/&#34;
+</code></pre><p>After a <code>/</code>:</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:%s/\&lt;string\&gt;
+</code></pre><p>Continue with another <code>/</code> and your wanted string.</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:%s/\&lt;string\&gt;/mynewstring/
+</code></pre><p>You can now specifiy, if you want to change globally with <code>g</code> (don't
+know what this means) and if you want confirmation with <code>c</code>.</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:%s/\&lt;string\&gt;/mynewstring/gc
+</code></pre><h2 id="with-lsp">With LSP<a href="/wiki/Neovim/#with-lsp" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>If you have lsp configured, you can do it with <code>vim.lsp.buf.rename</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#75715e">-- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Keymaps for LSP</span>
+</span></span><span style="display:flex;"><span>v.keymap.set(<span style="color:#e6db74">&#34;n&#34;</span>, <span style="color:#e6db74">&#34;&lt;space&gt;e&#34;</span>, v.diagnostic.open_float)
+</span></span><span style="display:flex;"><span>v.api.nvim_create_autocmd(<span style="color:#e6db74">&#34;LspAttach&#34;</span>, {
+</span></span><span style="display:flex;"><span>	group <span style="color:#f92672">=</span> v.api.nvim_create_augroup(<span style="color:#e6db74">&#34;UserLspConfig&#34;</span>, {}),
+</span></span><span style="display:flex;"><span>	callback <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(ev)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">local</span> opts <span style="color:#f92672">=</span> { buffer <span style="color:#f92672">=</span> ev.buf }
+</span></span><span style="display:flex;"><span>		v.keymap.set(<span style="color:#e6db74">&#34;n&#34;</span>, <span style="color:#e6db74">&#34;&lt;space&gt;rn&#34;</span>, v.lsp.buf.rename, opts)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">end</span>,
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h2 id="in-you-entire-project">in you entire project<a href="/wiki/Neovim/#in-you-entire-project" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The native vim-way goes like that:</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:grep &lt;string&gt; `&lt;location&gt;`
+:grep h.maier `find . -type f`
+</code></pre><p>The seconds command would search all subdirectorys for <code>h.maier</code>.
+Depending on the size of your project, this could take a while. You can
+always abort the <code>grep</code> with <code>C-c</code>. After finishing the search, you can
+load the found occurences into a <em>quickfix list</em> by doing a <code>:copen</code>.</p>
+<p>If you use []{#Telescope for searching}<strong>Telescope for searching</strong>
+(which is way more ergonimic than the grep-method) you can use <code>C-q</code> to
+load the found-occurences into a quickfix list.</p>
+<p>From there on, <code>:cdo</code> is your friend. Replacing a variable-name goes
+like this:</p>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:cdo %s/h.maier/nobody/gc
+</code></pre><p><code>:cdo</code> lets you iterate through the quickfix list and execute the given
+command for every entry.</p>
+<h2 id="adding-characters-to-the-end-of-every-line-of-selected-text">Adding characters to the END of every line of selected text<a href="/wiki/Neovim/#adding-characters-to-the-end-of-every-line-of-selected-text" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>select the block of text with <code>SHIFT + V</code></li>
+<li>enter command mode with <code>:</code> (colon)</li>
+<li>at first it will look like this</li>
+</ul>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:&#39;&lt;,&#39;&gt;
+</code></pre><ul>
+<li>go into normal mode with <code>norm</code> and write your commands</li>
+</ul>
+<pre tabindex="0"><code class="language-vimscript" data-lang="vimscript">:&#39;&lt;,&#39;&gt;norm A &lt;the-string-of-my-choice&gt;
+</code></pre><h2 id="add-at-the-end-of-every-line">Add at the end of every line<a href="/wiki/Neovim/#add-at-the-end-of-every-line" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<pre><code>:%norm A&lt;stuff-that-you-want-to-add&gt;
+</code></pre>
+<p>Which means:</p>
+<ul>
+<li>% = for every line</li>
+<li>norm = type the following commands</li>
+<li>A* = append ' * ' to the end of current line</li>
+</ul>
+<h2 id="how-to-enter-the-commandline-history">How to enter the commandline history?<a href="/wiki/Neovim/#how-to-enter-the-commandline-history" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Just press <code>q:</code> (not <code>:q</code>). Now you can browse through are executed commands and copy them.</p>
+<h1 id="lua">Lua<a href="/wiki/Neovim/#lua" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
+übersichtlicher zu machen ist <code>stylua</code>. Mehr zu Lua gibt es hier:
+<a href="lua">lua</a></p>
+<h1 id="troubleshooting">Troubleshooting<a href="/wiki/Neovim/#troubleshooting" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h2 id="fehler-nach-updates-von-plugins">Fehler nach Updates von Plugins<a href="/wiki/Neovim/#fehler-nach-updates-von-plugins" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>In einer Vielzahl von Fällen treten Probleme nach Updates von Plugins
+auf. Lässt sich der Fehler nicht zur eigenen Konfiguration, sondern in
+den Quellcode des Plugin zurückverfolgen, ist es am einfachsten das
+Plugin einfach neu zu installieren.</p>
+<p>Dies funktioniert unter <code>Lazy.nvim</code> in dem
+man das geklonte Repository unter <code>~/.local/share/nvim/lazy/&lt;repo&gt;</code> löscht.</p>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>
