@@ -31,6 +31,7 @@
 * Windows
     * [Windows_Terminal](Windows_Terminal)
     * [Powershell](Powershell)
+    * [PhoenixPE](PhoenixPE)
 * [Wordpress](Wordpress)
 * [htmx](htmx)
 * [Raspberry_Pi](Raspberry_Pi)
