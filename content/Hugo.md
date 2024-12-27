@@ -26,6 +26,14 @@ If you ever change something under the `layouts`-directory, make sure to `earthl
 
 At last make sure to `git restore hugo.toml`!
 
+## Config-file
+
+Hugo needs config-file, which default is `hugo.toml`.
+```toml
+baseURL = "https://hmaier-dev.github.io/wiki/"
+languageCode = "de-us"
+title = "Wiki"
+```
 
 ## Configuration
 You will need several things for Hugo.
@@ -113,12 +121,4 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 ```
 
 
-## Config-file
-
-Hugo needs config-file, which default is `hugo.toml`.
-```toml
-baseURL = "https://hmaier-dev.github.io/wiki/"
-languageCode = "de-us"
-title = "Wiki"
-```
 

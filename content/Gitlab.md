@@ -4,7 +4,7 @@ title: Gitlab
 
 # Gitlab
 
-```ci
+```yaml
 include:
   - remote: https://gitlab.com/repo/dir/-/raw/version/jobs.yml
 

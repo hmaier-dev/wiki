@@ -41,6 +41,6 @@ cwebp -q 80 bild.jpg -o bild.webp
 Damit wird das Bild verkleinert und \"sichtbarer\" (?) für Suchmaschinen
 gemacht.
 
-## Ressouren
+## Ressourcen
 
 - Basic Setup: <https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview>

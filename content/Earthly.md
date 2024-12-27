@@ -52,7 +52,9 @@ If it is, you/Earthly probably don't have sufficient rights to call docker. You 
 ```bash
 docker ps -a
 # Output:
-# permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.46/containers/json?all=1": dial unix /var/run/docker.sock: connect: permission denied
+# permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:
+# Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.46/containers/json?all=1": 
+# dial unix /var/run/docker.sock: connect: permission denied
 ```
 The solution to this problem, is to add your user-group to the docker group.
 ```bash
