@@ -102,6 +102,10 @@ Use both docs for problem solving:
 - https://gohugo.io/quick-reference/
 - https://pkg.go.dev/text/template
 
+For more examples, just look at:
+
+- https://themes.gohugo.io/
+
 ### Examples
 
 #### Adding a variable to the `REPLACEMENT` when using `replaceRE`
