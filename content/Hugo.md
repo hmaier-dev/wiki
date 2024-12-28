@@ -124,5 +124,12 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 {{  end  }}
 ```
 
+## Menus
+
+In Hugo navbars are called menus.
+
+- Offical docs: https://gohugo.io/content-management/menus/
+- Helpful article: https://harrycresswell.com/writing/menus-in-hugo/
+
 
 
