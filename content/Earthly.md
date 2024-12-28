@@ -60,3 +60,12 @@ The solution to this problem, is to add your user-group to the docker group.
 ```bash
 sudo usermod -aG docker <username>
 ```
+
+## `failed to stat parent: stat /tmp/earthly/buildkit/runc-overlayfs/snapshots/snapshots/2006/fs: no such file or directory`
+
+Something with the cache was wrong. I resolved the issue with: `earthly prune -a` which cleared the cache.
+
+More on how to manage the cache:
+
+- https://docs.earthly.dev/docs/caching/managing-cache
+
