@@ -35,3 +35,11 @@ certbot --expand -d existing.com -d www.exisiting.com -d newdomain.com
 ```
 - https://eff-certbot.readthedocs.io/en/latest/using.html#re-creating-and-updating-existing-certificates
 
+## Static html
+Wenn man mit statischen HTML-Seiten hantiert und einen `403` erhält, kann man sich ziemlich sein, dass etwas mit den Permissions nicht stimmt.
+Daher den Owner sowie die Permissions der *ganzen* Directory überprüfen:
+```bash
+ls -la /var/www/html/static-html
+sudo chmod -R 755 /var/www/html/static-html`
+sudo chown www-data:www-data /var/www/html/static-html`
+```
