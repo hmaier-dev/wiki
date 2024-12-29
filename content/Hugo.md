@@ -153,4 +153,5 @@ Use them inside your markdown `content`.
 Here are some example, made by the hugo-team:
 
 - https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes
+- Docs: https://gohugo.io/templates/shortcode/#create-custom-shortcodes
 
