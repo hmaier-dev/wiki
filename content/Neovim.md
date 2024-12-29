@@ -2,6 +2,24 @@
 title: Neovim
 ---
 
+# Vimscript essentials
+The most fundamental config
+```vimscript
+filetype plugin indent on
+
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+
+" Indentation and re-selection
+vnoremap > >gv
+vnoremap < <gv
+ 
+```
+
+
 # Treesitter 
 
 You can install treesitter-parsers just with the following command.
