@@ -125,11 +125,32 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 ```
 
 ## Menus
-
 In Hugo navbars are called menus.
 
 - Offical docs: https://gohugo.io/content-management/menus/
 - Helpful article: https://harrycresswell.com/writing/menus-in-hugo/
 
+### Examples
+#### Build a nav with all regular pages
+Regular pages are the ones, that you added. With `site.AllPages` you would receive more.
+This snippet would be located in `layouts/partials/nav.html`.
+```html
 
+<nav>
+{{ range site.RegularPages }}
+    <ul>
+        <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    </ul>
+{{ end }}
+</nav>
+```
+
+## Shortcodes
+Shortcodes are functions for custom html. You can embbed them into your markdown content or into your layouts.
+If you have some arguments like a changing `src=` or a different `id=` can use a shortcode. Shortcodes cannot be used in `layouts`.
+Use them inside your markdown `content`.
+
+Here are some example, made by the hugo-team:
+
+- https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes
 
