@@ -2,7 +2,11 @@
 title: bash
 ---
 
-#  Nützliche Kommandos
+## TL;DR
+
+- How to lock a account: `usermod -L user` (unlock it with `-U`)
+
+##  Nützliche Kommandos
 
 - `+set -o vi`: vim-like movement in der aktivieren 
 - `CTRL+R`: Suche in der History. Mit `<ESC>` beenden.
@@ -11,4 +15,5 @@ title: bash
 ## Colors and Effects in Terminal
 
 - https://misc.flogisoft.com/bash/tip_colors_and_formatting
+
 
