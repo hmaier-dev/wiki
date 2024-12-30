@@ -155,6 +155,10 @@ Here are some example, made by the hugo-team:
 - https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes
 - Docs: https://gohugo.io/templates/shortcode/#create-custom-shortcodes
 
+## Syntax Highlighting
+
+Hugo uses Chroma for syntax highlighting. Here is the link to the docs: https://gohugo.io/content-management/syntax-highlighting/
+
 ## Error
 ### `ÄÖÜäöü` won't render correctly
 Adding the charset to the `head.html` helps.
