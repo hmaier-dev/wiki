@@ -2,28 +2,6 @@
 title: Nginx
 ---
 
-## Reverse Proxy
-Ein gängies Setup beim Umgang mit Docker-Containern ist, vor diese einen Reverse Proxy zu schalten.
-Eine einfache Config die auf Port 80 lauscht und an Port 8080 weiterleitet, kann so aussehen:
-
-```conf
-server {
-    server_name my-server-com;
-    listen 80;
-    listen [::]:80;
-    location / {
-        proxy_pass http://localhost:8080;
-        proxy_redirect                      off;
-        proxy_set_header  Host              $http_host;
-        proxy_set_header  X-Real-IP         $remote_addr;
-        proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header  X-Forwarded-Proto $scheme;
-        proxy_read_timeout                  900;
-    }
-}
-```
-
-
 ## SSL
 Mit `certbot` lässt sich SSL relativ einfach ab-frühstücken.
 ### Sub-Domäne zu bestehenden Zertifikat hinzufügen
@@ -63,6 +41,8 @@ A status code is more than a number.
 
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 - https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+When troubleshooting use `curl -I <url>` to get unfiltered insights into the reponse.
 
 ### `403`
 Wenn man einen `403` erhält, kann man sich ziemlich sein, dass etwas mit den Permissions nicht stimmt.
@@ -135,3 +115,11 @@ server {
   error_log /var/log/nginx/docker_error.log;
 }
 ```
+
+#### Header
+
+- `proxy_set_header  Host              $http_host;`
+- `proxy_set_header  X-Real-IP         $remote_addr;`
+- `proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;`
+- `proxy_set_header  X-Forwarded-Proto $scheme;`
+    - Set the protocol to `http` or `https`
