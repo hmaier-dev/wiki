@@ -76,7 +76,7 @@ Looks for the different cases defined. Note that this hinders a redirect!
 3. If nothing fits the schema, do a `404` response.
 
 Because of `$uri/index.html`, `http://localhost/preview` (without a trailing slash) as well as `http://localhost/preview/` (with a trailing slash) will work!
-```
+```nginx
 server {
     server_name localhost;
     
@@ -96,7 +96,7 @@ server {
 
 
 ### Reverse-Proxy with Docker-Container
-```
+```nginx
 server {
 
     server_name localhost;
