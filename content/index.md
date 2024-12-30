@@ -35,3 +35,4 @@
 * [Wordpress](Wordpress)
 * [htmx](htmx)
 * [Raspberry_Pi](Raspberry_Pi)
+* [Schach](Schach)
