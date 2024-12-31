@@ -15,3 +15,4 @@ Host <name-you-want-to-type>
     HostName <ip>
     User <user>
 ```
+

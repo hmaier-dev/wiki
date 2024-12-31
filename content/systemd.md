@@ -62,3 +62,8 @@ bootctl install --graceful
 ```
 
 Damit verhindert man das Abbrechen bei Fehlern.
+
+# journalctl
+
+- Show all messages from boot:
+    - `journalctl -b`

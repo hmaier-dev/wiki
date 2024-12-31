@@ -123,3 +123,22 @@ build:
 ```
 The generated html-files are getting exporter to `./public`, which is the `publish_dir` for Github-Pages.
 
+
+# Actions
+
+## Setting up ssh access for runner to vm
+
+You will need create a key-pair. On the runner you will need the private key and on the vm the public key.
+
+- `id_rsa` goes into e.g. `{{ secrets.SSH_KEY }}`
+- `id_rsa.pub` goes into ~/.ssh/authorized_keys on the vm
+
+Best practice would be to create the user on your local machine and distribute the keys from there.
+
+```bash
+useradd deploy
+passwd deploy
+su deploy
+ssh-keygen -t ed25519 -a 200 -C "runner@github.com"
+ls -la  ~/.ssh
+```
