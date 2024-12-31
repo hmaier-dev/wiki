@@ -142,3 +142,16 @@ su deploy
 ssh-keygen -t ed25519 -a 200 -C "runner@github.com"
 ls -la  ~/.ssh
 ```
+## Updating static html on vm
+When ssh is setup right, you can over the files with `rsync`.
+```bash
+rsync -rav ./public deploy@vm:~/<dir-for-html>
+```
+The deploying user (e.g. `deploy`) must be in the same group as nginx user (e.g. Group: `www-data`). You achieve this by:
+```bash
+usermod -a -G www-data deploy
+```
+To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-for-html>.
+```bash
+chmod -R g+s <dir-for-html>
+```
