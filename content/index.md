@@ -16,6 +16,7 @@
     * [bash](bash)
     * [ffmpeg](ffmpeg)
     * [git](git)
+    * [ssh](ssh)
     * [systemd](systemd)
     * [tmux](tmux)
 * [Neovim](Neovim)
