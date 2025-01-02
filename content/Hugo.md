@@ -170,3 +170,28 @@ When trying to access a ressource this way, you need to have a `assets`-director
 ```go
 {{ $css :=  resources.Get "css/main.css" }}
 ```
+
+## TailwindCSS
+By `resources.Get` you can pass the content to `css.TailwindCSS` which outputs into `public/css/<name>.css`. This is elegant because of two reasons:
+
+- `hugo server` triggers a rebuild of css when it detects changes. (for this you need a `tailwindcss`-binary in your path, e.g. `/usr/bin/tailwindcss`)
+- You don't need to `tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css` and linking the stylesheets to `output.css` before you build hugo.
+
+
+```go
+{{ with resources.Get "css/base.css" }}
+  {{ $opts := dict "minify" true }}
+  {{ with . | css.TailwindCSS $opts }}
+    {{ if hugo.IsDevelopment }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ else }}
+      {{ with . | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+```
+
+- Docs: https://gohugo.io/functions/css/tailwindcss/
