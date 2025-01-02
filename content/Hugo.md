@@ -165,4 +165,8 @@ Adding the charset to the `head.html` helps.
 ```html
 <meta charset="UTF-8">
 ```
-
+## Ressources
+When trying to access a ressource this way, you need to have a `assets`-directory containing `css/main.css`. It won't work with a `static`-directory.
+```go
+{{ $css :=  resources.Get "css/main.css" }}
+```
