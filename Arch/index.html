@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="dualbooting-with-windows">Dualbooting with Windows<a href="/wiki/Arch/#dualbooting-with-windows" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>With <code>systemd-boot</code> it is relativly easy to install Linux and Windows
+alongside. My suggestion would be to install Linux first and then make
+space for the Windows install. <code>systemd-boot</code> will automatically find
+all UEFI-partitions to boot from.</p>
+<p>Over the time, problems can occure because Windows will do ugly things
+to foreign partitions, when it updates. So be prepared.</p>
+<h2 id="error-preparing-initrd-volume-corrupted"><code>Error Preparing initrd: Volume corrupted</code><a href="/wiki/Arch/#error-preparing-initrd-volume-corrupted" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The Windows install will probably still boot.</p>
+<ol>
+<li>Boot with a live medium.</li>
+<li>Make a filesystem-check on the boot partition and approve the
+fix-prompt with: <code>fsck /dev/sda1</code></li>
+<li>Re-generate the boot-image with: <code>mkinitcpio -P</code></li>
+<li>Reboot.</li>
+</ol>
+<h1 id="pacman"><code>pacman</code><a href="/wiki/Arch/#pacman" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>To ignore updates/replacement for a package, you can add it under
+options, e.g.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>IgnorePkg <span style="color:#f92672">=</span> ttf-sourcecodepro-nerd
+</span></span></code></pre></div><p>I already have <code>nerd-fonts-source-code-pro</code> installed via the AUR, so I
+ignore the native arch-package.</p>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>

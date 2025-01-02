@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="vagrant">Vagrant<a href="/wiki/Vagrant/#vagrant" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen
+Maschinen.</p>
+<h2 id="tldr">TL;DR<a href="/wiki/Vagrant/#tldr" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>vagrant init</code>: erstellt in der derzeitigen Directory ein
+sogenanntes <code>Vagrantfile</code></li>
+<li><code>vagrant status</code>: zeigt den Status der sogenannten Boxes (VMs) in
+der derzeitigen Directory</li>
+<li><code>vagrant global-status</code>: zeigt Status alles Boxes auf der
+Host-Maschine</li>
+<li><code>vagrant up</code>: Startet alle definierten Maschinen</li>
+<li><code>vagrant up &lt;name&gt;</code>: Startet mit <code>&lt;name&gt;</code> benannte Maschine</li>
+<li><code>vagrant destroy</code>: Stoppt und verwirft alle Maschinen</li>
+<li><code>vagrant provision &lt;name&gt;</code>: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible</li>
+<li>Wenn man etwas am <code>Vagrantfile</code> ändern, kann man seine Änderungen mit <code>vagrant reload</code> für alle Maschine anwenden.</li>
+</ul>
+<h2 id="virtualbox-als-default-provider">Virtualbox als Default-Provider<a href="/wiki/Vagrant/#virtualbox-als-default-provider" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Vagrant wählt zwischen Docker und VirtualBox als Backend/Provider für
+die VMs. Setzt man diese Umgebungsvariable (z.B. in <code>~/.profile</code>) legt
+mn VirtualBox fest.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export VAGRANT_DEFAULT_PROVIDER<span style="color:#f92672">=</span>virtualbox
+</span></span></code></pre></div><h2 id="vagrantfile-für-ubuntu-maschine"><code>Vagrantfile</code> für Ubuntu-Maschine<a href="/wiki/Vagrant/#vagrantfile-für-ubuntu-maschine" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<pre tabindex="0"><code>Vagrant.configure(&#34;2&#34;) do |config|
+  config.vm.box = &#34;bento/ubuntu-22.04&#34;
+  config.vm.network &#34;private_network&#34;, ip: &#34;192.168.56.10&#34;
+end
+</code></pre>
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>

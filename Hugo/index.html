@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="hugo">Hugo<a href="/wiki/Hugo/#hugo" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Is a generator for static html.</p>
+<h2 id="develop-locally-with-hugo">Develop locally with Hugo<a href="/wiki/Hugo/#develop-locally-with-hugo" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>If you already have the needed directory structure and you&rsquo;d want to know how the website will
+look, just use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
+</span></span></code></pre></div><p>and <code>hugo</code> will provide a local webserver for you.</p>
+<p>Make sure to change the <code>baseURL</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># baseURL = &#34;https://hmaier-dev.github.io/wiki/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;http://localhost:1313/wiki&#34;</span>
+</span></span></code></pre></div><p>Otherwise the local <code>css</code> won&rsquo;t load correctly.</p>
+<p>If you ever change something under the <code>layouts</code>-directory, make sure to <code>earthly +build</code> the whole thing.</p>
+<p>At last make sure to <code>git restore hugo.toml</code>!</p>
+<h2 id="config-file">Config-file<a href="/wiki/Hugo/#config-file" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Hugo needs config-file, which default is <code>hugo.toml</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;https://hmaier-dev.github.io/wiki/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;de-us&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;Wiki&#34;</span>
+</span></span></code></pre></div><h2 id="configuration">Configuration<a href="/wiki/Hugo/#configuration" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>You will need several things for Hugo.</p>
+<ul>
+<li>a <code>./content</code>-directory with your knowlegde written in markdown (<code>.md</code>)</li>
+<li>some layout files under <code>./layouts/_default</code>, so Hugo knows how to structure the site</li>
+<li>and a config file, which can be <code>toml</code>, <code>json</code> or something else</li>
+</ul>
+<p>Default directory structure looks like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>├── content
+</span></span><span style="display:flex;"><span>│   ├── _index.md
+</span></span><span style="display:flex;"><span>│   └── some-page.md
+</span></span><span style="display:flex;"><span>├── hugo.toml
+</span></span><span style="display:flex;"><span>├── layouts
+</span></span><span style="display:flex;"><span>│   ├── _default
+</span></span><span style="display:flex;"><span>│   │   ├── baseof.html
+</span></span><span style="display:flex;"><span>│   │   ├── index.html
+</span></span><span style="display:flex;"><span>│   │   └── single.html
+</span></span><span style="display:flex;"><span>│   └── partials
+</span></span><span style="display:flex;"><span>│       ├── footer.html
+</span></span><span style="display:flex;"><span>│       ├── header.html
+</span></span><span style="display:flex;"><span>│       └── head.html
+</span></span><span style="display:flex;"><span>└── static
+</span></span><span style="display:flex;"><span>    └── css
+</span></span></code></pre></div><h2 id="layouts">Layouts<a href="/wiki/Hugo/#layouts" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>There is a lookup-routine over which Hugo iterates. If it finds no Theme or other layouts, it will use the files in <code>./layouts/_default/</code>.
+For example, these files could look like this.</p>
+<ul>
+<li><code>baseof.html</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ or site.Language.LanguageCode }}&#34;</span> <span style="color:#a6e22e">dir</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ or site.Language.LanguageDirection `ltr` }}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">main</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ block &#34;main&#34; . }}{{ end }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">main</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><ul>
+<li><code>index.html</code>: uses <code>_index.md</code> to generate the landing page (the underscores is mandatory)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ define &#34;main&#34; }}
+</span></span><span style="display:flex;"><span>    {{.Content}}
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><ul>
+<li><code>single.html</code>: defines how a normal page (like <code>some-page.md</code>) would look</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ define &#34;main&#34; }}
+</span></span><span style="display:flex;"><span>    {{.Content}}
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><p>In this example, there is no logic at all. Therefore your markdown gets converted in the most basic way.</p>
+<h2 id="templating-system">Templating System<a href="/wiki/Hugo/#templating-system" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>If you have worked with the Golang-modules <code>html/template</code> or <code>text/template</code>, this should look familiar to you.
+Indeed you can use native Golang-functions, like <code>printf</code> or <code>date</code>. Also there is Metadata like <code>.RelPermalink</code> or <code>.Title</code> which is provided by Hugo.
+Use both docs for problem solving:</p>
+<ul>
+<li><a href="https://gohugo.io/quick-reference/">https://gohugo.io/quick-reference/</a></li>
+<li><a href="https://pkg.go.dev/text/template">https://pkg.go.dev/text/template</a></li>
+</ul>
+<p>For more examples, just look at:</p>
+<ul>
+<li><a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a></li>
+</ul>
+<h3 id="examples">Examples<a href="/wiki/Hugo/#examples" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<h4 id="adding-a-variable-to-the-replacement-when-using-replacere">Adding a variable to the <code>REPLACEMENT</code> when using <code>replaceRE</code><a href="/wiki/Hugo/#adding-a-variable-to-the-replacement-when-using-replacere" class="hanchor" ariaLabel="Anchor">#</a> </h4>
+<p>At first I glance it tried to manually insert the variable <code>$Link</code> (which is <code>.RelPermalink</code>) into the <code>REPLACEMENT</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{  with .Content  }}
+</span></span><span style="display:flex;"><span>{{ $Link := .RelPermalink }}
+</span></span><span style="display:flex;"><span>{{ . | replaceRE &#34;(&lt;<span style="color:#f92672">h</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">1-9</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">\&#34;([^\&#34;]+)\&#34;.+)(&lt;/h[1-9]+</span>&gt;)&#34; `${1}&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$Link#${2}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hanchor&#34;</span> <span style="color:#a6e22e">ariaLabel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Anchor&#34;</span>&gt;#&lt;/<span style="color:#f92672">a</span>&gt; ${3}` | safeHTML }}
+</span></span><span style="display:flex;"><span>{{  end  }}
+</span></span></code></pre></div><p>Doing it this way, the variable just won&rsquo;t get display. Turns out I can use <code>printf</code> to alter the string before <code>replaceRE</code> does it jobs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{  with .Content  }}
+</span></span><span style="display:flex;"><span>    {{ $Link := $.RelPermalink }}
+</span></span><span style="display:flex;"><span>    {{ . | replaceRE &#34;(&lt;<span style="color:#f92672">h</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">1-9</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">\&#34;([^\&#34;]+)\&#34;.+)(&lt;/h[1-9]+</span>&gt;)&#34; (printf `${1}&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%s#${2}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hanchor&#34;</span> <span style="color:#a6e22e">ariaLabel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Anchor&#34;</span>&gt;#&lt;/<span style="color:#f92672">a</span>&gt; ${3}` $Link)  | safeHTML }}
+</span></span><span style="display:flex;"><span>{{  end  }}
+</span></span></code></pre></div><h2 id="menus">Menus<a href="/wiki/Hugo/#menus" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>In Hugo navbars are called menus.</p>
+<ul>
+<li>Offical docs: <a href="https://gohugo.io/content-management/menus/">https://gohugo.io/content-management/menus/</a></li>
+<li>Helpful article: <a href="https://harrycresswell.com/writing/menus-in-hugo/">https://harrycresswell.com/writing/menus-in-hugo/</a></li>
+</ul>
+<h3 id="examples-1">Examples<a href="/wiki/Hugo/#examples-1" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<h4 id="build-a-nav-with-all-regular-pages">Build a nav with all regular pages<a href="/wiki/Hugo/#build-a-nav-with-all-regular-pages" class="hanchor" ariaLabel="Anchor">#</a> </h4>
+<p>Regular pages are the ones, that you added. With <code>site.AllPages</code> you would receive more.
+This snippet would be located in <code>layouts/partials/nav.html</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">nav</span>&gt;
+</span></span><span style="display:flex;"><span>{{ range site.RegularPages }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>&gt;{{ .LinkTitle }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">nav</span>&gt;
+</span></span></code></pre></div><h2 id="shortcodes">Shortcodes<a href="/wiki/Hugo/#shortcodes" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Shortcodes are functions for custom html. You can embbed them into your markdown content or into your layouts.
+If you have some arguments like a changing <code>src=</code> or a different <code>id=</code> can use a shortcode. Shortcodes cannot be used in <code>layouts</code>.
+Use them inside your markdown <code>content</code>.</p>
+<p>Here are some example, made by the hugo-team:</p>
+<ul>
+<li><a href="https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes">https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes</a></li>
+<li>Docs: <a href="https://gohugo.io/templates/shortcode/#create-custom-shortcodes">https://gohugo.io/templates/shortcode/#create-custom-shortcodes</a></li>
+</ul>
+<h2 id="syntax-highlighting">Syntax Highlighting<a href="/wiki/Hugo/#syntax-highlighting" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Hugo uses Chroma for syntax highlighting. Here is the link to the docs: <a href="https://gohugo.io/content-management/syntax-highlighting/">https://gohugo.io/content-management/syntax-highlighting/</a></p>
+<h2 id="error">Error<a href="/wiki/Hugo/#error" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="äöüäöü-wont-render-correctly"><code>ÄÖÜäöü</code> won&rsquo;t render correctly<a href="/wiki/Hugo/#äöüäöü-wont-render-correctly" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Adding the charset to the <code>head.html</code> helps.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span></code></pre></div><h2 id="ressources">Ressources<a href="/wiki/Hugo/#ressources" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>When trying to access a ressource this way, you need to have a <code>assets</code>-directory containing <code>css/main.css</code>. It won&rsquo;t work with a <code>static</code>-directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{ <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#a6e22e">css</span> <span style="color:#f92672">:=</span>  <span style="color:#a6e22e">resources</span>.<span style="color:#a6e22e">Get</span> <span style="color:#e6db74">&#34;css/main.css&#34;</span> }}
+</span></span></code></pre></div><h2 id="tailwindcss">TailwindCSS<a href="/wiki/Hugo/#tailwindcss" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>By <code>resources.Get</code> you can pass the content to <code>css.TailwindCSS</code> which outputs into <code>public/css/&lt;name&gt;.css</code>. This is elegant because of two reasons:</p>
+<ul>
+<li><code>hugo server</code> triggers a rebuild of css when it detects changes. (for this you need a <code>tailwindcss</code>-binary in your path, e.g. <code>/usr/bin/tailwindcss</code>)</li>
+<li>You don&rsquo;t need to <code>tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css</code> and linking the stylesheets to <code>output.css</code> before you build hugo.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{ <span style="color:#a6e22e">with</span> <span style="color:#a6e22e">resources</span>.<span style="color:#a6e22e">Get</span> <span style="color:#e6db74">&#34;css/base.css&#34;</span> }}
+</span></span><span style="display:flex;"><span>  {{ <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#a6e22e">opts</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dict</span> <span style="color:#e6db74">&#34;minify&#34;</span> <span style="color:#66d9ef">true</span> }}
+</span></span><span style="display:flex;"><span>  {{ <span style="color:#a6e22e">with</span> . | <span style="color:#a6e22e">css</span>.<span style="color:#a6e22e">TailwindCSS</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#a6e22e">opts</span> }}
+</span></span><span style="display:flex;"><span>    {{ <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hugo</span>.<span style="color:#a6e22e">IsDevelopment</span> }}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#a6e22e">link</span> <span style="color:#a6e22e">rel</span>=<span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span>=<span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ <span style="color:#66d9ef">else</span> }}
+</span></span><span style="display:flex;"><span>      {{ <span style="color:#a6e22e">with</span> . | <span style="color:#a6e22e">fingerprint</span> }}
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#a6e22e">link</span> <span style="color:#a6e22e">rel</span>=<span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span>=<span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span> <span style="color:#a6e22e">integrity</span>=<span style="color:#e6db74">&#34;{{ .Data.Integrity }}&#34;</span> <span style="color:#a6e22e">crossorigin</span>=<span style="color:#e6db74">&#34;anonymous&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      {{ <span style="color:#a6e22e">end</span> }}
+</span></span><span style="display:flex;"><span>    {{ <span style="color:#a6e22e">end</span> }}
+</span></span><span style="display:flex;"><span>  {{ <span style="color:#a6e22e">end</span> }}
+</span></span><span style="display:flex;"><span>{{ <span style="color:#a6e22e">end</span> }}
+</span></span></code></pre></div><ul>
+<li>Docs: <a href="https://gohugo.io/functions/css/tailwindcss/">https://gohugo.io/functions/css/tailwindcss/</a></li>
+</ul>
+
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base href="https://hmaier-dev.github.io/wiki/">
+<link rel="stylesheet" href=" https://hmaier-dev.github.io/wiki/css/style.min.css">
+
+</head>
+<body>
+    <header>
+    <a href="https://hmaier-dev.github.io/wiki/">
+        <p>Home</p>
+    </a>
+</header>
+
+
+    
+<main>
+
+    
+        
+        <h1 id="goose">Goose<a href="/wiki/Goose/#goose" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Ist ein gutes Tool für Datenbank-Migrationen. Damit ist möglich
+inkrementell <code>sql</code>-Files einzuspielen. Verschiedenen Migrationen bauen
+also aufeinander auf. Mit Goose bildet man also die Evolution seiner
+Datenbank ab. Es ist möglich mit <code>up</code> und <code>down</code> zwischen den
+verschiedenen Evolutionsstufen zu switchen.</p>
+<h1 id="normaler-use-case">Normaler Use-Case<a href="/wiki/Goose/#normaler-use-case" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export DB_URL<span style="color:#f92672">=</span>postgres://postgres:password@172.17.0.3:5432/cmdb
+</span></span><span style="display:flex;"><span>goose -allow-missing -dir ./migrations postgres $DB_URL up
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Wie sieht es in ./migrations aus?</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## z.b. so:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># .</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00001_audit_log.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00002_cmdb.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00003_cables.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00004_domains.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00005_office.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230119114311_cmdb_add_mac_addresses.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230119160151_add_all_ips_view.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230202173045_add_comments.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230208194650_create_table_registered_domains.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230316165343_cmdb_v2_add_mac_addresses.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230320150211_cables_add_unique_constraints.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230321100754_audit_table.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230324171716_add_cables_references.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230327134036_add_vm_spec_checks.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230404161325_audit_search_path.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230511123022_cables_v1_view.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230523131012_add_shared_ip_type.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230920143845_add_datacenter_ntt_ber1.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207104924_extract_location_functions.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207144735_create_table_cloud_machines.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207154335_cloud_is_label.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># └── 20240318172042_add_cloud_contract_columns.sql</span>
+</span></span></code></pre></div><h1 id="migration-schreiben">Migration schreiben<a href="/wiki/Goose/#migration-schreiben" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<p>Dies ist eine Evolutionsstufe. Es wird definiert wie man, die Stufe
+erreicht (<code>+goose Up</code>) und wie man die Änderungen wieder rückgängig
+(<code>+goose Down</code>) macht.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- +goose Up
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementBegin
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format <span style="color:#66d9ef">CHECK</span> (((status)::text <span style="color:#f92672">~*</span> <span style="color:#e6db74">&#39;^(online:.*|online:.*/.*|offline|security|ignore)$&#39;</span>::text));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementEnd
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose Down
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementBegin
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format <span style="color:#66d9ef">CHECK</span> (((status)::text <span style="color:#f92672">~*</span> <span style="color:#e6db74">&#39;^(online|online:.*|online:.*/.*|offline|security|ignore)$&#39;</span>::text));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementEnd
+</span></span></span></code></pre></div>
+    
+
+</main>
+
+
+    <footer>
+</footer>
+
+</body>
+</html>
