@@ -34,5 +34,7 @@ uris = [
     URI(uri="https://www.nonexistentwebsite.com", want=404),
 ]
 ```
+## Packaging a project
 
+- https://packaging.python.org/en/latest/tutorials/packaging-projects/
 
