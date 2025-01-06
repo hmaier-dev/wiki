@@ -124,7 +124,8 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 {{  end  }}
 ```
 
-- By the way: You can do **Anchors** also this way: https://gohugo.io/render-hooks/headings/#examples
+> [!TIP]
+> By the way: You can do **Anchors** also this way: https://gohugo.io/render-hooks/headings/#examples
 
 ## Menus
 In Hugo navbars are called menus.
