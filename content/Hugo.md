@@ -124,6 +124,8 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 {{  end  }}
 ```
 
+- By the way: You can do **Anchors** also this way: https://gohugo.io/render-hooks/headings/#examples
+
 ## Menus
 In Hugo navbars are called menus.
 
@@ -159,12 +161,6 @@ Here are some example, made by the hugo-team:
 
 Hugo uses Chroma for syntax highlighting. Here is the link to the docs: https://gohugo.io/content-management/syntax-highlighting/
 
-## Error
-### `ÄÖÜäöü` won't render correctly
-Adding the charset to the `head.html` helps.
-```html
-<meta charset="UTF-8">
-```
 ## Ressources
 When trying to access a ressource this way, you need to have a `assets`-directory containing `css/main.css`. It won't work with a `static`-directory.
 ```go
@@ -195,3 +191,11 @@ By `resources.Get` you can pass the content to `css.TailwindCSS` which outputs i
 ```
 
 - Docs: https://gohugo.io/functions/css/tailwindcss/
+- 
+
+## Error
+### `ÄÖÜäöü` won't render correctly
+Adding the charset to the `head.html` helps.
+```html
+<meta charset="UTF-8">
+```
