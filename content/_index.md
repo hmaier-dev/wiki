@@ -1,0 +1,46 @@
+---
+title: index
+description: The Table of Contents for this wiki
+---
+
+* [Ansible](Ansible)
+* [Docker](Docker)
+    * [crane](crane)
+* CI/CD
+    * [Earthly](Earthly)
+    * [Gitlab](Gitlab)
+    * [Github](Github)
+* [Golang](Golang)
+* [Helix](Helix)
+* [Hugo](Hugo)
+* [Kubernetes](Kubernetes)
+* Linux
+    * [Arch](Arch)
+    * [Gnome](Gnome)
+    * [apt](apt)
+    * [bash](bash)
+    * [ffmpeg](ffmpeg)
+    * [git](git)
+    * [ssh](ssh)
+    * [systemd](systemd)
+    * [tmux](tmux)
+* [Neovim](Neovim)
+    * [lua](lua)
+* [Nginx](Nginx)
+* [Postgres](Postgres)
+    * [pgTAP](pgTAP)
+    * [Goose](Goose)
+* [LaTex](LaTex)
+* [Python](Python)
+* [Vagrant](Vagrant)
+* Web-Development
+  * [htmx](htmx)
+  * [css](css)
+* [Wireguard](Wireguard)
+* Windows
+    * [Windows_Terminal](Windows_Terminal)
+    * [Powershell](Powershell)
+    * [PhoenixPE](PhoenixPE)
+* [Wordpress](Wordpress)
+* [Raspberry_Pi](Raspberry_Pi)
+* [Schach](Schach)
