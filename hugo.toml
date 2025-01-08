@@ -3,3 +3,8 @@ baseURL = "https://hmaier-dev.github.io/wiki/"
 languageCode = "de-de"
 title = "Wiki"
 disablePathToLower = true
+
+## Needed for css.TailwindCSS
+[[build.cachebusters]]
+    source = 'layouts/.*'
+    target = 'css'
