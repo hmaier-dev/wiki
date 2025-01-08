@@ -9,6 +9,8 @@ on:
       - main
     paths:
       - content/**
+      - layouts/**
+      - assets/**
 jobs:
   publish:
     runs-on: ubuntu-24.04
