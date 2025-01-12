@@ -27,12 +27,10 @@ class URI:
     uri: str
     want: int
 
+test = URI(uri="https://www.nonexistentwebsite.com", want=404),
+print(test.uri)
+print(test.want)
 
-# List of URIs to check
-uris = [
-    URI(uri="https://www.example.com", want=200),
-    URI(uri="https://www.nonexistentwebsite.com", want=404),
-]
 ```
 ## Packaging a project
 
