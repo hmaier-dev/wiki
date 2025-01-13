@@ -41,6 +41,21 @@ Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
 `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie
 impliziert).
 
+# `.secrets`
+For deploying from your local machine, you need your secrets present in a `.secrets` file. That must be located in the same directory as the `Earthfile`.
+For multi-line secrets use `''` like in the following example:
+```
+host=192.168.13.12
+port=1337
+username=secret-username
+key='-----BEGIN OPENSSH PRIVATE KEY-----
+SOMEVALIDCHARACTERSWHICHMAKEUP
+AVERYGOODSECRETANDSAFEPRIVATEK
+-----END OPENSSH PRIVATE KEY-----'
+known_hosts='content-of-the-known-hosts-file'
+```
+The `''` are needed because they keep the format (like newlines etc).
+
 # Errors
 ## Error: could not determine buildkit address - is Docker or Podman running?
 If you encounter this error, first look if the systemd-service is running.
