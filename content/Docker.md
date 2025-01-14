@@ -7,20 +7,24 @@ title: Docker
 
 ## TL;DR
 
--   Alle Container; both running & stopped:
+- Alle Container; both running & stopped:
     -   `docker ps -a`
--   Alle Container die gerade laufen:
+- Alle Container die gerade laufen:
     -   `docker ps`
--   IP-Adresses aller Container:
+- IP-Adresses aller Container:
     -   `docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q)`
--   Shell in Container öffnen
+- Shell in Container öffnen
     -   `docker exec -it <container_id_or_name> /bin/bash`
--   Directory in Container mounten:
+- Directory in Container mounten:
     -   `docker run -v <absolute-local-path>:<path-inside-container> <image>`
--   Einzelnen Container aus `docker-compose`-File neustarten
+- Einzelnen Container aus `docker-compose`-File neustarten
     -   `docker compose up --no-deps <service-name>`
--   Herausfinden was sich in einem Volume alles befindet:
+- Herausfinden was sich in einem Volume alles befindet:
     -   ` docker run -it -v deploy-wordpress_wordpress:/mnt ubuntu /bin/bash`
+- Alle Container inklusive Volumen löschen:
+    - `docker rm -vf $(docker ps -aq)`
+- Alle Images löschen
+    - `docker rmi -f $(docker images -aq)`
 
 ## `docker inspect`
 
