@@ -155,3 +155,14 @@ To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-
 ```bash
 chmod -R g+s <dir-for-html>
 ```
+
+# Secrets
+
+When passing multi-line secrets, make sure to border the secret with `"` like this:
+```bash
+earthly --secret host=${{ secrets.SSH_HOST }} \
+--secret username=${{ secrets.SSH_USER }} \
+--secret key="${{ secrets.SSH_KEY }}" \
++deploy-test
+```
+The `"` keeps the format in it's right place.
