@@ -35,12 +35,23 @@ test-all:
     BUILD +test-database
 ```
 
-# `SAVE ARTIFACT` 
+# `SAVE ARTIFACT LOCALLY`
 
 Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
 `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie
 impliziert).
 
+# `SAVE ARTIFACT`
+
+Möchte man Artifacts aus einem anderen Target importieren, kann man das wie folgt tun.
+```Dockerfile
+target:
+  COPY +download-hugo/<articfact> /path/to/copy/to
+  
+  COPY +download-hugo/hugo /usr/local/bin/hugo
+  COPY +download-tailwindcss/tailwindcss /usr/local/bin/tailwindcss
+```
+  
 # `.secrets`
 For deploying from your local machine, you need your secrets present in a `.secrets` file. That must be located in the same directory as the `Earthfile`.
 For multi-line secrets use `''` like in the following example:
