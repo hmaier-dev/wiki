@@ -25,6 +25,9 @@ title: Docker
     - `docker rm -vf $(docker ps -aq)`
 - Alle Images löschen
     - `docker rmi -f $(docker images -aq)`
+- Wie lade ich ein Image in meine Docker-Registry?
+    - Erst einloggen mit `docker login`.
+    - Danach `docker push <username>/<image-name>`
 
 ## `docker inspect`
 
