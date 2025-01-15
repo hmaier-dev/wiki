@@ -1,3 +1,7 @@
+---
+title: Gnome
+---
+
 # System-Tray 
 
 By default Gnome 45 does not provide a build in system-tray, where
@@ -11,3 +15,4 @@ ubuntu provide a solution to this, with the
 You can do this, with the following command:
 
     sudo update-alternatives --config x-terminal-emulator
+    

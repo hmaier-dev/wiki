@@ -1,0 +1,39 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+main {
+    margin: 0 auto;
+    width: 50%;
+}
+/* small screens */
+@media (max-width: 768px) {
+  main {
+    width: 100%;
+    margin: 0; 
+  }
+}
+
+/* Block code */
+code {
+    padding: 0.5rem;
+}
+
+/* Inline Code  */
+:not(pre) > code {
+    padding: 2px;
+    border-radius: 25px;
+    border: 1px solid #BCBEC0;
+    background: #F1F3F5;
+}
+
+header {
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer {
+    margin: 0 auto;
+    text-align: center;
+
+}

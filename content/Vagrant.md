@@ -1,20 +1,25 @@
+---
+title: Vagrant
+---
+
 # Vagrant 
 
 Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen
 Maschinen.
 
-## Kommandos 
+## TL;DR
 
--   `vagrant init`: erstellt in der derzeitigen Directory ein
-    sogenanntes `Vagrantfile`
--   `vagrant status`: zeigt den Status der sogenannten Boxes (VMs) in
-    der derzeitigen Directory
--   `vagrant global-status`: zeigt Status alles Boxes auf der
-    Host-Maschine
--   `vagrant up`: Startet alle definierten Maschinen
--   `vagrant up <name>`: Startet mit `<name>` benannte Maschine
-
-## Normaler Workflow 
+- `vagrant init`: erstellt in der derzeitigen Directory ein
+  sogenanntes `Vagrantfile`
+- `vagrant status`: zeigt den Status der sogenannten Boxes (VMs) in
+  der derzeitigen Directory
+- `vagrant global-status`: zeigt Status alles Boxes auf der
+  Host-Maschine
+- `vagrant up`: Startet alle definierten Maschinen
+- `vagrant up <name>`: Startet mit `<name>` benannte Maschine
+- `vagrant destroy`: Stoppt und verwirft alle Maschinen
+- `vagrant provision <name>`: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible
+- Wenn man etwas am `Vagrantfile` ändern, kann man seine Änderungen mit `vagrant reload` für alle Maschine anwenden.
 
 ## Virtualbox als Default-Provider 
 

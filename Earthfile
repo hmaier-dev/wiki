@@ -1,30 +1,39 @@
 VERSION 0.8
 
-pandoc:
-    FROM pandoc/core
-    ARG source
-    COPY $source/* ./tmp/
-    RUN mkdir -p ./public
-    # Markdown to Html
-    RUN find ./tmp -name "*.md" -exec sh -c 'pandoc --from markdown --to html "$1" -o "./public/$(basename "$1" .md).html"' _ {} \;
-    SAVE ARTIFACT ./public AS LOCAL ./public
-
 hugo:
-    FROM alpine:3.20
-    RUN apk add --no-cache hugo
+    FROM debian:bullseye
+    RUN apt-get update && apt-get install -y curl 
+    RUN curl -SLO https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_0.140.2_linux-amd64.tar.gz
+    RUN tar -xvzf hugo_0.140.2_linux-amd64.tar.gz
+    RUN chmod +x hugo
+    RUN mv hugo /usr/local/bin/hugo
+
+    COPY +css/tailwindcss ./tailwindcss
+    RUN chmod +x tailwindcss
+    RUN mv tailwindcss /usr/local/bin/tailwindcss
 
     # Hugo cannot work in root (/)
     WORKDIR tmp
-    COPY content content
-    COPY static static
+    COPY --dir content assets layouts ./
     COPY hugo.toml hugo.toml
-    COPY layouts layouts
+    COPY tailwind.config.js tailwind.config.js
 
-    RUN mv content/index.md content/_index.md
+    # generate meta-data
+    COPY build/count-lines.sh .
+    RUN ./count-lines.sh
+
     RUN hugo
     RUN ls -la public
     SAVE ARTIFACT ./public AS LOCAL ./public
 
+css:
+    FROM debian:bullseye
+    RUN apt-get update && apt-get install -y curl
+    RUN curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.0-beta.8/tailwindcss-linux-x64
+    RUN chmod +x tailwindcss-linux-x64
+    RUN mv tailwindcss-linux-x64 tailwindcss
+    RUN ./tailwindcss --help
+    SAVE ARTIFACT tailwindcss
+
 build:
-    BUILD +hugo --source ./content
-    # BUILD +pandoc --source ./content
+    BUILD +hugo

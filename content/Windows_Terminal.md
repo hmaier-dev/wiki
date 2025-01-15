@@ -1,6 +1,6 @@
-# Windows 
-
-Windows ist ein tolles Betriebssystem!
+---
+title: Windows_Terminal
+---
 
 ## Nerd-Fonts fürs Windows Terminal 
 

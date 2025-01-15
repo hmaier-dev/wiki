@@ -1,21 +1,31 @@
+---
+title: Golang
+---
+
 # Golang 
 
-Go ist eine kompilierte Sprache die von Google entwickelt wurde.
+Go ist eine kompilierte Sprache die von Google entwickelt wurde. 
 
-## Typen 
+## Imports
 
-Go stellt alle gängigen Typen bereit. Besonderheiten sind:
+Go mag keine relativen Imports. Daher muss immer der absolute Pfad angeben werden.
 
--   `byte`: dieser ist ein alias für uint8
--   `rune`: ein alias für int32 welches ein Unicode-Zeichen
-    repräsentiert
+```go
+import (
+    // Module befindet sich in ./pkg/loading
+	"github.com/hmaier-dev/contacts_converter/pkg/loading"
+    // Falsch wäre:
+    "../pkg/loading"
+)
+```
 
-``` 
-package main
-
-func main() {
-    println("Hello World")
-}
+Ein Underscore stellt eine Blank-Import dar. Das heißt, man selbst greift nicht auf das Module zu, sondern andere 
+Module die man importiert hat. Man sieht dies bspw. beim Import eines SQLite-Drivers
+```go
+import (
+    "database/sql"
+    _ "github.com/mattn/go-sqlite3" // needed for database/sql when working with sqlite3
+)
 ```
 
 ## Context 
@@ -51,8 +61,8 @@ func main() {
 ## Go-Routines 
 
 Goroutines make concurrency possible. That means, running two seperate
-function seperatly without dependency between them. Different goruntes
-communicate via []{#channels}**channels**.
+function seperatly without dependency between them. Different goroutines
+communicate via **channels**.
 
 ``` go
 package main
@@ -121,3 +131,75 @@ func maintain() {
 }
 
 ```
+
+## Modules forken
+Hat man ein Module was nicht so funktioniert, wie man es möchte, macht man sich einfach einen Fork davon.
+Nun hat man die Macht Änderungen um Code vorzunehmen. Sollen diese Änderungen direkt im Hauptprojekt nutzbar sein, kann
+man das geforkte Repository klonen und Go dazu bringen, dies zu nutzen. Dies tut man in der `go.mod` mit dem `replace`-Kommando.
+
+```go
+require (
+	github.com/emersion/go-vcard v0.0.0-00010101000000-000000000000
+)
+
+replace github.com/emersion/go-vcard => ../go-vcard
+
+```
+Den Pfad des geforkten Repositorys muss man von den root des Hauptprojekts angeben.
+
+## Datenbanken
+### Get Everything
+
+```go
+    db, err := sql.Open("sqlite3", source)
+    if err != nil{
+        fmt.Println(err)
+    }
+    rows, err := db.Query("Select * from table;")
+    if err != nil{
+        log.Fatalf("%#v\n", err)
+    } 
+    cols, err := rows.Columns()
+
+    if err != nil{
+        log.Fatalf("%#v\n", err)
+    } 
+	rawResult := make([][]byte, len(cols)) // [row][values] -> e.g. row: [[value][value][value]]
+	dest := make([]interface{}, len(cols)) // .Scan() needs []any as result type
+	allRows := make([][]string, 0)
+	for i := range cols {
+		dest[i] = &rawResult[i] // mapping dest indices to byte slice
+	}
+	for rows.Next() {
+		err := rows.Scan(dest...)
+		if err != nil {
+			log.Fatal("problems scanning the database", err)
+		}
+		singleRow := make([]string, len(cols))
+		for i, raw := range rawResult {
+			singleRow[i] = string(raw) // from byte to string
+			//fmt.Printf("%v -> %v \n", i, singleRow)
+		}
+		allRows = append(allRows, singleRow)
+	}
+    
+    fmt.Printf("%v\n", allRows)
+
+```
+## Commandline Arguments
+If you need something quick, without a variable info, just use this snippet:
+```go
+if len(os.Args) > 1{
+    for _ , s := range os.Args[1:]{ // index 0 is the name of the program, so slice it away
+        switch s {
+        case "--exporter":
+            db.Export()
+        default:
+            fmt.Printf("Argument unknown: %s \n", s)
+            os.Exit(0)
+        }
+    }
+
+}
+```
+For more complex stuff, use the `flag`-package.

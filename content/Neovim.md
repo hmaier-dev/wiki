@@ -1,3 +1,25 @@
+---
+title: Neovim
+---
+
+# Vimscript essentials
+The most fundamental config
+```vimscript
+filetype plugin indent on
+
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+
+" Indentation and re-selection
+vnoremap > >gv
+vnoremap < <gv
+ 
+```
+
+
 # Treesitter 
 
 You can install treesitter-parsers just with the following command.
@@ -12,7 +34,8 @@ installable languages.
 With the `:InspectTree` you can display the the AST
 (Abstract-Syntax-Tree) in a speperate window.
 
-= Renaming a variable = There are several cases where you would want to
+# Renaming a variable
+There are several cases where you would want to
 rename a variable. The place before the `s` is reserved for the scope,
 which is:
 
@@ -49,6 +72,22 @@ know what this means) and if you want confirmation with `c`.
 
 ```vimscript
 :%s/\<string\>/mynewstring/gc
+```
+
+## With LSP
+If you have lsp configured, you can do it with `vim.lsp.buf.rename`:
+```lua
+-- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration
+-- Keymaps for LSP
+v.keymap.set("n", "<space>e", v.diagnostic.open_float)
+v.api.nvim_create_autocmd("LspAttach", {
+	group = v.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf }
+		v.keymap.set("n", "<space>rn", v.lsp.buf.rename, opts)
+	end,
+})
+
 ```
 
 ## in you entire project
@@ -104,6 +143,10 @@ Which means:
 -   \% = for every line
 -   norm = type the following commands
 -   A\* = append \' \* \' to the end of current line
+
+## How to enter the commandline history?
+
+Just press `q:` (not `:q`). Now you can browse through are executed commands and copy them.
 
 # Lua 
 

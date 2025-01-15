@@ -1,6 +1,10 @@
+---
+title: systemd
+---
+
 # systemd
 
-## mount untis 
+## mount units 
 
 Um zu vermeiden in der `/etc/fstab` herumzupfuschen, kann man
 alternative (auto-)mount.units verwenden. Folgendes Schema ist dabei
@@ -58,3 +62,8 @@ bootctl install --graceful
 ```
 
 Damit verhindert man das Abbrechen bei Fehlern.
+
+# journalctl
+
+- Show all messages from boot:
+    - `journalctl -b`

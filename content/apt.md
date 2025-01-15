@@ -1,3 +1,7 @@
+---
+title: apt
+---
+
 # Unsupported architectures 
 
 Viele Paket-Repos supporten nicht alle existierenden Architekutren:
