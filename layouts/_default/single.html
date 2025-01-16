@@ -3,7 +3,7 @@
 
 {{  with .Content  }}
     {{ $Link := $.RelPermalink }}
-    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
 {{  end  }}
 
 </main>
