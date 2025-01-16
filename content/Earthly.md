@@ -41,8 +41,6 @@ Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
 `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie
 impliziert).
 
-<<<<<<< HEAD
-=======
 # `SAVE ARTIFACT`
 
 Möchte man Artifacts aus einem anderen Target importieren, kann man das wie folgt tun.
@@ -69,7 +67,6 @@ known_hosts='content-of-the-known-hosts-file'
 ```
 The `''` are needed because they keep the format (like newlines etc).
 
->>>>>>> 79e1b6bee0a65e3e5eae7f3cb7d8383d5a97205b
 # Errors
 ## Error: could not determine buildkit address - is Docker or Podman running?
 If you encounter this error, first look if the systemd-service is running.

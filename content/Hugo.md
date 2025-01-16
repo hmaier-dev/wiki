@@ -127,6 +127,11 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 > [!TIP]
 > By the way: You can do **Anchors** also this way: https://gohugo.io/render-hooks/headings/#examples
 
+> [!WARNING]
+> If you are using tailwindcss, creating the anchors this way 
+> will **overwrite** the default css for headings, paragraph, etc.
+> You will be left with **no styling** at all.
+
 ## Menus
 In Hugo navbars are called menus.
 
