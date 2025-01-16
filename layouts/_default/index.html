@@ -1,11 +1,15 @@
-
 {{ define "main" }}
 <main>
 
-    {{ .Content }}
+    
+  {{ with .Content }}
+    {{ $c := . }}
+    {{ $c = replace "<ul>" "<div class=''>"  }}
+    {{ $c | safeHTML }}
+  {{ end }}
 
 </main>
 
-    {{ partial "index_footer.html" . }}
+{{ partial "index_footer.html" . }}
 
 {{ end }}

@@ -1,10 +1,10 @@
 {{ define "main" }}
 <main>
 
-    {{  with .Content  }}
-        {{ $Link := $.RelPermalink }}
-        {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
-    {{  end  }}
+{{  with .Content  }}
+    {{ $Link := $.RelPermalink }}
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="hanchor" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
+{{  end  }}
 
 </main>
 {{ end }}
