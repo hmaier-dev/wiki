@@ -195,6 +195,10 @@ By `resources.Get` you can pass the content to `css.TailwindCSS` which outputs i
 {{ end }}
 
 ```
+If you wan't to turn off/on Tailwind for your css, just remove/add the following from/to the top of your `base.css`.
+```css
+@import "tailwindcss";
+```
 
 - Docs: https://gohugo.io/functions/css/tailwindcss/
 - 
