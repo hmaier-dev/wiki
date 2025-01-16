@@ -22,6 +22,15 @@
   .highlight {
     @apply my-2;
   }
+  ul, ol, li {
+    list-style-type: revert; /* Restore the browser's default styling */
+    padding-left: revert;   /* Restore default indentation */
+    margin: revert;         /* Restore default margin */
+  }
+  li a {
+    @apply text-blue-600 hover:text-blue-800 underline; /* Apply styles to links inside list items */
+  }
+
 
 }
 
