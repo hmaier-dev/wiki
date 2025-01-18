@@ -192,7 +192,7 @@ Ihr Branch ist auf demselben Stand wie 'origin/main'.
 Änderungen, die nicht zum Commit vorgemerkt sind:
   (benutzen Sie "git add <Datei>...", um die Änderungen zum Commit vorzumerken)
   (benutzen Sie "git restore <Datei>...", um die Änderungen im Arbeitsverzeichnis zu verwerfen)
-        geändert:       cue.mod/pkg/gitlab.rz.babiel.com/provid/container-images/rzauthproxy (neue Commits)
+        geändert:       file.mod/pkg/myfile (neue Commits)
 
 Unversionierte Dateien:
   (benutzen Sie "git add <Datei>...", um die Änderungen zum Commit vorzumerken)
