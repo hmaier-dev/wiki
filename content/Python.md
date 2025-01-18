@@ -1,4 +1,6 @@
 ---
+categories:
+- coding
 title: Python
 ---
 

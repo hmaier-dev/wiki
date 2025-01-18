@@ -1,4 +1,6 @@
 ---
+categories:
+- CI/CD
 title: Gitlab
 ---
 

@@ -1,4 +1,6 @@
 ---
+categories:
+- Linux
 title: Linux
 ---
 

@@ -1,4 +1,6 @@
 ---
+categories:
+- Microsoft
 title: Windows_Terminal
 ---
 

@@ -1,4 +1,6 @@
 ---
+categories:
+- Docker
 title: Docker
 ---
 
