@@ -2,37 +2,29 @@
 categories:
 - Linux
 title: Linux
+description: some niche os.
 ---
 
-# Linux {#Linux}
+This article was created in preparation for a job interview as SRE.
 
-Here I collect interview questions.
-
-### Tell me about some projects your into right now {#Tell me about some projects your into right now}
-
--   Self-Made Storage Array driven by a raspberry pi
--   Upgrade old MP3-Player (from 3GB to min. 64 GB)
--   1 Year ago I was into hacking old nintendo 3ds
--   I run some custom android rom on my phone (LineageOS)
-
-### How would you connect to a machine in the cloud? {#How would you connect to a machine in the cloud?}
+### How would you connect to a machine in the cloud?
 
 -   `ssh` (Secure Shell, Port 22) is the tool
 -   Is there a []{#VPN}**VPN** involved?
 -   Is my public-key known to the machine? (auth via ssh-keys)
 -   A password is also possible but unsecure, like root-login
 
-### What is does the directory /proc represent? {#What is does the directory /proc represent?}
+### What is does the directory /proc represent? 
 
 /proc displays the current state of the kernel, inside the filesystem.
 This is possible because everything in linux is treated as a file.
 
-### How to find out the total disk usage? {#How to find out the total disk usage?}
+### How to find out the total disk usage?
 
 -   `df -h`: for all filesystems, with `-h` for human-readable
 -   `du -sh`: for a single directory, `-s` stands for `--summarize`
 
-### How to check for open ports? {#How to check for open ports?}
+### How to check for open ports? 
 
 There are ways to find out the open ports of a system.
 
@@ -44,11 +36,11 @@ To find the process which opened the port you can use:
 -   `netstat`: with the `-tupln` flags the processes are already shown
 -   `ss`: same shit
 
-### Check the version of kernel {#Check the version of kernel}
+### Check the version of kernel 
 
 -   `uname -r`
 
-### How to manage services {#How to manage services}
+### How to manage services 
 
 -   `systemctl start <unit>`
 -   `systemctl enable <unit>`
@@ -56,7 +48,7 @@ To find the process which opened the port you can use:
 -   `systemctl disable <unit>`
 -   `systemctl status <unit>`
 
-### How to check for cpu usage? {#How to check for cpu usage?}
+### How to check for cpu usage? 
 
 -   `ps aux`: `a` means all processes, `x` includes processes not
     associated with a terminal, `u` formats for the output for a user
