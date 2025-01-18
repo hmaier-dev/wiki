@@ -5,30 +5,27 @@
 <div class="flex flex-wrap">
   <!-- https://gohugo.io/methods/site/taxonomies/#list-all-content-in-a-given-taxonomy -->
   {{ range $category, $taxonomy := .Site.Taxonomies.categories }}
-  <div class="border-gray-500 m-3">
-    <h2 class="text-center" >{{ $category }}</h2>
-    <ul class="">
+  <div class="m-3">
+    <h2 class="" >{{ $category }}</h2>
       {{ range $taxonomy.Pages }}
-        <li class="">
-          <a class="" href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </li>
+        <div>
+         <span><!-- Insert list icon here --></span><a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"
+            href="{{ .RelPermalink }}"> {{ .Title }}</a>
+        </div>
       {{ end }}
-    </ul>
 
   </div>
   {{ end}}
 
   <div class="m-3" >
   <h2> miscellaneous </h2>
-  <ul class="">
   {{ range .Site.RegularPages }}
     {{ if not (isset .Params "categories") }}
-      <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      </li>
+      <div>
+        <span><!-- Insert list icon here --></span><a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </div>
     {{ end }}
   {{ end }}
-  </ul>
   </div>
 </div>
 
