@@ -1,11 +1,13 @@
 ---
+categories:
+- Web-Development
 title: Hugo
 ---
 
-# Hugo
+## Hugo
 Is a generator for static html. 
 
-## Develop locally with Hugo
+### Develop locally with Hugo
 
 If you already have the needed directory structure and you'd want to know how the website will
 look, just use 
@@ -26,7 +28,7 @@ If you ever change something under the `layouts`-directory, make sure to `earthl
 
 At last make sure to `git restore hugo.toml`!
 
-## Config-file
+### Config-file
 
 Hugo needs config-file, which default is `hugo.toml`.
 ```toml
@@ -35,7 +37,7 @@ languageCode = "de-us"
 title = "Wiki"
 ```
 
-## Configuration
+### Configuration
 You will need several things for Hugo.
 
 - a `./content`-directory with your knowlegde written in markdown (`.md`)
@@ -63,7 +65,7 @@ Default directory structure looks like this
 
 ```
 
-## Layouts
+### Layouts
 There is a lookup-routine over which Hugo iterates. If it finds no Theme or other layouts, it will use the files in `./layouts/_default/`.
 For example, these files could look like this.
 
@@ -94,7 +96,7 @@ For example, these files could look like this.
 ```
 In this example, there is no logic at all. Therefore your markdown gets converted in the most basic way.
 
-## Templating System
+### Templating System
 If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
 Indeed you can use native Golang-functions, like `printf` or `date`. Also there is Metadata like `.RelPermalink` or `.Title` which is provided by Hugo.
 Use both docs for problem solving:
@@ -106,9 +108,9 @@ For more examples, just look at:
 
 - https://themes.gohugo.io/
 
-### Examples
+#### Examples
 
-#### Adding a variable to the `REPLACEMENT` when using `replaceRE`
+##### Adding a variable to the `REPLACEMENT` when using `replaceRE`
 At first I glance it tried to manually insert the variable `$Link` (which is `.RelPermalink`) into the `REPLACEMENT`.
 ```html
 {{  with .Content  }}
@@ -126,20 +128,16 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 
 > [!TIP]
 > By the way: You can do **Anchors** also this way: https://gohugo.io/render-hooks/headings/#examples
+> But beware, you cannot use `.RelPermalink` when doing this.
 
-> [!WARNING]
-> If you are using tailwindcss, creating the anchors this way 
-> will **overwrite** the default css for headings, paragraph, etc.
-> You will be left with **no styling** at all.
 
-## Menus
+### Menus
 In Hugo navbars are called menus.
 
 - Offical docs: https://gohugo.io/content-management/menus/
 - Helpful article: https://harrycresswell.com/writing/menus-in-hugo/
 
-### Examples
-#### Build a nav with all regular pages
+#### Nav with all regular pages
 Regular pages are the ones, that you added. With `site.AllPages` you would receive more.
 This snippet would be located in `layouts/partials/nav.html`.
 ```html
@@ -153,7 +151,7 @@ This snippet would be located in `layouts/partials/nav.html`.
 </nav>
 ```
 
-## Shortcodes
+### Shortcodes
 Shortcodes are functions for custom html. You can embbed them into your markdown content or into your layouts.
 If you have some arguments like a changing `src=` or a different `id=` can use a shortcode. Shortcodes cannot be used in `layouts`.
 Use them inside your markdown `content`.
@@ -163,17 +161,17 @@ Here are some example, made by the hugo-team:
 - https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes
 - Docs: https://gohugo.io/templates/shortcode/#create-custom-shortcodes
 
-## Syntax Highlighting
+### Syntax Highlighting
 
 Hugo uses Chroma for syntax highlighting. Here is the link to the docs: https://gohugo.io/content-management/syntax-highlighting/
 
-## Ressources
+### Ressources
 When trying to access a ressource this way, you need to have a `assets`-directory containing `css/main.css`. It won't work with a `static`-directory.
 ```go
 {{ $css :=  resources.Get "css/main.css" }}
 ```
 
-## TailwindCSS
+### TailwindCSS
 By `resources.Get` you can pass the content to `css.TailwindCSS` which outputs into `public/css/<name>.css`. This is elegant because of two reasons:
 
 - `hugo server` triggers a rebuild of css when it detects changes. (for this you need a `tailwindcss`-binary in your path, e.g. `/usr/bin/tailwindcss`)
@@ -199,9 +197,30 @@ If you wan't to turn off/on Tailwind for your css, just remove/add the following
 ```css
 @import "tailwindcss";
 ```
+#### Where does Hugo search for tailwindcss?
+If you use the **binary** (https://tailwindcss.com/blog/standalone-cli) instead of the **npm package**, you might
+come across the problem of hugo not finding it probably. The error might look like this:
+```bash
+ERROR TAILWINDCSS: failed to transform "/css/base.css" (text/css): Error: Failed to find 'tailwindcss'
+  in [
+    C:\Users\user\repo
+  ]
+    at C:\snapshot\tailwindcss\node_modules\postcss-import\lib\resolve-id.js:35:13
+    at async LazyResult.runAsync (C:\snapshot\tailwindcss\node_modules\postcss\lib\lazy-result.js:261:11)
+    at async build (C:\snapshot\tailwindcss\lib\cli\build\index.js:49:9)
+Built in 5708 ms
+```
+This is because your tailwind-binary isn't registered in the PATH of your system.
+
+- Windows: Search for `env` in the searchbar, and add the location of tailwind to your user-variables.
+- Linux: Add location to your `$PATH` in your `.profile` or `.bashrc`
+
+If you are interested in which order hugo searches for tailwind; here is the LoC regarding this 
+https://github.com/gohugoio/hugo/blob/master/common/hexec/exec.go#L185
+
+
 
 - Docs: https://gohugo.io/functions/css/tailwindcss/
-- 
 
 ## Error
 ### `ÄÖÜäöü` won't render correctly

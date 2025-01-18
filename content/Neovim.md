@@ -1,4 +1,6 @@
 ---
+categories:
+- editors 
 title: Neovim
 ---
 

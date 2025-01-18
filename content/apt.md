@@ -1,4 +1,6 @@
 ---
+categories:
+- linux
 title: apt
 ---
 

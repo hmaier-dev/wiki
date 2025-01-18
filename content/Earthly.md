@@ -4,7 +4,7 @@ categories:
 title: Earthly
 ---
 
-# Earthly 
+## Earthly 
 
 Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
 zustellen. Verschiedene Targets werden über ein sogennates `Earthfile`
@@ -37,13 +37,13 @@ test-all:
     BUILD +test-database
 ```
 
-# `SAVE ARTIFACT LOCALLY`
+## `SAVE ARTIFACT LOCALLY`
 
 Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
 `--ci`-Flag nicht mitgegeben wurde (`--help` um zu erfahren was sie
 impliziert).
 
-# `SAVE ARTIFACT`
+## `SAVE ARTIFACT`
 
 Möchte man Artifacts aus einem anderen Target importieren, kann man das wie folgt tun.
 ```Dockerfile
@@ -54,7 +54,7 @@ target:
   COPY +download-tailwindcss/tailwindcss /usr/local/bin/tailwindcss
 ```
   
-# `.secrets`
+## `.secrets`
 For deploying from your local machine, you need your secrets present in a `.secrets` file. That must be located in the same directory as the `Earthfile`.
 For multi-line secrets use `''` like in the following example:
 ```
@@ -69,8 +69,8 @@ known_hosts='content-of-the-known-hosts-file'
 ```
 The `''` are needed because they keep the format (like newlines etc).
 
-# Errors
-## Error: could not determine buildkit address - is Docker or Podman running?
+## Errors
+### Error: could not determine buildkit address - is Docker or Podman running?
 If you encounter this error, first look if the systemd-service is running.
 ```bash
 systemctl status docker.service
@@ -89,7 +89,7 @@ The solution to this problem, is to add your user-group to the docker group.
 sudo usermod -aG docker <username>
 ```
 
-## `failed to stat parent: stat /tmp/earthly/buildkit/runc-overlayfs/snapshots/snapshots/2006/fs: no such file or directory`
+### `failed to stat parent: stat /tmp/earthly/buildkit/runc-overlayfs/snapshots/snapshots/2006/fs: no such file or directory`
 
 Something with the cache was wrong. I resolved the issue with: `earthly prune -a` which cleared the cache.
 

@@ -1,4 +1,7 @@
 ---
+categories:
+- coding
+- editors 
 title: lua
 ---
 

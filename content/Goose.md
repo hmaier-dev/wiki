@@ -1,4 +1,6 @@
 ---
+categories:
+- databases
 title: Goose
 ---
 

@@ -1,8 +1,10 @@
 ---
+categories:
+- linux
 title: Arch
 ---
 
-# Dualbooting with Windows 
+## Dualbooting with Windows 
 
 With `systemd-boot` it is relativly easy to install Linux and Windows
 alongside. My suggestion would be to install Linux first and then make
@@ -12,7 +14,7 @@ all UEFI-partitions to boot from.
 Over the time, problems can occure because Windows will do ugly things
 to foreign partitions, when it updates. So be prepared.
 
-## `Error Preparing initrd: Volume corrupted` 
+### `Error Preparing initrd: Volume corrupted` 
 
 The Windows install will probably still boot.
 
@@ -22,7 +24,7 @@ The Windows install will probably still boot.
 3.  Re-generate the boot-image with: `mkinitcpio -P`
 4.  Reboot.
 
-# `pacman`
+## `pacman`
 
 To ignore updates/replacement for a package, you can add it under
 options, e.g.:
@@ -34,3 +36,10 @@ IgnorePkg = ttf-sourcecodepro-nerd
 
 I already have `nerd-fonts-source-code-pro` installed via the AUR, so I
 ignore the native arch-package.
+
+- How to find non-used packages (orphans)?
+    - `alias lsorphans="sudo pacman -Qdt"`
+- How to remove non-used packages (orphans)?
+	- `alias rmorphans="pacman -Qtdq | sudo pacman -Rns -"`
+
+

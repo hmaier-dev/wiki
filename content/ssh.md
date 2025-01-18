@@ -1,4 +1,7 @@
 ---
+categories:
+- cli
+- linux
 title: ssh
 ---
 

@@ -88,9 +88,9 @@ jobs:
 #### Access Token Setup
 
 To enable this process, you need a GitHub personal access token with repo permissions. You can generate one at [GitHub Settings > Tokens](https://github.com/settings/tokens). When cloning the public repository, the token is passed as part of the URL, like this:
-```
-            git clone --single-branch --branch main \
-              "https://x-access-token:$TOKEN@github.com/user/public-repo.git" "repo"
+```yml
+git clone --single-branch --branch main \
+  "https://x-access-token:$TOKEN@github.com/user/public-repo.git" "repo"
 ```
 
 ### 3. Publishing via Hugo
@@ -101,7 +101,7 @@ Running the workflow sets up `earthly` and uses it running hugo and publishes th
 Earthly is like a Makefile for CI. All logic is declared in the `Earthfile`. This file enables me to declare different targets, which every of them spawns a docker-container.
 By using Earthly I can run my CI locally without waiting for a runner.
 
-```
+```Makefile
 VERSION 0.8
 
 hugo:
@@ -157,7 +157,6 @@ To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-
 ```bash
 chmod -R g+s <dir-for-html>
 ```
-
 # Secrets
 
 When passing multi-line secrets, make sure to border the secret with `"` like this:
