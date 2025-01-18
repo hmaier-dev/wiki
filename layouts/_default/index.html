@@ -8,8 +8,10 @@
     <h2>{{ .Name }}</h2>
       {{ range .Pages }}
         <div>
-         <span><!-- Insert list icon here --></span><a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"
-            href="{{ .RelPermalink }}"> {{ .Title }}</a>
+         <span><!-- Insert list icon here --></span>
+         <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="{{ .RelPermalink }}" title="{{ .Description }}">
+           {{ .Title }}
+         </a>
         </div>
       {{ end }}
 
@@ -21,7 +23,10 @@
   {{ range .Site.RegularPages }}
     {{ if not (isset .Params "categories") }}
       <div>
-        <span><!-- Insert list icon here --></span><a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span><!-- Insert list icon here --></span>
+        <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline" href="{{ .RelPermalink }}" title="{{ .Description }}">
+          {{ .Title }}
+        </a>
       </div>
     {{ end }}
   {{ end }}
