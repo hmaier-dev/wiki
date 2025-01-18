@@ -8,3 +8,6 @@ disablePathToLower = true
 [[build.cachebusters]]
     source = 'layouts/.*'
     target = 'css'
+
+[taxonomies]
+  category = 'categories'

@@ -1,7 +1,37 @@
 {{ define "main" }}
 <main>
 
-  {{ .Content }}
+
+<div class="flex flex-wrap">
+  {{ range $category, $taxonomy := .Site.Taxonomies.categories }}
+  <div class="border-gray-500 m-3">
+    <h2 class="text-center" >{{ $category }}</h2>
+    <ul class="">
+      {{ range $taxonomy.Pages }}
+        <li class="">
+          <a class="" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
+
+  </div>
+  {{ end}}
+
+  <div class="m-3" >
+  <h2> miscellaneous </h2>
+  <ul class="">
+  {{ range .Site.RegularPages }}
+    {{ if not (isset .Params "categories") }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  {{ end }}
+  </ul>
+  </div>
+</div>
+
+  <!-- {{ .Content }} -->
 
 </main>
 
