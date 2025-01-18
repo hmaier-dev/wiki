@@ -1,13 +1,12 @@
 {{ define "main" }}
 <main>
 
-
 <div class="flex flex-wrap">
-  <!-- https://gohugo.io/methods/site/taxonomies/#list-all-content-in-a-given-taxonomy -->
-  {{ range $category, $taxonomy := .Site.Taxonomies.categories }}
-  <div class="m-3">
-    <h2 class="" >{{ $category }}</h2>
-      {{ range $taxonomy.Pages }}
+  <!-- https://github.com/gohugoio/hugo/blob/master/resources/page/taxonomy.go#L99 -->
+  {{ range $category := .Site.Taxonomies.categories.ByCount }}
+  <div class="w-1/3">
+    <h2>{{ .Name }}</h2>
+      {{ range .Pages }}
         <div>
          <span><!-- Insert list icon here --></span><a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"
             href="{{ .RelPermalink }}"> {{ .Title }}</a>
@@ -17,7 +16,7 @@
   </div>
   {{ end}}
 
-  <div class="m-3" >
+  <div class="w-1/3" >
   <h2> miscellaneous </h2>
   {{ range .Site.RegularPages }}
     {{ if not (isset .Params "categories") }}
