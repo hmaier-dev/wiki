@@ -3,6 +3,7 @@
 
 
 <div class="flex flex-wrap">
+  <!-- https://gohugo.io/methods/site/taxonomies/#list-all-content-in-a-given-taxonomy -->
   {{ range $category, $taxonomy := .Site.Taxonomies.categories }}
   <div class="border-gray-500 m-3">
     <h2 class="text-center" >{{ $category }}</h2>
