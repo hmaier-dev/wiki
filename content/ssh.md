@@ -3,6 +3,7 @@ categories:
 - cli
 - linux
 title: ssh
+description: tips about using Secure Shell.
 ---
 
 ## TL;DR

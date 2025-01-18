@@ -2,6 +2,7 @@
 categories:
 - coding
 title: Python
+description: No about snakes, but about a nice scripting language.
 ---
 
 ## I want to see the traceback 

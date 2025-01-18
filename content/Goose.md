@@ -2,6 +2,7 @@
 categories:
 - databases
 title: Goose
+description: Not about birds, but about a tool for database-migrations.
 ---
 
 # Goose 
