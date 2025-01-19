@@ -1,0 +1,13 @@
+[
+{{- $first := true -}}
+{{- range .Pages -}}
+  {{- if not $first -}},{{- end -}}
+  {
+    "title": {{ .Title | jsonify }},
+    "url": {{ .Permalink | jsonify }},
+    "content": {{ .Plain | jsonify }},
+    "categories": {{ .Params.categories | jsonify }},
+  }
+  {{- $first = false -}}
+{{- end -}}
+]

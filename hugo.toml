@@ -15,3 +15,13 @@ title = "Wiki"
   [markup.tableOfContents]
     endLevel = 4
     startLevel = 2
+
+[outputFormats]
+  [outputFormats.Search]
+  mediaType = 'application/json'
+  baseName = 'search'
+  isPlainText = true
+
+[outputs]
+home = ['html','Search']
+
