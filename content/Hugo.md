@@ -215,12 +215,41 @@ This is because your tailwind-binary isn't registered in the PATH of your system
 - Windows: Search for `env` in the searchbar, and add the location of tailwind to your user-variables.
 - Linux: Add location to your `$PATH` in your `.profile` or `.bashrc`
 
-If you are interested in which order hugo searches for tailwind; here is the LoC regarding this 
+If you are interested in which order hugo searches for tailwind; here is the LoC regarding this behaviour:
 https://github.com/gohugoio/hugo/blob/master/common/hexec/exec.go#L185
 
 
 
 - Docs: https://gohugo.io/functions/css/tailwindcss/
+
+### Custom Output Formats
+You can generate all kinds of different data-structures with hugo. This can be helpful when making the sites available for other programs (e.g. search-function).
+You will need to add this to your config:
+```toml
+[outputFormats.Search]
+mediaType = 'application/json'
+baseName = 'search'
+isPlainText = true
+
+[outputs]
+all = ["HTML", "Search"]
+```
+`outputs.<name>` will need a corresponding template in `layouts/_default`. For example `outputs.all` needs `all.search.json`.
+This will be a template which you can fill with information fitting you needs:
+```go
+[
+{{- $first := true -}}
+{{- range .Pages -}}
+  {{- if not $first -}},{{- end -}}
+  {
+    "title": {{ .Title | jsonify }},
+    "url": {{ .Permalink | jsonify }},
+    "content": {{ .Plain | jsonify }}
+  }
+  {{- $first = false -}}
+{{- end -}}
+]
+```
 
 ## Error
 ### `ÄÖÜäöü` won't render correctly
