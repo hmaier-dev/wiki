@@ -38,18 +38,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-main {
-    margin: 0 auto;
-    width: 50%;
-}
-/* small screens */
-@media (max-width: 768px) {
-  main {
-    width: 100%;
-    margin: 0; 
-  }
-}
-
 /* Block code */
 code {
     padding: 0.5rem;
