@@ -232,9 +232,12 @@ baseName = 'search'
 isPlainText = true
 
 [outputs]
-all = ["HTML", "Search"]
+all = ["Search"]
 ```
-`outputs.<name>` will need a corresponding template in `layouts/_default`. For example `outputs.all` needs `all.search.json`.
+`outputs.<kind>` will needs a corresponding template in `layouts/_default`. 
+Usually these [Default Output Formats](https://gohugo.io/templates/output-formats/#default-output-formats)are available.
+`all` is no default. But if it matches the `<kind>.search.json`-template in `layouts/_default` it works.
+For example `outputs.all` needs `all.search.json`.
 This will be a template which you can fill with information fitting you needs:
 ```go
 [
