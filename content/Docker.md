@@ -9,6 +9,8 @@ title: Docker
 
 ## TL;DR
 
+- Dockerfile bauen:
+  - `docker build --tag 'my-custom-name' .`
 - Alle Container; both running & stopped:
     -   `docker ps -a`
 - Alle Container die gerade laufen:
