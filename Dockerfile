@@ -8,4 +8,6 @@ RUN mv hugo /usr/local/bin/hugo
 RUN curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.0-beta.8/tailwindcss-linux-x64
 RUN chmod +x tailwindcss-linux-x64
 RUN mv tailwindcss-linux-x64 /usr/local/bin/tailwindcss
-RUN rm hugo_0.140.2_linux-amd64.tar.gz
+RUN rm /tmp/*
+RUN apk del curl && \
+    rm -rf /var/cache/apk/*
