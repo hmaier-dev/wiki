@@ -25,6 +25,11 @@ jobs:
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
 
+    - name: Cache Docker images for earthly
+      uses: ScribeMD/docker-cache@0.5.0
+      with:
+        key: docker-${{ runner.os }}-${{ hashFiles('Earthfile') }}
+
     - name: Download and cache earthly binary
       uses: supplypike/setup-bin@v4
       with:
@@ -35,6 +40,7 @@ jobs:
     - name: Earthly +build
       run: |
         earthly +build
+
     - name: Deploy to GitHub pages
       uses: peaceiris/actions-gh-pages@v4
       with:
