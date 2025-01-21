@@ -4,8 +4,71 @@ categories:
 title: Github
 ---
 
-# How this wiki works
+# Actions
+## Setting up ssh access for runner to vm
 
+You will need create a key-pair. On the runner you will need the private key and on the vm the public key.
+
+- `id_rsa` goes into e.g. `{{ secrets.SSH_KEY }}`
+- `id_rsa.pub` goes into ~/.ssh/authorized_keys on the vm
+
+Best practice would be to create the user on your local machine and distribute the keys from there.
+
+```bash
+useradd deploy
+passwd deploy
+su deploy
+ssh-keygen -t ed25519 -a 200 -C "runner@github.com"
+ls -la  ~/.ssh
+```
+## Updating static html on vm
+When ssh is setup right, you can over the files with `rsync`.
+```bash
+rsync -rav ./public deploy@vm:~/<dir-for-html>
+```
+The deploying user (e.g. `deploy`) must be in the same group as nginx user (e.g. Group: `www-data`). You achieve this by:
+```bash
+usermod -a -G www-data deploy
+```
+To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-for-html>.
+```bash
+chmod -R g+s <dir-for-html>
+```
+# Secrets
+
+When passing multi-line secrets, make sure to border the secret with `"` like this:
+```bash
+earthly --secret host=${{ secrets.SSH_HOST }} \
+--secret username=${{ secrets.SSH_USER }} \
+--secret key="${{ secrets.SSH_KEY }}" \
++deploy-test
+```
+The `"` keeps the format in it's right place.
+
+## Caching
+With certain actions you can cache binaries or docker-images instead of downloading them each run. This makes your builds much faster.
+
+### Caching Docker-Images
+This a action (there a many) you can use for caching a docker file. 
+
+```yml
+- name: Cache Docker images for earthly
+  uses: ScribeMD/docker-cache@0.5.0
+  with:
+    key: docker-${{ runner.os }}-${{ hashFiles('Earthfile') }}
+```
+
+
+The cache always needs some hash to keep the version apart.
+For generating the hash you should use the file, in which you declare your used image. In case of Docker that could be:
+
+- `docker-compose.yml`
+- `Dockerfile`
+- `Earthfile`
+- etc.
+
+
+# How this wiki works
 The wiki files are stored in my private dotfiles repository.
 Since I prefer to keep this repository private, but GitHub Pages requires a public repository, I push the necessary files to a separate public repository for publishing.
 
@@ -124,46 +187,3 @@ build:
     BUILD +hugo
 ```
 The generated html-files are getting exporter to `./public`, which is the `publish_dir` for Github-Pages.
-
-
-# Actions
-
-## Setting up ssh access for runner to vm
-
-You will need create a key-pair. On the runner you will need the private key and on the vm the public key.
-
-- `id_rsa` goes into e.g. `{{ secrets.SSH_KEY }}`
-- `id_rsa.pub` goes into ~/.ssh/authorized_keys on the vm
-
-Best practice would be to create the user on your local machine and distribute the keys from there.
-
-```bash
-useradd deploy
-passwd deploy
-su deploy
-ssh-keygen -t ed25519 -a 200 -C "runner@github.com"
-ls -la  ~/.ssh
-```
-## Updating static html on vm
-When ssh is setup right, you can over the files with `rsync`.
-```bash
-rsync -rav ./public deploy@vm:~/<dir-for-html>
-```
-The deploying user (e.g. `deploy`) must be in the same group as nginx user (e.g. Group: `www-data`). You achieve this by:
-```bash
-usermod -a -G www-data deploy
-```
-To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-for-html>.
-```bash
-chmod -R g+s <dir-for-html>
-```
-# Secrets
-
-When passing multi-line secrets, make sure to border the secret with `"` like this:
-```bash
-earthly --secret host=${{ secrets.SSH_HOST }} \
---secret username=${{ secrets.SSH_USER }} \
---secret key="${{ secrets.SSH_KEY }}" \
-+deploy-test
-```
-The `"` keeps the format in it's right place.
