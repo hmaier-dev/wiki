@@ -18,8 +18,8 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       FORCE_COLOR: 1
-      earthly-version: v0.8.13
-      earthly-path: /tmp/earthly/${{ earthly-version }}
+      EARTHLY_VERSION: v0.8.13
+      EARTHLY_PATH: /tmp/earthly/v0.8.13
     permissions:
       contents: write
     steps:
@@ -29,27 +29,27 @@ jobs:
       id: earthly-binary
       uses: actions/cache@v2
       with:
-        path: ${{ earthly-path }}
-        key: earthly-${{ runner.os }}-${{ hashFiles('/tmp/earthly${{ earthly-version}}/earthly') }}
+        path: /tmp/earthly/v0.8.13
+        # FIXME: declare path in hasFiles with variable
+        key: earthly-${{ runner.os }}-${{ hashFiles('/tmp/earthly/v0.8.13/earthly') }}
 
     - name: Download Binary if Not Cached
       if: steps.earthly-binary.outputs.cache-hit != 'true'
       run: |
-        mkdir -p ${{ earthly-path }}
-        curl -L -o ${{ earthly-path }}/earthly https://github.com/earthly/earthly/releases/download/${{ earthly-version }}/earthly-linux-amd64
-        chmod +x ${{ earthly-path }}/earthly
+        mkdir -p "$EARTHLY_PATH"
+        curl -L -o "$EARTHLY_PATH"/earthly https://github.com/earthly/earthly/releases/download/$EARTHLY_VERSION/earthly-linux-amd64
+        chmod +x $EARTHLY_PATH/earthly
 
     - name: Add binary to PATH
-      run: echo "${{ earthly-path }}/earthly" >> $GITHUB_PATH
+      run: echo "$EARTHLY_PATH/earthly" >> $GITHUB_PATH
 
     - name: Verify Binary Download and Cache
       run: |
-        if [ -f "${{ earthly-path }}/earthly" ]; then
+        if [ -f "$EARTHLY_PATH/earthly" ]; then
           echo "Binary download and cache successful!"
         else
           echo "Binary download or cache failed!"
           exit 1
-        
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
 
