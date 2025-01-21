@@ -27,7 +27,7 @@ jobs:
 
     - name: Setup cache for earthly binary
       id: earthly-binary
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: /tmp/earthly/v0.8.13
         # FIXME: declare path in hasFiles with variable
@@ -40,16 +40,9 @@ jobs:
         curl -L -o "$EARTHLY_PATH"/earthly https://github.com/earthly/earthly/releases/download/$EARTHLY_VERSION/earthly-linux-amd64
         chmod +x $EARTHLY_PATH/earthly
 
-    - name: Add binary to PATH
+    - name: Add earthly to PATH
       run: echo "$EARTHLY_PATH/earthly" >> $GITHUB_PATH
 
-    - name: Verify Binary Download and Cache
-      run: |
-        if [ -f "$EARTHLY_PATH/earthly" ]; then
-          echo "Binary download and cache successful!"
-        else
-          echo "Binary download or cache failed!"
-          exit 1
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
 
