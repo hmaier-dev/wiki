@@ -1,5 +1,5 @@
-# FROM alpine:3.21.2
 FROM debian:bullseye
+LABEL org.opencontainers.image.source=https://github.com/hmaier-dev/wiki
 
 WORKDIR /tmp
 RUN apt-get update && apt-get install -y curl bash && \
