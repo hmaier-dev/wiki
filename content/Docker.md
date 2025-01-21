@@ -10,7 +10,7 @@ title: Docker
 ## TL;DR
 
 - Dockerfile bauen:
-  - `docker build --tag 'my-custom-name' .`
+  - `docker build --tag 'username/my-custom-name' .`
 - Alle Container; both running & stopped:
     -   `docker ps -a`
 - Alle Container die gerade laufen:
@@ -31,7 +31,7 @@ title: Docker
     - `docker rmi -f $(docker images -aq)`
 - Wie lade ich ein Image in meine Docker-Registry?
     - Erst einloggen mit `docker login`.
-    - Danach `docker push <username>/<image-name>`
+    - Danach `docker push <username>/<image-name>:latest`
 
 ## `docker inspect`
 
@@ -63,3 +63,7 @@ docker run \
 Das `-it` ist nötig, um ein `Exit(0)` des Containers zu verhindern.
 `Exit(0)` würde passieren, wenn die Shell merkt, dass sich niemand
 verbindet.
+
+## Optimizing Image size
+
+
