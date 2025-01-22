@@ -3,3 +3,11 @@
               px-5 py-2.5 text-center m-12 dark:bg-blue-600">
   Home
 </a>
+
+{{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
+
+<a href="{{ .Site.BaseURL}}{{ $rand.Path }}" class="text-white bg-blue-700
+              hover:bg-blue-800 font-medium rounded-full text-sm
+              px-5 py-2.5 text-center m-12 dark:bg-blue-600">
+  Random
+</a>
