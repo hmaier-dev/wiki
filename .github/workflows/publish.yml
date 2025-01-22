@@ -30,8 +30,8 @@ jobs:
       uses: actions/cache@v4
       with:
         path: /opt/earthly/v0.8.13
-        # FIXME: declare path in hasFiles with variable
-        key: earthly-${{ runner.os }}-${{ hashFiles('/opt/earthly/v0.8.13/earthly') }}
+        # If version changes, a new binary will be downloaded
+        key: earthly-${{ runner.os }}-$EARTHLY_VERSION
 
     - name: Download Binary if Not Cached
       if: steps.earthly-binary.outputs.cache-hit != 'true'
