@@ -19,7 +19,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       FORCE_COLOR: 1
       EARTHLY_VERSION: v0.8.13
-      EARTHLY_PATH: /tmp/earthly/v0.8.13
+      EARTHLY_PATH: /opt/earthly/v0.8.13
     permissions:
       contents: write
     steps:
@@ -29,9 +29,9 @@ jobs:
       id: earthly-binary
       uses: actions/cache@v4
       with:
-        path: /tmp/earthly/v0.8.13
+        path: /opt/earthly/v0.8.13
         # FIXME: declare path in hasFiles with variable
-        key: earthly-${{ runner.os }}-${{ hashFiles('/tmp/earthly/v0.8.13/earthly') }}
+        key: earthly-${{ runner.os }}-${{ hashFiles('/opt/earthly/v0.8.13/earthly') }}
 
     - name: Download Binary if Not Cached
       if: steps.earthly-binary.outputs.cache-hit != 'true'
@@ -41,7 +41,10 @@ jobs:
         chmod +x $EARTHLY_PATH/earthly
 
     - name: Add earthly to PATH
-      run: echo "$EARTHLY_PATH/earthly" >> $GITHUB_PATH
+      run: echo "$EARTHLY_PATH" >> $GITHUB_PATH
+
+    - name: Check if earthly is in path
+      run: earthly --version
 
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
