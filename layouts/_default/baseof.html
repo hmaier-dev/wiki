@@ -4,11 +4,12 @@
   {{ partial "head.html" . }}
 </head>
 <body class="bg-gray-800">
+
   <header class="py-3">
     {{ partial "header.html" . }}
   </header>
 
-  <main class="bg-gray-50 p-3 rounded m-auto lg:w-4/6 md:w-5/6 sm:w-full">
+  <main class="bg-gray-50 p-3 rounded m-auto lg:w-4/6 md:w-5/6 sm:w-full min-h-[calc(100vh-4rem)]">
     {{ block "main" . }}{{ end }}
   </main>
 
