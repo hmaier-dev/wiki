@@ -34,6 +34,16 @@ To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-
 ```bash
 chmod -R g+s <dir-for-html>
 ```
+## Enabling debugging for steps
+If you need more insign into, what is happening, you can enable debugging for the job.
+```yml
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    env:
+      ACTIONS_STEP_DEBUG: true
+```
+
 # Secrets
 
 When passing multi-line secrets, make sure to border the secret with `"` like this:
@@ -50,7 +60,6 @@ With certain actions you can cache binaries or docker-images instead of download
 
 ### Caching Docker-Images
 This a action (there a many) you can use for caching a docker file. 
-
 ```yml
 - name: Cache Docker images for earthly
   uses: ScribeMD/docker-cache@0.5.0
@@ -58,8 +67,7 @@ This a action (there a many) you can use for caching a docker file.
     key: docker-${{ runner.os }}-${{ hashFiles('Earthfile') }}
 ```
 
-
-The cache always needs some hash to keep the version apart.
+You can use the `hashfiles`-function to generate a unique hash, to keep your caches apart.
 For generating the hash you should use the file, in which you declare your used image. In case of Docker that could be:
 
 - `docker-compose.yml`
@@ -67,6 +75,46 @@ For generating the hash you should use the file, in which you declare your used 
 - `Earthfile`
 - etc.
 
+
+### Caching binaries
+For binaries the caching can be done, within some steps. In this example caching of the `earthly`-binary is done.
+```yml
+# Step 1
+- name: Setup cache for earthly binary
+  id: earthly-binary
+  uses: actions/cache@v4
+  with:
+    path: /opt/earthly/v0.8.13
+    # If version changes, a new binary will be downloaded
+    key: earthly-${{ runner.os }}-${{ env.EARTHLY_VERSION }}
+
+# Step 2
+- name: Download Binary if Not Cached
+  if: steps.earthly-binary.outputs.cache-hit != 'true'
+  run: |
+    mkdir -p "$EARTHLY_PATH"
+    curl -L -o "$EARTHLY_PATH"/earthly https://github.com/earthly/earthly/releases/download/$EARTHLY_VERSION/earthly-linux-amd64
+    chmod +x $EARTHLY_PATH/earthly
+
+# Step 3
+- name: Add earthly to PATH
+  run: echo "$EARTHLY_PATH" >> $GITHUB_PATH
+
+# Step 4
+- name: Check if earthly is in path
+  run: earthly --version
+
+```
+Step 2 will just run and download the binary, if no key has been found. A good place to store binaries that are not installed by
+the systems package manager is `/opt`. In this example the semantic is `/opt/<name>/<version>` (e.g. `/opt/earthly/v0.8.13`).
+Add the path to `$GITHUB_PATH` to make the binary everywhere available.
+
+The key of the cache (Step 1) needs to have a unique part. So you can keep different version apart. 
+For the binary I just use the version number.
+
+# Packages
+
+- Ressources: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 
 # How this wiki works
 The wiki files are stored in my private dotfiles repository.
