@@ -1,10 +1,8 @@
 {{ define "main" }}
-<main class="p-3 rounded m-auto lg:w-4/6 md:w-5/6 sm:w-full">
 
-{{  with .Content  }}
-    {{ $Link := $.RelPermalink }}
-    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
-{{  end  }}
+  {{  with .Content  }}
+      {{ $Link := $.RelPermalink }}
+      {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" (printf `${1}<a href="%s#${2}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> ${3}` $Link)  | safeHTML }}
+  {{  end  }}
 
-</main>
 {{ end }}

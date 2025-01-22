@@ -1,16 +1,11 @@
 {{ define "main" }}
-<main class="bg-gray-200 p-3 rounded w-4/6 m-auto max-lg:w-full">
 
   <div class="flex flex-wrap">
     {{ partial "categories-Alphabetical.html" . }}
     {{ partial "pages-without-category.html" . }}
   </div>
 
-  <!-- {{ .Content }} -->
-
 {{ partial "search.html" .}}
-
-</main>
 
 {{ partial "index_footer.html" . }}
 
