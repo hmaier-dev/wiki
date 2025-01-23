@@ -50,9 +50,15 @@ jobs:
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
 
     - name: Cache Docker images for earthly
+      id: docker-cache
       uses: ScribeMD/docker-cache@0.5.0
       with:
         key: docker-${{ runner.os }}-${{ hashFiles('Earthfile') }}
+
+    - name: Pull image if not cached
+      if: steps.docker-cache.outputs.cache-hit != 'true'
+      run: |
+          docker pull hmaierdev/hugo-plus-tailwind:latest
 
     - name: Earthly +build
       run: |
@@ -66,6 +72,3 @@ jobs:
         publish_branch: gh-pages
         publish_dir: ./public
         force_orphan: true
-    - name: Debug
-      run: ls -la
-
