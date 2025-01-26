@@ -37,6 +37,7 @@
 
 }
 
+
 body {
     font-family: 'Inter', sans-serif;
 }
@@ -63,4 +64,37 @@ footer {
     margin: 0 auto;
     text-align: center;
 
+}
+
+body {
+  counter-reset: h2counter h3counter h4counter h5counter h6counter;
+}
+
+h2::before {
+  counter-increment: h2counter;
+  content: counter(h2counter) ". ";
+  counter-set: h3counter 0;
+}
+
+h3::before {
+  counter-increment: h3counter;
+  content: counter(h2counter) "." counter(h3counter) ". ";
+  counter-set: h4counter 0;
+}
+
+h4::before {
+  counter-increment: h4counter;
+  content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) ". ";
+  counter-set: h5counter 0;
+}
+
+h5::before {
+  counter-increment: h5counter;
+  content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) ". ";
+  counter-set: h6counter 0;
+}
+
+h6::before {
+  counter-increment: h6counter;
+  content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) "." counter(h6counter) ". ";
 }
