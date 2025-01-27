@@ -5,11 +5,11 @@
 </head>
 <body class="bg-gray-800">
 
-  <header class="flex items-center justify-center m-12 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
     {{ partial "header.html" . }}
   </header>
 
-  <main class="bg-gray-50 p-3 rounded m-auto mb-6 w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12 min-h-[calc(100vh-4rem)]">
+  <main class="bg-gray-50 p-3 m-auto mb-6 w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12 min-h-[calc(100vh-4rem)]">
     {{ block "main" . }}{{ end }}
   </main>
  

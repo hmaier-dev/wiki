@@ -1,15 +1,18 @@
-<a href="{{ .Site.BaseURL }}" class="text-white bg-blue-700
-              hover:bg-blue-800 font-medium rounded-full text-sm
-              px-5 py-2.5 text-center m-2 dark:bg-blue-600">
-  Home
-</a>
 
-{{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
 
-<a href="{{ .Site.BaseURL}}{{ $rand.Path }}" class="text-white bg-blue-700
-              hover:bg-blue-800 font-medium rounded-full text-sm
-              px-5 py-2.5 text-center m-2 dark:bg-blue-600"
-              title="Because of Hugo's nature as a static site generator, this button isn't truly random.
-It just gets newly generated with every build of the site.">
-  Random
-</a>
+{{ if not .Page.IsHome }}
+
+  <a href="{{ .Site.BaseURL }}" class="mx-1">
+    Home
+  </a>
+
+  {{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
+
+  <a href="{{ .Site.BaseURL}}{{ $rand.Path }}" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+{{ end }}
+
+
