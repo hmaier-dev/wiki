@@ -1,1 +1,17 @@
-Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted by Github-Pages from <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+
+{{ if not .Page.IsHome }}
+  <div class="mb-3 flex justify-center">
+    {{ with .Prev }}
+    <a class="mx-3" href="{{ .RelPermalink }}">Previous Page</a>
+    {{ end }}
+    <a class="mx-3" href="{{ .Site.BaseURL }}">Go to Home</a>
+    {{ with .Next }}
+    <a class="mx-3" href="{{ .RelPermalink }}">Next Page</a>
+    {{ end }}
+  </div>
+{{ end}}
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
