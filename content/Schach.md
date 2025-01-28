@@ -2,6 +2,8 @@
 title: Schach
 ---
 
+{{< single-image src="media/chess-meme-grandpa.webp" >}}
+
 ## Steinitzsche Ideen
 
 Welche positionellen Vorteile gibt es?
