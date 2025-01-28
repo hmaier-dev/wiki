@@ -13,7 +13,7 @@ also aufeinander auf. Mit Goose bildet man also die Evolution seiner
 Datenbank ab. Es ist möglich mit `up` und `down` zwischen den
 verschiedenen Evolutionsstufen zu switchen.
 
-# Normaler Use-Case 
+## Normaler Use-Case 
 
 ``` bash
 export DB_URL=postgres://postgres:password@172.17.0.3:5432/cmdb
@@ -46,7 +46,7 @@ goose -allow-missing -dir ./migrations postgres $DB_URL up
 # └── 20240318172042_add_cloud_contract_columns.sql
 ```
 
-# Migration schreiben 
+## Migration schreiben 
 
 Dies ist eine Evolutionsstufe. Es wird definiert wie man, die Stufe
 erreicht (`+goose Up`) und wie man die Änderungen wieder rückgängig

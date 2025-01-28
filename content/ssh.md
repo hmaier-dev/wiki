@@ -6,6 +6,8 @@ title: ssh
 description: tips about using Secure Shell.
 ---
 
+# ssh
+
 ## TL;DR
 
 - Where to find the ssh access logs?

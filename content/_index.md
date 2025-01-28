@@ -1,5 +1,5 @@
 ---
-title: index
-description: The Table of Contents for this wiki
+title: Home
+description: Welcome to the published part of my private wiki!
 ---
 

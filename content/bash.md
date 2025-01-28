@@ -4,6 +4,8 @@ categories:
 title: bash
 ---
 
+# Bourne Again Shell
+
 ## TL;DR
 
 - How to lock a account: `usermod -L user` (unlock it with `-U`)
@@ -17,5 +19,11 @@ title: bash
 ## Colors and Effects in Terminal
 
 - https://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+## if-else
+If you want to test a string, you can use
+
+- `-n` to test if var *is not empty*
+- `-z` to test if var *is empty*
 
 

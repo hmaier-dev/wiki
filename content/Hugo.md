@@ -4,31 +4,25 @@ categories:
 title: Hugo
 ---
 
-## Hugo
+# Hugo
 Is a generator for static html. 
 
-### Develop locally with Hugo
+## Develop locally with Hugo
 
 If you already have the needed directory structure and you'd want to know how the website will
 look, just use 
 ```bash
 hugo server
 ```
-and `hugo` will provide a local webserver for you. 
-
-Make sure to change the `baseURL`:
-```toml
-# baseURL = "https://hmaier-dev.github.io/wiki/"
-baseURL = "http://localhost:1313/wiki"
+and `hugo` will provide a local webserver for you. To open connections from your phone or another client in the local network use
+`--bind`.
+```bash
+hugo server --bind 0.0.0.0 --baseURL http://<ip-of-you-device>:1313/wiki
 ```
+You can use `--baseURL` to overwrite the `baseURL`, so that you don't have to change the `hugo.toml`.
+When developing locally you need to do either, because otherwise the `css` won't load and links won't direct correctly.
 
-Otherwise the local `css` won't load correctly.
-
-If you ever change something under the `layouts`-directory, make sure to `earthly +build` the whole thing.
-
-At last make sure to `git restore hugo.toml`!
-
-### Config-file
+## Config-file
 
 Hugo needs config-file, which default is `hugo.toml`.
 ```toml
@@ -37,7 +31,7 @@ languageCode = "de-us"
 title = "Wiki"
 ```
 
-### Configuration
+## Configuration
 You will need several things for Hugo.
 
 - a `./content`-directory with your knowlegde written in markdown (`.md`)
@@ -65,7 +59,7 @@ Default directory structure looks like this
 
 ```
 
-### Layouts
+## Layouts
 There is a lookup-routine over which Hugo iterates. If it finds no Theme or other layouts, it will use the files in `./layouts/_default/`.
 For example, these files could look like this.
 
@@ -96,7 +90,7 @@ For example, these files could look like this.
 ```
 In this example, there is no logic at all. Therefore your markdown gets converted in the most basic way.
 
-### Templating System
+## Templating System
 If you have worked with the Golang-modules `html/template` or `text/template`, this should look familiar to you.
 Indeed you can use native Golang-functions, like `printf` or `date`. Also there is Metadata like `.RelPermalink` or `.Title` which is provided by Hugo.
 Use both docs for problem solving:
@@ -108,9 +102,7 @@ For more examples, just look at:
 
 - https://themes.gohugo.io/
 
-#### Examples
-
-##### Adding a variable to the `REPLACEMENT` when using `replaceRE`
+### Adding a variable to the `REPLACEMENT` when using `replaceRE`
 At first I glance it tried to manually insert the variable `$Link` (which is `.RelPermalink`) into the `REPLACEMENT`.
 ```html
 {{  with .Content  }}
@@ -131,13 +123,13 @@ Doing it this way, the variable just won't get display. Turns out I can use `pri
 > But beware, you cannot use `.RelPermalink` when doing this.
 
 
-### Menus
+## Menus
 In Hugo navbars are called menus.
 
 - Offical docs: https://gohugo.io/content-management/menus/
 - Helpful article: https://harrycresswell.com/writing/menus-in-hugo/
 
-#### Nav with all regular pages
+### Nav with all regular pages
 Regular pages are the ones, that you added. With `site.AllPages` you would receive more.
 This snippet would be located in `layouts/partials/nav.html`.
 ```html
@@ -151,7 +143,7 @@ This snippet would be located in `layouts/partials/nav.html`.
 </nav>
 ```
 
-### Shortcodes
+## Shortcodes
 Shortcodes are functions for custom html. You can embbed them into your markdown content or into your layouts.
 If you have some arguments like a changing `src=` or a different `id=` can use a shortcode. Shortcodes cannot be used in `layouts`.
 Use them inside your markdown `content`.
@@ -161,17 +153,17 @@ Here are some example, made by the hugo-team:
 - https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates/shortcodes
 - Docs: https://gohugo.io/templates/shortcode/#create-custom-shortcodes
 
-### Syntax Highlighting
+## Syntax Highlighting
 
 Hugo uses Chroma for syntax highlighting. Here is the link to the docs: https://gohugo.io/content-management/syntax-highlighting/
 
-### Ressources
+## Ressources
 When trying to access a ressource this way, you need to have a `assets`-directory containing `css/main.css`. It won't work with a `static`-directory.
 ```go
 {{ $css :=  resources.Get "css/main.css" }}
 ```
 
-### TailwindCSS
+## TailwindCSS
 By `resources.Get` you can pass the content to `css.TailwindCSS` which outputs into `public/css/<name>.css`. This is elegant because of two reasons:
 
 - `hugo server` triggers a rebuild of css when it detects changes. (for this you need a `tailwindcss`-binary in your path, e.g. `/usr/bin/tailwindcss`)
@@ -197,7 +189,7 @@ If you wan't to turn off/on Tailwind for your css, just remove/add the following
 ```css
 @import "tailwindcss";
 ```
-#### Where does Hugo search for tailwindcss?
+### Where does Hugo search for tailwindcss?
 If you use the **binary** (https://tailwindcss.com/blog/standalone-cli) instead of the **npm package**, you might
 come across the problem of hugo not finding it probably. The error might look like this:
 ```bash
@@ -222,7 +214,7 @@ https://github.com/gohugoio/hugo/blob/master/common/hexec/exec.go#L185
 
 - Docs: https://gohugo.io/functions/css/tailwindcss/
 
-### Custom Output Formats
+## Custom Output Formats
 You can generate all kinds of different data-structures with hugo. This can be helpful when making the sites available for other programs (e.g. search-function).
 You will need to add this to your config:
 ```toml
@@ -254,9 +246,13 @@ This will be a template which you can fill with information fitting you needs:
 ]
 ```
 
-## Error
-### `ÄÖÜäöü` won't render correctly
+# Troubleshooting and errors
+
+## `ÄÖÜäöü` won't render correctly
 Adding the charset to the `head.html` helps.
 ```html
 <meta charset="UTF-8">
 ```
+## "I want to see the all properties of an object."
+You will get what you want with: `{{ debug.Dump . }}`.
+The dot will print the context your in, but you can also change it to a variable.

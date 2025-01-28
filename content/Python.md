@@ -5,6 +5,8 @@ title: Python
 description: No about snakes, but about a nice scripting language.
 ---
 
+# Python
+
 ## I want to see the traceback 
 
 ``` python

@@ -35,7 +35,7 @@ export VAGRANT_DEFAULT_PROVIDER=virtualbox
 
 ## `Vagrantfile` für Ubuntu-Maschine 
 
-``` 
+```ruby
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-22.04"
   config.vm.network "private_network", ip: "192.168.56.10"

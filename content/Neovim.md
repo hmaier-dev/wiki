@@ -4,7 +4,13 @@ categories:
 title: Neovim
 ---
 
-# Vimscript essentials
+# Neovim
+Is a fork from the original vim-project. Some key-features are:
+
+- LSP-Integration
+- Configuration with `lua`
+
+## Vimscript essentials
 The most fundamental config
 ```vimscript
 filetype plugin indent on
@@ -14,15 +20,12 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-
 " Indentation and re-selection
 vnoremap > >gv
 vnoremap < <gv
- 
 ```
 
-
-# Treesitter 
+## Treesitter 
 
 You can install treesitter-parsers just with the following command.
 
@@ -30,7 +33,7 @@ You can install treesitter-parsers just with the following command.
 :TSInstall <tab>
 ```
 
-By pressing \<TAB\> the autocompletion shows you a plethora of
+By pressing <TAB> the autocompletion shows you a plethora of
 installable languages.
 
 With the `:InspectTree` you can display the the AST
@@ -49,34 +52,26 @@ will be highlighted. Then do
 ```vimscript
 :%s/
 ```
-
 With `C-r` you can paste the highlighted string. At first it looks like
 this
-
 ```vimscript
 :%s/"
 ```
-
 After a `/`:
- 
 ```vimscript
 :%s/\<string\>
 ```
 
 Continue with another `/` and your wanted string.
-
 ```vimscript
 :%s/\<string\>/mynewstring/
 ```
-
 You can now specifiy, if you want to change globally with `g` (don\'t
 know what this means) and if you want confirmation with `c`.
-
 ```vimscript
 :%s/\<string\>/mynewstring/gc
 ```
-
-## With LSP
+### With LSP
 If you have lsp configured, you can do it with `vim.lsp.buf.rename`:
 ```lua
 -- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration
@@ -92,7 +87,7 @@ v.api.nvim_create_autocmd("LspAttach", {
 
 ```
 
-## in you entire project
+### in you entire project
 
 The native vim-way goes like that:
 
@@ -150,15 +145,15 @@ Which means:
 
 Just press `q:` (not `:q`). Now you can browse through are executed commands and copy them.
 
-# Lua 
+## Lua 
 
 Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
 übersichtlicher zu machen ist `stylua`. Mehr zu Lua gibt es hier:
 [lua](lua)
 
-# Troubleshooting 
+## Troubleshooting 
 
-## Fehler nach Updates von Plugins 
+### Fehler nach Updates von Plugins 
 
 In einer Vielzahl von Fällen treten Probleme nach Updates von Plugins
 auf. Lässt sich der Fehler nicht zur eigenen Konfiguration, sondern in

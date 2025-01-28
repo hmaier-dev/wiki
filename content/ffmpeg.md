@@ -5,7 +5,9 @@ categories:
 title: ffmpeg
 ---
 
-# Converting filetypes
+# ffmpeg
+
+## Converting filetypes
 If you want to convert a single ogg-file into mp3.
 ```bash
 ffmpeg -i "file.ogg" "file.mp3"
@@ -14,7 +16,7 @@ If there are multiple files, instead of writing a script, you could use gnu/para
 ```bash
 parallel ffmpeg -i "{}" "{.}.mp3" ::: *.ogg
 ```
-# Changing bitrate
+## Changing bitrate
 
 ```bash
 ffmpeg -i sounds.mp3 -b:a 128k sounds.mp3

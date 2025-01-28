@@ -2,6 +2,7 @@
 categories:
 - cli
 - Linux
+- ci/cd
 title: git
 ---
 

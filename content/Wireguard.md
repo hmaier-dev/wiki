@@ -1,8 +1,12 @@
 ---
 categories:
 - linux
+- networking
 title: Wireguard
 ---
+
+# Wireguard
+Does VPN.
 
 ## TL;DR
 
@@ -50,4 +54,11 @@ sudo nmcli connection import type wireguard file wg0.conf
 ```
 
 Im Indicator sollte jetzt die Verbindung `wg0` angezeigt werden.
+
+## Troubleshooting
+
+### `wg0`-Interface wird nach jedem boot neu erstellt
+Wenn man Wireguard-Verbindungen vom NetworkManager verwalten lässt, schreibt dieser ein Konfiguration für das `wg0`-Interface. 
+Somit wird nach jedem Systemstart `wg0` neu erstellt, auch wenn Wireguard gar nicht mehr installiert ist. Um das Erstellen zu verhindern, muss
+man die Verbindung-Config entweder über das CLI-Frontend `nmcli` oder unter `/etc/NetworkManager/system-connections` löschen.
 

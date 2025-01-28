@@ -4,8 +4,10 @@ categories:
 title: Github
 ---
 
-# Actions
-## Setting up ssh access for runner to vm
+# Github
+
+## Actions
+### Setting up ssh access for runner to vm
 
 You will need create a key-pair. On the runner you will need the private key and on the vm the public key.
 
@@ -21,7 +23,7 @@ su deploy
 ssh-keygen -t ed25519 -a 200 -C "runner@github.com"
 ls -la  ~/.ssh
 ```
-## Updating static html on vm
+### Updating static html on vm
 When ssh is setup right, you can over the files with `rsync`.
 ```bash
 rsync -rav ./public deploy@vm:~/<dir-for-html>
@@ -30,11 +32,11 @@ The deploying user (e.g. `deploy`) must be in the same group as nginx user (e.g.
 ```bash
 usermod -a -G www-data deploy
 ```
-To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-for-html>.
+To ensure all files have the right ownership, set the `setgid`-bit on the `<dir-for-html>`.
 ```bash
 chmod -R g+s <dir-for-html>
 ```
-## Enabling debugging for steps
+### Enabling debugging for steps
 If you need more insign into, what is happening, you can enable debugging for the job.
 ```yml
 jobs:
@@ -44,7 +46,7 @@ jobs:
       ACTIONS_STEP_DEBUG: true
 ```
 
-# Secrets
+## Secrets
 
 When passing multi-line secrets, make sure to border the secret with `"` like this:
 ```bash
@@ -112,19 +114,18 @@ Add the path to `$GITHUB_PATH` to make the binary everywhere available.
 The key of the cache (Step 1) needs to have a unique part. So you can keep different version apart. 
 For the binary I just use the version number.
 
-# Packages
+## Packages
 
 - Ressources: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 
-# How this wiki works
+## How this wiki works
 The wiki files are stored in my private dotfiles repository.
 Since I prefer to keep this repository private, but GitHub Pages requires a public repository, I push the necessary files to a separate public repository for publishing.
 
-### 1. Committing Changes to the Private Repository
+### Committing Changes to the Private Repository
 Any changes made in `docs/vimwiki` are committed and pushed to the private remote repository.
 
-
-### 2. Syncing to the Public Repository
+### Syncing to the Public Repository
 A GitHub Actions workflow automates the process of syncing changes to the public repository. Here's how it works:
 
 - The workflow clones the public wiki repository.
@@ -136,7 +137,6 @@ A GitHub Actions workflow automates the process of syncing changes to the public
 The workflow located in `~/.github/workflow/wiki.yml` looks like this:
 
 ```yaml
-
 name: Update all wiki articles
 
 on:
@@ -145,7 +145,6 @@ on:
       - main
     paths:
       - docs/vimwiki/**
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -173,18 +172,7 @@ jobs:
         run: |
             # Whitelist of all publishable wiki articles
             cp index.md $content
-      - name: Setup Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.12'
-          
-      # Optional:  
-      # Give special treatment to index.wiki because it needs to get censored
-      - name: Censor index.wiki
-        run: |
-          cd $content
-          python ../build/extract.py index.md
-          
+            # some more markdown files...
       # Pushing to the public wiki
       - name: Commit and push new files
         run: |
@@ -204,7 +192,7 @@ git clone --single-branch --branch main \
   "https://x-access-token:$TOKEN@github.com/user/public-repo.git" "repo"
 ```
 
-### 3. Publishing via Hugo
+### Publishing via Hugo
 When the changes arrive in the public-repository, the `publish.yml` workflow is triggered.
 Running the workflow sets up `earthly` and uses it running hugo and publishes the generated html to the github-pages.
 

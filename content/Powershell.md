@@ -1,6 +1,6 @@
 ---
 categories:
-- Microsoft
+- Windows
 title: Powershell
 ---
 

@@ -1,8 +1,25 @@
 ---
 categories:
-- Microsoft
+- Windows
 title: Windows_Terminal
 ---
+
+# Windows Terminal
+
+## TL;DR
+
+- Cycle through the tabs
+  - `CTRL+TAB` (forwards)
+  - `CTRL+SHIFT-TAB` (backwards)
+- Split Pane
+  - `<SHIFT>-<ALT>-<->` horizontal
+  - `<SHIFT>-<ALT>-<+>` vertical
+- Resize Pane
+  - `ALT-SHIFT-Arrow_Keys`
+- Where to find more on tiling the panes?
+  - https://learn.microsoft.com/en-us/windows/terminal/panes
+
+
 
 ## Nerd-Fonts fürs Windows Terminal 
 

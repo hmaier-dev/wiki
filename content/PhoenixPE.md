@@ -1,6 +1,6 @@
 ---
 categories:
-- Microsoft
+- Windows
 - System-Rescue
 title: PhoenixPE
 ---

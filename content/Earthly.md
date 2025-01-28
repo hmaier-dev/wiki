@@ -4,7 +4,7 @@ categories:
 title: Earthly
 ---
 
-## Earthly 
+# Earthly 
 
 Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
 zustellen. Verschiedene Targets werden über ein sogennates `Earthfile`
@@ -57,7 +57,7 @@ target:
 ## `.secrets`
 For deploying from your local machine, you need your secrets present in a `.secrets` file. That must be located in the same directory as the `Earthfile`.
 For multi-line secrets use `''` like in the following example:
-```
+```txt
 host=192.168.13.12
 port=1337
 username=secret-username

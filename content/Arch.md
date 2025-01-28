@@ -4,6 +4,10 @@ categories:
 title: Arch
 ---
 
+# Arch Linux
+
+{{< single-image src="media/blahaj-close-shot.webp" >}}
+
 ## Dualbooting with Windows 
 
 With `systemd-boot` it is relativly easy to install Linux and Windows
@@ -42,4 +46,30 @@ ignore the native arch-package.
 - How to remove non-used packages (orphans)?
 	- `alias rmorphans="pacman -Qtdq | sudo pacman -Rns -"`
 
+## Network
+You can do it different ways. Gnome uses `NetworkManager` by default.
+A less bloated way would be using the `systemd`-daemons for DNS and DHCP: `systemd-networkd` and `systemd-resolved`.
+Running the following script with the fitting `$interface` will give a basic config for using the network.
+```bash
+interface=eno1
+touch /etc/systemd/network/20-wired.network
+echo "[Match]" >> /etc/systemd/network/20-wired.network
+echo "Name=$interface " >> /etc/systemd/network/20-wired.network
+echo " " >> /etc/systemd/network/20-wired.network
+echo "[Network]" >> /etc/systemd/network/20-wired.network
+echo "DHCP=yes" >> /etc/systemd/network/20-wired.network
+```
+
+### Static IP
+If your IP does not change, you can skip DHCP in the boot-process. You can configure a static IP as following
+in `/etc/systemd/network/20-wired.network`.
+```toml
+[Match]
+Name=eno1 
+ 
+[Network]
+Address=192.168.178.110/24
+Gateway=192.168.178.1
+DNS=192.168.178.1
+```
 

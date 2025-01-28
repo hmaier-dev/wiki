@@ -4,7 +4,13 @@ categories:
 title: htmx
 ---
 
-# Basis 
+# HTMX
+HTMX is a javascript framework which should free the user from writing javscript.
+Find out how on the offical website: https://htmx.org/
+
+This is the easiest way to use htmx: https://htmx.org/docs/#download-a-copy
+
+## Basic POST-Request
 
 This is how you basically send an empty POST-request to the
 HTTP-Endpoint `/disabled`. Regarding golang, the htmx.min.js doesn\'t
