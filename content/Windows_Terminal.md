@@ -4,8 +4,6 @@ categories:
 title: Windows_Terminal
 ---
 
-# Windows Terminal
-
 ## TL;DR
 
 - Cycle through the tabs

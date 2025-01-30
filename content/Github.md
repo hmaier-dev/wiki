@@ -4,8 +4,6 @@ categories:
 title: Github
 ---
 
-# Github
-
 ## Actions
 ### Setting up ssh access for runner to vm
 

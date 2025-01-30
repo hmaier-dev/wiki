@@ -1,7 +1,6 @@
 ---
 title: Schach
 ---
-# Schach
 
 {{< single-image src="media/chess-meme-grandpa.webp" >}}
 

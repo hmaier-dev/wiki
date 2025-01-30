@@ -4,8 +4,6 @@ categories:
 title: Nginx
 ---
 
-# Nginx
-
 ## SSL
 Mit `certbot` lässt sich SSL relativ einfach ab-frühstücken.
 ### Sub-Domäne zu bestehenden Zertifikat hinzufügen

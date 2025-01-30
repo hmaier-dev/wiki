@@ -4,8 +4,6 @@ categories:
 title: systemd
 ---
 
-# systemd
-
 ## mount units 
 
 Um zu vermeiden in der `/etc/fstab` herumzupfuschen, kann man

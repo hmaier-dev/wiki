@@ -6,7 +6,6 @@ title: Neovide
 description: A neovim-gui written in rust.
 ---
 
-# Neovide
 This is written in rust (important!) and can do pretty graphical things.
 
 ## Font

@@ -5,7 +5,6 @@ categories:
 title: Wireguard
 ---
 
-# Wireguard
 Does VPN.
 
 ## TL;DR

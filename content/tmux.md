@@ -5,7 +5,6 @@ categories:
 title: tmux
 ---
 
-# tmux
 Is a terminal multiplexer which nullified my need for a tiling window manager.
 
 ## Move pane to new window 

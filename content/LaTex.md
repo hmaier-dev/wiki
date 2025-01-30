@@ -4,8 +4,6 @@ categories:
 title: LaTex
 ---
 
-# LaTex
-
 ## How to pass variables to LaTex?
 
 If you have a markdown-document and you have e.g. $fontsize$

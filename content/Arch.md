@@ -4,8 +4,6 @@ categories:
 title: Arch
 ---
 
-# Arch Linux
-
 {{< single-image src="media/blahaj-close-shot.webp" >}}
 
 ## Dualbooting with Windows 

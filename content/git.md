@@ -6,8 +6,6 @@ categories:
 title: git
 ---
 
-# git
-
 ## TL;DR 
 
 -   *Ich möchte alles rückgängig machen was ich bisher gemacht habe*:

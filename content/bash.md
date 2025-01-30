@@ -4,8 +4,6 @@ categories:
 title: bash
 ---
 
-# Bourne Again Shell
-
 ## TL;DR
 
 - How to lock a account: `usermod -L user` (unlock it with `-U`)

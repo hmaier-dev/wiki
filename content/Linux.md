@@ -1,11 +1,9 @@
 ---
 categories:
 - Linux
-title: Linux
+title: GNU/Linux
 description: some niche os.
 ---
-
-# GNU/Linux
 
 This article was created in preparation for a job interview as SRE.
 

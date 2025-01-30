@@ -4,8 +4,6 @@ categories:
 title: Postgres
 ---
 
-# Postgres 
-
 ## Nützliche Kommandos 
 
 -   Get all databases:

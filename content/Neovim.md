@@ -4,7 +4,6 @@ categories:
 title: Neovim
 ---
 
-# Neovim
 Is a fork from the original vim-project. Some key-features are:
 
 - LSP-Integration

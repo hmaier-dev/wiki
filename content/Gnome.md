@@ -3,7 +3,6 @@ categories:
 - Linux
 title: Gnome
 ---
-# Gnome
 
 ## System-Tray 
 

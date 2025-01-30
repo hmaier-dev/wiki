@@ -4,8 +4,6 @@ categories:
 title: apt
 ---
 
-# apt
-
 The **Advanced Packaging Tool** is a frontend for `dpkg` and is mostly used on debian-based distros.
 
 ## Unsupported architectures 

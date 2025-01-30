@@ -4,7 +4,6 @@ categories:
 - Linux
 - cli
 ---
-# zsh
 
 ## PROMPT
 This will display a basic prompt containing the username and the path.

@@ -5,8 +5,6 @@ title: Docker
 ---
 
 
-# Docker 
-
 ## TL;DR
 
 - Dockerfile bauen:

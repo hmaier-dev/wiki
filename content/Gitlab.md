@@ -4,7 +4,7 @@ categories:
 title: Gitlab
 ---
 
-# Gitlab
+## Include a foreign job
 
 ```yaml
 include:

@@ -4,8 +4,6 @@ categories:
 title: css
 ---
 
-# css
-
 ## How to exlude indirect children when working with `:not()`?
 
 ```css

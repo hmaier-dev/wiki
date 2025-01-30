@@ -3,7 +3,6 @@ categories:
 - databases
 title: pgTAP
 ---
-# pgTAP
 
 ## Testing mit pgTAP
 

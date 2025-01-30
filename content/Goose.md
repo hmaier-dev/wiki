@@ -5,8 +5,6 @@ title: Goose
 description: Not about birds, but about a tool for database-migrations.
 ---
 
-# Goose 
-
 Ist ein gutes Tool für Datenbank-Migrationen. Damit ist möglich
 inkrementell `sql`-Files einzuspielen. Verschiedenen Migrationen bauen
 also aufeinander auf. Mit Goose bildet man also die Evolution seiner

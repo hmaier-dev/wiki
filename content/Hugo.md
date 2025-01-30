@@ -4,7 +4,6 @@ categories:
 title: Hugo
 ---
 
-# Hugo
 Is a generator for static html. 
 
 ## Develop locally with Hugo

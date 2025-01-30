@@ -4,7 +4,6 @@ categories:
 title: htmx
 ---
 
-# HTMX
 HTMX is a javascript framework which should free the user from writing javscript.
 Find out how on the offical website: https://htmx.org/
 
@@ -29,7 +28,7 @@ even have to be embedded into the binary.
 </body>
 ```
 
-# Errorhandling 
+## Errorhandling 
 
 Leider gibt es keine Magie um Errors mit htmx zu behandeln. Allerdings
 gibt es htmx-Event mit dem man arbeiten kann.

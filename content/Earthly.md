@@ -4,8 +4,6 @@ categories:
 title: Earthly
 ---
 
-# Earthly 
-
 Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
 zustellen. Verschiedene Targets werden über ein sogennates `Earthfile`
 deklariert. Erinnern tut `earthly` dabei, an klassiche Makefiles.
