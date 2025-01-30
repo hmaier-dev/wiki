@@ -23,6 +23,6 @@ trennen.
 
 Source: https://askubuntu.com/questions/741410/skipping-acquire-of-configured-file-main-binary-i386-packages-as-repository-x
 
-# Information über Paket 
+## Information über Paket 
 
 Dabei ist `apt-cache` dein Freund.

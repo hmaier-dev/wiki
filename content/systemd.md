@@ -4,14 +4,15 @@ categories:
 title: systemd
 ---
 
+Mostly found on modern distros. In use as an init-system to manage all services.
 ## mount units 
 
 Um zu vermeiden in der `/etc/fstab` herumzupfuschen, kann man
 alternative (auto-)mount.units verwenden. Folgendes Schema ist dabei
 einzuhalten:
 
--   /etc/systemd/system/path-to-mount.mount
--   /etc/systemd/system/path-to-mount.automount
+-   `/etc/systemd/system/path-to-mount.mount`
+-   `/etc/systemd/system/path-to-mount.automount`
 
 ``` systemd
 ## path-to-mount.automount

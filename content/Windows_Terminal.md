@@ -4,6 +4,8 @@ categories:
 title: Windows_Terminal
 ---
 
+Finally a usable terminal for windows with support for nerd-fonts and multiplexing (split-screen).
+
 ## TL;DR
 
 - Cycle through the tabs

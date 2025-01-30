@@ -5,6 +5,8 @@ title: WebAssembly
 description: How to bring fast languages to the browser.
 ---
 
+Make things in the browser fast, vroom vroom.
+
 ## Golang
 When building WebAssembly in Go, just have to change the `GOOS` and `GOARCH` variable as following:
 ```bash

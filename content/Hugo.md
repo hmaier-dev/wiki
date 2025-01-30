@@ -245,13 +245,13 @@ This will be a template which you can fill with information fitting you needs:
 ]
 ```
 
-# Troubleshooting and errors
+## Troubleshooting and errors
 
-## `ÄÖÜäöü` won't render correctly
+### `ÄÖÜäöü` won't render correctly
 Adding the charset to the `head.html` helps.
 ```html
 <meta charset="UTF-8">
 ```
-## "I want to see the all properties of an object."
+### "I want to see the all properties of an object."
 You will get what you want with: `{{ debug.Dump . }}`.
 The dot will print the context your in, but you can also change it to a variable.

@@ -5,7 +5,7 @@ categories:
 title: Wireguard
 ---
 
-Does VPN.
+Does VPN. The easy way.
 
 ## TL;DR
 

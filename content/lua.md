@@ -7,7 +7,7 @@ title: lua
 
 The most important software from Brasil.
 
-# Printing tables to the console 
+## Printing tables to the console 
 
 Found on
 <https://stackoverflow.com/questions/9168058/how-to-dump-a-table-to-console>
