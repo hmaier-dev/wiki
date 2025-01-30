@@ -8,7 +8,7 @@
 
   {{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
 
-  <a href="{{ .Site.BaseURL}}{{ $rand.Path }}" class="mx-1"
+  <a href="{{ .Site.BaseURL }}{{ $rand.Path }}" class="mx-1"
                 title="Because of Hugo's nature as a static site generator, this button isn't truly random.
   It just gets newly generated with every build of the site.">
     Random
