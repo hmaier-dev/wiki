@@ -62,7 +62,7 @@ Press `h` in `top` to get help.
 -   `m`: memory usage
 -   `R`: toogle sorting (desc/asc)
 
-## What filesystems are and which would you choose for which job {#What filesystems are and which would you choose for which job}
+## What filesystems are and which would you choose for which job 
 
 -   `NTFS` (New Technology File System): commonly used on Windows
 -   `FAT` (File Allocation Table): only small files, commly used for the
@@ -72,7 +72,7 @@ Press `h` in `top` to get help.
 -   `btrfs`
 -   `ext4`
 
-## Explain the filesystem hierarchy {#Explain the filesystem hierarchy}
+## Explain the filesystem hierarchy
 
 -   `/bin`: binarys for the proper functioning of the system
 -   `/sbin`: binarys critical for system administration
@@ -82,7 +82,7 @@ Press `h` in `top` to get help.
 
 -   `mount`
 
-## What is a init-system? {#What is a init-system?}
+## What is a init-system?
 
 The standard init-system as for today is `systemd`. systemd is
 responsible for reparenting orphaned processes. To see which init-system
