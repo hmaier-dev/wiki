@@ -43,8 +43,9 @@
     @apply font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800;
   }
 
-
-
+  #TableOfContents ul {
+    @apply px-8;
+  }
 
 }
 
@@ -76,6 +77,15 @@ footer {
     text-align: center;
 
 }
+
+
+.hidden {
+  display: none;
+}
+
+/*
+ * Counter for heading-level
+ * */
 
 body {
   counter-reset: h2counter h3counter h4counter h5counter h6counter;
@@ -109,3 +119,51 @@ h6::before {
   counter-increment: h6counter;
   content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) "." counter(h6counter) ". ";
 }
+
+/*
+ * Counter for TableOfContents
+ * */
+#TableOfContents{
+  /* Level 1 */
+  ul {
+    list-style-type: none;
+    counter-reset: level_1; /* Reset the counter for the main list */
+  }
+
+  ul > li {
+    counter-increment: level_1; /* Increment the counter for each main list item */
+  }
+
+  ul > li::before {
+    content: counter(level_1) ". "; /* Add the counter before the list item text */
+  }
+
+  /* Level 2*/
+  ul li ul {
+    list-style-type: none;
+    counter-reset: level_2; /* Reset the counter for sublists */
+  }
+
+  ul li ul > li {
+    counter-increment: level_2; /* Increment the sublist counter */
+  }
+
+  ul li ul > li::before {
+    content: counter(level_1) "." counter(level_2) " "; /* Prefix with parent number and sub number */
+  }
+
+  /* Level 3*/
+  ul li ul li ul {
+    list-style-type: none;
+    counter-reset: level_3; /* Reset the counter for sublists */
+  }
+  ul li ul li ul > li {
+    counter-increment: level_2; /* Increment the sublist counter */
+  }
+
+  ul li ul li ul > li::before {
+    content: counter(level_1) "." counter(level_2) "."counter(level_3) " "; /* Prefix with parent number and sub number */
+  }
+
+}
+
