@@ -153,17 +153,26 @@ h6::before {
   }
 
   /* Level 3*/
-  ul li ul li ul {
+  ul li ul li ul{
     list-style-type: none;
     counter-reset: level_3; /* Reset the counter for sublists */
   }
+
   ul li ul li ul > li {
-    counter-increment: level_2; /* Increment the sublist counter */
+    counter-increment: level_3; /* Increment the sublist counter */
   }
 
   ul li ul li ul > li::before {
-    content: counter(level_1) "." counter(level_2) "."counter(level_3) " "; /* Prefix with parent number and sub number */
+    content: counter(level_1) "." counter(level_2) "." counter(level_3) " "; /* Prefix with parent number and sub number */
   }
 
+  /* the pattern for extending the level is:
+   *
+   * ul li -> Level 1
+   * [ul li] ul -> Level 2
+   * [ul li] [ul li] ul -> Level 3
+   * [ul li] [ul li] [ul li] ul -> Level 4
+   *
+   * look how the brackets make up the levels.
+   * */
 }
-

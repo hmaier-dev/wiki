@@ -10,3 +10,8 @@ title = "Wiki"
 
 [taxonomies]
   category = 'categories'
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 4
+    startLevel = 2
