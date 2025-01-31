@@ -11,7 +11,7 @@ Is a fork from the original vim-project. Some key-features are:
 
 ## Vimscript essentials
 The most fundamental config without lua.
-```vimscript
+```vim
 filetype plugin indent on
 
 set expandtab
@@ -39,7 +39,7 @@ With the `:InspectTree` you can display the the AST
 ### Treesitter-Install
 Beforehand you need to have Treesitter setup by your package-manager (in this case lazy.nvim):
 ```lua
-require("lazy").setup(
+return
   {
     {
       "nvim-treesitter/nvim-treesitter",
@@ -55,8 +55,7 @@ require("lazy").setup(
           ignore_install = { "ruby" },
         }) end,
     },
-  },
-)
+  }
 ```
 
 ## How to rename a variable?
@@ -74,11 +73,11 @@ will be highlighted. Then do
 ```
 With `C-r` you can paste the highlighted string. At first it looks like
 this
-```cmd
+```vim
 :%s/"
 ```
 After a `/`:
-```cmd
+```vim
 :%s/\<string\>
 ```
 Continue with another `/` and your wanted string.
@@ -109,7 +108,7 @@ v.api.nvim_create_autocmd("LspAttach", {
 
 The native vim-way goes like that:
 
-``` vimscript
+```vim
 :grep <string> `<location>`
 :grep h.maier `find . -type f`
 ```
@@ -125,7 +124,7 @@ load the found-occurences into a quickfix list.
 
 From there on, `:cdo` is your friend. Replacing a variable-name goes
 like this:
-``` cmd
+```vim
 :cdo %s/h.maier/nobody/gc
 ```
 `:cdo` lets you iterate through the quickfix list and execute the given
@@ -140,7 +139,7 @@ command for every entry.
 :'<,'>
 ```
 -   go into normal mode with `norm` and write your commands
-```cmd
+```vim
 :'<,'>norm A <the-string-of-my-choice>
 ```
 
@@ -157,6 +156,10 @@ Which means:
 ## How to enter the commandline history?
 
 Just press `q:` (not `:q`). Now you can browse through are executed commands and copy them.
+
+## Plugins
+The plugin manager of my choice is `lazy.nvim`. Have a look at 
+[lazy.folke.io](https://lazy.folke.io/) to get to know how its done.
 
 ## Lua 
 
