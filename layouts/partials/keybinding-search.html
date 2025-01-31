@@ -1,30 +1,56 @@
+
+<div id="search-field" class="hidden absolute top-20 left-1/2 -translate-x-1/2 -translate-y-1/2
+                              bg-gray-700 text-white p-4 w-64 text-center">
+  Navigate to: <br>
+  <a id="query" class="text-nowrap overflow-x-hidden m-auto
+                       font-medium text-blue-300 underline dark:text-blue-500
+                       hover:no-underline hover:text-gray-800 cursor-pointer"></a>
+  ↵
+</div>
+
 <script>
 let searchString = "";
-document.body.addEventListener("keypress", listenForSearch );
-
-function listenForSearch(e) {
+var searchField = document.getElementById("search-field");
+var query = document.getElementById("query");
+document.body.addEventListener("keypress", (e) => {
   // 47 = "/"
   if (e.charCode === 47){
-    document.body.addEventListener("keydown", enterSearchString );
+    searchField.classList.toggle("hidden");
+    document.body.addEventListener("keydown", enterSearchString);
   }
-  
-}
+});
 
 function enterSearchString(e){
-  if(e.key === 'Escape' || e.keyCode === 27){
-    document.body.removeEventListener("keydown", enterSearchString );
-    searchString = ""
-    return  
+  if(e.key === 'Meta'){return}
+  if(e.key === 'Alt'){return}
+  if(e.key === 'Shift'){return}
+  if(e.key === 'Control'){return}
+  if(e.key === 'Backspace'){
+    searchString = searchString.substring(0, searchString.length - 1);
+    query.innerHTML = searchString
+    query.href = searchString
+    return
   }
   if(e.key === 'Enter'){
     let link = searchString
     window.location.href = link
-    console.log(link)
+    searchField.classList.toggle("hidden");
+    return
   }
+  if(e.key === 'Escape'){
+    document.body.removeEventListener("keydown", enterSearchString );
+    searchString = ""
+    query.innerHTML = searchString
+    searchField.classList.toggle("hidden");
+    return  
+  }
+  // if(e.key === 'Tab'){
+  //   return  
+  // }
   searchString = searchString + e.key
-  console.log(searchString)
+  query.innerHTML = searchString
+  query.href = searchString
 }
-
 </script>
 
 
