@@ -10,7 +10,7 @@ Is a fork from the original vim-project. Some key-features are:
 - Configuration with `lua`
 
 ## Vimscript essentials
-The most fundamental config
+The most fundamental config without lua.
 ```vimscript
 filetype plugin indent on
 
@@ -24,21 +24,42 @@ vnoremap > >gv
 vnoremap < <gv
 ```
 
-## Treesitter 
-
-You can install treesitter-parsers just with the following command.
-
-``` lua
+## Syntax-Highlighting
+By default neovim has native syntax highlighting which cannot take it up with [Treesitter](https://tree-sitter.github.io/tree-sitter/).
+When Treesitter is setup, you can install treesitter-parsers with the following command.
+```lua
 :TSInstall <tab>
 ```
-
 By pressing <TAB> the autocompletion shows you a plethora of
 installable languages.
 
 With the `:InspectTree` you can display the the AST
 (Abstract-Syntax-Tree) in a speperate window.
 
-# Renaming a variable
+### Treesitter-Install
+Beforehand you need to have Treesitter setup by your package-manager (in this case lazy.nvim):
+```lua
+require("lazy").setup(
+  {
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter.configs").setup(
+        {
+          ensure_installed = { "lua", "vim", "go", "python", "bash" },
+          auto_install = true,
+          highlight = {
+            enable = true,
+          },
+          ignore_install = { "ruby" },
+        }) end,
+    },
+  },
+)
+```
+
+## How to rename a variable?
 There are several cases where you would want to
 rename a variable. The place before the `s` is reserved for the scope,
 which is:
@@ -48,29 +69,28 @@ which is:
 
 Go to the string of your choice and press `*`. All matched occurences
 will be highlighted. Then do
-```vimscript
+```cmd
 :%s/
 ```
 With `C-r` you can paste the highlighted string. At first it looks like
 this
-```vimscript
+```cmd
 :%s/"
 ```
 After a `/`:
-```vimscript
+```cmd
 :%s/\<string\>
 ```
-
 Continue with another `/` and your wanted string.
-```vimscript
+```cmd
 :%s/\<string\>/mynewstring/
 ```
 You can now specifiy, if you want to change globally with `g` (don\'t
 know what this means) and if you want confirmation with `c`.
-```vimscript
+```cmd
 :%s/\<string\>/mynewstring/gc
 ```
-### With LSP
+### Renaming a variable with LSP
 If you have lsp configured, you can do it with `vim.lsp.buf.rename`:
 ```lua
 -- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration
@@ -83,10 +103,9 @@ v.api.nvim_create_autocmd("LspAttach", {
 		v.keymap.set("n", "<space>rn", v.lsp.buf.rename, opts)
 	end,
 })
-
 ```
 
-### in you entire project
+### Renaming a variable in your entire project
 
 The native vim-way goes like that:
 
@@ -100,17 +119,15 @@ Depending on the size of your project, this could take a while. You can
 always abort the `grep` with `C-c`. After finishing the search, you can
 load the found occurences into a *quickfix list* by doing a `:copen`.
 
-If you use []{#Telescope for searching}**Telescope for searching**
+If you use Telescope for searching
 (which is way more ergonimic than the grep-method) you can use `C-q` to
 load the found-occurences into a quickfix list.
 
 From there on, `:cdo` is your friend. Replacing a variable-name goes
 like this:
-
-``` vimscript
+``` cmd
 :cdo %s/h.maier/nobody/gc
 ```
-
 `:cdo` lets you iterate through the quickfix list and execute the given
 command for every entry.
 
@@ -119,21 +136,18 @@ command for every entry.
 -   select the block of text with `SHIFT + V`
 -   enter command mode with `:` (colon)
 -   at first it will look like this
-
-``` vimscript
+``` cmd
 :'<,'>
 ```
-
 -   go into normal mode with `norm` and write your commands
-
-``` vimscript
+```cmd
 :'<,'>norm A <the-string-of-my-choice>
 ```
 
 ## Add at the end of every line
-
-    :%norm A<stuff-that-you-want-to-add>
-
+```cmd
+:%norm A<stuff-that-you-want-to-add>
+```
 Which means:
 
 -   \% = for every line
