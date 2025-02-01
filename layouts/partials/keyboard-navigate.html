@@ -20,6 +20,16 @@ var navigate = document.getElementById("navigate");
 var suggestions = document.getElementById("suggestions");
 var query = document.getElementById("query");
 
+
+fetch('search.json')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      console.log(item); // Process each item
+    });
+  })
+  .catch(error => console.error('Error fetching search.json:', error));
+
 function toggle(){
     navigate.classList.toggle("hidden");
 }
