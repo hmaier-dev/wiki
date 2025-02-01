@@ -6,8 +6,9 @@
     "title": {{ .Title | jsonify }},
     "url": {{ .Permalink | jsonify }},
     "content": {{ .Plain | jsonify }},
-    "categories": {{ .Params.categories | jsonify }},
+    "categories": {{ .Params.categories | jsonify }}
   }
   {{- $first = false -}}
 {{- end -}}
+
 ]
