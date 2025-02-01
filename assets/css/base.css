@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @layer base {
+  p{
+    @apply mb-4;
+  }
+
   h1 {
     @apply text-3xl max-sm:text-2xl;
   }
