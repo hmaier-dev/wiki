@@ -88,6 +88,27 @@ neueren Commit werden gelöscht.
 
 Vorherige Stände des Branch anziegn.
 
+## merge
+
+Habe ich einen Hauptbranch (z.B. `main`) und möchte eine Nebenbranch (z.B. `wichtiges-feature1`)
+mergen, bietet es sich an `wichtiges-feature1` zu allererst mit einem rebase auf den Stand des
+Hauptbranches zu bringen. 
+
+- `git checkout wichtiges-feature1`
+- `git rebase main`
+
+Wenn alle potenziellen Konflikte bereinigt sind, kann ich mergen.
+Dazu gehe ich in den Hautpbranch und merge dort.
+
+- `git checkout main`
+- `git merge wichtiges-feature1`
+
+Danach kann ich den Nebenbranch löschen.
+
+- `git branch -d wichtiges-feature1`
+
+Beim mergen ist zu beachten, dass beide Branches lokal vorhanden sind.
+
 ## add \--patch 
 
 Falls ich in einem File Änderungen gemacht habe, die verschiedenen

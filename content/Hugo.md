@@ -215,21 +215,32 @@ https://github.com/gohugoio/hugo/blob/master/common/hexec/exec.go#L185
 
 ## Custom Output Formats
 You can generate all kinds of different data-structures with hugo. This can be helpful when making the sites available for other programs (e.g. search-function).
-You will need to add this to your config:
+
+If you want generate `search.json` which will be available at `/`. You need two things.
+
+- The configuration for a custom outputFormat in your `hugo.toml`
+- and a template for generating the content of `search.json`
+
+The following is the config, that needs to be added to ypur `hugo.toml`.
 ```toml
-[outputFormats.Search]
-mediaType = 'application/json'
-baseName = 'search'
-isPlainText = true
+[outputFormats]
+  [outputFormats.Search]
+  mediaType = 'application/json'
+  baseName = 'search'
+  isPlainText = true
 
 [outputs]
-all = ["Search"]
+home = ['HTML','Search']
 ```
-`outputs.<kind>` will needs a corresponding template in `layouts/_default`. 
-Usually these [Default Output Formats](https://gohugo.io/templates/output-formats/#default-output-formats)are available.
-`all` is no default. But if it matches the `<kind>.search.json`-template in `layouts/_default` it works.
-For example `outputs.all` needs `all.search.json`.
-This will be a template which you can fill with information fitting you needs:
+Besides the custom format `Search` home also needs the instruction to generate `HTML`.
+Otherwise just the custom format would be generated. That's why both are declared.
+
+`outputs.<kind>` needs a corresponding template in `layouts/_default`. In this case, with your Search-Format, it would be `home.search.json`.
+Without the custom output format the templates name would be `home.json.json`, which would generate `index.json` at `/`.
+
+> In a way the custom output format is just a way to **alter the name of the generated file**.
+
+In the `home.search.json`-template you can declare all your needed data.
 ```go
 [
 {{- $first := true -}}
@@ -244,6 +255,7 @@ This will be a template which you can fill with information fitting you needs:
 {{- end -}}
 ]
 ```
+- Reason for the name-schema of `home.json.json` and `home.search.json`: https://gohugo.io/templates/output-formats/#template-lookup-order
 
 ## Troubleshooting and errors
 
