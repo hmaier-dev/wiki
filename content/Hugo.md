@@ -216,10 +216,13 @@ https://github.com/gohugoio/hugo/blob/master/common/hexec/exec.go#L185
 ## Custom Output Formats
 You can generate all kinds of different data-structures with hugo. This can be helpful when making the sites available for other programs (e.g. search-function).
 
-If you want generate `search.json` which will be available at `/`. You need two things.
+
+If you want generate `search.json`, which will be available at `/`, you need two things.
+
 
 - The configuration for a custom outputFormat in your `hugo.toml`
 - and a template for generating the content of `search.json`
+
 
 The following is the config, that needs to be added to ypur `hugo.toml`.
 ```toml
@@ -232,13 +235,16 @@ The following is the config, that needs to be added to ypur `hugo.toml`.
 [outputs]
 home = ['HTML','Search']
 ```
-Besides the custom format `Search` home also needs the instruction to generate `HTML`.
+Besides the custom format `Search`, home also needs the instruction to generate `HTML`.
 Otherwise just the custom format would be generated. That's why both are declared.
+
 
 `outputs.<kind>` needs a corresponding template in `layouts/_default`. In this case, with your Search-Format, it would be `home.search.json`.
 Without the custom output format the templates name would be `home.json.json`, which would generate `index.json` at `/`.
 
+
 > In a way the custom output format is just a way to **alter the name of the generated file**.
+
 
 In the `home.search.json`-template you can declare all your needed data.
 ```go
