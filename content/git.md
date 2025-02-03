@@ -228,7 +228,7 @@ verwalten. Dafür benutzt man dann diesen alias.
 ```bash
 /usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME
 ```
-Die Einrichtung dieses Setups zum Dotfiles verwalten läuft wie folgt.
+Die Einrichtung dieses Setups zum Verwalten von Dotfiles läuft wie folgt.
 ```bash
 git config --global init.defaultBranch main
 mkdir -p $HOME/repos
