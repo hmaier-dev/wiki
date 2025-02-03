@@ -122,7 +122,7 @@ Allerdings kann man diese auch nachbearbeiten.
 Diesen Patch-Block der Staging-Area hinzufügen [y,n,q,a,d,j,J,g,/,e,?]?
 ```
 
-## commit --fixup <commit> 
+## commit \--fixup <commit> 
 
 Falls man im Nachhinein einem Commit Änderungen hinzufügen möchte und
 die Commit-ID parat hat, kann man dies mit eine `--fixup` machen. Danach
@@ -143,7 +143,7 @@ einzelne Commits übernehmen.
 update-ref refs/heads/<your-branch>
 ```
 
-## Einzelne Commits für MR fertig machen 
+## Einzelne Commits für MR fertig machen
 
 ### Variante 1 (cherry-pick) 
 
@@ -220,3 +220,25 @@ Unversionierte Dateien:
 
 Mit dem `(neue Commits)` wird darauf hingewiesen, das eingebettete Repo
 einmal mit `git submodule update` auf den neusten Stand zu bringen.
+
+## \--bare
+Mit einem bare-Repository kann man einen selbstgewählten `--work-tree` benutzen.
+Man kann beispielweise dafür sein `$HOME` nehmen, um damit Configs, Dotfiles, etc. zu 
+verwalten. Dafür benutzt man dann diesen alias.
+```bash
+/usr/bin/git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME
+```
+Die Einrichtung dieses Setups zum Dotfiles verwalten läuft wie folgt.
+```bash
+git config --global init.defaultBranch main
+mkdir -p $HOME/repos
+git clone --bare https://github.com/hmaier-dev/dotfiles.git $HOME/repos/dotfiles
+# oder
+# git clone --bare git@github.com:hmaier-dev/dotfiles.git $HOME/repos/dotfiles
+git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
+git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME checkout main
+git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME push --set-upstream origin main
+```
+Vorher sollte `$HOME` am besten komplett blank sein (also auch ohne `.bashrc` etc.),
+damit es nicht zu Merge-Konflikten kommt.
+
