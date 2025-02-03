@@ -8,6 +8,8 @@ Finally a usable terminal for windows with support for nerd-fonts and multiplexi
 
 ## TL;DR
 
+- New Tab
+  - `CTRL+TAB+T`
 - Cycle through the tabs
   - `CTRL+TAB` (forwards)
   - `CTRL+SHIFT-TAB` (backwards)
