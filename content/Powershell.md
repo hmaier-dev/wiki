@@ -33,4 +33,18 @@ When constructing an alias with the corresponding function, keep in mind that `p
 That means, `Set-Alias -Name wiki -Value Wiki` would set alias that overwrites the function.
 My approach to this is to add the appropriate verb to the function name, e.g. `Set-Alias -Name wiki -Value EnterWiki`.
 
+## Params
 
+If you want to use flags to activate a function, you can use a `[switch]`.
+
+```powershell
+
+param(
+    [switch]$SetTaskScheduler = $False,
+)
+
+Write-Host $SetTaskScheduler
+if ($SetTaskScheduler){
+    Write-Host "Setting the task"
+}
+```
