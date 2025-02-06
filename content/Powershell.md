@@ -48,3 +48,7 @@ if ($SetTaskScheduler){
     Write-Host "Setting the task"
 }
 ```
+
+## Task Scheduler
+
+- nice article: https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html
