@@ -14,7 +14,7 @@ description: tips about using Secure Shell.
 
 ## Basic config
 
-```ssh
+```txt
 Host <name-you-want-to-type>
     HostName <ip>
     User <user>
