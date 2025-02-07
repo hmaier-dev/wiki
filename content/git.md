@@ -242,3 +242,9 @@ git --git-dir=$HOME/repos/dotfiles/ --work-tree=$HOME push --set-upstream origin
 Vorher sollte `$HOME` am besten komplett blank sein (also auch ohne `.bashrc` etc.),
 damit es nicht zu Merge-Konflikten kommt.
 
+## config
+Diese Variable kann gesetzt werden, wenn git-diff immer sein eigenes vim nimmt.
+```bash
+git config --global core.editor nvim
+```
+
