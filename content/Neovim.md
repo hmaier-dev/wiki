@@ -208,6 +208,10 @@ Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
 übersichtlicher zu machen ist `stylua`. Mehr zu Lua gibt es hier:
 [lua](lua)
 
+## Neovim in the Browser
+
+- https://github.com/coder/code-server
+
 ## Troubleshooting
 
 ### Fehler nach Updates von Plugins
