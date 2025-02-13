@@ -52,3 +52,14 @@ if ($SetTaskScheduler){
 ## Task Scheduler
 
 - nice article: https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html
+
+## Credentials Object
+If you want to safely pass username and password, you can create a Credentials object
+```powershell
+$username = "admin1234"
+$password = "mysupersecurepassword"
+
+[securestring]$secStringPassword = ConvertTo-SecureString $password -AsPlainText -Force
+[pscredential]$cred = New-Object System.Management.Automation.PSCredential ($username, $secStringPassword)
+
+```
