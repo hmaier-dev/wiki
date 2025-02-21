@@ -10,6 +10,12 @@ If port 22 isn't available in your network and you cannot use key-pairs to authe
 
 - https://github.blog/changelog/2023-12-18-log-in-to-multiple-github-accounts-with-the-cli/
 
+### Repo not found
+Re-auth with this command
+```
+gh auth refresh -h github.com -s repo
+```
+
 ## Actions
 ### Setting up ssh access for runner to vm
 
