@@ -1,10 +1,10 @@
-<div class="flex flex-wrap gap-10">
+<div class="grid grid-cols-3 text-left">
 {{ range site.RegularPages }}
-   <p class=""> 
-   <span><!-- Insert list icon here --></span>
-   <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="{{ .RelPermalink }}" title="{{ .Description }}">
-     {{ .LinkTitle }}
-   </a>
+  <p>
+    <span><!-- Insert list icon here --></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="{{ .RelPermalink }}" title="{{ .Description }}">
+    {{ .LinkTitle }}
+    </a>
   </p>
 {{ end }}
 </div>
