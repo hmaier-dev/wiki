@@ -203,3 +203,10 @@ if len(os.Args) > 1{
 }
 ```
 For more complex stuff, use the `flag`-package.
+
+## Windows stuff
+If you think about call the powershell from golang like this:
+```
+cmd := exec.Command("powershell", "-nologo", "-noprofile")
+```
+There is also a windows-package to make syscalls: https://pkg.go.dev/golang.org/x/sys/windows
