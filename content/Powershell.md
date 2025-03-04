@@ -63,3 +63,9 @@ $password = "mysupersecurepassword"
 [pscredential]$cred = New-Object System.Management.Automation.PSCredential ($username, $secStringPassword)
 
 ```
+
+## Get all line of go
+
+```powershell
+Get-ChildItem -Recurse -Include '*.go' | Get-Content | Measure-Object -Line
+```
