@@ -6,12 +6,18 @@ title: Nginx
 
 ## SSL
 Mit `certbot` lässt sich SSL relativ einfach ab-frühstücken.
+
+### Zertifikat zu Domain hinzufügen
+
+
+
 ### Sub-Domäne zu bestehenden Zertifikat hinzufügen
 Bevor man eine neue (Sub-)Domäne zum Zertifikat hinzufügt, muss der DNS-Eintrag schon live sein.
 ```bash
 certbot --expand -d existing.com -d www.exisiting.com -d newdomain.com
 ```
 - https://eff-certbot.readthedocs.io/en/latest/using.html#re-creating-and-updating-existing-certificates
+
 
 ## Alias
 Mit `alias` kann man Pfad bereitstellen, der nicht mit der `location` zusammenpasst. Fordert man mit der `root`-Direktive den Pfad `/preview/workshops/index.html` an,
