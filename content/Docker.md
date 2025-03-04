@@ -30,6 +30,10 @@ title: Docker
 - Wie lade ich ein Image in meine Docker-Registry?
     - Erst einloggen mit `docker login`.
     - Danach `docker push <username>/<image-name>:latest`
+- Wie erstelle ich ein neues `:latest`-image?
+  1. Retag the old image: `docker tag <image_id> my-tool:previous``
+  2. Remove old latest tag: `docker rmi my-tool:latest`
+  3. Build new image with latest: `docker build -t checklist-tool:latest .`
 
 ## `docker inspect`
 
