@@ -2,6 +2,10 @@
 title: Traefik Proxy
 ---
 
+## TL;DR
+
+- Restart individual service: `docker compuse up -d <service>`
+
 ## How to get started
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
 - https://doc.traefik.io/traefik/getting-started/quick-start/
