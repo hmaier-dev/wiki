@@ -6,3 +6,13 @@ title: Traefik Proxy
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
 - https://doc.traefik.io/traefik/getting-started/quick-start/
 
+## API
+
+The API is reachable over port 8080. These are the available endpoint over GET:
+
+- https://doc.traefik.io/traefik/operations/api/#dashboard
+
+
+## Authentik with Traefik
+
+- https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
