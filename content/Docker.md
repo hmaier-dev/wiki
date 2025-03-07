@@ -67,5 +67,5 @@ Das `-it` ist nötig, um ein `Exit(0)` des Containers zu verhindern.
 verbindet.
 
 ## Optimizing Image size
-
+Anstatt viele `RUN`-Kommandos zu verwenden, die jedes Mal einen neuen Layer aufmachen, bietet es sich an ein einziges `RUN` mit dem `&&`-Operator zu nehmen.
 
