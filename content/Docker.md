@@ -69,3 +69,18 @@ verbindet.
 ## Optimizing Image size
 Anstatt viele `RUN`-Kommandos zu verwenden, die jedes Mal einen neuen Layer aufmachen, bietet es sich an ein einziges `RUN` mit dem `&&`-Operator zu nehmen.
 
+## Troubleshooting
+
+### Container stoppt langsam & gibt Exit Code 137
+Die Binary die im Container läuft hat das `SIGKILL` nicht erhalten und Docker wartet eine vordefinierte Zeit lang bis er den Container runterfährt.
+Dabei wird die Binary (bzw. das Programm) nicht ordentlich geschlossen. Die Binary erhält das `SIGKILL` nicht, da sie nicht `PID 1` ist.
+Das kann vorkommen, wenn man das Programm mit einem `bash -c` oder über `CMD` startet.
+
+Abhilfe schafft `ENTRYPOINT` im JSON-Format:
+```bash
+ENTRYPOINT ["./binary", "-db", "mysqlite.db"]
+```
+Ob die Binary `PID 1` ist, kann man testen in dem man im Container nachschaut (lol).
+```
+docker exec -it <container> ps aux
+```
