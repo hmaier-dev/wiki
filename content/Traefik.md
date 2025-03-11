@@ -2,9 +2,57 @@
 title: Traefik Proxy
 ---
 
-## TL;DR
+## Configuration
+In traefik there are different approaches to declare your configuration.
+Configuration is always received through a so named provider. Right now I have experience with two of the four categories of providers.
 
-- Restart individual service: `docker compuse up -d <service>`
+The label based configuration on might be the easiest. Just add `traefik.`-labels to the service in your compose file and you are good to go.
+A basic configuration for a nginx-webserver with http and https enabled, looks like this:
+```yaml
+
+services:
+    my-webserver:
+        image: "nginx:bookworm"
+        container_name: "static-wiki"
+        volumes:
+          - /opt/static-wiki/public/:/usr/share/nginx/html
+        labels:
+        traefik.enable: true
+        # http
+        traefik.http.routers.checklist.rule: PathPrefix(`/wiki`)
+        traefik.http.routers.checklist.entrypoints: web
+        # https
+        traefik.http.routers.checklist-secure.tls: true
+        traefik.http.routers.checklist-secure.rule: PathPrefix(`/wiki`)
+        traefik.http.routers.checklist-secure.entrypoints: websecure
+        networks:
+        - traefik-net
+```
+Traefik detects that port 80 of the container is open and therefore creates a service. The naming of the service can get a little ugly.
+Also, for me this kind of syntax isn't very clear.
+
+The same configuration can be declared through the file based provider: an entry in the dynamic-config-file. It looks like this:
+```yaml
+http:
+  routers:
+    # http
+    my-webserver:
+      entrypoints: web
+      rule: PathPrefix(`/my-unsafe-webserver`)
+      service: nginx
+    # https
+    my-webserver-secure:
+      entrypoints: websecure
+      rule: PathPrefix(`/my-super-secured-webserver`)
+      service: nginx
+      tls: {}
+  services:
+    nginx:
+      loadBalancer:
+        servers:
+          - url: "http://my-webserver:80"
+```
+Because this is declared in the dynamic-config-file, you won't need to restart the container to make it work.
 
 ## Basic Configuration
 
