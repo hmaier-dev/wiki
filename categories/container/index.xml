@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Container on Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/categories/container/</link>
+    <description>Recent content in Container on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/categories/container/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>crane</title>
+      <link>https://hmaier-dev.github.io/wiki/crane/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/crane/</guid>
+      <description>&lt;p&gt;Ein Tool zum Arbeiten mit Container-Images und -Registrys.&#xA;&lt;a href=&#34;https://github.com/google/go-containerregistry/blob/main/cmd/crane/recipes.md&#34;&gt;https://github.com/google/go-containerregistry/blob/main/cmd/crane/recipes.md&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://hmaier-dev.github.io/wiki/docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/docker/</guid>
+      <description>&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Dockerfile bauen:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker build --tag &#39;username/my-custom-name&#39; .&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Alle Container; both running &amp;amp; stopped:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker ps -a&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Alle Container die gerade laufen:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;IP-Adresses aller Container:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker inspect -f &#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $(docker ps -q)&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Shell in Container öffnen&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker exec -it &amp;lt;container_id_or_name&amp;gt; /bin/bash&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Directory in Container mounten:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker run -v &amp;lt;absolute-local-path&amp;gt;:&amp;lt;path-inside-container&amp;gt; &amp;lt;image&amp;gt;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Einzelnen Container aus &lt;code&gt;docker-compose&lt;/code&gt;-File neustarten&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker compose up --no-deps &amp;lt;service-name&amp;gt;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Herausfinden was sich in einem Volume alles befindet:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt; docker run -it -v deploy-wordpress_wordpress:/mnt ubuntu /bin/bash&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Alle Container inklusive Volumen löschen:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker rm -vf $(docker ps -aq)&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Alle Images löschen&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;docker rmi -f $(docker images -aq)&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Wie lade ich ein Image in meine Docker-Registry?&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Erst einloggen mit &lt;code&gt;docker login&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Danach &lt;code&gt;docker push &amp;lt;username&amp;gt;/&amp;lt;image-name&amp;gt;:latest&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Wie erstelle ich ein neues &lt;code&gt;:latest&lt;/code&gt;-image?&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Retag the old image: `docker tag &amp;lt;image_id&amp;gt; my-tool:previous``&lt;/li&gt;&#xA;&lt;li&gt;Remove old latest tag: &lt;code&gt;docker rmi my-tool:latest&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Build new image with latest: &lt;code&gt;docker build -t checklist-tool:latest .&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;Install via &lt;code&gt;apt&lt;/code&gt;: &lt;a href=&#34;https://docs.docker.com/engine/install/debian/#install-using-the-repository&#34;&gt;https://docs.docker.com/engine/install/debian/#install-using-the-repository&lt;/a&gt;&#xA;Add user to Docker-Group: &lt;a href=&#34;https://docs.docker.com/engine/install/linux-postinstall/&#34;&gt;https://docs.docker.com/engine/install/linux-postinstall/&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>https://hmaier-dev.github.io/wiki/kubernetes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/kubernetes/</guid>
+      <description>&lt;p&gt;Um zu lernen, wie Kubernetes funktioniert gibt es folgendes Repo:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/hmaier-dev/kubernetes-lab&#34;&gt;https://github.com/hmaier-dev/kubernetes-lab&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Damit kann man lokal ein Kubernetes-Cluster mit virtuellen Maschinen ausetzen.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
