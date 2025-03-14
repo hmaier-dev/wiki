@@ -35,6 +35,11 @@ title: Docker
   2. Remove old latest tag: `docker rmi my-tool:latest`
   3. Build new image with latest: `docker build -t checklist-tool:latest .`
 
+## Installation
+
+Install via `apt`: https://docs.docker.com/engine/install/debian/#install-using-the-repository
+Add user to Docker-Group: https://docs.docker.com/engine/install/linux-postinstall/
+
 ## `docker inspect`
 
 Um Mehr Über das Image zu erfahren kann man mit
