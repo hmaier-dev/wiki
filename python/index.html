@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.4cbf2b36e125c37fff8e7a297db5cdb774c2f5a2a84acc2d719218a45156ac84.css" integrity="sha256-TL8rNuElw3//jnopfbXNt3TC9aKoSswtcZIYpFFWrIQ=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="No about snakes, but about a nice scripting language.">
+<title>Python - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+  <a href="https://hmaier-dev.github.io/wiki/" class="mx-1">
+    Home
+  </a>
+
+  
+
+  <a href="https://hmaier-dev.github.io/wiki//git" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Python</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#i-want-to-see-the-traceback">I want to see the traceback</a></li>
+    <li><a href="#i-want-to-have-structs-like-in-go">I want to have structs like in Go</a></li>
+    <li><a href="#packaging-a-project">Packaging a project</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Is a nice scripting language in which you can easily build everything, with the trade-off that it is slow.</p>
+<h2 id="i-want-to-see-the-traceback">I want to see the traceback<a href="/wiki/python/#i-want-to-see-the-traceback" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> traceback
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    do_stuff()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>    print(traceback<span style="color:#f92672">.</span>format_exc())
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># or</span>
+</span></span><span style="display:flex;"><span>    print(sys<span style="color:#f92672">.</span>exc_info()[<span style="color:#ae81ff">2</span>])
+</span></span></code></pre></div><h2 id="i-want-to-have-structs-like-in-go">I want to have structs like in Go<a href="/wiki/python/#i-want-to-have-structs-like-in-go" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For this you can use dataclasses. These convert a class by annotation into a dataclass.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define a dataclass to hold the URIs and their expected status codes</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">URI</span>:
+</span></span><span style="display:flex;"><span>    uri: str
+</span></span><span style="display:flex;"><span>    want: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test <span style="color:#f92672">=</span> URI(uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.nonexistentwebsite.com&#34;</span>, want<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span>),
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>uri)
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>want)
+</span></span></code></pre></div><h2 id="packaging-a-project">Packaging a project<a href="/wiki/python/#packaging-a-project" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/</a></li>
+</ul>
+
+  
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/raspberry_pi/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/powershell/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
