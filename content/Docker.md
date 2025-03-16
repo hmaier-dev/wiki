@@ -73,6 +73,11 @@ verbindet.
 
 ## Optimizing Image size
 Anstatt viele `RUN`-Kommandos zu verwenden, die jedes Mal einen neuen Layer aufmachen, bietet es sich an ein einziges `RUN` mit dem `&&`-Operator zu nehmen.
+Wenn du unschlüssige bist, warum der Container so riesige geworden ist, hilft ein
+```bash
+docker image history <img>
+```
+Damit wird die Größe der einzelnen Layer angezeigt.
 
 ## Troubleshooting
 
