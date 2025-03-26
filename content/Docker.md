@@ -79,6 +79,20 @@ docker image history <img>
 ```
 Damit wird die Größe der einzelnen Layer angezeigt.
 
+## Github Container Registry
+You need to give the `docker`-command the permissions to access the Github-Container-Registry (ghcr).
+You do this via a *Personal access token*. Find the option for this under https://github.com/settings/tokens.
+The token needs the following permissions:
+
+- write:packages
+- delete:packages
+
+```
+docker login ghcr.io -u <USER> --password <TOKEN>
+docker build . -t ghcr.io/user/repo:v0.1
+docker push ghcr.io/user/repo:v0.1
+```
+
 ## Troubleshooting
 
 ### Container stoppt langsam & gibt Exit Code 137
