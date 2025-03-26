@@ -87,11 +87,17 @@ The token needs the following permissions:
 - write:packages
 - delete:packages
 
-```
+```bash
 docker login ghcr.io -u <USER> --password <TOKEN>
 docker build . -t ghcr.io/user/repo:v0.1
 docker push ghcr.io/user/repo:v0.1
 ```
+
+You can now pull the image with
+```bash
+docker pull ghcr.io/user/repo:v0.1
+```
+More on this topic: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
 
 ## Troubleshooting
 
