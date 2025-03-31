@@ -63,9 +63,28 @@ $password = "mysupersecurepassword"
 [pscredential]$cred = New-Object System.Management.Automation.PSCredential ($username, $secStringPassword)
 
 ```
+## Powershell Data File
+Instead of using `json`, `yaml` or another well-known config-file format for your script, you can go the native powershell way with `psd1`-file.
 
-## Get all line of go
+A simple one-dimensional config (e.g. `config.psd1`) would look like this:
+```powershell
+@{
+    Username = "ftp-user"
+    Password = "supersecretftppassword"
+    Exclude = @("PT*0730*.DAT")
+}
+```
+In your script you would import the config-file and access the variable like properties:
+```powershell
+$config = Import-PowershellDataFile -Path ".\config.psd1"
+$config.Username
+$config.Password
+$config.Exclude
+```
 
+## Tips and Tricks
+
+### Get all line of go
 ```powershell
 Get-ChildItem -Recurse -Include '*.go' | Get-Content | Measure-Object -Line
 ```
