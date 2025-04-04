@@ -15,3 +15,7 @@ und kann von dort das ein `/capture-image` anstoßen.
 ```cmd
 Dism /capture-image /imagefile:D:\install-win10.wim /CaptureDir:C:\ /Name:"Custom Windows 10 Image"
 ```
+
+## Troubleshooting
+
+### Package <Package-Name> failed waiting for remove operation
