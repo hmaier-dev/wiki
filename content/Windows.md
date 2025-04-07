@@ -1,5 +1,5 @@
 ---
-title: Microsoft Windows
+title: Windows
 ---
 
 ## Re-register Apps
