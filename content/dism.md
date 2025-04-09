@@ -3,6 +3,13 @@ title: dism.exe
 ---
 Tool zur Imageverwaltung für die Bereitstellung
 
+## Capture mit `dism.exe`
+Nach dem man die Installation mit `sysprep.exe` vorbereitet hat, booten man in eine WinPE-Umgebung
+und kann von dort das ein `/capture-image` anstoßen.
+```cmd
+Dism /capture-image /imagefile:D:\install-win10.wim /CaptureDir:C:\ /Name:"Custom Windows 10 Image"
+```
+
 ## Mount install.wim
 Um Dateien einer `install.wim` hinzuzufügen, ist es nötig diese zu mounten.
 ```cmd
