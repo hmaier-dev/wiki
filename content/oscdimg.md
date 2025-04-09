@@ -8,7 +8,9 @@ Dafür benötigt man `oscdimg.exe`, welches im _Windows Assessment and Deploymen
 
 - https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 
-Der Standard-Installationpfad von `oscdimg.exe` ist folgender: `%ProgramFiles(x86)%\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg`
+Der Standard-Installationpfad von `oscdimg.exe` ist folgender:
+
+- `%ProgramFiles(x86)%\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg`
 
 Außerdem benötigt man eine funktionierende Standard Windows ISO. Nun müssen folgende Schritte gegangen werden.
 
