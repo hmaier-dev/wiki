@@ -33,7 +33,7 @@ C:\Win10_22H2_German_x64v1\sources
 - Dort die alte `install.wim` gegen die neue tauschen.
 - Die ISO neu bauen.
 ```cmd
-oscdimg -bC:\ISO_Working\boot\etfsboot.com -u2 -h -m -lCUSTOM_WIN C:\Win10_22H2_German_x64v1 C:\CustomWindows.iso
+oscdimg -bC:\Win10_22H2_German_x64v1\boot\etfsboot.com -u2 -h -m -lCUSTOM_WIN C:\Win10_22H2_German_x64v1 C:\CustomWindows.iso
 ```
 
 
