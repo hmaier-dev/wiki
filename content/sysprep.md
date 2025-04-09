@@ -1,5 +1,5 @@
 ---
-title: Sysprep
+title: sysprep.exe
 ---
 Natives Windows-Programm zur Vorbereitung einer Installation, bevor man ein Image zieht.
 
@@ -32,6 +32,9 @@ C:\Win10_22H2_German_x64v1\sources
 ```
 - Dort die alte `install.wim` gegen die neue tauschen.
 - Die ISO neu bauen.
+
+Da Oscdimg by default nicht in den Umgebungvariablen ist, sucht man nach `Umgebung für Bereitstellungs- und Imageerstellungstools` und start das Programm dann mit administrativen Rechten.
+Der Pfad in den man geworfen wird ist folgender: `C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools`. Dort kann man dann folgendes Kommando ausführen.
 ```cmd
 oscdimg -bC:\Win10_22H2_German_x64v1\boot\etfsboot.com -u2 -h -m -lCUSTOM_WIN C:\Win10_22H2_German_x64v1 C:\CustomWindows.iso
 ```
