@@ -1,5 +1,5 @@
 ---
-title: PDF
+title: pdf
 description: Stands for Portable Document Format
 ---
 
