@@ -6,18 +6,22 @@ Beim Bereitstellen von multiplen Maschinen mit Windows-Betriebssytem, wird man b
 damit einhergehenden Lethargie, irgendwann anfangen nach Automatisierungs-Möglichkeiten zu forschen.
 Mit modifizierten Windows-Images kann man sich widerkehrende Installationsroutinen und Konfigurationen ersparen, und somit der Lethargie enfliehen.
 
-## TL;DR (too long; didn't read)
+## TL;DR
 1. Rechner mit jeglicher Software ausstatten
 2. Abbild des gesamten Systems erfassen
-3. System-Abbild auf weiteren Rechnern installieren
+3. ISO mit dem Abbild bauen
+4. System-Abbild auf weiteren Rechnern installieren
 
 
 ## `autounattend.xml`
-Um Einstellungen bei der Installation vorzudefinieren, kann man sich eine Antwortdatei bauen. Diese kann `autounattend.xml` oder `unattend.xml` heißen. Diese muss mit in der ISO liegen; also im Ordner bevor man mit `oscdimg` die ISO erstellt.
+Um Einstellungen bei der Installation vorzudefinieren, kann man sich eine Antwortdatei (z.B.: `autounattend.xml`, `unattend.xml`) bauen. 
+Diese wird in der ISO neben der `setup.exe` platziert. Da eine ISO ein fixe Größe hat, muss man jene entpacken, die Antwortdatei platzieren
+und danach mit `oscdimg` die ISO erneut bauen.
 Hat man die standard Windows ISO auf `C:\` exthrahiert, muss die `autounattend.xml` hier liegen: `C:\Win10_22H2_German_x64v1\autounattend.xml`.
-Zur Kontrolle der Antwortdatei ist der _Windows System Image Manager_ (SIM) hilfreich, welchen man bei der Installation der ADK bekommt.
 
-Zum Erstellen von Antwort-Dateien kann ich folgende Website empfehlen:
+Zur Verifizierung der Antwortdatei kann der _Windows System Image Manager_ (SIM) hilfreich sein. Dieser wird bei 
+
+Mir persönlich hat beim Erstellen von Antwort-Dateien folgende Website sehr geholfen:
 
 - https://schneegans.de/windows/unattend-generator/
 
