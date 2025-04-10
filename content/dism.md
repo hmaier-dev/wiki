@@ -3,12 +3,16 @@ title: dism.exe
 ---
 Tool zur Imageverwaltung für die Bereitstellung
 
-## Capture mit `dism.exe`
+## Capture einer Installation
 Nach dem man die Installation mit `sysprep.exe` vorbereitet hat, booten man in eine WinPE-Umgebung
 und kann von dort das ein `/capture-image` anstoßen.
 ```cmd
 Dism /capture-image /imagefile:D:\install-win10.wim /CaptureDir:C:\ /Name:"Custom Windows 10 Image"
 ```
+Der Speicherort des `/imagefile` solle nach dem Herunterfahren der WinPE weiterhin erreichbar sein. Man nehme beispielweise einen USB-Stick oder mountet ein Netzlaufwerk.
+
+### WinPE
+Zum Booten empfehle ich [Venoty](https://www.ventoy.net/en/index.html) und als WinPE-Umgebung [PhoenixPE]({{% ref path="phoenixpe" %}}).
 
 ## Mount install.wim
 Um Dateien einer `install.wim` hinzuzufügen, ist es nötig diese zu mounten.
