@@ -8,6 +8,10 @@ When some apps fail. try this.
 Get-AppXPackage -AllUsers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 ```
 
-## Drucker-Anschlüsse löschen
+## Drucker-Port/Anschlüsse löschen
+
+- `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports`
+
+## Drucker löschen
 
 - `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Printers\`
