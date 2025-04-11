@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.98038f7f44d5d79c3255c093a095f375b5819b7c1276b5835453dbbdeb0bea27.css" integrity="sha256-mAOPf0TV15wyVcCToJXzdbWBm3wSdrWDVFPbvesL6ic=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="some niche os.">
+<title>GNU/Linux - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+  <a href="https://hmaier-dev.github.io/wiki/" class="mx-1">
+    Home
+  </a>
+
+  
+
+  <a href="https://hmaier-dev.github.io/wiki//kubernetes" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>GNU/Linux</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#how-would-you-connect-to-a-machine-in-the-cloud">How would you connect to a machine in the cloud?</a></li>
+    <li><a href="#what-is-does-the-directory-proc-represent">What is does the directory /proc represent?</a></li>
+    <li><a href="#how-to-find-out-the-total-disk-usage">How to find out the total disk usage?</a></li>
+    <li><a href="#how-to-check-for-open-ports">How to check for open ports?</a></li>
+    <li><a href="#check-the-version-of-kernel">Check the version of kernel</a></li>
+    <li><a href="#how-to-manage-services">How to manage services</a></li>
+    <li><a href="#how-to-check-for-cpu-usage">How to check for cpu usage?</a>
+      <ul>
+        <li><a href="#top"><code>top</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#what-filesystems-are-and-which-would-you-choose-for-which-job">What filesystems are and which would you choose for which job</a></li>
+    <li><a href="#explain-the-filesystem-hierarchy">Explain the filesystem hierarchy</a></li>
+    <li><a href="#find-all-mounted-devices-find-all-mounted-devices">Find all mounted devices {#Find all mounted devices}</a></li>
+    <li><a href="#what-is-a-init-system">What is a init-system?</a></li>
+    <li><a href="#what-is-a-process">What is a process?</a></li>
+    <li><a href="#what-is-a-user">What is a user?</a></li>
+    <li><a href="#there-is-a-weird-process-find-out-things-about-it">There is a weird process. Find out things about it</a></li>
+    <li><a href="#please-explain-more-about-proc">Please explain more about <code>/proc</code></a></li>
+    <li><a href="#hardlinks-and-symlinks">Hardlinks and Symlinks</a></li>
+    <li><a href="#what-are-inodes">What are inodes?</a></li>
+    <li><a href="#difference-between-a-process-and-a-thread">Difference between a process and a thread?</a></li>
+    <li><a href="#what-command-used-to-find-processes-as-well-as-cpu-and-memory-usage">What command used to find processes as well as cpu and memory usage?</a></li>
+    <li><a href="#how-to-automize-a-repeating-task">How to automize a repeating task?</a></li>
+    <li><a href="#how-to-find-a-file">How to find a file?</a></li>
+    <li><a href="#networking">Networking</a>
+      <ul>
+        <li><a href="#find-out-the-mac-address-of-an-interface">Find out the mac-address of an interface</a></li>
+        <li><a href="#how-to-get-the-ip-address-of-the-interface-eth0">How to get the ip-address of the interface <code>eth0</code>?</a></li>
+        <li><a href="#turn-networking-interface-onoff">Turn networking interface on/off</a></li>
+        <li><a href="#how-to-restrict-access-to-a-certain-port">How to restrict access to a certain port?</a></li>
+        <li><a href="#setting-up-a-new-interface">Setting up a new interface</a></li>
+        <li><a href="#change-the-ip-address-for-an-interface">Change the ip-address for an interface</a></li>
+        <li><a href="#how-to-find-out-which-network-manager-is-in-use-right-now">How to find out which network-manager is in use right now?</a></li>
+      </ul>
+    </li>
+    <li><a href="#advanced-topics">Advanced Topics</a>
+      <ul>
+        <li><a href="#filesystem">Filesystem</a></li>
+        <li><a href="#memory">Memory</a></li>
+        <li><a href="#processes">Processes</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>This article was created in preparation for a job interview as SRE.</p>
+<h2 id="how-would-you-connect-to-a-machine-in-the-cloud">How would you connect to a machine in the cloud?<a href="/wiki/linux/#how-would-you-connect-to-a-machine-in-the-cloud" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>ssh</code> (Secure Shell, Port 22) is the tool</li>
+<li>Is there a []{#VPN}<strong>VPN</strong> involved?</li>
+<li>Is my public-key known to the machine? (auth via ssh-keys)</li>
+<li>A password is also possible but unsecure, like root-login</li>
+</ul>
+<h2 id="what-is-does-the-directory-proc-represent">What is does the directory /proc represent?<a href="/wiki/linux/#what-is-does-the-directory-proc-represent" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>/proc displays the current state of the kernel, inside the filesystem.
+This is possible because everything in linux is treated as a file.</p>
+<h2 id="how-to-find-out-the-total-disk-usage">How to find out the total disk usage?<a href="/wiki/linux/#how-to-find-out-the-total-disk-usage" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>df -h</code>: for all filesystems, with <code>-h</code> for human-readable</li>
+<li><code>du -sh</code>: for a single directory, <code>-s</code> stands for <code>--summarize</code></li>
+</ul>
+<h2 id="how-to-check-for-open-ports">How to check for open ports?<a href="/wiki/linux/#how-to-check-for-open-ports" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>There are ways to find out the open ports of a system.</p>
+<ul>
+<li><code>netstat</code>: gets the data from /proc/net</li>
+<li><code>ss</code>: gets the data from Netlink API from kernel-space</li>
+</ul>
+<p>To find the process which opened the port you can use:</p>
+<ul>
+<li><code>netstat</code>: with the <code>-tupln</code> flags the processes are already shown</li>
+<li><code>ss</code>: same shit</li>
+</ul>
+<h2 id="check-the-version-of-kernel">Check the version of kernel<a href="/wiki/linux/#check-the-version-of-kernel" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>uname -r</code></li>
+</ul>
+<h2 id="how-to-manage-services">How to manage services<a href="/wiki/linux/#how-to-manage-services" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>systemctl start &lt;unit&gt;</code></li>
+<li><code>systemctl enable &lt;unit&gt;</code></li>
+<li><code>systemctl stop &lt;unit&gt;</code></li>
+<li><code>systemctl disable &lt;unit&gt;</code></li>
+<li><code>systemctl status &lt;unit&gt;</code></li>
+</ul>
+<h2 id="how-to-check-for-cpu-usage">How to check for cpu usage?<a href="/wiki/linux/#how-to-check-for-cpu-usage" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>ps aux</code>: <code>a</code> means all processes, <code>x</code> includes processes not
+associated with a terminal, <code>u</code> formats for the output for a user</li>
+<li><code>top</code>/<code>htop</code>: equivalent to the taskmanager</li>
+</ul>
+<p>Press <code>h</code> in <code>top</code> to get help.</p>
+<h3 id="top"><code>top</code><a href="/wiki/linux/#top" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><code>t</code>: cpu usage</li>
+<li><code>m</code>: memory usage</li>
+<li><code>R</code>: toogle sorting (desc/asc)</li>
+</ul>
+<h2 id="what-filesystems-are-and-which-would-you-choose-for-which-job">What filesystems are and which would you choose for which job<a href="/wiki/linux/#what-filesystems-are-and-which-would-you-choose-for-which-job" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>NTFS</code> (New Technology File System): commonly used on Windows</li>
+<li><code>FAT</code> (File Allocation Table): only small files, commly used for the
+boot-partition</li>
+<li><code>exFAT</code> (Extended File Allocation Table): like FAT but with bigger
+files</li>
+<li><code>btrfs</code></li>
+<li><code>ext4</code></li>
+</ul>
+<h2 id="explain-the-filesystem-hierarchy">Explain the filesystem hierarchy<a href="/wiki/linux/#explain-the-filesystem-hierarchy" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>/bin</code>: binarys for the proper functioning of the system</li>
+<li><code>/sbin</code>: binarys critical for system administration</li>
+<li><code>/usr</code>: user-related programs and files</li>
+</ul>
+<h2 id="find-all-mounted-devices-find-all-mounted-devices">Find all mounted devices {#Find all mounted devices}<a href="/wiki/linux/#find-all-mounted-devices-find-all-mounted-devices" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>mount</code></li>
+</ul>
+<h2 id="what-is-a-init-system">What is a init-system?<a href="/wiki/linux/#what-is-a-init-system" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>The standard init-system as for today is <code>systemd</code>. systemd is
+responsible for reparenting orphaned processes. To see which init-system
+a system runs, go into htop and search for PID 1. If the name of the
+binary does not already tell (cuz maybe its just says init), you can use
+<code>file /sbin/init</code> and see the output which would be
+<code>/sbin/init: symbolic link to ../lib/systemd/systemd</code>.</p>
+<h2 id="what-is-a-process">What is a process?<a href="/wiki/linux/#what-is-a-process" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>A process is nothing but a executing binary. The multiple kind of
+processes:</p>
+<ul>
+<li>user-process: call by the user</li>
+<li>daemon-process: runs in the background</li>
+<li>kernel-process: full access to kernel data structures</li>
+</ul>
+<h2 id="what-is-a-user">What is a user?<a href="/wiki/linux/#what-is-a-user" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>A user is just a few entry in some config-files:</p>
+<ul>
+<li>/etc/group</li>
+</ul>
+<h2 id="there-is-a-weird-process-find-out-things-about-it">There is a weird process. Find out things about it<a href="/wiki/linux/#there-is-a-weird-process-find-out-things-about-it" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can use <code>top</code> or <code>htop</code> to start the investigation. With PID and
+name you could also use <code>ps aux</code>. With <code>lsof -p &lt;PID&gt;</code> you could see,
+which files/sockets are opened by the process.</p>
+<h2 id="please-explain-more-about-proc">Please explain more about <code>/proc</code><a href="/wiki/linux/#please-explain-more-about-proc" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In /proc you can see multiple directory named as numbers. These are
+processes. More about these things: <a href="https://linuxwiki.de/proc/pid">https://linuxwiki.de/proc/pid</a></p>
+<ul>
+<li><code>cmdline</code>: command plus arguments which started the process</li>
+<li><code>maps</code>: memory mapping (which library are used by the process)</li>
+<li><code>cwd</code>: current working directory of the process</li>
+<li><code>environ</code>: environment-variables for this process</li>
+</ul>
+<h2 id="hardlinks-and-symlinks">Hardlinks and Symlinks<a href="/wiki/linux/#hardlinks-and-symlinks" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Hardlink: <code>ln &lt;source&gt; &lt;dest&gt;</code></li>
+<li>Symlink: ln -s <!-- raw HTML omitted --> <!-- raw HTML omitted --></li>
+</ul>
+<h2 id="what-are-inodes">What are inodes?<a href="/wiki/linux/#what-are-inodes" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Inodes are metadata (filesize, read-write-date, permissions) in the
+linux filesystem. In some instances, inodes could occupy more space than
+the actual data stored on the system. To find out about inode-usage use
+<code>df -i</code>.</p>
+<h2 id="difference-between-a-process-and-a-thread">Difference between a process and a thread?<a href="/wiki/linux/#difference-between-a-process-and-a-thread" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>A thread is a segment of process, which means: a process can hold
+multiple threads. Thread are less isolated, which means they share
+memory with other threads.</p>
+<h2 id="what-command-used-to-find-processes-as-well-as-cpu-and-memory-usage">What command used to find processes as well as cpu and memory usage?<a href="/wiki/linux/#what-command-used-to-find-processes-as-well-as-cpu-and-memory-usage" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For memory usage you can use <code>free -h</code>. For the cpu usage you could look
+at <code>/proc/stat</code>. For a nice summary <code>top</code> or <code>htop</code> would be good.</p>
+<h2 id="how-to-automize-a-repeating-task">How to automize a repeating task?<a href="/wiki/linux/#how-to-automize-a-repeating-task" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You could write script and give it to <code>cron</code> or on <code>systemd</code>-systems you
+could use a unit-file with a <code>[Timer]</code>-Section.</p>
+<h2 id="how-to-find-a-file">How to find a file?<a href="/wiki/linux/#how-to-find-a-file" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Usually I would use <code>locate</code>. It is faster than <code>find</code> because it does
+not search in realtime. But I also does not search in realtime. To
+update the cache/database <code>locate</code> is referring to, type
+<code>sudo updatedb</code>.</p>
+<p>Examples of using <code>find</code>:</p>
+<ul>
+<li><code>find / -wholename *nvim/init.lua*</code></li>
+<li><code>find /some/path -name someFile -type f</code>: all files not directorys</li>
+<li><code>find /path/to/search -name &quot;*.jpg&quot; -exec mv {} /destination/path \;</code>:
+move all .jpg gets moved</li>
+<li><code>find ./ -mtime -7</code>: files that have been modified in the last seven
+days</li>
+</ul>
+<h2 id="networking">Networking<a href="/wiki/linux/#networking" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For troubleshooting the network-connection. You should always have <code>ip</code>,
+<code>dhcp</code> and <code>dns</code> in mind.</p>
+<ul>
+<li>What is my ip-address? =&gt; <code>ip addr</code></li>
+<li>Where is my gateway? =&gt; usually at the <code>.1</code></li>
+<li>Is my default route configured? =&gt; <code>ip route</code> look for
+<code>default via ...</code></li>
+<li>What is my name-server for dns? =&gt; look into /etc/resolv.conf</li>
+<li>Are there any services handling <code>dhcp</code> and <code>dns</code>?
+<ul>
+<li>For <code>dhcp</code>: <code>systemd-networkd</code> or <code>dhcpcd</code></li>
+<li>For <code>dns</code>: <code>systemd-resolved</code> or <code>dhcpcd</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="find-out-the-mac-address-of-an-interface">Find out the mac-address of an interface<a href="/wiki/linux/#find-out-the-mac-address-of-an-interface" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><code>ip link</code></li>
+</ul>
+<h3 id="how-to-get-the-ip-address-of-the-interface-eth0">How to get the ip-address of the interface <code>eth0</code>?<a href="/wiki/linux/#how-to-get-the-ip-address-of-the-interface-eth0" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><code>ip addr show dev eth0</code></li>
+</ul>
+<h3 id="turn-networking-interface-onoff">Turn networking interface on/off<a href="/wiki/linux/#turn-networking-interface-onoff" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>&gt; Have you tried to turning your device off and on again?</p>
+<p>I case you do not get a ip-address</p>
+<ul>
+<li><code>ip link set eno1 down</code></li>
+<li><code>ip link set eno1 up</code></li>
+</ul>
+<h3 id="how-to-restrict-access-to-a-certain-port">How to restrict access to a certain port?<a href="/wiki/linux/#how-to-restrict-access-to-a-certain-port" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>To directly restirct access, you would use the <code>iptables</code>-tool. With
+this tool you can configure rules for network connection. Because this
+tool itself is hard to handle (because of complexity), therefore there
+is a wrapper-tool called <code>ufw</code> for the home user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Drop everything accessing port 22</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -j DROP
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Accept &lt;ip&gt; on port 22</span>
+</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -s &lt;ip&gt; -j ACCEPT
+</span></span></code></pre></div><p>More about <code>iptables</code> on <a href="https://www.netfilter.org/">https://www.netfilter.org/</a></p>
+<p>The successor of <code>iptables</code> is <code>nftables</code>.</p>
+<h3 id="setting-up-a-new-interface">Setting up a new interface<a href="/wiki/linux/#setting-up-a-new-interface" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Adding a new dummy interface for testing &amp; simulation:</p>
+<ul>
+<li><code>ip link add dev eno2 type dummy</code></li>
+</ul>
+<h3 id="change-the-ip-address-for-an-interface">Change the ip-address for an interface<a href="/wiki/linux/#change-the-ip-address-for-an-interface" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>Add a new one: <code>ip addr add 192.168.178.200/24 dev eno1</code></li>
+<li>Delete the old one: <code>ip addr del 192.168.178.104/24 dev eno1</code></li>
+</ul>
+<h3 id="how-to-find-out-which-network-manager-is-in-use-right-now">How to find out which network-manager is in use right now?<a href="/wiki/linux/#how-to-find-out-which-network-manager-is-in-use-right-now" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>There is no other way than searching for all know managers.</p>
+<ul>
+<li><code>ps aux | grep -E 'NetworkManager|systemd-networkd|wpa_supplicant|connman|dhcpcd'</code></li>
+</ul>
+<h2 id="advanced-topics">Advanced Topics<a href="/wiki/linux/#advanced-topics" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="filesystem">Filesystem<a href="/wiki/linux/#filesystem" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>inodes</li>
+<li>superblock</li>
+<li>fsck</li>
+<li>journaling</li>
+</ul>
+<h3 id="memory">Memory<a href="/wiki/linux/#memory" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>MMU</li>
+<li>malloc(s)</li>
+<li>page</li>
+<li>memory allocation</li>
+<li>life of an I/O</li>
+</ul>
+<h3 id="processes">Processes<a href="/wiki/linux/#processes" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>mutex/semaphore</li>
+<li>deadlock/livelock</li>
+<li>IPC (FIFO, fork, pipes signals)</li>
+<li>file descriptor</li>
+<li>context switching</li>
+<li>scheduling</li>
+<li>load balancing</li>
+</ul>
+
+  
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/golang/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/gnome/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
