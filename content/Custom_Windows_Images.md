@@ -13,20 +13,41 @@ Mit modifizierten Windows-Images kann man sich widerkehrende Installationsroutin
 4. System-Abbild auf weiteren Rechnern installieren
 
 
-## `autounattend.xml`
+## Antwortdatien (`unattend.xml`,`autounattend.xml`)
 Um Einstellungen bei der Installation vorzudefinieren, kann man sich eine Antwortdatei (z.B.: `autounattend.xml`, `unattend.xml`) bauen. 
 Diese wird in der ISO neben der `setup.exe` platziert. Da eine ISO ein fixe Größe hat, muss man jene entpacken, die Antwortdatei platzieren
-und danach mit `oscdimg` die ISO erneut bauen.
+und danach mit `oscdimg` die ISO erneut gebaut werden.
 Hat man die standard Windows ISO auf `C:\` exthrahiert, muss die `autounattend.xml` hier liegen: `C:\Win10_22H2_German_x64v1\autounattend.xml`.
 
-Zur Verifizierung der Antwortdatei kann der _Windows System Image Manager_ (SIM) hilfreich sein. Dieser wird bei 
+Zur Verifizierung der Antwortdatei kann der _Windows System Image Manager_ (SIM) hilfreich sein.
 
 Mir persönlich hat beim Erstellen von Antwort-Dateien folgende Website sehr geholfen:
 
 - https://schneegans.de/windows/unattend-generator/
 
-Eine `autounattend.xml` kann wie folgt aussehen:
+#### Aufbau
+Im Grund ist eine Antwortdatei wie folgt strukturiert:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+	<settings pass="offlineServicing"></settings>
+	<settings pass="windowsPE"></settings>
+	<settings pass="generalize"></settings>
+	<settings pass="specialize"></settings>
+	<settings pass="auditSystem"></settings>
+	<settings pass="auditUser"></settings>
+	<settings pass="oobeSystem"></settings>
+</unattend>
+```
+In diesen Blöcken kann jeweils Konfiguration zu den 7 Phasen des Windows Setups deklariert werden.
+- `windowsPE`: In der _Preinstallation Environment_ kann z.B. die Partitionierung des Systems oder auch das zu installierende Image angegeben werden.
+- `oobeSystem`: Hier kann man Nutzer anlegen oder auch die verschiedenen Prompts (Telemetrie usw.) verstecken, die beim Windows Setup nerven.
 
+Unter diesem Link findet man die offizielle Dokumentation mit hilfreichem Schaubild: https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/how-configuration-passes-work?view=windows-11&source=recommendations
+
+
+#### Beispiel
+Eine `autounattend.xml` kann wie folgt aussehen:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
