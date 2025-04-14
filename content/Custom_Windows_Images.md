@@ -25,7 +25,7 @@ Mir persönlich hat beim Erstellen von Antwort-Dateien folgende Website sehr geh
 
 - https://schneegans.de/windows/unattend-generator/
 
-#### Aufbau
+### Aufbau
 Im Grund ist eine Antwortdatei wie folgt strukturiert:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -46,7 +46,7 @@ In diesen Blöcken kann jeweils Konfiguration zu den 7 Phasen des Windows Setups
 Unter diesem Link findet man die offizielle Dokumentation mit hilfreichem Schaubild: https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/how-configuration-passes-work?view=windows-11&source=recommendations
 
 
-#### Beispiel
+### Beispiel
 Eine `autounattend.xml` kann wie folgt aussehen:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
