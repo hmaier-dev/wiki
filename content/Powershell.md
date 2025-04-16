@@ -8,6 +8,32 @@ A collection of some powershell-snippets I found useful, can be found under:
 
 - https://github.com/hmaier-dev/powershell-library/tree/main/src
 
+## History
+You can get the history of your current powershell session with `Get-History`.
+To access older history, you can use the file stored under `(Get-PSReadLineOption).HistorySavePath`.
+In this file a maximum of `(Get-PSReadLineOption).MaximumHistoryCount` commands is stored.
+
+With `fzf` you can access this list comfortably:
+```powershell
+function FuncFuzzySearchHistory(){
+  $cmd =  $(Get-Content $((Get-PSReadLineOption).HistorySavePath) | fzf)
+  $cmd
+  Invoke-Expression $cmd
+}
+```
+
+## Prompt
+To change the behaviour of the powershell prompt before running the command, alter the `prompt`-function.
+```powershell
+## This sets the window-title with the last three dir of the path
+function prompt(){
+  $three = (Get-Location).Path -split '\\' | Select-Object -Last 3
+  $path = $three[0] + "\" + $three[1] + "\" + $three[2] 
+  $host.ui.RawUI.WindowTitle = $path
+  "$(Get-Location)> "
+}
+```
+
 ## Constructing an alias with arguments
 
 You can use the builtin-args variable for that.
@@ -81,6 +107,8 @@ $config.Username
 $config.Password
 $config.Exclude
 ```
+
+
 
 ## Tips and Tricks
 
