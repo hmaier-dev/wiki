@@ -263,3 +263,31 @@ func main() {
 They allow safe data exchange and data synchronization between
 goroutines without shared memory access.
 
+## gorilla/mux
+
+- https://github.com/gorilla/mux
+
+### `Walk`-Function
+If you want to get all `GET`-routes for building a navbar, you can use the Walk funktion.
+```golang
+type NavItem struct {
+    Name string
+    Path string
+}
+var nav []NavItem
+func IndexRoute(router *mux.Router){
+	router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
+		path, _ := route.GetPathTemplate()
+        method, _ := route.GetMethods()
+		if len(method) > 0 && method[0] == "GET"{
+			entry := NavItem{
+				Name: path,
+				Path: path,
+			}
+			nav = append(nav, entry)
+		}
+    return nil
+	})
+}
+
+```
