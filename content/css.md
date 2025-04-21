@@ -69,4 +69,7 @@ h6::before {
 }
 
 ```
+## Tailwindcss
+### v4.0
+In v4.0 usually shouldn't need to configure your content: https://tailwindcss.com/blog/tailwindcss-v4#automatic-content-detection
 
