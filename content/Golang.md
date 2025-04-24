@@ -175,6 +175,10 @@ This is not so easy as you think. Because you need a fixed destination for the v
     fmt.Printf("%v\n", allRows)
 
 ```
+### Error: `Error scanning row: sql: expected 1 destination arguments in Scan, not 3`
+Überprüfen, ob du in deinem `SELECT`-Statemnt wirklich 3 Spalten angefragt hast.
+
+
 ## Commandline Arguments
 If you need something quick, without a variable info, just use this snippet:
 ```go
