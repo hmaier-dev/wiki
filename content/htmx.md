@@ -9,6 +9,7 @@ Find out how on the offical website: https://htmx.org/
 
 This is the easiest way to use htmx: https://htmx.org/docs/#download-a-copy
 
+
 ## Basic POST-Request
 
 This is how you basically send an empty POST-request to the
@@ -48,3 +49,14 @@ gibt es htmx-Event mit dem man arbeiten kann.
 
 Bei jeglichem Error wird auf dem Server generiertes HTML in den Body
 gepackt.
+
+## Troubleshooting
+Die Logs ans die Konsole klemmen
+```js
+htmx.logger = function(elt, event, data) {
+    if(console) {
+        console.log("INFO:", event, elt, data);
+    }
+}
+
+```
