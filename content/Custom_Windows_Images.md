@@ -142,6 +142,10 @@ Eine `autounattend.xml` kann wie folgt aussehen:
 - Wie kommt man in die `cmd` während der Installation?
     - `SHIFT+F10`
 
+## Interessante Projekte
+
+- https://github.com/ntdevlabs/tiny11builder/blob/main/tiny11maker.ps1
+
 
 ## Troubleshooting
 ### Das Abbild konnte nicht gefunden werden
