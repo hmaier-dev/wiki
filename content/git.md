@@ -248,3 +248,9 @@ Diese Variable kann gesetzt werden, wenn git-diff immer sein eigenes vim nimmt.
 git config --global core.editor nvim
 ```
 
+## Plattformen
+
+- Github
+- Gitlab
+- https://forgejo.org/
+
