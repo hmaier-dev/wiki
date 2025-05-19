@@ -108,6 +108,12 @@ $config.Password
 $config.Exclude
 ```
 
+## Prettify Script
+For reformatting your scripts, you can use the following project: https://github.com/DTW-DanWard/PowerShell-Beautifier
+
+Run it as following: `Edit-DTWBeautifyScript .\export.ps1` to update the code.
+
+It is available on `scoop` via `scoop install main/powershell-beautifier`.
 
 
 ## Tips and Tricks
