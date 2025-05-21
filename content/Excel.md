@@ -20,3 +20,6 @@ Dazu nimmt eine eine separate Tabelle und definiert dort die vorgegebenen Werte.
 In der Haupttabelle wählt man dann mitm `STRG+SPACE` die gesamte Spalte aus. Unter `Daten > Datentools` findet man `Datenüberprüfung`.
 Dort kann man unter `Einstellungen` `Zulassen: Liste` auswählen. Als Quelle gibt man dann den definierten namen an, z.B.: `=Status`.
 
+Möchte man die Werte des Drop-Down-Menüs ändern, muss man in der separaten Tabelle erst den Wert hinzufügen und kann dann über den `Namens-Manager` den _erfassten Bereich_ ändern.
+Den `Namens-Manager` findet man entweder über die Suche oder unter `Formeln > definierte Namen > Namens-Manager`.
+

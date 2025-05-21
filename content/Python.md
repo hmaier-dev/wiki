@@ -5,7 +5,10 @@ title: Python
 description: No about snakes, but about a nice scripting language.
 ---
 
-Is a nice scripting language in which you can easily build everything, with the trade-off that it is slow.
+Is a nice scripting language in which you can easily build everything, with the trade-off of being slow.
+
+## Virtual Environments
+
 
 ## I want to see the traceback 
 
