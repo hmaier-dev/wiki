@@ -8,6 +8,43 @@ Load a single image
 
 {{- $src := or (.Get "src") "" }}
 {{ $pic := resources.Get $src }}
+{{- $hashBytes := sha1 $src }}
+{{- $hashString := printf "%x" $hashBytes }}
+{{- $uid := substr $hashString 0 8 }}
+
 <div class="flex justify-center">
-  <img src="{{ $pic.RelPermalink }}" class="w-1/4 h-1/4 max-sm:w-full max-sm:h-auto border">
+  <img src="{{ $pic.RelPermalink }}" 
+       class="w-1/4 h-1/4 max-sm:w-full max-sm:h-auto border cursor-pointer" 
+       id="thumbnail-{{ $uid }}">
 </div>
+
+<!-- Modal -->
+<div id="lightbox-modal-{{ $uid }}" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-75 z-50">
+  <span class="absolute top-4 right-6 text-white text-3xl cursor-pointer" id="lightbox-close-{{ $uid }}">&times;</span>
+  <img src="{{ $pic.RelPermalink }}" class="max-w-full max-h-full rounded shadow-lg">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const thumb = document.getElementById('thumbnail-{{ $uid }}');
+    const modal = document.getElementById('lightbox-modal-{{ $uid }}');
+    const close = document.getElementById('lightbox-close-{{ $uid }}');
+
+    thumb.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    close.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  });
+</script>
