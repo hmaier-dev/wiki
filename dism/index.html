@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.a0320c69e699e5f42db07161a8a4747b63cfca2a38673a7f821cec02d830a1a7.css" integrity="sha256-oDIMaeaZ5fQtsHFhqKR0e2PPyio4Zzp/ghzsAtgwoac=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>dism.exe - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+  <a href="https://hmaier-dev.github.io/wiki/" class="mx-1">
+    Home
+  </a>
+
+  
+
+  <a href="https://hmaier-dev.github.io/wiki//hugo" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>dism.exe</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#capture-einer-installation">Capture einer Installation</a>
+      <ul>
+        <li><a href="#winpe">WinPE</a></li>
+      </ul>
+    </li>
+    <li><a href="#mount-installwim">Mount install.wim</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#error-1243">Error 1243</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Tool zur Imageverwaltung für die Bereitstellung</p>
+<h2 id="capture-einer-installation">Capture einer Installation<a href="/wiki/dism/#capture-einer-installation" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Nach dem man die Installation mit <code>sysprep.exe</code> vorbereitet hat, booten man in eine WinPE-Umgebung
+und kann von dort das ein <code>/capture-image</code> anstoßen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Dism /capture-image /imagefile:D:\install-win10.wim /CaptureDir:C:\ /Name:<span style="color:#e6db74">&#34;Custom Windows 10 Image&#34;</span>
+</span></span></code></pre></div><p>Der Speicherort des <code>/imagefile</code> solle nach dem Herunterfahren der WinPE weiterhin erreichbar sein. Man nehme beispielweise einen USB-Stick oder mountet ein Netzlaufwerk.</p>
+<h3 id="winpe">WinPE<a href="/wiki/dism/#winpe" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Zum Booten empfehle ich <a href="https://www.ventoy.net/en/index.html">Venoty</a> und als WinPE-Umgebung <a href="https://hmaier-dev.github.io/wiki/phoenixpe/">PhoenixPE</a>.</p>
+<h2 id="mount-installwim">Mount install.wim<a href="/wiki/dism/#mount-installwim" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um Dateien einer <code>install.wim</code> hinzuzufügen, ist es nötig diese zu mounten.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Mount-Wim /WimFile:<span style="color:#e6db74">&#34;C:\Werkstatt_Service_Rechner\install.wim&#34;</span> /index:1 /MountDir:C:\mount
+</span></span></code></pre></div><p>Nach Abschluss der Arbeiten am Image, kann man wie folgt unmounten:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Unmount-Wim /MountDir:C:\mount /Commit
+</span></span></code></pre></div><h2 id="troubleshooting">Troubleshooting<a href="/wiki/dism/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="error-1243">Error 1243<a href="/wiki/dism/#error-1243" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Kann beim mounten einer <code>install.wim</code> auftreten. Mit diesen Registry-Einträgen kann man den Fehler lösen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Windows Registry Editor Version 5.00
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DebugFlags&#34;</span>=dword:00000000
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Description&#34;</span>=<span style="color:#e6db74">&#34;@</span>%SystemRoot%<span style="color:#e6db74">\\system32\\drivers\\wimmount.sys,-102&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DisplayName&#34;</span>=<span style="color:#e6db74">&#34;@</span>%SystemRoot%<span style="color:#e6db74">\\system32\\drivers\\wimmount.sys,-101&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ErrorControl&#34;</span>=dword:00000001
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Group&#34;</span>=<span style="color:#e6db74">&#34;FSFilter Infrastructure&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ImagePath&#34;</span>=hex(2):73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,64,00,\
+</span></span><span style="display:flex;"><span>72,00,69,00,76,00,65,00,72,00,73,00,5c,00,77,00,69,00,6d,00,6d,00,6f,00,75,\
+</span></span><span style="display:flex;"><span>00,6e,00,74,00,2e,00,73,00,79,00,73,00,00,00
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Start&#34;</span>=dword:00000003
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;SupportedFeatures&#34;</span>=dword:00000003
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Tag&#34;</span>=dword:00000001
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Type&#34;</span>=dword:00000002
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount\Instances]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DefaultInstance&#34;</span>=<span style="color:#e6db74">&#34;WIMMount&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount\Instances\WIMMount]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Altitude&#34;</span>=<span style="color:#e6db74">&#34;180700&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Flags&#34;</span>=dword:00000000
+</span></span></code></pre></div><p>Quelle ist dieser Artikel: <a href="https://answers.microsoft.com/en-us/windows/forum/all/solved-dismexe-error-1243-the-specified-service/836b860c-6427-40f9-9ea8-21869cd1218d">https://answers.microsoft.com/en-us/windows/forum/all/solved-dismexe-error-1243-the-specified-service/836b860c-6427-40f9-9ea8-21869cd1218d</a></p>
+<p>Warum das funktioniert, ist mir nicht bekannt.</p>
+
+  
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/docker/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/cwebp/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
