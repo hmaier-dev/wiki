@@ -2,11 +2,47 @@
 title: Traefik
 description: Web-Application-Proxy for container images
 ---
+In Traefik the configuration is done in two different ways:
 
-## Configuration
+- static configuration
+- dynamic configuration
+
+The static config can be though of as an startup config. It sets the connections to the different provides (file, docker, etc.) and 
+sets the entrypoints (often just port 80 and 443). When something in this config changes, the traefik container needs to get restarted.
+Usally this _should not_ happend often, because the values are mostly constant.
+You need to tell Traefik where it is when starting:
+```yaml
+services:
+  traefik:
+    command:
+      - "--configFile=/etc/traefik/traefik.yaml"
+    volumes:
+      ## Static Config
+      - "./traefik.yml:/etc/traefik/traefik.yml:ro"
+```
+
+The dynamic config is the way, how the magic _can_ happens. Traefik uses different provides to get its routes, services and rules.
+The least magically way is to use the [file-provider](https://doc.traefik.io/traefik/providers/file/).
+You need to tell Traefik the dir to look for it:
+```yaml
+providers:
+  file:
+    directory: "/rules"
+    watch: true
+```
+Make sure to mount it in the `docker-compose.yml`:
+```yaml
+services:
+  traefik:
+    volumes:
+      - "./rules:/rules"
+```
+
+## Configuration Types
 In traefik there are different approaches to declare your configuration.
 Configuration is always received through a so named provider. Right now I have experience with two of the four categories of providers.
 
+### Label based
 The label based configuration on might be the easiest. Just add `traefik.`-labels to the service in your compose file and you are good to go.
 A basic configuration for a nginx-webserver with http and https enabled, looks like this:
 ```yaml
@@ -32,6 +68,7 @@ services:
 Traefik detects that port 80 of the container is open and therefore creates a service. The naming of the service can get a little ugly.
 Also, for me this kind of syntax isn't very clear.
 
+### Files based
 The same configuration can be declared through the file based provider: an entry in the dynamic-config-file. It looks like this:
 ```yaml
 http:
@@ -55,44 +92,8 @@ http:
 ```
 Because this is declared in the dynamic-config-file, you won't need to restart the container to make it work.
 
-## Basic Configuration
-
-```yaml
-version: "3.3"
-
-services:
-
-  traefik:
-    image: "traefik:v3.3"
-    container_name: "traefik"
-    command:
-      #- "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "8080:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  # Declare your services below
-
-  checklist:
-    image: "hmaierdev/checklist-tool:latest"
-    container_name: "checklist"
-    volumes:
-        - '/opt/checklist-tool/sqlite.db:/root/sqlite.db'
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.checklist.rule=Host(`localhost`) && PathPrefix(`/checklist`)"
-      - "traefik.http.routers.checklist.entrypoints=web"
-```
-
 
 ### Resources
-
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
 - https://doc.traefik.io/traefik/getting-started/quick-start/
 
@@ -102,7 +103,8 @@ The API is reachable over port 8080. These are the available endpoint over GET:
 
 - https://doc.traefik.io/traefik/operations/api/#dashboard
 
+## Templating
+When you want deploy a lot of services but you don't want to type all of them out,
+you could use _Go Templating_.
 
-## Authentik with Traefik
-
-- https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
+- https://doc.traefik.io/traefik/providers/file/#go-templating
