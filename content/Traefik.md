@@ -1,5 +1,6 @@
 ---
-title: Traefik Proxy
+title: Traefik
+description: Web-Application-Proxy for container images
 ---
 
 ## Configuration
