@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+	<meta name="generator" content="Hugo 0.140.2">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.a0320c69e699e5f42db07161a8a4747b63cfca2a38673a7f821cec02d830a1a7.css" integrity="sha256-oDIMaeaZ5fQtsHFhqKR0e2PPyio4Zzp/ghzsAtgwoac=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Welcome to the published part of my private wiki!">
+<title>Home - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    my-6 min-h-[calc(100vh-6rem)]
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+<div id="navigate" class="hidden absolute top-30 left-1/2 -translate-x-1/2
+                              bg-gray-700 text-white p-4 w-64 text-center">
+    Navigate to: <br>
+    <a id="query" class="text-nowrap overflow-x-hidden m-auto
+                         font-medium text-blue-300 underline dark:text-blue-500
+                         hover:no-underline hover:text-gray-800 cursor-pointer"></a>
+    ↵
+    <br>
+        
+    <div id="suggestions" 
+         class="w-full bg-gray-700 text-white rounded">
+    </div>
+</div>
+
+<script>
+let searchString = "";
+var navigate = document.getElementById("navigate");
+var suggestions = document.getElementById("suggestions");
+var query = document.getElementById("query");
+
+
+fetch('search.json')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      console.log(item); 
+    });
+  })
+  .catch(error => console.error('Error fetching search.json:', error));
+
+function toggle(){
+    navigate.classList.toggle("hidden");
+}
+
+document.body.addEventListener("keypress", (e) => {
+  
+  if (e.charCode === 47){
+    toggle()
+    document.body.addEventListener("keydown", enterSearchString);
+  }
+});
+
+function enterSearchString(e){
+  if(e.key === 'Meta'){return}
+  if(e.key === 'Alt'){return}
+  if(e.key === 'Shift'){return}
+  if(e.key === 'Control'){return}
+  if(e.key === 'Backspace'){
+    searchString = searchString.substring(0, searchString.length - 1);
+    query.innerHTML = searchString
+    query.href = searchString
+    return
+  }
+  if(e.key === 'Enter'){
+    let link = searchString
+    toggle()
+    window.location.href = link
+    return
+  }
+  if(e.key === 'Escape'){
+    document.body.removeEventListener("keydown", enterSearchString );
+    searchString = ""
+    query.innerHTML = searchString
+    toggle()
+    return  
+  }
+  
+  
+  
+  searchString = searchString + e.key
+  query.innerHTML = searchString
+  query.href = searchString
+}
+</script>
+
+
+
+
+    <div class="md:grid md:grid-rows-12 md:grid-flow-col md:text-left flex flex-col text-center">
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/android/" title="">
+    Android
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/ansible/" title="">
+    Ansible
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/apt/" title="">
+    apt
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/arch/" title="">
+    Arch
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/bash/" title="">
+    bash
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/crane/" title="">
+    crane
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/css/" title="">
+    css
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/custom_windows_images/" title="How to make Windows more usable.">
+    Custom Windows Images
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/cwebp/" title="Encodes and decodes WebP image files">
+    cwebp
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/dism/" title="">
+    dism.exe
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/docker/" title="">
+    Docker
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/earthly/" title="">
+    Earthly
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/ffmpeg/" title="">
+    ffmpeg
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/gh/" title="use git over https.">
+    gh
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/git/" title="">
+    git
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/github/" title="">
+    Github
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/gitlab/" title="">
+    Gitlab
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/gnome/" title="">
+    Gnome
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/linux/" title="some niche os.">
+    GNU/Linux
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/golang/" title="">
+    Golang
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/goose/" title="Not about birds, but about a tool for database-migrations.">
+    Goose
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/helix/" title="">
+    Helix
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/htmx/" title="">
+    htmx
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/hugo/" title="">
+    Hugo
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/kubernetes/" title="">
+    Kubernetes
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/latex/" title="">
+    LaTex
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/lua/" title="">
+    lua
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/excel/" title="">
+    Microsoft Excel
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/outlook/" title="">
+    Microsoft Outlook
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/neovide/" title="A neovim-gui written in rust.">
+    Neovide
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/neovim/" title="">
+    Neovim
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/nginx/" title="">
+    Nginx
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/oscdimg/" title="">
+    oscdimg.exe
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/pdf/" title="Stands for Portable Document Format">
+    pdf
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/pgtap/" title="">
+    pgTAP
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/phoenixpe/" title="">
+    PhoenixPE
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/postgres/" title="">
+    Postgres
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/powershell/" title="">
+    Powershell
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/python/" title="No about snakes, but about a nice scripting language.">
+    Python
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/raspberry_pi/" title="">
+    Raspberry_Pi
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/schach/" title="">
+    Schach
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/sqlite/" title="">
+    sqlite
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/ssh/" title="tips about using Secure Shell.">
+    ssh
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/ssl/" title="SSL means Secure Sockets Layer">
+    SSL
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/sudo/" title="how to get root.">
+    sudo
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/sysprep/" title="">
+    sysprep.exe
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/systemd/" title="">
+    systemd
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/tmux/" title="">
+    tmux
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/traefik/" title="Web-Application-Proxy for container images">
+    Traefik
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/vagrant/" title="">
+    Vagrant
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/webassembly/" title="How to bring fast languages to the browser.">
+    WebAssembly
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/windows/" title="">
+    Windows
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/windows_terminal/" title="">
+    Windows_Terminal
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/wireguard/" title="">
+    Wireguard
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/wordpress/" title="">
+    Wordpress
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/yt-dlp/" title="cli utility to download youtube videos">
+    yt-dlp
+    </a>
+  </p>
+
+  <p>
+    <span></span>
+    <a class="text-blue-700 font-semibold hover:text-blue-500 underline hover:no-underline"href="/wiki/zsh/" title="">
+    zsh
+    </a>
+  </p>
+
+</div>
+
+
+
+<footer class=index_footer>
+
+This wiki is generated from 3732 lines of markdown.
+
+</footer>
+
+
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
