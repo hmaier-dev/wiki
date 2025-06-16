@@ -50,3 +50,8 @@ Also make sure to give the containers fixed names, so the variable in `docker.en
 ## docker.env
 DATABASE_URL=postgres://user:pass@postgres-outline:5432/outline
 ```
+
+## Integration with Outline
+
+Reference:
+- https://docs.goauthentik.io/integrations/services/outline/

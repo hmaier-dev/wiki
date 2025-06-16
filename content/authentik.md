@@ -25,3 +25,4 @@ Refernece: https://docs.goauthentik.io/docs/install-config/automated-install
 Reference: 
 - https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
 - https://github.com/brokenscripts/authentik_traefik
+
