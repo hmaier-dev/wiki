@@ -31,3 +31,9 @@ CTRL+b;
 :;
 attach-session -c ~/.config/nvim
 ```
+## Rename tab
+Renames the current tab
+```bash
+CTRL+b; 
+,
+```
