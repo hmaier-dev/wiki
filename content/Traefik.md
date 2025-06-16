@@ -1,6 +1,6 @@
 ---
 title: Traefik
-description: Web-Application-Proxy for container images
+description: Web-Application-Proxy for containers
 ---
 In Traefik the configuration is done in two different ways:
 
@@ -17,7 +17,6 @@ services:
     command:
       - "--configFile=/etc/traefik/traefik.yaml"
     volumes:
-      ## Static Config
       - "./traefik.yml:/etc/traefik/traefik.yml:ro"
 ```
 
@@ -38,11 +37,11 @@ services:
       - "./rules:/rules"
 ```
 
-## Configuration Types
+## Dynamic Configuration Types
 In traefik there are different approaches to declare your configuration.
 Configuration is always received through a so named provider. Right now I have experience with two of the four categories of providers.
 
-### Label based
+### Label based (Docker)
 The label based configuration on might be the easiest. Just add `traefik.`-labels to the service in your compose file and you are good to go.
 A basic configuration for a nginx-webserver with http and https enabled, looks like this:
 ```yaml
@@ -54,14 +53,14 @@ services:
         volumes:
           - /opt/static-wiki/public/:/usr/share/nginx/html
         labels:
-        traefik.enable: true
-        # http
-        traefik.http.routers.checklist.rule: PathPrefix(`/wiki`)
-        traefik.http.routers.checklist.entrypoints: web
-        # https
-        traefik.http.routers.checklist-secure.tls: true
-        traefik.http.routers.checklist-secure.rule: PathPrefix(`/wiki`)
-        traefik.http.routers.checklist-secure.entrypoints: websecure
+            traefik.enable: true
+            # http
+            traefik.http.routers.checklist.rule: PathPrefix(`/wiki`)
+            traefik.http.routers.checklist.entrypoints: web
+            # https
+            traefik.http.routers.checklist-secure.tls: true
+            traefik.http.routers.checklist-secure.rule: PathPrefix(`/wiki`)
+            traefik.http.routers.checklist-secure.entrypoints: websecure
         networks:
         - traefik-net
 ```
@@ -93,7 +92,7 @@ http:
 Because this is declared in the dynamic-config-file, you won't need to restart the container to make it work.
 
 
-### Resources
+## Resources
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
 - https://doc.traefik.io/traefik/getting-started/quick-start/
 
