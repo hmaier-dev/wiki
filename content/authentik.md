@@ -3,7 +3,7 @@ title: Authentik
 description: An open source identity provider
 ---
 
-### Installation
+## Installation
 Is kinda straight forward:
 
 - https://docs.goauthentik.io/docs/install-config/install/docker-compose
@@ -25,4 +25,8 @@ Refernece: https://docs.goauthentik.io/docs/install-config/automated-install
 Reference: 
 - https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
 - https://github.com/brokenscripts/authentik_traefik
+
+## Session Duration
+
+- https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/
 
