@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.d2a545a03b223dfd989757b90be4e107d3172468bbdf6ac7c9f3fc1b97fad59d.css" integrity="sha256-0qVFoDsiPf2Yl1e5C&#43;ThB9MXJGi732rHyfP8G5f61Z0=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Powershell - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+  <a href="https://hmaier-dev.github.io/wiki/" class="mx-1">
+    Home
+  </a>
+
+  
+
+  <a href="https://hmaier-dev.github.io/wiki//golang" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Powershell</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#history">History</a></li>
+    <li><a href="#prompt">Prompt</a></li>
+    <li><a href="#constructing-an-alias-with-arguments">Constructing an alias with arguments</a></li>
+    <li><a href="#aliases">Aliases</a></li>
+    <li><a href="#params">Params</a></li>
+    <li><a href="#task-scheduler">Task Scheduler</a></li>
+    <li><a href="#credentials-object">Credentials Object</a></li>
+    <li><a href="#powershell-data-file">Powershell Data File</a></li>
+    <li><a href="#prettify-script">Prettify Script</a></li>
+    <li><a href="#tips-and-tricks">Tips and Tricks</a>
+      <ul>
+        <li><a href="#get-all-line-of-go">Get all line of go</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>A collection of some powershell-snippets I found useful, can be found under:</p>
+<ul>
+<li><a href="https://github.com/hmaier-dev/powershell-library/tree/main/src">https://github.com/hmaier-dev/powershell-library/tree/main/src</a></li>
+</ul>
+<h2 id="history">History<a href="/wiki/powershell/#history" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can get the history of your current powershell session with <code>Get-History</code>.
+To access older history, you can use the file stored under <code>(Get-PSReadLineOption).HistorySavePath</code>.
+In this file a maximum of <code>(Get-PSReadLineOption).MaximumHistoryCount</code> commands is stored.</p>
+<p>With <code>fzf</code> you can access this list comfortably:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> FuncFuzzySearchHistory(){
+</span></span><span style="display:flex;"><span>  $cmd =  $(Get-Content $((Get-PSReadLineOption).HistorySavePath) | fzf)
+</span></span><span style="display:flex;"><span>  $cmd
+</span></span><span style="display:flex;"><span>  Invoke-Expression $cmd
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="prompt">Prompt<a href="/wiki/powershell/#prompt" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>To change the behaviour of the powershell prompt before running the command, alter the <code>prompt</code>-function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">## This sets the window-title with the last three dir of the path</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> prompt(){
+</span></span><span style="display:flex;"><span>  $three = (Get-Location).Path -split <span style="color:#e6db74">&#39;\\&#39;</span> | Select-Object -Last <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  $path = $three[<span style="color:#ae81ff">0</span>] + <span style="color:#e6db74">&#34;\&#34;</span> + $three[<span style="color:#ae81ff">1</span>] + <span style="color:#e6db74">&#34;\&#34;</span> + $three[<span style="color:#ae81ff">2</span>] 
+</span></span><span style="display:flex;"><span>  $host.ui.RawUI.WindowTitle = $path
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;</span>$(Get-Location)<span style="color:#e6db74">&gt; &#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="constructing-an-alias-with-arguments">Constructing an alias with arguments<a href="/wiki/powershell/#constructing-an-alias-with-arguments" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can use the builtin-args variable for that.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesRepo(){
+</span></span><span style="display:flex;"><span>	$base = <span style="color:#e6db74">&#34;git.exe --git-dir=</span>$env:USERPROFILE<span style="color:#e6db74">\repos\dotfiles\ --work-tree=</span>$env:USERPROFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	$cmd = <span style="color:#e6db74">&#34;</span>$base<span style="color:#e6db74"> </span>$args<span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># The $args-variable is builtin and gets all arguments. Discoverd by accident.</span>
+</span></span><span style="display:flex;"><span>	Invoke-Expression -Command $cmd
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesReposStatus(){
+</span></span><span style="display:flex;"><span>    dfr status
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfr -Value DotFilesRepo
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfrs -Value DotFilesReposStatus
+</span></span></code></pre></div><h2 id="aliases">Aliases<a href="/wiki/powershell/#aliases" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>When constructing an alias with the corresponding function, keep in mind that <code>powershell</code> is not case-sensitive.
+That means, <code>Set-Alias -Name wiki -Value Wiki</code> would set alias that overwrites the function.
+My approach to this is to add the appropriate verb to the function name, e.g. <code>Set-Alias -Name wiki -Value EnterWiki</code>.</p>
+<h2 id="params">Params<a href="/wiki/powershell/#params" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>If you want to use flags to activate a function, you can use a <code>[switch]</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">param</span>(
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">switch</span>]$SetTaskScheduler = $False,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write-Host $SetTaskScheduler
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ($SetTaskScheduler){
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Setting the task&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="task-scheduler">Task Scheduler<a href="/wiki/powershell/#task-scheduler" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>nice article: <a href="https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html">https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html</a></li>
+</ul>
+<h2 id="credentials-object">Credentials Object<a href="/wiki/powershell/#credentials-object" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>If you want to safely pass username and password, you can create a Credentials object</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$username = <span style="color:#e6db74">&#34;admin1234&#34;</span>
+</span></span><span style="display:flex;"><span>$password = <span style="color:#e6db74">&#34;mysupersecurepassword&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">securestring</span>]$secStringPassword = ConvertTo-SecureString $password -AsPlainText -Force
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">pscredential</span>]$cred = New-Object System.Management.Automation.PSCredential ($username, $secStringPassword)
+</span></span></code></pre></div><h2 id="powershell-data-file">Powershell Data File<a href="/wiki/powershell/#powershell-data-file" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Instead of using <code>json</code>, <code>yaml</code> or another well-known config-file format for your script, you can go the native powershell way with <code>psd1</code>-file.</p>
+<p>A simple one-dimensional config (e.g. <code>config.psd1</code>) would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>@{
+</span></span><span style="display:flex;"><span>    Username = <span style="color:#e6db74">&#34;ftp-user&#34;</span>
+</span></span><span style="display:flex;"><span>    Password = <span style="color:#e6db74">&#34;supersecretftppassword&#34;</span>
+</span></span><span style="display:flex;"><span>    Exclude = @(<span style="color:#e6db74">&#34;PT*0730*.DAT&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In your script you would import the config-file and access the variable like properties:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$config = Import-PowershellDataFile -Path <span style="color:#e6db74">&#34;.\config.psd1&#34;</span>
+</span></span><span style="display:flex;"><span>$config.Username
+</span></span><span style="display:flex;"><span>$config.Password
+</span></span><span style="display:flex;"><span>$config.Exclude
+</span></span></code></pre></div><h2 id="prettify-script">Prettify Script<a href="/wiki/powershell/#prettify-script" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For reformatting your scripts, you can use the following project: <a href="https://github.com/DTW-DanWard/PowerShell-Beautifier">https://github.com/DTW-DanWard/PowerShell-Beautifier</a></p>
+<p>Run it as following: <code>Edit-DTWBeautifyScript .\export.ps1</code> to update the code.</p>
+<p>It is available on <code>scoop</code> via <code>scoop install main/powershell-beautifier</code>.</p>
+<h2 id="tips-and-tricks">Tips and Tricks<a href="/wiki/powershell/#tips-and-tricks" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="get-all-line-of-go">Get all line of go<a href="/wiki/powershell/#get-all-line-of-go" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ChildItem -Recurse -Include <span style="color:#e6db74">&#39;*.go&#39;</span> | Get-Content | Measure-Object -Line
+</span></span></code></pre></div>
+  
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/python/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/postgres/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
