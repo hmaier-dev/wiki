@@ -9,4 +9,8 @@ description: some niche os.
 
 - `ncdu`
 
+## Encrypting block devices
+The standard way on linux is to use LUKS. 
 
+### Windows
+On Windows LUKS-encrypted block devices can be accessed with https://en.wikipedia.org/wiki/FreeOTFE
