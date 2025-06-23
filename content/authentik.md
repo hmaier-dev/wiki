@@ -8,6 +8,29 @@ Is kinda straight forward:
 
 - https://docs.goauthentik.io/docs/install-config/install/docker-compose
 
+### `.env`-file
+
+```
+# ------------------------
+# NOTE: this file needs to be called .env and not docker.env!
+#       When named different PG_PASS cannot be set. I don't know why...
+#
+# --------------------------------------
+# For automated install
+
+AUTHENTIK_BOOTSTRAP_PASSWORD=qwertz1234
+AUTHENTIK_BOOTSTRAP_TOKEN=
+AUTHENTIK_BOOTSTRAP_EMAIL=mail@server.de
+## echo "AUTHENTIK_SECRET_KEY=$(openssl rand -base64 60 | tr -d '\n')" >> .env
+AUTHENTIK_SECRET_KEY=<key>
+
+## Postgres
+## echo "PG_PASS=$(openssl rand -base64 36 | tr -d '\n')" >> .env
+PG_PASS=<key>
+POSTGRES_USER=authentik
+POSTGRES_DB=authentik
+```
+
 ## Bootstraping
 When deploying to public space you can use these variables at the `worker`-container to
 skip the OOB-experience:
