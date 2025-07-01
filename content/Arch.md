@@ -71,4 +71,10 @@ Gateway=192.168.178.1
 DNS=192.168.178.1
 ```
 
+### DNS
+Der einfachste Weg um den DNS-Server einzustellen, ist über die `/etc/resolv.conf`.
+Wenn man `sytemd-resolved` nutzt kann man auch `/etc/systemd/resolv.conf` editieren.
+Zu beachten ist, dass `systemd-networkd` und `systemd-resolved` beide DNS-Konfiguration erlauben. Unter diesem Artikel mehr dazu: https://wiki.archlinux.de/title/Systemd/systemd-resolved#systemd-networkd_vs._systemd-resolved
+
+
 
