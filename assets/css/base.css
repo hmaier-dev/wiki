@@ -35,6 +35,10 @@
     @apply text-blue-600 hover:text-blue-800 underline; /* Apply styles to links inside list items */
   }
 
+  p a {
+    @apply text-blue-600 hover:text-blue-800 underline; 
+  }
+
   header a {
     @apply font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800;
   }
