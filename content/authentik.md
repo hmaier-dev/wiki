@@ -43,6 +43,16 @@ By the way: The default user is call `akadmin`.
 
 Refernece: https://docs.goauthentik.io/docs/install-config/automated-install
 
+## Sitzungs Dauer einstellen
+Einerseits kann man am Provider die Gültigkeit des Tokens einstellen,
+andererseits kann man in der Phase (User Login Stage) die Sessionsdauer einstellen:
+
+- https://www.reddit.com/r/Authentik/comments/1e6023h/noob_question_autologout_after_x_hours/
+- https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/
+
+Wie genau diese beiden Parts zusammen hängen, muss ich noch verstehen.
+
+
 ## Middleware in Traefik
 
 Reference: 
