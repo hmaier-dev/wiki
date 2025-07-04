@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.f561995a3fa61ee653d48e677a9c4c1eb78176687247aaf58af38c216927dfcc.css" integrity="sha256-9WGZWj&#43;mHuZT1I5nepxMHreBdmhyR6r1ivOMIWkn38w=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="No about snakes, but about a nice scripting language.">
+<title>Python - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800">
+
+  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+
+
+  <a href="https://hmaier-dev.github.io/wiki/" class="mx-1">
+    Home
+  </a>
+
+  
+
+  <a href="https://hmaier-dev.github.io/wiki//pgtap" class="mx-1"
+                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+  It just gets newly generated with every build of the site.">
+    Random
+  </a>
+
+
+
+  </header>
+  
+  <main class="bg-gray-50 p-3 m-auto 
+  
+    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+  
+    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Python</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#virtual-environments">Virtual Environments</a></li>
+    <li><a href="#language-server-protocol">Language Server Protocol</a></li>
+    <li><a href="#i-want-to-see-the-traceback">I want to see the traceback</a></li>
+    <li><a href="#i-want-to-have-structs-like-in-go">I want to have structs like in Go</a></li>
+    <li><a href="#packaging-a-project">Packaging a project</a></li>
+    <li><a href="#magic-packet">Magic Packet</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Is a nice scripting language which enables you to easily <em>build everything</em>, with the trade-off of it being slow.</p>
+<h2 id="virtual-environments">Virtual Environments<a href="/wiki/python/#virtual-environments" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Create a virtual environment in your current directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m venv .
+</span></span></code></pre></div><p>You can install all kinds of packages with different version, without cluttering your host-system.</p>
+<h2 id="language-server-protocol">Language Server Protocol<a href="/wiki/python/#language-server-protocol" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For Python coding in neovim I recommend <strong>basedpyright</strong>. It was the easiest to run.</p>
+<p>Usually you would need npm to run pyright, but with basedpyright everything is compiled into on binaries you can execute.
+Here is their Github: <a href="https://github.com/DetachHead/basedpyright">https://github.com/DetachHead/basedpyright</a> and it is available over <code>:Mason</code>.</p>
+<p>The basic LSP configuration looks like this:</p>
+<pre tabindex="0"><code>require(&#34;lspconfig&#34;).basedpyright.setup({})
+</code></pre><h2 id="i-want-to-see-the-traceback">I want to see the traceback<a href="/wiki/python/#i-want-to-see-the-traceback" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> traceback
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    do_stuff()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>    print(traceback<span style="color:#f92672">.</span>format_exc())
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># or</span>
+</span></span><span style="display:flex;"><span>    print(sys<span style="color:#f92672">.</span>exc_info()[<span style="color:#ae81ff">2</span>])
+</span></span></code></pre></div><h2 id="i-want-to-have-structs-like-in-go">I want to have structs like in Go<a href="/wiki/python/#i-want-to-have-structs-like-in-go" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For this you can use dataclasses. These convert a class by annotation into a dataclass.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define a dataclass to hold the URIs and their expected status codes</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">URI</span>:
+</span></span><span style="display:flex;"><span>    uri: str
+</span></span><span style="display:flex;"><span>    want: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test <span style="color:#f92672">=</span> URI(uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.nonexistentwebsite.com&#34;</span>, want<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span>),
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>uri)
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>want)
+</span></span></code></pre></div><h2 id="packaging-a-project">Packaging a project<a href="/wiki/python/#packaging-a-project" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/</a></li>
+</ul>
+<h2 id="magic-packet">Magic Packet<a href="/wiki/python/#magic-packet" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>A magic packet is a frame which is send as broadcast into the network,
+meant to start-up a computer which has Wake-On-LAN activated.
+In most cases the WOL-option can be found in the BIOS.
+The following script shows a function which takes any format of MAC-Address and broadcasts it to the network.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> struct
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wake_on_lan</span>(mac_address):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove any separators from the MAC address and convert to bytes</span>
+</span></span><span style="display:flex;"><span>    mac_bytes <span style="color:#f92672">=</span> bytes<span style="color:#f92672">.</span>fromhex(mac_address<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;:&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;-&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Create the magic packet payload</span>
+</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xff</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">+</span> mac_bytes <span style="color:#f92672">*</span> <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Set up the UDP socket</span>
+</span></span><span style="display:flex;"><span>    sock <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_DGRAM)
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>setsockopt(socket<span style="color:#f92672">.</span>SOL_SOCKET, socket<span style="color:#f92672">.</span>SO_BROADCAST, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Send the magic packet to the broadcast address on port 9</span>
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>sendto(payload, (<span style="color:#e6db74">&#39;&lt;broadcast&gt;&#39;</span>, <span style="color:#ae81ff">9</span>))
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mac_address <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;F2:1F:AF:30:9F:10&#39;</span>  <span style="color:#75715e"># Replace with the target MAC address</span>
+</span></span><span style="display:flex;"><span>wake_on_lan(mac_address)
+</span></span></code></pre></div>
+  
+
+
+  </main>
+ 
+  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
+    
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/raspberry_pi/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/powershell/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+  <footer>
+
+</body>
+</html>
