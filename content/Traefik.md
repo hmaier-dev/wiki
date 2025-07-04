@@ -2,6 +2,7 @@
 title: Traefik
 description: Web-Application-Proxy for containers
 ---
+## General Configuration
 In Traefik the configuration is done in two different ways:
 
 - static configuration
@@ -91,6 +92,25 @@ http:
 ```
 Because this is declared in the dynamic-config-file, you won't need to restart the container to make it work.
 
+## Project Example
+I like to go for the file-based dynamic configuration. Meaning, I create a separate directory called `./rules`
+which I mount into the container. For every service I create a separate file.
+
+```bash
+.
+├── apps            ## Services plus their config
+│   ├── authentik
+│   │   └── compose.yml
+│   └── outline
+│       └── compose.yml
+├── compose.yml     ## Traefik compose
+├── LICENSE
+├── README.md
+├── rules           ## Dynamic Config
+│   ├── authentik.yml
+│   └── outline.yml
+└── traefik.yml     ## Static Config
+```
 
 ## Resources
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
