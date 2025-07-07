@@ -53,10 +53,20 @@ andererseits kann man in der Phase (User Login Stage) die Sessionsdauer einstell
 Wie genau diese beiden Parts zusammen hängen, muss ich noch verstehen.
 
 
-## Middleware in Traefik
+## ForwardAuth in Traefik
+Um vor jegliche Anwendung einen Authentifizierung zu setzen, kann man Authentik in Traefik als
+Middleware über ForwardAuth einbinden. Von Authentik selbst gibt es dazu eine passenden Anleitung.
+
+- https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
+
+Wichtig ist, dass `outpost.company:9000` mit dem Container-Namen des Authentik-Servers im `traefik-net` ersetzt wird.
+Zum Beispiel aus `outpost.company:9000` wird `authentik-server:9000`. Dies ist der gleiche Name dem man dem Loadbalancer übergibt.
+
+Im Authentik müssen zudem noch ein Provider und eine Application angelegt werden.
+Zuletzt fügt man den Provider noch dem _Embedded Outpost_ hinzu.
+
 
 Reference: 
-- https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik
 - https://github.com/brokenscripts/authentik_traefik
 
 ## Session Duration
