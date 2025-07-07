@@ -64,3 +64,4 @@ DATABASE_URL=postgres://user:pass@postgres-outline:5432/outline
 
 Reference:
 - https://docs.goauthentik.io/integrations/services/outline/
+- https://docs.getoutline.com/s/hosting/doc/oidc-8CPBm6uC0I

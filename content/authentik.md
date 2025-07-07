@@ -10,7 +10,7 @@ Is kinda straight forward:
 
 ### `.env`-file
 
-```
+```bash
 # ------------------------
 # NOTE: this file needs to be called .env and not docker.env!
 #       When named different PG_PASS cannot be set. I don't know why...
@@ -62,4 +62,8 @@ Reference:
 ## Session Duration
 
 - https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/
+
+## Troubleshooting
+### Tokens
+To see the tokens saved on the location machine, go in your browser to `Dev Tools > Application > Cookies`.
 
