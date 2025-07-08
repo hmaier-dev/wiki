@@ -4,18 +4,23 @@ description: Collaborative wiki using React and Node.js
 ---
 
 ## Install
-The recommended way to run Outline is through a `docker-compose.yml`. You can find the docu here: https://docs.getoutline.com/s/hosting/doc/docker-7pfeLP5a8t
+The recommended way to run Outline is through a `docker-compose.yml`. You can find the docu here: 
 
-The `docker-compose.yml` uses a `docker.env` for its environment-variables. You can find in on their Github: https://github.com/outline/outline/blob/main/.env.sample (also linked in the docu)
-The following variables are important:
+- https://docs.getoutline.com/s/hosting/doc/docker-7pfeLP5a8t
+
+The `docker-compose.yml` uses a `docker.env` for its environment-variables.
+You can find in on their Github: 
+
+- https://github.com/outline/outline/blob/main/.env.sample (also linked in the docu)
+
+Some variables are important for a functioning setup:
 ```bash
 ## Set postgres ssl to false, otherwise there will be an error when running yarn
 PGSSLMODE=disable
 ## If your using traefik or another loadBalancer, turn off redirection
 FORCE_HTTPS=false
 ```
-
-Outline utilizes a postgres-database. Before the first start it needs to get initalized:
+Outline utilizes a postgres-database. Before the first startit needs to get initalized:
 ```bash
 ## Creation
 docker compose run --rm outline yarn db:create --env=production-ssl-disabled
@@ -58,6 +63,11 @@ Also make sure to give the containers fixed names, so the variable in `docker.en
 ```bash
 ## docker.env
 DATABASE_URL=postgres://user:pass@postgres-outline:5432/outline
+```
+
+Also disable the metrics by setting
+```bash
+ENABLE_UPDATES=false
 ```
 
 ## Authentik as provider for Open ID Connect
