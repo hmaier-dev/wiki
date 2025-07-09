@@ -24,6 +24,34 @@ Nach Abschluss der Arbeiten am Image, kann man wie folgt unmounten:
 dism /Unmount-Wim /MountDir:C:\mount /Commit
 ```
 
+## Features Offline hinzufügen
+Möchte man Features direkt nach der Installation verfügbar haben, kann man diese mit `dism.exe` vor der Installation dem Image hinzufügen.
+
+Dafür benötigt man die `install.wim` die man unter `\sources\install.wim` findet. Diese hängt man nun mit folgenden Kommando ein.
+```cmd
+dism /Mount-Wim /WimFile:"C:\W10_WST_1\install.wim" /index:1 /MountDir:C:\mount
+```
+Danach kann man sich erstmal alle Features anzeigen lassen.
+```cmd
+DISM /Image:c:\mount /Get-Features /Format:Table
+```
+Möchte man bspw. .NET 3.5 aktiviert haben, führt man nun folgendes Kommando aus.
+```cmd
+dism /Image:C:\mount /Enable-Feature /FeatureName:NetFx3 /All /Source:C:\Win10_22H2_German_x64v1\sources\sxs /LimitAccess
+```
+Als Source braucht man die Installationsquellen. Diese findet man in einer Windows-ISO unter `\sources\sxs`.
+
+Nun kann man das Feature an sich nochmal abfragen, um sicherzugehen, dass es dem Image korrekt hinzugefügt worden ist.
+```cmd
+dism /Image:C:\mount /Get-FeatureInfo /FeatureName:NetFx3
+```
+Zum Ende der Arbeiten an der `install.wim` muss man sie unmounten.
+```cmd
+dism /Unmount-Wim /MountDir:C:\mount /Commit
+```
+Um nun eine bootfähige ISO zu erhalten, nutzt man [oscdimg.exe]({{% ref path="oscdimg" %}}).
+
+
 ## Troubleshooting
 ### Error 1243
 Kann beim mounten einer `install.wim` auftreten. Mit diesen Registry-Einträgen kann man den Fehler lösen:
