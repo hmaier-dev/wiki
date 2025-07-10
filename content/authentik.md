@@ -73,6 +73,12 @@ Reference:
 
 - https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/
 
+## LDAP Source
+
+Fürs Einbinden vom Active Directory gibt es eine eigene Anleitung:
+
+- https://docs.goauthentik.io/docs/users-sources/sources/directory-sync/active-directory/
+
 ## Troubleshooting
 ### Tokens
 To see the tokens saved on the location machine, go in your browser to `Dev Tools > Application > Cookies`.
