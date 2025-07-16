@@ -115,6 +115,51 @@ Run it as following: `Edit-DTWBeautifyScript .\export.ps1` to update the code.
 
 It is available on `scoop` via `scoop install main/powershell-beautifier`.
 
+## LDAP Query
+When working with powershell, you most certainly are living in a Windows Domain. With this premise you obviously won't get along without doing some searching in the Active Directoy.
+With the following powershell-function you can make ldap-queries by using your current Kerberos Authentification. That means:
+1. Logon with your domain-user.
+2. Execute the script.
+3. Get data without inputting user+password. 
+```powershell
+function GetUser(){
+  param (
+    [string]$username
+  )
+  # Get the current domain name in DN format
+  $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+  $domainDN = ($domain.Name -split "\.") -join ",DC=" 
+  $domainDN = "DC=$domainDN"
+
+  # Edit this to your needs
+  $userPaths = @(
+      "OU=Mitarbeiter,OU=IT,OU=Users",
+  )
+  
+  foreach ($path in $userPaths) {
+    $full = "LDAP://$path,$domainDN"
+    $searcher = New-Object DirectoryServices.DirectorySearcher
+    $searcher.SearchRoot = New-Object DirectoryServices.DirectoryEntry($full)
+    $searcher.Filter = "(&(objectClass=user)(sAMAccountName=*$username*))"
+    $searcher.PageSize = 1000
+    $searcher.FindAll() | ? {
+      $user = $_.GetDirectoryEntry()
+      # If you want to know all properties of an entry
+      # you can use this:
+      # $user.Properties.PropertyNames | ? { 
+      #   Write-Host "$_ : $($user.Properties[$_])"
+      # } 
+      $out = @"
+sAMAccountName:             $($user.samaccountname.Value)
+mail:                       $($user.mail)
+dn:                         $($user.distinguishedName.Value)
+-----------------------------------------
+"@
+      Write-Host $out
+    }
+  }
+}
+```
 
 ## Tips and Tricks
 
