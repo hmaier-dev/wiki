@@ -88,4 +88,106 @@ mac_address = 'F2:1F:AF:30:9F:10'  # Replace with the target MAC address
 wake_on_lan(mac_address)
 ```
 
+## LDAP Query
+This examples uses the current Kerberos ticket to auth to the ldap server.
+In most cases this will just work in Windows.
+```python
+# pip install -r requirements.txt
+
+# ldap3==2.9.1
+# pyasn1==0.6.1
+# winkerberos==0.12.2
+import winkerberos as k
+from ldap3 import Server, Connection, SASL, GSSAPI, SUBTREE
+from dataclasses import dataclass
+from typing import Any, List
+
+
+# Use current users kerberos ticket.
+# See all active tickets with `klist`.
+def auth_kerberos(service_principal):
+    print(f"\nAttempting Kerberos authentication for SPN: {service_principal}")
+    try:
+        status, ctx = k.authGSSClientInit(service_principal)
+        if status != k.AUTH_GSS_COMPLETE and status != k.AUTH_GSS_CONTINUE:
+            return False, f"Failed to initialize GSSAPI context: {status}"
+        client_token = ""
+        while status == k.AUTH_GSS_CONTINUE:
+            print("Current GSSAPI status: AUTH_GSS_CONTINUE")
+            status = k.authGSSClientStep(ctx, client_token)
+            response_token = k.authGSSClientResponse(ctx)
+            if response_token is None:
+                if status == k.AUTH_GSS_COMPLETE:
+                    print("GSSAPI authentication complete, no more client response needed.")
+                    break
+                else:
+                    return False, "GSSAPI step produced no response token."
+        print("GSSAPI authentication complete.")
+        return True, "Authentication complete."
+    except k.GSSError as e:
+        # This catches errors during the GSSAPI negotiation
+        error_message = f"Kerberos GSSAPI Error: {e}"
+        print(error_message)
+        return False, error_message
+    except Exception as e:
+        # Catch other unexpected errors
+        error_message = f"An unexpected error occurred: {e}"
+        print(error_message)
+        return False, error_message
+# End Kerberos Auth
+
+
+ATTRIBUTES = [
+    'distinguishedName',
+    'mail',
+    'mailNickname']
+
+def browse(host, ous):
+    print(f"Connecting to LDAP server: {host}")
+    server = Server(host, use_ssl=False)  # Change use_ssl=True if needed
+    # SASL GSSAPI = use current Kerberos ticket
+    conn = Connection(
+        server,
+        authentication=SASL,
+        sasl_mechanism=GSSAPI,
+        auto_bind=True,
+        read_only=True
+    )
+    print("LDAP bind successful.")
+    for ou in ous:
+        cookie = b''
+        while True:
+            conn.search(
+                search_base=ou,
+                search_filter='(objectClass=user)',
+                search_scope=SUBTREE,
+                attributes=ATTRIBUTES,
+                paged_size=1000,
+                paged_cookie=cookie
+            )
+            read_page(conn)
+            ## If Cookie is set, pull another page
+            cookie = conn.result['controls']['1.2.840.113556.1.4.319']['value']['cookie']
+            if not cookie:
+                break
+    conn.unbind()
+
+## There is a restriction for the amount of entries returned by a ldap-request
+def read_page(conn: Connection):
+    for entry in conn.entries:
+        for a in ATTRIBUTES:
+            print(entry[a].values)
+
+
+# MAIN
+SERVICE_SPN = ""
+LDAP_HOST = ""
+OUs = [
+  "OU=IT,OU=Users,DC=company,DC=de",
+]
+success, result = auth_kerberos(SERVICE_SPN)
+print(success, result)
+browse(LDAP_HOST, OUs)
+```
+
 
