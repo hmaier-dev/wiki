@@ -161,6 +161,25 @@ dn:                         $($user.distinguishedName.Value)
 }
 ```
 
+## CSV Export
+For exporting data into a csv, you can use custom powershell-objects and pipe it to the `Export-Csv` function.
+```powershell
+$results 
+foreach ($user in $allUsers) {
+
+        $userObj = [PSCustomObject]@{
+            sAMAccountName = $user.sAMAccountName.value
+            name = $user.name.value
+            mail = $user.mail.value
+            dn = $user.distinguishedName.value
+        }
+        $results += $userObj
+    }
+}
+# Export the results to a CSV file
+$results | Export-Csv -Path "UserData.csv" -NoTypeInformation
+```
+
 ## Tips and Tricks
 
 ### Get all line of go
