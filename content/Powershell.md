@@ -192,6 +192,10 @@ Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalP
 ## Delete the profile
 Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" } | Foreach { $_.Delete() }
 ```
+You will notice that your user is still present in the LogonUI. Clear out the keys with your username in this Registry-Path:
+```cmd
+my-remote-machine\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI
+```
 
 ## Tips and Tricks
 
