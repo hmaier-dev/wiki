@@ -186,11 +186,11 @@ If you don't have access via `WinRM`, you can use `WMI` (Windows Management Inst
 Run this as Domain Administrator.
 ```powershell
 ## Show all profiles
-Get-WmiObject -Computername ABR_304 -Class Win32_userprofile
+Get-WmiObject -Computername special_hostname -Class Win32_userprofile
 ## Show profile
-Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" }
+Get-WmiObject -Computername special_hostname -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" }
 ## Delete the profile
-Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" } | Foreach { $_.Delete() }
+Get-WmiObject -Computername special_hostname -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" } | Foreach { $_.Delete() }
 ```
 You will notice that your user is still present in the LogonUI. Clear out the keys with your username in this Registry-Path:
 ```cmd
