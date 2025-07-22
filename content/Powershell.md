@@ -180,6 +180,19 @@ foreach ($user in $allUsers) {
 $results | Export-Csv -Path "UserData.csv" -NoTypeInformation
 ```
 
+## Delete UserProfiles via Wmi
+If you don't have access via `WinRM`, you can use `WMI` (Windows Management Instrumentation) as an Alternative.
+
+Run this as Domain Administrator.
+```powershell
+## Show all profiles
+Get-WmiObject -Computername ABR_304 -Class Win32_userprofile
+## Show profile
+Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" }
+## Delete the profile
+Get-WmiObject -Computername ABR_304 -Class Win32_userprofile | Where { $_.LocalPath -like "*domainusername*" } | Foreach { $_.Delete() }
+```
+
 ## Tips and Tricks
 
 ### Get all line of go
