@@ -24,6 +24,7 @@ title: git
     -   `checkout <main/prod> && switch -c <new-branch>`
 -   *Ich ein `rebase -i` auf meinen kompletten Branch machen*:
     -   `git rebase -i HEAD~$( git rev-list --count --no-merges <main>..)`
+    -   Bezieht den allerste Commit mit ein: `git rebase -i --root`
 -   *Wie übernehme ich einzelne Commits in meinen Branch*:
     -   `git switch <mein-branch> && git cherry-pick <commit-hash>`
 -   *Wie sehe ich alle Änderungen in einer Datei auf Zeit?*:
