@@ -23,3 +23,4 @@ Because of several dependancys I recommend to use the a docker image.
 ```bash
 docker run --rm -i jbarlow83/ocrmypdf-alpine
 ```
+Doc on how to use this on commandline: https://ocrmypdf.readthedocs.io/en/stable/docker.html#using-the-docker-image-on-the-command-line
