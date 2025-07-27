@@ -3,25 +3,29 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="bg-gray-800">
+<body class="bg-gray-800 w-100vw">
 
-  <header class="bg-gray-50 flex justify-start w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
-    {{ partial "header.html" . }}
-  </header>
-  
-  <main class="bg-gray-50 p-3 m-auto 
-  {{ if .Page.IsHome }}
-    my-6 min-h-[calc(100vh-6rem)]
-  {{ else }}
-    mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
-  {{ end }}
-    w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
-    {{ block "main" . }}{{ end }}
-  </main>
- 
-  <footer class="py-3 m-12 bg-gray-50 rounded w-4/6 md:w-3/4 sm:w-11/12 max-sm:w-11/12">
-    {{ partial "footer.html" . }}
-  <footer>
+  <div class="wrapper m-auto max-w-[900px]">
+
+    <header class="bg-gray-50">
+      {{ partial "header.html" . }}
+    </header>
+
+    <main class="bg-gray-50 p-3
+    {{ if .Page.IsHome }}
+      my-6 min-h-[calc(100vh-6rem)]
+    {{ else }}
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    {{ end }}">
+      {{ block "main" . }}{{ end }}
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      {{ partial "footer.html" . }}
+    <footer>
+
+  </div>
+
 
 </body>
 </html>

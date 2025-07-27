@@ -1,17 +1,33 @@
 
 
 {{ if not .Page.IsHome }}
+  
+  
+  <div class="flex justify-between">
+  
+  <!-- This div holds the links to the left -->
+    <div>
+      <a href="{{ .Site.BaseURL }}" class="mr-2">
+        home
+      </a>
+      {{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
+      <a href="{{ .Site.BaseURL }}{{ $rand.Path }}" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
 
-  <a href="{{ .Site.BaseURL }}" class="mx-1">
-    Home
-  </a>
+  <!-- Due to justify-between, this element is at the right -->
+    <div>
+      Last updated: {{ (.Lastmod.Format " 15:04, January 2, 2006") }} 
+    </div>
 
-  {{ $rand := index (shuffle .Site.RegularPages | first 1) 0 }}
+  </div>
 
-  <a href="{{ .Site.BaseURL }}{{ $rand.Path }}" class="mx-1"
-                title="Because of Hugo's nature as a static site generator, this button isn't truly random.
-  It just gets newly generated with every build of the site.">
-    Random
-  </a>
+
 {{ end }}
 
