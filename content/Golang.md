@@ -178,6 +178,11 @@ This is not so easy as you think. Because you need a fixed destination for the v
 ### Error: `Error scanning row: sql: expected 1 destination arguments in Scan, not 3`
 Überprüfen, ob du in deinem `SELECT`-Statemnt wirklich 3 Spalten angefragt hast.
 
+### SQL Compiler
+There is a library that compiles sql into type-safe code:
+ - https://github.com/sqlc-dev/sqlc
+Why this, there wouldn't be the need to care about structs in go and about the sql-queries.
+I just would write sql and use the queries in go as functions!!
 
 ## Commandline Arguments
 If you need something quick, without a variable info, just use this snippet:
