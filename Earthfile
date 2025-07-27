@@ -4,7 +4,7 @@ FROM hmaierdev/hugo-plus-tailwind
 build:
     # workdir is /tmp
     # Hugo cannot work in root (/)
-    COPY --dir content assets layouts ./
+    COPY --dir content assets layouts .git ./
     COPY hugo.toml hugo.toml
     COPY tailwind.config.js tailwind.config.js
 
