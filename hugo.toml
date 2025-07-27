@@ -2,6 +2,10 @@ baseURL = "https://hmaier-dev.github.io/wiki/"
 # baseURL = "http://localhost:1313/wiki/"
 languageCode = "de-de"
 title = "Wiki"
+enableGitInfo = true
+
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date", "publishDate"]
 
 ## Needed for css.TailwindCSS
 [[build.cachebusters]]
