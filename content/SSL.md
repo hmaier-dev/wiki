@@ -7,3 +7,7 @@ description: SSL means Secure Sockets Layer
 ```bash
 openssl s_client -connect mysite.de:443 -showcerts
 ```
+
+## Test Certs
+
+https://www.ssllabs.com/
