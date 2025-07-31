@@ -112,6 +112,12 @@ which I mount into the container. For every service I create a separate file.
 └── traefik.yml     ## Static Config
 ```
 
+## Certificates
+
+Self signed certs
+
+https://doc.traefik.io/traefik/expose/docker/#create-a-self-signed-certificate
+
 ## Resources
 - https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/
 - https://doc.traefik.io/traefik/getting-started/quick-start/
