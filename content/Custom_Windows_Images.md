@@ -6,6 +6,8 @@ Beim Bereitstellen von multiplen Maschinen mit Windows-Betriebssytem, wird man b
 damit einhergehenden Lethargie, irgendwann anfangen nach Automatisierungs-Möglichkeiten zu forschen.
 Mit modifizierten Windows-Images kann man sich widerkehrende Installationsroutinen und Konfigurationen ersparen, und somit der Lethargie enfliehen.
 
+- Doku von Mircosoft: https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/windows-setup-automation-overview?view=windows-11
+
 ## TL;DR
 1. Rechner mit jeglicher Software ausstatten
 2. Abbild des gesamten Systems erfassen
