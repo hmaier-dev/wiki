@@ -190,4 +190,43 @@ print(success, result)
 browse(LDAP_HOST, OUs)
 ```
 
+## Pandas
+Pandas sind nicht nur toll, sondern helfen auch zur Datenanalyse. Folgendes Beispiel: Ich habe zwei csv-Dateien in den ich jeweils einen Key habe.
+Nun möchte ich die Einträgen zusammenführen, in denen in beiden Dateien der Key gleich ist. Mithilfe des Pakets `pandas` kann ich dafür einen _Inner Join_ verwenden.
+```
+import pandas as pd
+
+bestellcenter_path = r".\bestellcenter-sim-numbers.csv"
+mdm_path = r".\mdm-data.csv"
+
+bc_df = pd.read_csv(bestellcenter_path, encoding="cp1252", sep=";", dtype={"SIM-Nummer": str})
+mdm_df = pd.read_csv(mdm_path, encoding="cp1252", sep=",", dtype={"SIM Karten Seriennummer": str})
+
+print(bc_df)
+print(mdm_df)
+
+mdm_df["SIM Karten Seriennummer"] = (
+    mdm_df["SIM Karten Seriennummer"].astype(str).str[6:]
+)
+
+## Bestellcenter key
+col1 = "SIM-Nummer"
+## MDM Key
+col2 = "SIM Karten Seriennummer"
+
+# Ein Inner Join nimmt nur die Rows in denen der Key in beiden Datenframes gleich ist
+merged_df = pd.merge(bc_df, mdm_df, left_on=col1, right_on=col2, how="inner")
+
+# '~' is hier ein logischer NOT operator
+# Hole mir alle MDM Einträge die nicht im Bestellcenter sind
+not_matched_df = mdm_df[~mdm_df[col2].isin(bc_df[col1])]
+
+print("SIM Karten, die im MDM und im Bestellcenter sind")
+print(merged_df)
+
+print("SIM Karten, die nicht im Bestellcenter gefunden wurden: ")
+print(not_matched_df)
+
+```
+
 
