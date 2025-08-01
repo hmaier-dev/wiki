@@ -191,7 +191,7 @@ browse(LDAP_HOST, OUs)
 ```
 
 ## Pandas
-Pandas sind nicht nur toll, sondern helfen auch zur Datenanalyse. Folgendes Beispiel: Ich habe zwei csv-Dateien in den ich jeweils einen Key habe.
+Pandas sind nicht nur toll, sondern helfen auch zur Datenanalyse. Folgendes Beispiel: Ich habe zwei csv-Dateien in den ich jeweils einen identischen Key habe.
 Nun möchte ich die Einträgen zusammenführen, in denen in beiden Dateien der Key gleich ist. Mithilfe des Pakets `pandas` kann ich dafür einen _Inner Join_ verwenden.
 ```python
 import pandas as pd
