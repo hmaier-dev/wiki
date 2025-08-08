@@ -14,11 +14,13 @@ Der Speicherort des `/imagefile` solle nach dem Herunterfahren der WinPE weiterh
 ### WinPE
 Zum Booten empfehle ich [Venoty](https://www.ventoy.net/en/index.html) und als WinPE-Umgebung [PhoenixPE]({{% ref path="phoenixpe" %}}).
 
-## Mount install.wim
-Um Dateien einer `install.wim` hinzuzufügen, ist es nötig diese zu mounten.
+## image1.wim mounten
+Um Dateien einer wim-Datei hinzuzufügen oder eine ISO daraus zu erstellen, ist es nötig diese zu mounten.
 ```cmd
 dism /Mount-Wim /WimFile:"C:\Werkstatt_Service_Rechner\install.wim" /index:1 /MountDir:C:\mount
 ```
+Die Windows-Installation ist nun unter C:\mount verfügbar.
+
 Nach Abschluss der Arbeiten am Image, kann man wie folgt unmounten:
 ```cmd
 dism /Unmount-Wim /MountDir:C:\mount /Commit
