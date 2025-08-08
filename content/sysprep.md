@@ -4,6 +4,11 @@ title: sysprep.exe
 Natives Windows-Programm zur Vorbereitung einer Installation, bevor man ein Image zieht. Normalerweise findet man das GUI-Programm `sysprep.exe` unter `\Windows\System32\Sysprep\`.
 Jeglich Logs und Fehlermeldungen die entstehen, findet man im Unterordner `Panther\`.
 
+Möchte man sich ein Image ziehen und auf einem neuen Rechner installieren, empfehlen sich folgende Optionen:
+
+- `OOBE`-Modus: Bei neuen Starten kommt man in die Out-Of-the-Box-Experience, wo man einen neuen User einrichten kann. (Es ist möglich diese mit einer Tastenkombination zu überspringen; bei W7 `STRG+SHITF+F3`)
+- `Verallgemeinern`: Damit werden alle Treiber empfehlen.
+
 ## Bitlocker
 Bitlocker verhindert das Generalisieren via Sysprep. Entweder man schaltet Bitlocker über die Einstellungen
 aus (`Einstellungen > Update & Sicherheit > Geräteveschlüsselung`) oder 
