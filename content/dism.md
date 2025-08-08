@@ -82,3 +82,13 @@ Windows Registry Editor Version 5.00
 Quelle ist dieser Artikel: https://answers.microsoft.com/en-us/windows/forum/all/solved-dismexe-error-1243-the-specified-service/836b860c-6427-40f9-9ea8-21869cd1218d
 
 Warum das funktioniert, ist mir nicht bekannt.
+
+### Error 161
+
+Die Meldung dazu ist: `Der angegebene Pfadname ist ungültig.`
+Nach einen `chdsk` auf Quelle und Ziel funktioniert `dism.exe`.
+```cmd
+chdsk E: /f
+chdsk G: /f
+dism /capture-image /imagefile:E:\image_folder\image1.wim /capturedir:G:\ /Name:"w7-important-image"
+```
