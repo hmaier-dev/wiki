@@ -14,6 +14,14 @@ Der Speicherort des `/imagefile` solle nach dem Herunterfahren der WinPE weiterh
 ### WinPE
 Zum Booten empfehle ich [Venoty](https://www.ventoy.net/en/index.html) und als WinPE-Umgebung [PhoenixPE]({{% ref path="phoenixpe" %}}).
 
+## Apply einer Installation
+Hat man mit `/Capture-Image` ein Abbild aufgenommen,
+kann man es mit `/Apply-Image` direkt (ohne Erstellen einer ISO) auf eine Partition anwenden.
+```cmd
+dism /Apply-Image /ImageFile:E:\imagefiles\W7.wim /Index:1 /ApplyDir:C:\
+```
+Gibt es hier die Meldung `Der angegebene Pfadname ist ungültig.` muss man ein `chkdsk` auf Quelle/Ziel anwenden.
+
 ## Get-WimInfo
 In einem WimFile können mehrere Windows-Versionen sein. Z.B.: Home aber auch Pro.
 Diesen werden durch einen Index gekennzeichnet.
@@ -98,7 +106,7 @@ Warum das funktioniert, ist mir nicht bekannt.
 Die Meldung dazu ist: `Der angegebene Pfadname ist ungültig.`
 Nach einen `chdsk` auf Quelle und Ziel funktioniert `dism.exe`.
 ```cmd
-chdsk E: /f
-chdsk G: /f
+chkdsk E: /f
+chkdsk G: /f
 dism /capture-image /imagefile:E:\image_folder\image1.wim /capturedir:G:\ /Name:"w7-important-image"
 ```
