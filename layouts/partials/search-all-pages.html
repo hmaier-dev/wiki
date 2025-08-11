@@ -1,0 +1,35 @@
+<div class="max-w-md mx-auto">
+  <input 
+    list="wikiPages"
+    id="wikiSearch"
+    name="search"
+    placeholder="Search wiki..."
+    class="w-full border rounded p-2"
+  >
+
+  <datalist id="wikiPages">
+    {{ range site.RegularPages }}
+      <option value="{{ .LinkTitle }}">{{ .Description }}</option>
+    {{ end }}
+  </datalist>
+</div>
+
+<script>
+  // Build a lookup table: title → URL
+  const pageLinks = {
+    {{ range site.RegularPages }}
+      {{ printf "%q" .LinkTitle }}: {{ printf "%q" .RelPermalink }},
+    {{ end }}
+  };
+
+  const searchInput = document.getElementById("wikiSearch");
+
+  searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      const value = searchInput.value.trim();
+      if (pageLinks[value]) {
+        window.location.href = pageLinks[value];
+      }
+    }
+  });
+</script>
