@@ -14,6 +14,14 @@ Der Speicherort des `/imagefile` solle nach dem Herunterfahren der WinPE weiterh
 ### WinPE
 Zum Booten empfehle ich [Venoty](https://www.ventoy.net/en/index.html) und als WinPE-Umgebung [PhoenixPE]({{% ref path="phoenixpe" %}}).
 
+## Get-WimInfo
+In einem WimFile können mehrere Windows-Versionen sein. Z.B.: Home aber auch Pro.
+Diesen werden durch einen Index gekennzeichnet.
+```cmd
+dism /Get-WimInfo /WimFile:C:\Win7_Clean\install.wim
+```
+Es werden nun die verschiedenen Windows-Versionen inklusive Größe und Index ausgegeben.
+
 ## image1.wim mounten
 Um Dateien einer wim-Datei hinzuzufügen oder eine ISO daraus zu erstellen, ist es nötig diese zu mounten.
 ```cmd
