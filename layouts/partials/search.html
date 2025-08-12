@@ -15,10 +15,9 @@
 </div>
 
 <script>
-  // Build a lookup table: title → URL
   const pageLinks = {
     {{ range site.RegularPages }}
-      {{ printf "%q" .LinkTitle }}: {{ printf "%q" .RelPermalink }},
+      {{ printf "%s" .LinkTitle }}: {{ printf "%s" .RelPermalink }},
     {{ end }}
   };
 
