@@ -31,4 +31,25 @@
       }
     }
   });
+
+
+  document.addEventListener("keydown", (e) => {
+  if (e.key === "/" && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    const tag = e.target.tagName.toLowerCase();
+    if (tag === "input" || tag === "textarea") {
+      return;
+    }
+
+    e.preventDefault(); // Prevent the "/" from being typed into the body
+
+    const searchInput = document.getElementById("wikiSearch");
+    if (searchInput) {
+      searchInput.focus();
+      searchInput.select(); // Optional: highlight text so typing replaces it
+    }
+  }
+});
+ 
+ 
+ 
 </script>

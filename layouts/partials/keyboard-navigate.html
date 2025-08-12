@@ -34,13 +34,6 @@ function toggle(){
     navigate.classList.toggle("hidden");
 }
 
-document.body.addEventListener("keypress", (e) => {
-  // 47 = "/"
-  if (e.charCode === 47){
-    toggle()
-    document.body.addEventListener("keydown", enterSearchString);
-  }
-});
 
 function enterSearchString(e){
   if(e.key === 'Meta'){return}
