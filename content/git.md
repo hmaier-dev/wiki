@@ -51,6 +51,9 @@ description: Versionierungs Kontrolle
 - Wie arbeite ich mit meinem Remote-Branch lokal?
     - Zuerst, alle Remote-Branches anzeigen lasse: `git branch -r`
     - Dann, neuen lokalen Branch auf Remote-Branch als Startpunkt zeigen lassen: `git checkout -b <branch> origin/<branch>`
+- Wie finde ich den Commit mit dem eine Änderung an einer Zeile gemacht wurde?
+    - `git blame -L <begin>,<end> -- <path/to/file>`
+    - Für jede einzelne Zeile im Bereich (inklusiv) wird der kurze Commit angezeigt. Über ein `git show <commit>` findet man den den jeweiligen Commit.
 
 ## rebase
 
