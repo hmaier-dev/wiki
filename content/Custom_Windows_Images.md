@@ -1,6 +1,7 @@
 ---
 title: Custom Windows Images
 description: How to make Windows more usable.
+
 ---
 Beim Bereitstellen von multiplen Maschinen mit Windows-Betriebssytem, wird man beim Durchleben von hohem zeitlichen Aufwand und der
 damit einhergehenden Lethargie, irgendwann anfangen nach Automatisierungs-Möglichkeiten zu forschen.

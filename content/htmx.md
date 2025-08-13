@@ -2,9 +2,10 @@
 categories:
 - Web-Development
 title: htmx
+description: Import one file into you web-app and get rid of all your js.
 ---
 
-HTMX is a javascript framework which should free the user from writing javscript.
+HTMX is a javascript framework which should free the user from writing javascript.
 Find out how on the offical website: https://htmx.org/
 
 This is the easiest way to use htmx: https://htmx.org/docs/#download-a-copy

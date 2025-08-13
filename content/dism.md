@@ -1,5 +1,6 @@
 ---
 title: dism.exe
+description: Deployment Image Servicing and Management. Clean out Windows from Dirt with this.
 ---
 Tool zur Imageverwaltung für die Bereitstellung
 

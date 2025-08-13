@@ -2,6 +2,7 @@
 categories:
 - Windows
 title: Powershell
+description: If you need to do Windows; use this.
 ---
 
 A collection of some powershell-snippets I found useful, can be found under:

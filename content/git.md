@@ -4,6 +4,7 @@ categories:
 - Linux
 - ci/cd
 title: git
+description: Versionierungs Kontrolle
 ---
 
 ## TL;DR 

@@ -3,6 +3,7 @@ categories:
 - cli
 - Linux
 title: ffmpeg
+description: Convert any media into any media.
 ---
 
 ## Converting filetypes

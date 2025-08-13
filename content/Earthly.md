@@ -2,6 +2,7 @@
 categories:
 - CI/CD
 title: Earthly
+description: Buildtool which merge Makefile and Dockerfile. Lets you run, your CI-jobs locally.
 ---
 
 Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
