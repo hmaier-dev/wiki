@@ -70,6 +70,12 @@ dism /Unmount-Wim /MountDir:C:\mount /Commit
 ```
 Um nun eine bootfähige ISO zu erhalten, nutzt man [oscdimg.exe]({{% ref path="oscdimg" %}}).
 
+## Export einer Windows Version
+In der ISO die man von Microsoft herunterlädt, sind zahlreiche verschiedene Windows Versionen enthalten. Um ein Wim-File mit der einzigen gewollten Version zu erhalten, kann man diese Exportieren.
+```
+dism /Export-Image /SourceImageFile:"D:\sources\install.wim" /SourceIndex:2 /DestinationImageFile:"D:\sources\install_clean.wim" /Compress:max /CheckIntegrity
+```
+
 
 ## Troubleshooting
 ### Error 1243
