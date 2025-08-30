@@ -133,3 +133,23 @@ When you want deploy a lot of services but you don't want to type all of them ou
 you could use _Go Templating_.
 
 - https://doc.traefik.io/traefik/providers/file/#go-templating
+
+## Configuration Examples
+### Webserver with HTTPS
+```yaml
+http:
+  routers:
+    website:
+      entrypoints:
+        - web
+        - websecure
+      rule: Host(`www.mysite.com`) || Host(`mysite.com`)
+      service: website
+      tls: {}
+  services:
+    website:
+      loadBalancer:
+        servers:
+          - url: "http://website:8080"
+~
+```

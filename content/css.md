@@ -3,6 +3,7 @@ categories:
 - Web-Development
 title: css
 ---
+This article covers mostly tailwindcss stuff but also vanilla.
 
 ## How to exlude indirect children when working with `:not()`?
 
