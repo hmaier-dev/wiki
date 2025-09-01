@@ -27,3 +27,7 @@ Um dies zu beheben, muss man in folgenden Registrypfad gehen und das betreffende
 - `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList`
 
 - https://superuser.com/questions/512484/how-do-i-force-windows-7-to-create-a-new-domain-profile-with-same-name-as-an-exi
+
+## Sound Settings
+
+Hier kommt man ins alte Sound-Menü `mmsys.cpl`.
