@@ -7,7 +7,8 @@ title: sqlite
 ## Dump data
 
 ```bash
-sqlite3 sqlite-old.db .dump > backup.sql
+mv sqlite.db sqlite.db.old 
+sqlite3 sqlite.db.old .dump > backup.sql
 ```
 
 ## Insert dump
