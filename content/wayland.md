@@ -2,6 +2,8 @@
 title: Wayland
 description: Communication protocol between the display server and its client. Often seen as modern alternative for Xorg on Linux.
 ---
+Everything about wayland can be read in
+- https://wayland-book.com/
 
 ## Application
 ### Brave-Browser
