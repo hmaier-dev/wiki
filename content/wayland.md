@@ -14,3 +14,7 @@ To use the brave browser on wayland, you need to add some flags.
 --ozone-platform=wayland
 ```
 After this brave should start flawless. (Tested on Brave Browser 139.1.81.137)
+
+
+## Keyboard
+Wayland uses xkb under the hood. There are several xkb programs (e.g. `xkbcli`) which can help you with problem solving.
