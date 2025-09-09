@@ -15,23 +15,7 @@ Der Speicherort des `/imagefile` solle nach dem Herunterfahren der WinPE weiterh
 ### WinPE
 Zum Booten empfehle ich [Venoty](https://www.ventoy.net/en/index.html) und als WinPE-Umgebung [PhoenixPE]({{% ref path="phoenixpe" %}}).
 
-## Apply einer Installation
-Hat man mit `/Capture-Image` ein Abbild aufgenommen,
-kann man es mit `/Apply-Image` direkt (ohne Erstellen einer ISO) auf eine Partition anwenden.
-```cmd
-dism /Apply-Image /ImageFile:E:\imagefiles\W7.wim /Index:1 /ApplyDir:C:\
-```
-Gibt es hier die Meldung `Der angegebene Pfadname ist ungültig.` muss man ein `chkdsk` auf Quelle/Ziel anwenden.
-
-## Get-WimInfo
-In einem WimFile können mehrere Windows-Versionen sein. Z.B.: Home aber auch Pro.
-Diesen werden durch einen Index gekennzeichnet.
-```cmd
-dism /Get-WimInfo /WimFile:C:\Win7_Clean\install.wim
-```
-Es werden nun die verschiedenen Windows-Versionen inklusive Größe und Index ausgegeben.
-
-## image1.wim mounten
+## Wim-File mounten
 Um Dateien einer wim-Datei hinzuzufügen oder eine ISO daraus zu erstellen, ist es nötig diese zu mounten.
 ```cmd
 dism /Mount-Wim /WimFile:"C:\Werkstatt_Service_Rechner\install.wim" /index:1 /MountDir:C:\mount
@@ -42,6 +26,26 @@ Nach Abschluss der Arbeiten am Image, kann man wie folgt unmounten:
 ```cmd
 dism /Unmount-Wim /MountDir:C:\mount /Commit
 ```
+
+## Apply einer Installation
+Hat man mit `/Capture-Image` ein Abbild aufgenommen,
+kann man es mit `/Apply-Image` direkt (ohne Erstellen einer ISO) auf eine Partition anwenden.
+```cmd
+dism /Apply-Image /ImageFile:E:\imagefiles\W7.wim /Index:1 /ApplyDir:C:\
+```
+Dafür bietet es sich an sich über eine WinPE auf das System aufzuschalten.
+Von dort aus kann man das Wim-File auf die C:\-Partition anwenden.
+
+Gibt es hier die Meldung `Der angegebene Pfadname ist ungültig.` muss man ein `chkdsk` auf Quelle/Ziel anwenden.
+
+## Get-WimInfo
+In einem WimFile können mehrere Windows-Versionen sein. Z.B.: Home aber auch Pro.
+Diesen werden durch einen Index gekennzeichnet.
+```cmd
+dism /Get-WimInfo /WimFile:C:\Win7_Clean\install.wim
+```
+Es werden nun die verschiedenen Windows-Versionen inklusive Größe und Index ausgegeben.
+
 
 ## Features Offline hinzufügen
 Möchte man Features direkt nach der Installation verfügbar haben, kann man diese mit `dism.exe` vor der Installation dem Image hinzufügen.
