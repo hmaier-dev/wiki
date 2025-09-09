@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.fe4672421c8fa0ccd6ab6334a984aa6d10053587cda4e7632acddc0ea81496ce.css" integrity="sha256-/kZyQhyPoMzWq2M0qYSqbRAFNYfNpOdjKs3cDqgUls4=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="You make money with this.">
+<title>Windows - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper m-auto max-w-[900px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//hugo" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Windows</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#appx-packages">Appx-Packages</a>
+      <ul>
+        <li><a href="#re-register-apps">Re-register Apps</a></li>
+        <li><a href="#desktop-anwendung-in-msix-packen">Desktop Anwendung in MSIX packen</a></li>
+      </ul>
+    </li>
+    <li><a href="#drucker-portanschlüsse-löschen">Drucker-Port/Anschlüsse löschen</a></li>
+    <li><a href="#drucker-löschen">Drucker löschen</a></li>
+    <li><a href="#enable-psremoting-als-gpo"><code>Enable-PSRemoting</code> als GPO</a></li>
+    <li><a href="#force-re-creation-of-userprofile">Force re-creation of Userprofile</a></li>
+    <li><a href="#sound-settings">Sound Settings</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="appx-packages">Appx-Packages<a href="/wiki/windows/#appx-packages" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man Appx-Packages installieren unterscheidet man zwischen zwei Arten von Kommando-Gruppen.
+Einerseits die Kommandos für <code>*-AppxPackage</code> und <code>*-AppxProvisionedPackage</code>.</p>
+<p>Mit den <code>AppxPackage</code>-Kommando kann man im normalen User-Space AppX-Pakete hinzufügen. Diese sind damit auf dem momentan angemeldeten Profil verfügbar.
+Möchte man das alle Benutzer dieses Paket erhalten, kann man mit <code>AppxProvisionedPackage</code> arbeiten. Bei der Anmeldung wird damit für den jeweiligen Benutzer die App <em>provisioniert</em>.</p>
+<p>Dabei ist wichtig zu beachten, dass man das <code>-Online</code>-Flag nutzt. Damit bearbeitet man die aktuell laufende Windows-Installation. Ohne das <code>-Online</code>-Flag kann man ein Windows-Image bearbeiten, muss dann aber den <code>-Path</code> mit angeben.
+In der Microsoft-Doku gibt es dafür zwei gute Beispiele:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/powershell/module/dism/add-appxprovisionedpackage?view=windowsserver2025-ps#examples">https://learn.microsoft.com/en-us/powershell/module/dism/add-appxprovisionedpackage?view=windowsserver2025-ps#examples</a></li>
+</ul>
+<h3 id="re-register-apps">Re-register Apps<a href="/wiki/windows/#re-register-apps" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>When some apps fail. try this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-AppXPackage -AllUsers | <span style="color:#66d9ef">Foreach</span> {Add-AppxPackage -DisableDevelopmentMode -Register <span style="color:#e6db74">&#34;</span>$($_.InstallLocation)<span style="color:#e6db74">\AppXManifest.xml&#34;</span>}
+</span></span></code></pre></div><h3 id="desktop-anwendung-in-msix-packen">Desktop Anwendung in MSIX packen<a href="/wiki/windows/#desktop-anwendung-in-msix-packen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><a href="https://learn.microsoft.com/de-de/windows/msix/packaging-tool/tool-overview">https://learn.microsoft.com/de-de/windows/msix/packaging-tool/tool-overview</a></li>
+</ul>
+<h2 id="drucker-portanschlüsse-löschen">Drucker-Port/Anschlüsse löschen<a href="/wiki/windows/#drucker-portanschlüsse-löschen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</code></li>
+</ul>
+<h2 id="drucker-löschen">Drucker löschen<a href="/wiki/windows/#drucker-löschen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Printers\</code></li>
+</ul>
+<h2 id="enable-psremoting-als-gpo"><code>Enable-PSRemoting</code> als GPO<a href="/wiki/windows/#enable-psremoting-als-gpo" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer Cponfiguration &gt; Administrative Templates &gt; Windows Components &gt; Windows Remote Management (RM) &gt; WinRM Service &gt; Allow remote server management through WinRM</code></li>
+</ul>
+<h2 id="force-re-creation-of-userprofile">Force re-creation of Userprofile<a href="/wiki/windows/#force-re-creation-of-userprofile" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In manchen Fällen kann das Userprofil eines Benutzers beschädigt oder anders korrupiert sein.
+Um dies zu beheben, muss man in folgenden Registrypfad gehen und das betreffende Profil löschen:</p>
+<ul>
+<li>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code></p>
+</li>
+<li>
+<p><a href="https://superuser.com/questions/512484/how-do-i-force-windows-7-to-create-a-new-domain-profile-with-same-name-as-an-exi">https://superuser.com/questions/512484/how-do-i-force-windows-7-to-create-a-new-domain-profile-with-same-name-as-an-exi</a></p>
+</li>
+</ul>
+<h2 id="sound-settings">Sound Settings<a href="/wiki/windows/#sound-settings" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Hier kommt man ins alte Sound-Menü <code>mmsys.cpl</code>.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/windows_terminal/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/webassembly/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>
