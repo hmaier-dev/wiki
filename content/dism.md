@@ -45,6 +45,35 @@ Diesen werden durch einen Index gekennzeichnet.
 dism /Get-WimInfo /WimFile:C:\Win7_Clean\install.wim
 ```
 Es werden nun die verschiedenen Windows-Versionen inklusive Größe und Index ausgegeben.
+```cmd
+
+Tool zur Imageverwaltung für die Bereitstellung
+Version: 10.0.26100.5074
+
+Details für Abbild: "C:\Win7_Clean\install.wim"
+
+Index: "1"
+Name: "Windows 7 Home Basic"
+Beschreibung: "Windows 7 Home Basic"
+Größe: 11.623.452.494 Bytes
+
+Index: "2"
+Name: "Windows 7 Home Premium"
+Beschreibung: "Windows 7 Home Premium"
+Größe: 12.136.659.100 Bytes
+
+Index: "3"
+Name: "Windows 7 Professional"
+Beschreibung: "Windows 7 Professional"
+Größe: 12.037.929.390 Bytes
+
+Index: "4"
+Name: "Windows 7 Ultimate"
+Beschreibung: "Windows 7 Ultimate"
+Größe: 12.200.638.813 Bytes
+
+Der Vorgang wurde erfolgreich beendet.
+```
 
 
 ## Features Offline hinzufügen
