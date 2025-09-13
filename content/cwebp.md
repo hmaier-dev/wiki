@@ -12,3 +12,8 @@ scoop install main/libwebp
 ``` bash
 cwebp -q 80 bild.jpg -o bild.webp 
 ```
+
+Wandele alle jpeg um zu webp.
+```bash
+parallel cwebp -q 80 {} -o {.}.webp ::: *.jpeg
+```
