@@ -24,4 +24,9 @@ If you want to test a string, you can use
 - `-n` to test if var *is not empty*
 - `-z` to test if var *is empty*
 
-
+## xargs
+Search for string in file list comming from a pipe.
+```bash
+dfr ls-files | xargs grep "my searched string"
+```
+`xargs` execute the following command on all received files.
