@@ -48,3 +48,6 @@ Um dies zu beheben, muss man in folgenden Registrypfad gehen und das betreffende
 ## Sound Settings
 
 Hier kommt man ins alte Sound-Menü `mmsys.cpl`.
+
+## Windows 11 on unsupported Hardware
+Mit diesem Script hat es gut funktioniert: https://gist.github.com/asheroto/5087d2a38b311b0c92be2a4f23f92d3e
