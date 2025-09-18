@@ -197,6 +197,14 @@ You will notice that your user is still present in the LogonUI. Clear out the ke
 ```cmd
 my-remote-machine\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI
 ```
+## Register-WmiEvent
+`Wmi` (Windows Management Instrumentation) bietet unter Windows ein Schnittstelle um Informationen über den Zustand des Systems zu erhalten.
+Mit Powershell kann `Register-WmiEvent` nutzen, um auf das Eintreten eines Zustands zu reagieren.
+Zum Abhören eines Zustands muss man per WQL eine passende Query bauen.
+
+- MS Docs: https://learn.microsoft.com/en-us/windows/win32/wmisdk/wql-sql-for-wmi
+- WMI Code Creator: https://www.microsoft.com/en-us/download/details.aspx?id=8572
+
 
 ## Tips and Tricks
 
