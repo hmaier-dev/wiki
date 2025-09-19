@@ -68,3 +68,20 @@ Damit verhindert man das Abbrechen bei Fehlern.
 
 - Show all messages from boot:
     - `journalctl -b`
+
+## Service Units
+Instead of tinkering around in the `~/.config/autostart` directory, you also could write a small service unit.j
+When placing this in `~.config/systemd/user` you can control it by adding the `--user`-flag to `systemctl`.
+That looks like the following: `systemctl --user status syncthing.service`.
+```systemd
+[Unit]
+Description=Syncthing service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/syncthing --no-browser
+ExecStop=killall syncthing
+
+[Install]
+WantedBy=multi-user.target
+```
