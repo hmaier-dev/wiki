@@ -263,6 +263,10 @@ In the `home.search.json`-template you can declare all your needed data.
 ```
 - Reason for the name-schema of `home.json.json` and `home.search.json`: https://gohugo.io/templates/output-formats/#template-lookup-order
 
+## Themes I might check out
+
+- https://github.com/nodejh/hugo-theme-mini
+
 ## Troubleshooting and errors
 
 ### `ÄÖÜäöü` won't render correctly
