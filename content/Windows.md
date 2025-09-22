@@ -55,56 +55,71 @@ Mit diesem Script hat es gut funktioniert: https://gist.github.com/asheroto/5087
 ## Drucker
 Um die Druckerwarteschlange abzuhören, bzw. zu loggen, kann man folgendes Powershell-Skript nutzen:
 ```powershell
-$sourceId = "PrintJob"
+## All Atributes of Win32_PrintJob
+# $job.TimeSubmitted
+# $job.Caption
+# $job.Description
+# $job.Document
+# $job.HostPrintQueue
+# $job.JobId
+# $job.JobStatus
+# $job.Name
+# $job.Notify
+# $job.Owner
+# $job.PagesPrinter
+# $job.PaperLength
+# $job.PaperSize
+# $job.PaperWidth
+# $job.TotalPages
+# $job.Color
+# $job.DataType
+# $job.DriverName
+
+$LogFile = "C:\Users\superSpecialUser\Desktop\PrintJobLog.txt"
+if (-not (Test-Path $LogFile)) {
+    New-Item -Path $LogFile -ItemType File -Force | Out-Null
+}
 try {
-    $query = "SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_PrintJob'"
-    Register-WmiEvent -Query $query -SourceIdentifier $sourceId -Action {
-	$job = $Event.SourceEventArgs.NewEvent.TargetInstance
-    $timeSubmitted = $null
-    if ($job.TimeSubmitted) {
-        # WMI format: yyyymmddHHMMSS.mmmmmm+zzz
-        $wmiTime = $job.TimeSubmitted.Substring(0,14)  # yyyymmddHHMMSS
-        $timeSubmitted = [datetime]::ParseExact($wmiTime, "yyyyMMddHHmmss", $null)
-        $timeSubmitted = $timeSubmitted.ToString("yyyy-MM-dd-HH-mm-ss")
+    $create = "JobCreation"
+    Register-WmiEvent -Query "SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_PrintJob'" -SourceIdentifier $create -Action {
+      $job = $Event.SourceEventArgs.NewEvent.TargetInstance
+      $action = "NEW JOB"
+      $raw = $job.TimeSubmitted.Substring(0,14)
+      $dt = [datetime]::ParseExact($raw, "yyyyMMddHHmmss", $null)
+      $time = $dt.ToString("yyyy-MM-dd_HH-mm-ss")
+      $msg = "$($time) => [$($action)] | $($job.Caption) $($job.HostPrintQueue) $($job.Owner) $($job.Document) ($($job.JobId))"
+      Write-Host $msg
+      $msg | Out-File "C:\Users\superSpecialUser\Desktop\PrintJobLog.txt" -Append
+  
     }
 
-    # Build custom object
-    $printJobObj = [PSCustomObject]@{
-        TimeSubmitted   = $timeSubmitted
-        Caption         = $job.Caption        
-        # Description     = $job.Description
-        Document        = $job.Document
-        DriverName      = $job.DriverName
-        HostPrintQueue  = $job.HostPrintQueue
-        JobId           = $job.JobId
-        JobStatus       = $job.JobStatus
-        Name            = $job.Name
-        # Notify          = $job.Notify
-        Owner           = $job.Owner
-        PagesPrinted    = $job.PagesPrinted
-        PaperLength     = $job.PaperLength
-        PaperSize       = $job.PaperSize
-        PaperWidth      = $job.PaperWidth
-        TotalPages      = $job.TotalPages
-        Color           = $job.Color
-        DataType        = $job.DataType
+    $remove = "JobRemoved"
+    Register-WmiEvent -Query "SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_PrintJob'" -SourceIdentifier $remove -Action {
+      $job = $Event.SourceEventArgs.NewEvent.TargetInstance
+      $action = "JOB REMOVED"
+
+      $raw = $job.TimeSubmitted.Substring(0,14)
+      $dt = [datetime]::ParseExact($raw, "yyyyMMddHHmmss", $null)
+      $time = $dt.ToString("yyyy-MM-dd_HH-mm-ss")
+      $msg = "$($time) => [$($action)] | $($job.HostPrintQueue) $($job.Owner) $($job.Document) ($($job.JobId))"
+      Write-Host $msg
+      $msg | Out-File "C:\Users\superSpecialUser\Desktop\PrintJobLog.txt" -Append
     }
 
-    $printJobObj | ConvertTo-Json -Compress | Out-File ".\PrintJobsLog.json" -Append
-    Write-Host "Logged print job: $($job.Document) ($($job.JobId))"
 
-    }
     Write-Host "Monitoring for new processes. Press Ctrl+C to stop."
     # Use a loop to keep the script running and the session active.
     while ($true) {
-        # Receive the output from the background job and print it
-        Receive-Job -Name $sourceId
-        Start-Sleep -Seconds 1
+        Start-Sleep -Seconds 5
     }
-} finally {
-    # If error occures or 
-    Unregister-Event -SourceIdentifier $sourceId
-    Get-Job -Name $sourceId | Remove-Job -Force
-}
 
+} finally {
+    Write-Host "Unregister and remove: $create"
+    Unregister-Event -SourceIdentifier $create
+    Get-Job -Name $create | Remove-Job -Force
+
+    Write-Host "Unregister and remove: $remove"
+    Unregister-Event -SourceIdentifier $remove
+    Get-Job -Name $remove | Remove-Job -Force
+}
 ```
