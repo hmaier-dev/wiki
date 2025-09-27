@@ -19,3 +19,13 @@ sqlite3 sqlite-new.db < backup.sql
 # Windows
 Get-Content backup.sql | sqlite3.exe sqlite.db
 ```
+
+## In-Memory database
+If you don't want to create a file for the database, you can use the `:memory:` command.
+This way sqlite just creates a db in-memory, which gets delete when the process exists.
+```go
+db, err := sql.Open("sqlite", ":memory:")
+if err != nil {
+    return err
+}
+```
