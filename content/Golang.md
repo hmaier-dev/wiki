@@ -184,6 +184,11 @@ There is a library that compiles sql into type-safe code:
 Why this, there wouldn't be the need to care about structs in go and about the sql-queries.
 I just would write sql and use the queries in go as functions!!
 
+## Error Handling
+### HTTP
+Maybe a nice read for a train drive:
+- https://blog.questionable.services/article/http-handler-error-handling-revisited/
+
 ## Commandline Arguments
 If you need something quick, without a variable info, just use this snippet:
 ```go
