@@ -55,6 +55,7 @@ Mit diesem Script hat es gut funktioniert: https://gist.github.com/asheroto/5087
 ## Drucker
 Um die Druckerwarteschlange abzuhören, bzw. zu loggen, kann man folgendes Powershell-Skript nutzen:
 ```powershell
+## Diese Attribute findet man unter: https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/win32-printjob#syntax
 ## All Atributes of Win32_PrintJob
 # $job.TimeSubmitted
 # $job.Caption
