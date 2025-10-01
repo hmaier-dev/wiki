@@ -124,3 +124,10 @@ try {
     Get-Job -Name $remove | Remove-Job -Force
 }
 ```
+
+## WMI
+Diese verschiedenen Objekte kann man mit WMI abhören:
+
+- https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/computer-system-hardware-classes
+
+Unter den verschiedenen Klassen findet man den jeweils die Attribute.
