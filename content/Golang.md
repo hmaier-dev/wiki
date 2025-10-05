@@ -308,3 +308,7 @@ func IndexRoute(router *mux.Router){
 ## Code Analysis
 To see flaws in your code-base, you can use [`staticcheck ./...`](https://staticcheck.dev/docs/)(external tool) or `go vet ./...`(part of the go toolchain).
 
+## GUI frameworks
+To develop for the desktop, you'll need some framework:
+
+- https://wails.io/
