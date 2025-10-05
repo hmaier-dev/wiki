@@ -131,3 +131,9 @@ Diese verschiedenen Objekte kann man mit WMI abhören:
 - https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/computer-system-hardware-classes
 
 Unter den verschiedenen Klassen findet man den jeweils die Attribute.
+
+
+## Installers
+On Windows there are several installers types, which enable the admin to rollout the software in different ways.
+### NSIS
+https://nsis.sourceforge.io/Main_Page
