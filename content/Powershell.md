@@ -99,6 +99,17 @@ A simple one-dimensional config (e.g. `config.psd1`) would look like this:
     Username = "ftp-user"
     Password = "supersecretftppassword"
     Exclude = @("PT*0730*.DAT")
+    ## Keep in mind that @() is for array and @{} is for hash table
+    Paths = @(
+      @{
+        Source = 'L:\FileServer\Project1'
+        Destination = 'path/to/destination/on/server'
+      },
+      @{
+        Source = 'L:\FileServer\Project2'
+        Destination = 'path/to/destination/on/server'
+      }
+    )
 }
 ```
 In your script you would import the config-file and access the variable like properties:
