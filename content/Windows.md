@@ -25,6 +25,7 @@ Get-AppXPackage -AllUsers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Re
 
 - https://learn.microsoft.com/de-de/windows/msix/packaging-tool/tool-overview
 
+
 ## Drucker-Port/Anschlüsse löschen
 
 - `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports`
@@ -137,3 +138,6 @@ Unter den verschiedenen Klassen findet man den jeweils die Attribute.
 On Windows there are several installers types, which enable the admin to rollout the software in different ways.
 ### NSIS
 https://nsis.sourceforge.io/Main_Page
+### MSI
+Mit der Windows ADK erhält man hilfreiche Einblicke in MSI-Pakete:
+- https://developer.microsoft.com/de-de/windows/downloads/windows-sdk/
