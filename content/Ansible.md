@@ -28,7 +28,7 @@ werden. Dies tut man mit folgender Flag.
 ansible-playbook -i inventory.ini basic_setup.yml --ask-become-pass
 ```
 
-## Setup
+## Setup new Project
 Zur Vorbereitung auf ein neues Projekt sollte man als erstes den Zugang via `ansible_user` testen.
 Dafür deklariert man ein Inventory mit der IP-Adresse des Server sowie dem Namen des Users.
 ```ini
@@ -77,3 +77,22 @@ ansible -i inventory.ini all -m ping
 ## }
 
 ```
+## Secrets
+Secrets werden kann man in der gleichen Art und Weise behandeln wie Variablen.
+Der einzige Unterschied ist, dass man sein `secrets.yml`-File per Ansible-Vault verschlüsseln kann.
+```bash
+ansible-vault encrypt group_vars/all/secrets.yml
+```
+Man wird nun nach einem Vault-Passwort gefragt, welches als Schlüssel dient.
+Weitere Variablen kann man mit `edit` hinzufügen:
+```bash
+ansible-vault encrypt group_vars/all/secrets.yml
+```
+Die Datei kann wie folgt aussehen:
+```yml
+key1: secretkey
+key2: secretkey2##1??
+```
+Über `vars_files` importiert man den Vault nun wie auch andere Variablen.
+
+
