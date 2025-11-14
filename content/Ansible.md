@@ -64,5 +64,15 @@ Zurück auf der lokalen Maschine kann man `ssh-copy-id` verwenden, was den lokal
 ```bash
 ssh-copy-id deploy@79.225.242.139
 ```
+Nun kann man nochmal ein AdHoc-Ping versuchen. 
+```bash
+ansible -i inventory.ini all -m ping
+## 79.225.242.139 | SUCCESS => {
+##     "ansible_facts": {
+##         "discovered_interpreter_python": "/usr/bin/python3.11"
+##     },
+##     "changed": false,
+##     "ping": "pong"
+## }
 
-
+```
