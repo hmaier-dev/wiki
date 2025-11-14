@@ -44,6 +44,16 @@ ignore the native arch-package.
 - How to remove non-used packages (orphans)?
 	- `alias rmorphans="pacman -Qtdq | sudo pacman -Rns -"`
 
+### Downgrading a package
+Für Notfälle hält pacman eine bestimmte Anzahl an alten Versionen einer Software im Cache (`/var/cache/pacman/pkg/`) vor.
+```bash
+ls /var/cache/pacman/pkg/ | grep "botan"
+```
+Installieren tun man das Paket man mit der -U Flag.
+```bash
+pacman -U /var/cache/pacman/pkg/botan-3.9.0-1-x86_64.pkg.tar.zst
+```
+
 ## Network
 You can do it different ways. Gnome uses `NetworkManager` by default.
 A less bloated way would be using the `systemd`-daemons for DNS and DHCP: `systemd-networkd` and `systemd-resolved`.
