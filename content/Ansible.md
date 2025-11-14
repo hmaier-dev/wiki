@@ -4,7 +4,8 @@ categories:
 title: Ansible
 ---
 
--   `ansible-playbook -i inventory.ini add_admin_user.yml`
+- `ansible-playbook -i inventory.ini add_admin_user.yml`
+- ` ansible-playbook -i inventory.ini playbooks/deploy-traefik.yml`
 
 ## Mit Vagrant 
 
