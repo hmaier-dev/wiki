@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="You make money with this.">
+<title>Windows - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//dns" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Windows</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#appx-packages">Appx-Packages</a>
+      <ul>
+        <li><a href="#re-register-apps">Re-register Apps</a></li>
+        <li><a href="#desktop-anwendung-in-msix-packen">Desktop Anwendung in MSIX packen</a></li>
+      </ul>
+    </li>
+    <li><a href="#drucker-portanschlüsse-löschen">Drucker-Port/Anschlüsse löschen</a></li>
+    <li><a href="#drucker-löschen">Drucker löschen</a></li>
+    <li><a href="#enable-psremoting-als-gpo"><code>Enable-PSRemoting</code> als GPO</a></li>
+    <li><a href="#force-re-creation-of-userprofile">Force re-creation of Userprofile</a></li>
+    <li><a href="#sound-settings">Sound Settings</a></li>
+    <li><a href="#windows-11-on-unsupported-hardware">Windows 11 on unsupported Hardware</a></li>
+    <li><a href="#drucker">Drucker</a></li>
+    <li><a href="#wmi">WMI</a></li>
+    <li><a href="#installers">Installers</a>
+      <ul>
+        <li><a href="#nsis">NSIS</a></li>
+        <li><a href="#msi">MSI</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="appx-packages">Appx-Packages<a href="/wiki/windows/#appx-packages" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man Appx-Packages installieren unterscheidet man zwischen zwei Arten von Kommando-Gruppen.
+Einerseits die Kommandos für <code>*-AppxPackage</code> und <code>*-AppxProvisionedPackage</code>.</p>
+<p>Mit den <code>AppxPackage</code>-Kommando kann man im normalen User-Space AppX-Pakete hinzufügen. Diese sind damit auf dem momentan angemeldeten Profil verfügbar.
+Möchte man das alle Benutzer dieses Paket erhalten, kann man mit <code>AppxProvisionedPackage</code> arbeiten. Bei der Anmeldung wird damit für den jeweiligen Benutzer die App <em>provisioniert</em>.</p>
+<p>Dabei ist wichtig zu beachten, dass man das <code>-Online</code>-Flag nutzt. Damit bearbeitet man die aktuell laufende Windows-Installation. Ohne das <code>-Online</code>-Flag kann man ein Windows-Image bearbeiten, muss dann aber den <code>-Path</code> mit angeben.
+In der Microsoft-Doku gibt es dafür zwei gute Beispiele:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/powershell/module/dism/add-appxprovisionedpackage?view=windowsserver2025-ps#examples">https://learn.microsoft.com/en-us/powershell/module/dism/add-appxprovisionedpackage?view=windowsserver2025-ps#examples</a></li>
+</ul>
+<h3 id="re-register-apps">Re-register Apps<a href="/wiki/windows/#re-register-apps" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>When some apps fail. try this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-AppXPackage -AllUsers | <span style="color:#66d9ef">Foreach</span> {Add-AppxPackage -DisableDevelopmentMode -Register <span style="color:#e6db74">&#34;</span>$($_.InstallLocation)<span style="color:#e6db74">\AppXManifest.xml&#34;</span>}
+</span></span></code></pre></div><h3 id="desktop-anwendung-in-msix-packen">Desktop Anwendung in MSIX packen<a href="/wiki/windows/#desktop-anwendung-in-msix-packen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><a href="https://learn.microsoft.com/de-de/windows/msix/packaging-tool/tool-overview">https://learn.microsoft.com/de-de/windows/msix/packaging-tool/tool-overview</a></li>
+</ul>
+<h2 id="drucker-portanschlüsse-löschen">Drucker-Port/Anschlüsse löschen<a href="/wiki/windows/#drucker-portanschlüsse-löschen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors\Standard TCP/IP Port\Ports</code></li>
+</ul>
+<h2 id="drucker-löschen">Drucker löschen<a href="/wiki/windows/#drucker-löschen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Printers\</code></li>
+</ul>
+<h2 id="enable-psremoting-als-gpo"><code>Enable-PSRemoting</code> als GPO<a href="/wiki/windows/#enable-psremoting-als-gpo" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>Computer Cponfiguration &gt; Administrative Templates &gt; Windows Components &gt; Windows Remote Management (RM) &gt; WinRM Service &gt; Allow remote server management through WinRM</code></li>
+</ul>
+<h2 id="force-re-creation-of-userprofile">Force re-creation of Userprofile<a href="/wiki/windows/#force-re-creation-of-userprofile" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In manchen Fällen kann das Userprofil eines Benutzers beschädigt oder anders korrupiert sein.
+Um dies zu beheben, muss man in folgenden Registrypfad gehen und das betreffende Profil löschen:</p>
+<ul>
+<li>
+<p><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code></p>
+</li>
+<li>
+<p><a href="https://superuser.com/questions/512484/how-do-i-force-windows-7-to-create-a-new-domain-profile-with-same-name-as-an-exi">https://superuser.com/questions/512484/how-do-i-force-windows-7-to-create-a-new-domain-profile-with-same-name-as-an-exi</a></p>
+</li>
+</ul>
+<h2 id="sound-settings">Sound Settings<a href="/wiki/windows/#sound-settings" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Hier kommt man ins alte Sound-Menü <code>mmsys.cpl</code>.</p>
+<h2 id="windows-11-on-unsupported-hardware">Windows 11 on unsupported Hardware<a href="/wiki/windows/#windows-11-on-unsupported-hardware" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Mit diesem Script hat es gut funktioniert: <a href="https://gist.github.com/asheroto/5087d2a38b311b0c92be2a4f23f92d3e">https://gist.github.com/asheroto/5087d2a38b311b0c92be2a4f23f92d3e</a></p>
+<h2 id="drucker">Drucker<a href="/wiki/windows/#drucker" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um die Druckerwarteschlange abzuhören, bzw. zu loggen, kann man folgendes Powershell-Skript nutzen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">## Diese Attribute findet man unter: https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/win32-printjob#syntax</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## All Atributes of Win32_PrintJob</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.TimeSubmitted</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Caption</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Description</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Document</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.HostPrintQueue</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.JobId</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.JobStatus</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Notify</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Owner</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.PagesPrinter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.PaperLength</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.PaperSize</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.PaperWidth</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.TotalPages</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.Color</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.DataType</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># $job.DriverName</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$LogFile = <span style="color:#e6db74">&#34;C:\Users\superSpecialUser\Desktop\PrintJobLog.txt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">-not</span> (Test-Path $LogFile)) {
+</span></span><span style="display:flex;"><span>    New-Item -Path $LogFile -ItemType File -Force | Out-Null
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    $create = <span style="color:#e6db74">&#34;JobCreation&#34;</span>
+</span></span><span style="display:flex;"><span>    Register-WmiEvent -Query <span style="color:#e6db74">&#34;SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA &#39;Win32_PrintJob&#39;&#34;</span> -SourceIdentifier $create -Action {
+</span></span><span style="display:flex;"><span>      $job = $Event.SourceEventArgs.NewEvent.TargetInstance
+</span></span><span style="display:flex;"><span>      $action = <span style="color:#e6db74">&#34;NEW JOB&#34;</span>
+</span></span><span style="display:flex;"><span>      $raw = $job.TimeSubmitted.Substring(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>      $dt = [<span style="color:#66d9ef">datetime</span>]::ParseExact($raw, <span style="color:#e6db74">&#34;yyyyMMddHHmmss&#34;</span>, $null)
+</span></span><span style="display:flex;"><span>      $time = $dt.ToString(<span style="color:#e6db74">&#34;yyyy-MM-dd_HH-mm-ss&#34;</span>)
+</span></span><span style="display:flex;"><span>      $msg = <span style="color:#e6db74">&#34;</span>$($time)<span style="color:#e6db74"> =&gt; [</span>$($action)<span style="color:#e6db74">] | </span>$($job.Caption)<span style="color:#e6db74"> </span>$($job.HostPrintQueue)<span style="color:#e6db74"> </span>$($job.Owner)<span style="color:#e6db74"> </span>$($job.Document)<span style="color:#e6db74"> (</span>$($job.JobId)<span style="color:#e6db74">)&#34;</span>
+</span></span><span style="display:flex;"><span>      Write-Host $msg
+</span></span><span style="display:flex;"><span>      $msg | Out-File <span style="color:#e6db74">&#34;C:\Users\superSpecialUser\Desktop\PrintJobLog.txt&#34;</span> -Append
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    $remove = <span style="color:#e6db74">&#34;JobRemoved&#34;</span>
+</span></span><span style="display:flex;"><span>    Register-WmiEvent -Query <span style="color:#e6db74">&#34;SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA &#39;Win32_PrintJob&#39;&#34;</span> -SourceIdentifier $remove -Action {
+</span></span><span style="display:flex;"><span>      $job = $Event.SourceEventArgs.NewEvent.TargetInstance
+</span></span><span style="display:flex;"><span>      $action = <span style="color:#e6db74">&#34;JOB REMOVED&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      $raw = $job.TimeSubmitted.Substring(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>      $dt = [<span style="color:#66d9ef">datetime</span>]::ParseExact($raw, <span style="color:#e6db74">&#34;yyyyMMddHHmmss&#34;</span>, $null)
+</span></span><span style="display:flex;"><span>      $time = $dt.ToString(<span style="color:#e6db74">&#34;yyyy-MM-dd_HH-mm-ss&#34;</span>)
+</span></span><span style="display:flex;"><span>      $msg = <span style="color:#e6db74">&#34;</span>$($time)<span style="color:#e6db74"> =&gt; [</span>$($action)<span style="color:#e6db74">] | </span>$($job.HostPrintQueue)<span style="color:#e6db74"> </span>$($job.Owner)<span style="color:#e6db74"> </span>$($job.Document)<span style="color:#e6db74"> (</span>$($job.JobId)<span style="color:#e6db74">)&#34;</span>
+</span></span><span style="display:flex;"><span>      Write-Host $msg
+</span></span><span style="display:flex;"><span>      $msg | Out-File <span style="color:#e6db74">&#34;C:\Users\superSpecialUser\Desktop\PrintJobLog.txt&#34;</span> -Append
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Monitoring for new processes. Press Ctrl+C to stop.&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use a loop to keep the script running and the session active.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ($true) {
+</span></span><span style="display:flex;"><span>        Start-Sleep -Seconds <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Unregister and remove: </span>$create<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    Unregister-Event -SourceIdentifier $create
+</span></span><span style="display:flex;"><span>    Get-Job -Name $create | Remove-Job -Force
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Unregister and remove: </span>$remove<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    Unregister-Event -SourceIdentifier $remove
+</span></span><span style="display:flex;"><span>    Get-Job -Name $remove | Remove-Job -Force
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="wmi">WMI<a href="/wiki/windows/#wmi" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Diese verschiedenen Objekte kann man mit WMI abhören:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/computer-system-hardware-classes">https://learn.microsoft.com/de-de/windows/win32/cimwin32prov/computer-system-hardware-classes</a></li>
+</ul>
+<p>Unter den verschiedenen Klassen findet man den jeweils die Attribute.</p>
+<h2 id="installers">Installers<a href="/wiki/windows/#installers" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>On Windows there are several installers types, which enable the admin to rollout the software in different ways.</p>
+<h3 id="nsis">NSIS<a href="/wiki/windows/#nsis" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p><a href="https://nsis.sourceforge.io/Main_Page">https://nsis.sourceforge.io/Main_Page</a></p>
+<h3 id="msi">MSI<a href="/wiki/windows/#msi" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Mit der Windows ADK erhält man hilfreiche Einblicke in MSI-Pakete:</p>
+<ul>
+<li><a href="https://developer.microsoft.com/de-de/windows/downloads/windows-sdk/">https://developer.microsoft.com/de-de/windows/downloads/windows-sdk/</a></li>
+</ul>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/windows_terminal/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/webassembly/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

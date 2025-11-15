@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Not about birds, but about a tool for database-migrations.">
+<title>Goose - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//pihole" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Goose</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#normaler-use-case">Normaler Use-Case</a></li>
+    <li><a href="#migration-schreiben">Migration schreiben</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Ist ein gutes Tool für Datenbank-Migrationen. Damit ist möglich
+inkrementell <code>sql</code>-Files einzuspielen. Verschiedenen Migrationen bauen
+also aufeinander auf. Mit Goose bildet man also die Evolution seiner
+Datenbank ab. Es ist möglich mit <code>up</code> und <code>down</code> zwischen den
+verschiedenen Evolutionsstufen zu switchen.</p>
+<h2 id="normaler-use-case">Normaler Use-Case<a href="/wiki/goose/#normaler-use-case" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export DB_URL<span style="color:#f92672">=</span>postgres://postgres:password@172.17.0.3:5432/cmdb
+</span></span><span style="display:flex;"><span>goose -allow-missing -dir ./migrations postgres $DB_URL up
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Wie sieht es in ./migrations aus?</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## z.b. so:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># .</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00001_audit_log.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00002_cmdb.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00003_cables.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00004_domains.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 00005_office.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230119114311_cmdb_add_mac_addresses.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230119160151_add_all_ips_view.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230202173045_add_comments.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230208194650_create_table_registered_domains.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230316165343_cmdb_v2_add_mac_addresses.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230320150211_cables_add_unique_constraints.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230321100754_audit_table.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230324171716_add_cables_references.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230327134036_add_vm_spec_checks.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230404161325_audit_search_path.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230511123022_cables_v1_view.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230523131012_add_shared_ip_type.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20230920143845_add_datacenter_ntt_ber1.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207104924_extract_location_functions.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207144735_create_table_cloud_machines.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ├── 20240207154335_cloud_is_label.sql</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># └── 20240318172042_add_cloud_contract_columns.sql</span>
+</span></span></code></pre></div><h2 id="migration-schreiben">Migration schreiben<a href="/wiki/goose/#migration-schreiben" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Dies ist eine Evolutionsstufe. Es wird definiert wie man, die Stufe
+erreicht (<code>+goose Up</code>) und wie man die Änderungen wieder rückgängig
+(<code>+goose Down</code>) macht.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- +goose Up
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementBegin
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format <span style="color:#66d9ef">CHECK</span> (((status)::text <span style="color:#f92672">~*</span> <span style="color:#e6db74">&#39;^(online:.*|online:.*/.*|offline|security|ignore)$&#39;</span>::text));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementEnd
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose Down
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementBegin
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> cmdb <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> status_format <span style="color:#66d9ef">CHECK</span> (((status)::text <span style="color:#f92672">~*</span> <span style="color:#e6db74">&#39;^(online|online:.*|online:.*/.*|offline|security|ignore)$&#39;</span>::text));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- +goose StatementEnd
+</span></span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/helix/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/golang/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

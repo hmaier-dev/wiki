@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Neovim - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//webassembly" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Neovim</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#vimscript-essentials">Vimscript essentials</a></li>
+    <li><a href="#keybindings-cheat-sheet">Keybindings Cheat Sheet</a></li>
+    <li><a href="#syntax-highlighting">Syntax-Highlighting</a>
+      <ul>
+        <li><a href="#treesitter-install">Treesitter-Install</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-to-rename-a-variable">How to rename a variable?</a>
+      <ul>
+        <li><a href="#renaming-a-variable-with-lsp">Renaming a variable with LSP</a></li>
+        <li><a href="#renaming-a-variable-in-your-entire-project">Renaming a variable in your entire project</a></li>
+      </ul>
+    </li>
+    <li><a href="#adding-characters-to-the-end-of-every-line-of-selected-text">Adding characters to the END of every line of selected text</a></li>
+    <li><a href="#add-at-the-end-of-every-line">Add at the end of every line</a></li>
+    <li><a href="#how-to-enter-the-commandline-history">How to enter the commandline history?</a></li>
+    <li><a href="#plugins">Plugins</a></li>
+    <li><a href="#lua">Lua</a></li>
+    <li><a href="#neovim-in-the-browser">Neovim in the Browser</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#fehler-nach-updates-von-plugins">Fehler nach Updates von Plugins</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Is a fork from the original vim-project. Some key-features are:</p>
+<ul>
+<li>LSP-Integration</li>
+<li>Configuration with <code>lua</code></li>
+</ul>
+<h2 id="vimscript-essentials">Vimscript essentials<a href="/wiki/neovim/#vimscript-essentials" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>The most fundamental config without lua.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#66d9ef">filetype</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">indent</span> <span style="color:#a6e22e">on</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#a6e22e">expandtab</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#a6e22e">tabstop</span>=<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#a6e22e">softtabstop</span>=<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#a6e22e">shiftwidth</span>=<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&#34; Indentation and re-selection</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vnoremap</span> &gt; &gt;<span style="color:#a6e22e">gv</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vnoremap</span> &lt; &lt;<span style="color:#a6e22e">gv</span>
+</span></span></code></pre></div><h2 id="keybindings-cheat-sheet">Keybindings Cheat Sheet<a href="/wiki/neovim/#keybindings-cheat-sheet" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>These just work with my setup, which is not public (right now).</p>
+<ul>
+<li><code>&lt;space&gt;e</code> = vim.diagnostic.open_float</li>
+<li><code>gd</code> = Go to definition</li>
+<li><code>K</code> = Show docs for this symbol</li>
+<li><code>&lt;space&gt;ff</code> = telescope.builtin.find_files</li>
+<li><code>&lt;space&gt;fg</code> = telescope.builtin.live_grep</li>
+<li><code>&lt;space&gt;fb</code> = telescope.builtin.buffers</li>
+<li><code>&lt;space&gt;of</code> = telescope.builtin.oldfiles</li>
+<li><code>&lt;S&gt;v</code>+ <code>&lt;space&gt;/</code> = comment out line/block</li>
+</ul>
+<h2 id="syntax-highlighting">Syntax-Highlighting<a href="/wiki/neovim/#syntax-highlighting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>By default neovim has native syntax highlighting which cannot take it up with <a href="https://tree-sitter.github.io/tree-sitter/">Treesitter</a>.
+When Treesitter is setup, you can install treesitter-parsers with the following command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>:TSInstall <span style="color:#f92672">&lt;</span>tab<span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><p>By pressing <!-- raw HTML omitted --> the autocompletion shows you a plethora of
+installable languages.</p>
+<p>With the <code>:InspectTree</code> you can display the the AST
+(Abstract-Syntax-Tree) in a speperate window.</p>
+<h3 id="treesitter-install">Treesitter-Install<a href="/wiki/neovim/#treesitter-install" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Beforehand you need to have Treesitter setup by your package-manager (in this case lazy.nvim):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;nvim-treesitter/nvim-treesitter&#34;</span>,
+</span></span><span style="display:flex;"><span>      build <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;:TSUpdate&#34;</span>,
+</span></span><span style="display:flex;"><span>      config <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>()
+</span></span><span style="display:flex;"><span>        require(<span style="color:#e6db74">&#34;nvim-treesitter.configs&#34;</span>).setup(
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          ensure_installed <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;lua&#34;</span>, <span style="color:#e6db74">&#34;vim&#34;</span>, <span style="color:#e6db74">&#34;go&#34;</span>, <span style="color:#e6db74">&#34;python&#34;</span>, <span style="color:#e6db74">&#34;bash&#34;</span> },
+</span></span><span style="display:flex;"><span>          auto_install <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>          highlight <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            enable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          ignore_install <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;ruby&#34;</span> },
+</span></span><span style="display:flex;"><span>        }) <span style="color:#66d9ef">end</span>,
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><h2 id="how-to-rename-a-variable">How to rename a variable?<a href="/wiki/neovim/#how-to-rename-a-variable" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>There are several cases where you would want to
+rename a variable. The place before the <code>s</code> is reserved for the scope,
+which is:</p>
+<ul>
+<li><code>'&lt;,'&gt;</code> currently selected</li>
+<li><code>%</code> entire file</li>
+</ul>
+<p>Go to the string of your choice and press <code>*</code>. All matched occurences
+will be highlighted. Then do</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>:%s/
+</span></span></code></pre></div><p>With <code>C-r</code> you can paste the highlighted string. At first it looks like
+this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:%<span style="color:#a6e22e">s</span>/&#34;
+</span></span></code></pre></div><p>After a <code>/</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:%<span style="color:#a6e22e">s</span>/\&lt;<span style="color:#a6e22e">string</span>\&gt;
+</span></span></code></pre></div><p>Continue with another <code>/</code> and your wanted string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>:%s/\<span style="color:#75715e">&lt;string\&gt;/mynewstring/</span>
+</span></span></code></pre></div><p>You can now specifiy, if you want to change globally with <code>g</code> (don't
+know what this means) and if you want confirmation with <code>c</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>:%s/\<span style="color:#75715e">&lt;string\&gt;/mynewstring/gc</span>
+</span></span></code></pre></div><h3 id="renaming-a-variable-with-lsp">Renaming a variable with LSP<a href="/wiki/neovim/#renaming-a-variable-with-lsp" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>If you have lsp configured, you can do it with <code>vim.lsp.buf.rename</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#75715e">-- Source: https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#suggested-configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Keymaps for LSP</span>
+</span></span><span style="display:flex;"><span>v.keymap.set(<span style="color:#e6db74">&#34;n&#34;</span>, <span style="color:#e6db74">&#34;&lt;space&gt;e&#34;</span>, v.diagnostic.open_float)
+</span></span><span style="display:flex;"><span>v.api.nvim_create_autocmd(<span style="color:#e6db74">&#34;LspAttach&#34;</span>, {
+</span></span><span style="display:flex;"><span> group <span style="color:#f92672">=</span> v.api.nvim_create_augroup(<span style="color:#e6db74">&#34;UserLspConfig&#34;</span>, {}),
+</span></span><span style="display:flex;"><span> callback <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(ev)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">local</span> opts <span style="color:#f92672">=</span> { buffer <span style="color:#f92672">=</span> ev.buf }
+</span></span><span style="display:flex;"><span>  v.keymap.set(<span style="color:#e6db74">&#34;n&#34;</span>, <span style="color:#e6db74">&#34;&lt;space&gt;rn&#34;</span>, v.lsp.buf.rename, opts)
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">end</span>,
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="renaming-a-variable-in-your-entire-project">Renaming a variable in your entire project<a href="/wiki/neovim/#renaming-a-variable-in-your-entire-project" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>The native vim-way goes like that:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:<span style="color:#a6e22e">grep</span> &lt;<span style="color:#a6e22e">string</span>&gt; `&lt;<span style="color:#a6e22e">location</span>&gt;`
+</span></span><span style="display:flex;"><span>:<span style="color:#a6e22e">grep</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">maier</span> `<span style="color:#a6e22e">find</span> . -<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">f</span>`
+</span></span></code></pre></div><p>The seconds command would search all subdirectorys for <code>h.maier</code>.
+Depending on the size of your project, this could take a while. You can
+always abort the <code>grep</code> with <code>C-c</code>. After finishing the search, you can
+load the found occurences into a <em>quickfix list</em> by doing a <code>:copen</code>.</p>
+<p>If you use Telescope for searching
+(which is way more ergonimic than the grep-method) you can use <code>C-q</code> to
+load the found-occurences into a quickfix list.</p>
+<p>From there on, <code>:cdo</code> is your friend. Replacing a variable-name goes
+like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:<span style="color:#a6e22e">cdo</span> %<span style="color:#a6e22e">s</span><span style="color:#e6db74">/h.maier/</span><span style="color:#a6e22e">nobody</span>/<span style="color:#a6e22e">gc</span>
+</span></span></code></pre></div><p><code>:cdo</code> lets you iterate through the quickfix list and execute the given
+command for every entry.</p>
+<h2 id="adding-characters-to-the-end-of-every-line-of-selected-text">Adding characters to the END of every line of selected text<a href="/wiki/neovim/#adding-characters-to-the-end-of-every-line-of-selected-text" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>select the block of text with <code>SHIFT + V</code></li>
+<li>enter command mode with <code>:</code> (colon)</li>
+<li>at first it will look like this</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>:&#39;<span style="color:#75715e">&lt;,&#39;&gt;</span>
+</span></span></code></pre></div><ul>
+<li>go into normal mode with <code>norm</code> and write your commands</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:<span style="color:#e6db74">&#39;&lt;,&#39;</span>&gt;<span style="color:#a6e22e">norm</span> <span style="color:#a6e22e">A</span> &lt;<span style="color:#a6e22e">the</span>-<span style="color:#a6e22e">string</span>-<span style="color:#a6e22e">of</span>-<span style="color:#a6e22e">my</span>-<span style="color:#a6e22e">choice</span>&gt;
+</span></span></code></pre></div><h2 id="add-at-the-end-of-every-line">Add at the end of every line<a href="/wiki/neovim/#add-at-the-end-of-every-line" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>:%norm<span style="color:#75715e"> A&lt;stuff-that-you-want-to-add&gt;</span>
+</span></span></code></pre></div><p>Which means:</p>
+<ul>
+<li>% = for every line</li>
+<li>norm = type the following commands</li>
+<li>A* = append ' * ' to the end of current line</li>
+</ul>
+<h2 id="how-to-enter-the-commandline-history">How to enter the commandline history?<a href="/wiki/neovim/#how-to-enter-the-commandline-history" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Just press <code>q:</code> (not <code>:q</code>). Now you can browse through are executed commands and copy them.</p>
+<h2 id="plugins">Plugins<a href="/wiki/neovim/#plugins" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>The plugin manager of my choice is <code>lazy.nvim</code>. Have a look at
+<a href="https://lazy.folke.io/">lazy.folke.io</a> to get to know how its done.</p>
+<h2 id="lua">Lua<a href="/wiki/neovim/#lua" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Ein angenehmes Tool um den ganzen Lua-Code nach nem Herumfuschen
+übersichtlicher zu machen ist <code>stylua</code>. Mehr zu Lua gibt es hier:
+<a href="lua">lua</a></p>
+<h2 id="neovim-in-the-browser">Neovim in the Browser<a href="/wiki/neovim/#neovim-in-the-browser" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://github.com/coder/code-server">https://github.com/coder/code-server</a></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/neovim/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="fehler-nach-updates-von-plugins">Fehler nach Updates von Plugins<a href="/wiki/neovim/#fehler-nach-updates-von-plugins" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>In einer Vielzahl von Fällen treten Probleme nach Updates von Plugins
+auf. Lässt sich der Fehler nicht zur eigenen Konfiguration, sondern in
+den Quellcode des Plugin zurückverfolgen, ist es am einfachsten das
+Plugin einfach neu zu installieren.</p>
+<p>Dies funktioniert unter <code>Lazy.nvim</code> in dem
+man das geklonte Repository unter <code>~/.local/share/nvim/lazy/&lt;repo&gt;</code> löscht.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/nginx/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/neovide/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

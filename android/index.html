@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Android - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//windows_terminal" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Android</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tlddr">TLD;DR</a></li>
+    <li><a href="#glossar">Glossar</a>
+      <ul>
+        <li><a href="#gradle">Gradle</a></li>
+      </ul>
+    </li>
+    <li><a href="#android-debug-bridge-adb">Android Debug Bridge (ADB)</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="tlddr">TLD;DR<a href="/wiki/android/#tlddr" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Enter a shell on a emulated device: <code>adb -s emulator-5554 shell</code></li>
+<li>Set screen-timeout to 30 Minutes: <code>settings put system screen_off_timeout 1800000</code></li>
+<li>Set date/time automatically: <code>settings put global auto_time 1</code></li>
+<li>Set chrome as default browser: <code>settings put secure preferred_browser_package com.android.chrome</code></li>
+</ul>
+<h2 id="glossar">Glossar<a href="/wiki/android/#glossar" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Explanation of the different terms and files used in a <em>Android Studio Project</em>.</p>
+<h3 id="gradle">Gradle<a href="/wiki/android/#gradle" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Is a build system usally used for Anroid-Apps.</p>
+<p>More: <a href="https://developer.android.com/build/gradle-build-overview">https://developer.android.com/build/gradle-build-overview</a></p>
+<h2 id="android-debug-bridge-adb">Android Debug Bridge (ADB)<a href="/wiki/android/#android-debug-bridge-adb" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/ansible/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

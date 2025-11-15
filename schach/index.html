@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Schach - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//nginx" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Schach</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#steinitzsche-ideen">Steinitzsche Ideen</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      
+
+
+<div class="flex justify-center">
+  <img src="/wiki/media/chess-meme-grandpa.webp" 
+       class="w-1/4 h-1/4 max-sm:w-full max-sm:h-auto border cursor-pointer" 
+       id="thumbnail-66313063">
+</div>
+
+
+<div id="lightbox-modal-66313063" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-75 z-50">
+  <span class="absolute top-4 right-6 text-white text-3xl cursor-pointer" id="lightbox-close-66313063">&times;</span>
+  <img src="/wiki/media/chess-meme-grandpa.webp" class="max-w-full max-h-full rounded shadow-lg">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const thumb = document.getElementById('thumbnail-66313063');
+    const modal = document.getElementById('lightbox-modal-66313063');
+    const close = document.getElementById('lightbox-close-66313063');
+
+    thumb.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    close.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  });
+</script>
+
+<h2 id="steinitzsche-ideen">Steinitzsche Ideen<a href="/wiki/schach/#steinitzsche-ideen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Welche positionellen Vorteile gibt es?</p>
+<ol>
+<li>Entwicklungsvorsprung im Eröffnungsstadium</li>
+<li>Größere Bewegungsfreiheit der Figuren (Mobility)</li>
+<li>Kontrolle im Zentrum</li>
+<li>Exponierte oder geschwächte Stellung des gegnerischen Königs</li>
+<li>Schwache Punkte im gegnerischen Lager</li>
+<li>Bessere Bauernstellung</li>
+<li>Bauernübergewicht am Damenflügel</li>
+<li>Kontrolle der Schwerfiguren über offene Linien, Beherrschung freier Diagonalen durch die Läufer</li>
+<li>Vorteil des Läuferpaares gegenüber Läufer und Springer oder zwei Springern</li>
+</ol>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/sqlite/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/raspberry_pi/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

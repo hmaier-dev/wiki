@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virtualization on Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/categories/virtualization/</link>
+    <description>Recent content in Virtualization on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/categories/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vagrant</title>
+      <link>https://hmaier-dev.github.io/wiki/vagrant/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/vagrant/</guid>
+      <description>&lt;p&gt;Vagrant ermöglicht die Erstellung und Verwaltung von virtuellen&#xA;Maschinen.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant init&lt;/code&gt;: erstellt in der derzeitigen Directory ein&#xA;sogenanntes &lt;code&gt;Vagrantfile&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant status&lt;/code&gt;: zeigt den Status der sogenannten Boxes (VMs) in&#xA;der derzeitigen Directory&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant global-status&lt;/code&gt;: zeigt Status alles Boxes auf der&#xA;Host-Maschine&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant up&lt;/code&gt;: Startet alle definierten Maschinen&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant up &amp;lt;name&amp;gt;&lt;/code&gt;: Startet mit &lt;code&gt;&amp;lt;name&amp;gt;&lt;/code&gt; benannte Maschine&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant destroy&lt;/code&gt;: Stoppt und verwirft alle Maschinen&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;vagrant provision &amp;lt;name&amp;gt;&lt;/code&gt;: Wiederholung der Provision einer Machine. Bspw.: über Puppet, Ansible&lt;/li&gt;&#xA;&lt;li&gt;Wenn man etwas am &lt;code&gt;Vagrantfile&lt;/code&gt; ändern, kann man seine Änderungen mit &lt;code&gt;vagrant reload&lt;/code&gt; für alle Maschine anwenden.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;virtualbox-als-default-provider&#34;&gt;Virtualbox als Default-Provider&lt;/h2&gt;&#xA;&lt;p&gt;Vagrant wählt zwischen Docker und VirtualBox als Backend/Provider für&#xA;die VMs. Setzt man diese Umgebungsvariable (z.B. in &lt;code&gt;~/.profile&lt;/code&gt;) legt&#xA;mn VirtualBox fest.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

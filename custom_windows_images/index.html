@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="How to make Windows more usable.">
+<title>Custom Windows Images - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//dism" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Custom Windows Images</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#antwortdatien-unattendxmlautounattendxml">Antwortdatien (<code>unattend.xml</code>,<code>autounattend.xml</code>)</a>
+      <ul>
+        <li><a href="#aufbau">Aufbau</a></li>
+        <li><a href="#beispiel">Beispiel</a></li>
+      </ul>
+    </li>
+    <li><a href="#referenzen">Referenzen</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#interessante-projekte">Interessante Projekte</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#das-abbild-konnte-nicht-gefunden-werden">Das Abbild konnte nicht gefunden werden</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Beim Bereitstellen von multiplen Maschinen mit Windows-Betriebssytem, wird man beim Durchleben von hohem zeitlichen Aufwand und der
+damit einhergehenden Lethargie, irgendwann anfangen nach Automatisierungs-Möglichkeiten zu forschen.
+Mit modifizierten Windows-Images kann man sich widerkehrende Installationsroutinen und Konfigurationen ersparen, und somit der Lethargie enfliehen.</p>
+<ul>
+<li>Doku von Mircosoft: <a href="https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/windows-setup-automation-overview?view=windows-11">https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/windows-setup-automation-overview?view=windows-11</a></li>
+</ul>
+<h2 id="tldr">TL;DR<a href="/wiki/custom_windows_images/#tldr" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ol>
+<li>Rechner mit jeglicher Software ausstatten</li>
+<li>Abbild des gesamten Systems erfassen</li>
+<li>ISO mit dem Abbild bauen</li>
+<li>System-Abbild auf weiteren Rechnern installieren</li>
+</ol>
+<h2 id="antwortdatien-unattendxmlautounattendxml">Antwortdatien (<code>unattend.xml</code>,<code>autounattend.xml</code>)<a href="/wiki/custom_windows_images/#antwortdatien-unattendxmlautounattendxml" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um Einstellungen bei der Installation vorzudefinieren, kann man sich eine Antwortdatei (z.B.: <code>autounattend.xml</code>, <code>unattend.xml</code>) bauen.
+Diese wird in der ISO neben der <code>setup.exe</code> platziert. Da eine ISO ein fixe Größe hat, muss man jene entpacken, die Antwortdatei platzieren
+und danach mit <code>oscdimg</code> die ISO erneut gebaut werden.
+Hat man die standard Windows ISO auf <code>C:\</code> exthrahiert, muss die <code>autounattend.xml</code> hier liegen: <code>C:\Win10_22H2_German_x64v1\autounattend.xml</code>.</p>
+<p>Zur Verifizierung der Antwortdatei kann der <em>Windows System Image Manager</em> (SIM) hilfreich sein.</p>
+<p>Mir persönlich hat beim Erstellen von Antwort-Dateien folgende Website sehr geholfen:</p>
+<ul>
+<li><a href="https://schneegans.de/windows/unattend-generator/">https://schneegans.de/windows/unattend-generator/</a></li>
+</ul>
+<h3 id="aufbau">Aufbau<a href="/wiki/custom_windows_images/#aufbau" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Im Grund ist eine Antwortdatei wie folgt strukturiert:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;unattend</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:unattend&#34;</span> <span style="color:#a6e22e">xmlns:wcm=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/WMIConfig/2002/State&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;offlineServicing&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;windowsPE&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;generalize&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;specialize&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;auditSystem&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;auditUser&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;oobeSystem&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/unattend&gt;</span>
+</span></span></code></pre></div><p>In diesen Blöcken kann jeweils Konfiguration zu den 7 Phasen des Windows Setups deklariert werden.</p>
+<ul>
+<li><code>windowsPE</code>: In der <em>Preinstallation Environment</em> kann z.B. die Partitionierung des Systems oder auch das zu installierende Image angegeben werden.</li>
+<li><code>oobeSystem</code>: Hier kann man Nutzer anlegen oder auch die verschiedenen Prompts (Telemetrie usw.) verstecken, die beim Windows Setup nerven.</li>
+</ul>
+<p>Unter diesem Link findet man die offizielle Dokumentation mit hilfreichem Schaubild: <a href="https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/how-configuration-passes-work?view=windows-11&amp;source=recommendations">https://learn.microsoft.com/de-de/windows-hardware/manufacture/desktop/how-configuration-passes-work?view=windows-11&amp;source=recommendations</a></p>
+<h3 id="beispiel">Beispiel<a href="/wiki/custom_windows_images/#beispiel" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Eine <code>autounattend.xml</code> kann wie folgt aussehen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;unattend</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;urn:schemas-microsoft-com:unattend&#34;</span> <span style="color:#a6e22e">xmlns:wcm=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/WMIConfig/2002/State&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">&lt;!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&amp;UILanguage=de-DE&amp;Locale=de-DE&amp;Keyboard=00000407&amp;GeoLocation=94&amp;ProcessorArchitecture=amd64&amp;ComputerNameMode=Random&amp;CompactOsMode=Default&amp;TimeZoneMode=Explicit&amp;TimeZone=W.+Europe+Standard+Time&amp;PartitionMode=Interactive&amp;DiskAssertionMode=Skip&amp;WindowsEditionMode=Generic&amp;WindowsEdition=pro&amp;UserAccountMode=Unattended&amp;AccountName0=AdminLocal&amp;AccountDisplayName0=AdminLocal&amp;AccountPassword0=abelliocbc&amp;AccountGroup0=Administrators&amp;AccountName1=&amp;AccountName2=&amp;AccountName3=&amp;AccountName4=&amp;AutoLogonMode=Own&amp;PasswordExpirationMode=Unlimited&amp;LockoutMode=Disabled&amp;HideFiles=Hidden&amp;TaskbarSearch=Box&amp;TaskbarIconsMode=Default&amp;StartTilesMode=Default&amp;StartPinsMode=Default&amp;DisableDefender=true&amp;DisableWindowsUpdate=true&amp;TurnOffSystemSounds=true&amp;DisableAppSuggestions=true&amp;EffectsMode=Default&amp;DesktopIconsMode=Default&amp;WifiMode=Skip&amp;ExpressSettings=DisableAll&amp;KeysMode=Skip&amp;ColorMode=Default&amp;WallpaperMode=Default&amp;WdacMode=Skip--&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;offlineServicing&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;windowsPE&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-International-Core-WinPE&#34;</span> <span style="color:#a6e22e">processorArchitecture=</span><span style="color:#e6db74">&#34;amd64&#34;</span> <span style="color:#a6e22e">publicKeyToken=</span><span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> <span style="color:#a6e22e">language=</span><span style="color:#e6db74">&#34;neutral&#34;</span> <span style="color:#a6e22e">versionScope=</span><span style="color:#e6db74">&#34;nonSxS&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;SetupUILanguage&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;UILanguage&gt;</span>de-DE<span style="color:#f92672">&lt;/UILanguage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/SetupUILanguage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;InputLocale&gt;</span>0407:00000407<span style="color:#f92672">&lt;/InputLocale&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;SystemLocale&gt;</span>de-DE<span style="color:#f92672">&lt;/SystemLocale&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UILanguage&gt;</span>de-DE<span style="color:#f92672">&lt;/UILanguage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UserLocale&gt;</span>de-DE<span style="color:#f92672">&lt;/UserLocale&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;/component&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-Setup&#34;</span> <span style="color:#a6e22e">processorArchitecture=</span><span style="color:#e6db74">&#34;amd64&#34;</span> <span style="color:#a6e22e">publicKeyToken=</span><span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> <span style="color:#a6e22e">language=</span><span style="color:#e6db74">&#34;neutral&#34;</span> <span style="color:#a6e22e">versionScope=</span><span style="color:#e6db74">&#34;nonSxS&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UserData&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;ProductKey&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;Key&gt;</span>VK7JG-NPHTM-C97JM-9MPGT-3V66T<span style="color:#f92672">&lt;/Key&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;WillShowUI&gt;</span>OnError<span style="color:#f92672">&lt;/WillShowUI&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;/ProductKey&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;AcceptEula&gt;</span>true<span style="color:#f92672">&lt;/AcceptEula&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/UserData&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;ImageInstall&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;OSImage&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;InstallFrom&gt;</span>
+</span></span><span style="display:flex;"><span>					  <span style="color:#f92672">&lt;MetaData</span> <span style="color:#a6e22e">wcm:action=</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Key&gt;</span>/IMAGE/INDEX<span style="color:#f92672">&lt;/Key&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Value&gt;</span>1<span style="color:#f92672">&lt;/Value&gt;</span>
+</span></span><span style="display:flex;"><span>					  <span style="color:#f92672">&lt;/MetaData&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;/InstallFrom&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;WillShowUI&gt;</span>OnError<span style="color:#f92672">&lt;/WillShowUI&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;/OSImage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/ImageInstall&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UseConfigurationSet&gt;</span>false<span style="color:#f92672">&lt;/UseConfigurationSet&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;/component&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;generalize&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;specialize&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-Shell-Setup&#34;</span> <span style="color:#a6e22e">processorArchitecture=</span><span style="color:#e6db74">&#34;amd64&#34;</span> <span style="color:#a6e22e">publicKeyToken=</span><span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> <span style="color:#a6e22e">language=</span><span style="color:#e6db74">&#34;neutral&#34;</span> <span style="color:#a6e22e">versionScope=</span><span style="color:#e6db74">&#34;nonSxS&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;TimeZone&gt;</span>W. Europe Standard Time<span style="color:#f92672">&lt;/TimeZone&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;/component&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;auditSystem&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;auditUser&#34;</span><span style="color:#f92672">&gt;&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;settings</span> <span style="color:#a6e22e">pass=</span><span style="color:#e6db74">&#34;oobeSystem&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-International-Core&#34;</span> <span style="color:#a6e22e">processorArchitecture=</span><span style="color:#e6db74">&#34;amd64&#34;</span> <span style="color:#a6e22e">publicKeyToken=</span><span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> <span style="color:#a6e22e">language=</span><span style="color:#e6db74">&#34;neutral&#34;</span> <span style="color:#a6e22e">versionScope=</span><span style="color:#e6db74">&#34;nonSxS&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;InputLocale&gt;</span>0407:00000407<span style="color:#f92672">&lt;/InputLocale&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;SystemLocale&gt;</span>de-DE<span style="color:#f92672">&lt;/SystemLocale&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UILanguage&gt;</span>de-DE<span style="color:#f92672">&lt;/UILanguage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UserLocale&gt;</span>de-DE<span style="color:#f92672">&lt;/UserLocale&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;/component&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-Shell-Setup&#34;</span> <span style="color:#a6e22e">processorArchitecture=</span><span style="color:#e6db74">&#34;amd64&#34;</span> <span style="color:#a6e22e">publicKeyToken=</span><span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> <span style="color:#a6e22e">language=</span><span style="color:#e6db74">&#34;neutral&#34;</span> <span style="color:#a6e22e">versionScope=</span><span style="color:#e6db74">&#34;nonSxS&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;UserAccounts&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;LocalAccounts&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;LocalAccount</span> <span style="color:#a6e22e">wcm:action=</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Name&gt;</span>AdminLocal<span style="color:#f92672">&lt;/Name&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;DisplayName&gt;</span>AdminLocal<span style="color:#f92672">&lt;/DisplayName&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Group&gt;</span>Administrators<span style="color:#f92672">&lt;/Group&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Password&gt;</span>
+</span></span><span style="display:flex;"><span>							<span style="color:#f92672">&lt;Value&gt;</span>supersecretpassword<span style="color:#f92672">&lt;/Value&gt;</span>
+</span></span><span style="display:flex;"><span>							<span style="color:#f92672">&lt;PlainText&gt;</span>true<span style="color:#f92672">&lt;/PlainText&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;/Password&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;/LocalAccount&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;/LocalAccounts&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/UserAccounts&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;OOBE&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;ProtectYourPC&gt;</span>3<span style="color:#f92672">&lt;/ProtectYourPC&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;HideEULAPage&gt;</span>true<span style="color:#f92672">&lt;/HideEULAPage&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;HideWirelessSetupInOOBE&gt;</span>true<span style="color:#f92672">&lt;/HideWirelessSetupInOOBE&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;HideOnlineAccountScreens&gt;</span>false<span style="color:#f92672">&lt;/HideOnlineAccountScreens&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/OOBE&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;FirstLogonCommands&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;SynchronousCommand</span> <span style="color:#a6e22e">wcm:action=</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;Order&gt;</span>1<span style="color:#f92672">&lt;/Order&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;CommandLine&gt;</span>powershell.exe -WindowStyle Normal -NoProfile -Command &#34;Get-Content -LiteralPath &#39;C:\Windows\Setup\Scripts\FirstLogon.ps1&#39; -Raw | Invoke-Expression;&#34;<span style="color:#f92672">&lt;/CommandLine&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;/SynchronousCommand&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/FirstLogonCommands&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;/component&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/settings&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/unattend&gt;</span>
+</span></span></code></pre></div><h2 id="referenzen">Referenzen<a href="/wiki/custom_windows_images/#referenzen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://hmaier-dev.github.io/wiki/sysprep/">sysprep</a></li>
+<li><a href="https://hmaier-dev.github.io/wiki/dism/">dism</a></li>
+<li><a href="https://hmaier-dev.github.io/wiki/oscdimg/">oscdimg</a></li>
+</ul>
+<h2 id="faq">FAQ<a href="/wiki/custom_windows_images/#faq" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Wie kommt man in die <code>cmd</code> während der Installation?
+<ul>
+<li><code>SHIFT+F10</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="interessante-projekte">Interessante Projekte<a href="/wiki/custom_windows_images/#interessante-projekte" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://github.com/ntdevlabs/tiny11builder/blob/main/tiny11maker.ps1">https://github.com/ntdevlabs/tiny11builder/blob/main/tiny11maker.ps1</a></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/custom_windows_images/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="das-abbild-konnte-nicht-gefunden-werden">Das Abbild konnte nicht gefunden werden<a href="/wiki/custom_windows_images/#das-abbild-konnte-nicht-gefunden-werden" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Die Setup.exe findet nicht das passende Abbild. Dieses muss daher extra angegeben werden. Die Info welchen Index unser Abbild hat bekommt man wie folgt:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Get-WimInfo /WimFile:install.wim
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>## Tool zur Imageverwaltung für die Bereitstellung
+</span></span><span style="display:flex;"><span>## Version: 10.0.19041.3636
+</span></span><span style="display:flex;"><span>## 
+</span></span><span style="display:flex;"><span>## Details für Abbild: <span style="color:#e6db74">&#34;install.wim&#34;</span>
+</span></span><span style="display:flex;"><span>## 
+</span></span><span style="display:flex;"><span>## Index: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>## Name: <span style="color:#e6db74">&#34;Werkstatt Windows 10&#34;</span>
+</span></span><span style="display:flex;"><span>## Beschreibung: <span style="color:#e6db74">&#34;&lt;nicht definiert&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>## Größe: 32.922.249.198 Bytes
+</span></span><span style="display:flex;"><span>## 
+</span></span><span style="display:flex;"><span>## Der Vorgang wurde erfolgreich beendet.
+</span></span></code></pre></div><p>Unter dem Key <code>/IMAGE/INDEX</code> kann man den Index als Value eintragen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>  <span style="color:#f92672">&lt;component</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Microsoft-Windows-Setup&#34;</span> <span style="color:#960050;background-color:#1e0010">...</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;ImageInstall&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;OSImage&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;InstallFrom&gt;</span>
+</span></span><span style="display:flex;"><span>					  <span style="color:#f92672">&lt;MetaData</span> <span style="color:#a6e22e">wcm:action=</span><span style="color:#e6db74">&#34;add&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Key&gt;</span>/IMAGE/INDEX<span style="color:#f92672">&lt;/Key&gt;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#f92672">&lt;Value&gt;</span>1<span style="color:#f92672">&lt;/Value&gt;</span>
+</span></span><span style="display:flex;"><span>					  <span style="color:#f92672">&lt;/MetaData&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;/InstallFrom&gt;</span>
+</span></span><span style="display:flex;"><span>					<span style="color:#f92672">&lt;WillShowUI&gt;</span>OnError<span style="color:#f92672">&lt;/WillShowUI&gt;</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#f92672">&lt;/OSImage&gt;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&lt;/ImageInstall&gt;</span>
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/cwebp/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/css/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

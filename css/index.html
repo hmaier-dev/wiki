@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>css - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//postgres" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>css</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#how-to-exlude-indirect-children-when-working-with-not">How to exlude indirect children when working with <code>:not()</code>?</a></li>
+    <li><a href="#how-to-expand-div-to-the-bottom-fo-the-screen">How to expand div to the bottom fo the screen?</a></li>
+    <li><a href="#numbering-for-header-tag">Numbering for header-tag</a></li>
+    <li><a href="#tailwindcss">Tailwindcss</a>
+      <ul>
+        <li><a href="#v40">v4.0</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>This article covers mostly tailwindcss stuff but also vanilla.</p>
+<h2 id="how-to-exlude-indirect-children-when-working-with-not">How to exlude indirect children when working with <code>:not()</code>?<a href="/wiki/css/#how-to-exlude-indirect-children-when-working-with-not" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">main</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span>:<span style="color:#a6e22e">not</span><span style="color:#f92672">(</span>.<span style="color:#a6e22e">parallax</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">@apply</span> max-sm:px-2;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">main</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span>:<span style="color:#a6e22e">not</span><span style="color:#f92672">(</span>.<span style="color:#a6e22e">parallax</span><span style="color:#f92672">)</span> <span style="color:#f92672">*</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">@apply</span> <span style="color:#960050;background-color:#1e0010">px-0</span>; 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This example is done with TailwindCSS.</p>
+<h2 id="how-to-expand-div-to-the-bottom-fo-the-screen">How to expand div to the bottom fo the screen?<a href="/wiki/css/#how-to-expand-div-to-the-bottom-fo-the-screen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>There is <code>h-screen</code> with makes the div as high as the screen allows. If you have another div above
+for example a <code>&lt;header&gt;</code> you need to substract the height of <code>&lt;header&gt;</code> minus <code>h-screen</code>. This is how you do this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">header</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;h-16&#34;</span>&gt; <span style="color:#75715e">&lt;!-- h-16 =&gt; 4rem --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">header</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">main</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;min-h-[calc(100vh-4rem)]&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">main</span>&gt;
+</span></span></code></pre></div><p>This example is done with TailwindCSS.</p>
+<h2 id="numbering-for-header-tag">Numbering for header-tag<a href="/wiki/css/#numbering-for-header-tag" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>On this website I found a trick how to use css for autonumbering:</p>
+<ul>
+<li><a href="https://2ality.com/2012/01/numbering-headingshtml.html">https://2ality.com/2012/01/numbering-headingshtml.html</a></li>
+</ul>
+<p>Completly without javascript (wow!).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-reset</span>: h2counter h3counter h4counter h5counter h6counter;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">h2</span>::<span style="color:#a6e22e">before</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-increment</span>: h2counter;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span>: counter(h2counter) <span style="color:#e6db74">&#34;. &#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-set</span>: h3counter <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">h3</span>::<span style="color:#a6e22e">before</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-increment</span>: h3counter;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span>: counter(h2counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h3counter) <span style="color:#e6db74">&#34;. &#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-set</span>: h4counter <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">h4</span>::<span style="color:#a6e22e">before</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-increment</span>: h4counter;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span>: counter(h2counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h3counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h4counter) <span style="color:#e6db74">&#34;. &#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-set</span>: h5counter <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">h5</span>::<span style="color:#a6e22e">before</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-increment</span>: h5counter;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span>: counter(h2counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h3counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h4counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h5counter) <span style="color:#e6db74">&#34;. &#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-set</span>: h6counter <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">h6</span>::<span style="color:#a6e22e">before</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">counter-increment</span>: h6counter;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span>: counter(h2counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h3counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h4counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h5counter) <span style="color:#e6db74">&#34;.&#34;</span> counter(h6counter) <span style="color:#e6db74">&#34;. &#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="tailwindcss">Tailwindcss<a href="/wiki/css/#tailwindcss" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="v40">v4.0<a href="/wiki/css/#v40" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>In v4.0 usually shouldn&rsquo;t need to configure your content: <a href="https://tailwindcss.com/blog/tailwindcss-v4#automatic-content-detection">https://tailwindcss.com/blog/tailwindcss-v4#automatic-content-detection</a></p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/custom_windows_images/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/crane/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

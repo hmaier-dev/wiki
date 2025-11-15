@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Raspberry_Pi - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//docker" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Raspberry_Pi</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#wlan-to-ethernet-bridge">Wlan to Ethernet-Bridge</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="wlan-to-ethernet-bridge">Wlan to Ethernet-Bridge<a href="/wiki/raspberry_pi/#wlan-to-ethernet-bridge" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Hier ein Script welches, benötigte Programme herunterlädt, sowie ein
+<code>systemd-unit</code> baut, mit welchem sich die Bridge start lässt.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>set -e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> $EUID -ne <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;run as root&#34;</span> &gt;&amp;<span style="color:#ae81ff">2</span> <span style="color:#f92672">&amp;&amp;</span> exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##########################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># You should not need to update anything below this line #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##########################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Because of the following two programs wifi and ethernet will share the same subnet</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># parprouted  - Proxy ARP IP bridging daemon</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># dhcp-helper - DHCP/BOOTP relay agent</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>apt update <span style="color:#f92672">&amp;&amp;</span> apt install -y parprouted dhcp-helper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl stop dhcp-helper
+</span></span><span style="display:flex;"><span>systemctl enable dhcp-helper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable ipv4 forwarding.</span>
+</span></span><span style="display:flex;"><span>sed -i<span style="color:#e6db74">&#39;&#39;</span> s/#net.ipv4.ip_forward<span style="color:#f92672">=</span>1/net.ipv4.ip_forward<span style="color:#f92672">=</span>1/ /etc/sysctl.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Service configuration for standard WiFi connection. Connectivity will</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># be lost if the username and password are incorrect.</span>
+</span></span><span style="display:flex;"><span>systemctl restart wpa_supplicant.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable IP forwarding for wlan0 if it&#39;s not already enabled.</span>
+</span></span><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^option ip-forwarding 1$&#39;</span> /etc/dhcpcd.conf <span style="color:#f92672">||</span> printf <span style="color:#e6db74">&#34;option ip-forwarding 1\n&#34;</span> &gt;&gt; /etc/dhcpcd.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable dhcpcd control of eth0.</span>
+</span></span><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^denyinterfaces eth0$&#39;</span> /etc/dhcpcd.conf <span style="color:#f92672">||</span> printf <span style="color:#e6db74">&#34;denyinterfaces eth0\n&#34;</span> &gt;&gt; /etc/dhcpcd.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configure dhcp-helper.</span>
+</span></span><span style="display:flex;"><span>cat &gt; /etc/default/dhcp-helper <span style="color:#e6db74">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">DHCPHELPER_OPTS=&#34;-b wlan0&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable avahi reflector if it&#39;s not already enabled.</span>
+</span></span><span style="display:flex;"><span>sed -i<span style="color:#e6db74">&#39;&#39;</span> <span style="color:#e6db74">&#39;s/#enable-reflector=no/enable-reflector=yes/&#39;</span> /etc/avahi/avahi-daemon.conf
+</span></span><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^enable-reflector=yes$&#39;</span> /etc/avahi/avahi-daemon.conf <span style="color:#f92672">||</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  printf <span style="color:#e6db74">&#34;something went wrong...\n\n&#34;</span>
+</span></span><span style="display:flex;"><span>  printf <span style="color:#e6db74">&#34;Manually set &#39;enable-reflector=yes in /etc/avahi/avahi-daemon.conf&#39;\n&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># I have to admit, I do not understand ARP and IP forwarding enough to explain</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># exactly what is happening here. I am building off the work of others. In short</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># this is a service to forward traffic from WiFi to Ethernet.</span>
+</span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39; &gt;/usr/lib/systemd/system/parprouted.service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Unit]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Description=proxy arp routing service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Documentation=https://raspberrypi.stackexchange.com/q/88954/79866
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Requires=sys-subsystem-net-devices-wlan0.device dhcpcd.service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">After=sys-subsystem-net-devices-wlan0.device dhcpcd.service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Service]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Type=forking
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Restart until wlan0 gained carrier
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Restart=on-failure
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">RestartSec=5
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">TimeoutStartSec=30
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># clone the dhcp-allocated IP to eth0 so dhcp-helper will relay for the correct subnet
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStartPre=/bin/bash -c &#39;/sbin/ip addr add $(/sbin/ip -4 -br addr show wlan0 | /bin/grep -Po &#34;\\d+\\.\\d+\\.\\d+\\.\\d+&#34;)/32 dev eth0&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStartPre=/sbin/ip link set dev eth0 up
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStartPre=/sbin/ip link set wlan0 promisc on
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStart=-/usr/sbin/parprouted eth0 wlan0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStopPost=/sbin/ip link set wlan0 promisc off
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStopPost=/sbin/ip link set dev eth0 down
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ExecStopPost=/bin/bash -c &#39;/sbin/ip addr del $(/sbin/ip -4 -br addr show wlan0 | /bin/grep -Po &#34;\\d+\\.\\d+\\.\\d+\\.\\d+&#34;)/32 dev eth0&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[Install]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">WantedBy=wpa_supplicant.service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl enable parprouted
+</span></span><span style="display:flex;"><span>systemctl start parprouted dhcp-helper
+</span></span></code></pre></div><p>Normalerweise sollte das Script auch unter
+<code>~/.scripts/raspberrypi/bridge.sh</code> liegen.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/schach/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/python/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Arch - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//latex" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Arch</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#dualbooting-with-windows">Dualbooting with Windows</a>
+      <ul>
+        <li><a href="#error-preparing-initrd-volume-corrupted"><code>Error Preparing initrd: Volume corrupted</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#pacman"><code>pacman</code></a>
+      <ul>
+        <li><a href="#downgrading-a-package">Downgrading a package</a></li>
+      </ul>
+    </li>
+    <li><a href="#network">Network</a>
+      <ul>
+        <li><a href="#static-ip">Static IP</a></li>
+        <li><a href="#dns">DNS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      
+
+
+<div class="flex justify-center">
+  <img src="/wiki/media/blahaj-close-shot.webp" 
+       class="w-1/4 h-1/4 max-sm:w-full max-sm:h-auto border cursor-pointer" 
+       id="thumbnail-63313862">
+</div>
+
+
+<div id="lightbox-modal-63313862" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-75 z-50">
+  <span class="absolute top-4 right-6 text-white text-3xl cursor-pointer" id="lightbox-close-63313862">&times;</span>
+  <img src="/wiki/media/blahaj-close-shot.webp" class="max-w-full max-h-full rounded shadow-lg">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const thumb = document.getElementById('thumbnail-63313862');
+    const modal = document.getElementById('lightbox-modal-63313862');
+    const close = document.getElementById('lightbox-close-63313862');
+
+    thumb.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    close.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  });
+</script>
+
+<h2 id="dualbooting-with-windows">Dualbooting with Windows<a href="/wiki/arch/#dualbooting-with-windows" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>With <code>systemd-boot</code> it is relativly easy to install Linux and Windows
+alongside. My suggestion would be to install Linux first and then make
+space for the Windows install. <code>systemd-boot</code> will automatically find
+all UEFI-partitions to boot from.</p>
+<p>Over the time, problems can occure because Windows will do ugly things
+to foreign partitions, when it updates. So be prepared.</p>
+<h3 id="error-preparing-initrd-volume-corrupted"><code>Error Preparing initrd: Volume corrupted</code><a href="/wiki/arch/#error-preparing-initrd-volume-corrupted" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>The Windows install will probably still boot.</p>
+<ol>
+<li>Boot with a live medium.</li>
+<li>Make a filesystem-check on the boot partition and approve the
+fix-prompt with: <code>fsck /dev/sda1</code></li>
+<li>Re-generate the boot-image with: <code>mkinitcpio -P</code></li>
+<li>Reboot.</li>
+</ol>
+<h2 id="pacman"><code>pacman</code><a href="/wiki/arch/#pacman" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>To ignore updates/replacement for a package, you can add it under
+options, e.g.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>IgnorePkg <span style="color:#f92672">=</span> ttf-sourcecodepro-nerd
+</span></span></code></pre></div><p>I already have <code>nerd-fonts-source-code-pro</code> installed via the AUR, so I
+ignore the native arch-package.</p>
+<ul>
+<li>How to find non-used packages (orphans)?
+<ul>
+<li><code>alias lsorphans=&quot;sudo pacman -Qdt&quot;</code></li>
+</ul>
+</li>
+<li>How to remove non-used packages (orphans)?
+<ul>
+<li><code>alias rmorphans=&quot;pacman -Qtdq | sudo pacman -Rns -&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="downgrading-a-package">Downgrading a package<a href="/wiki/arch/#downgrading-a-package" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Für Notfälle hält pacman eine bestimmte Anzahl an alten Versionen einer Software im Cache (<code>/var/cache/pacman/pkg/</code>) vor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls /var/cache/pacman/pkg/ | grep <span style="color:#e6db74">&#34;botan&#34;</span>
+</span></span></code></pre></div><p>Installieren tun man das Paket man mit der -U Flag.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -U /var/cache/pacman/pkg/botan-3.9.0-1-x86_64.pkg.tar.zst
+</span></span></code></pre></div><h2 id="network">Network<a href="/wiki/arch/#network" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can do it different ways. Gnome uses <code>NetworkManager</code> by default.
+A less bloated way would be using the <code>systemd</code>-daemons for DNS and DHCP: <code>systemd-networkd</code> and <code>systemd-resolved</code>.
+Running the following script with the fitting <code>$interface</code> will give a basic config for using the network.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>interface<span style="color:#f92672">=</span>eno1
+</span></span><span style="display:flex;"><span>touch /etc/systemd/network/20-wired.network
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[Match]&#34;</span> &gt;&gt; /etc/systemd/network/20-wired.network
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Name=</span>$interface<span style="color:#e6db74"> &#34;</span> &gt;&gt; /etc/systemd/network/20-wired.network
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34; &#34;</span> &gt;&gt; /etc/systemd/network/20-wired.network
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[Network]&#34;</span> &gt;&gt; /etc/systemd/network/20-wired.network
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;DHCP=yes&#34;</span> &gt;&gt; /etc/systemd/network/20-wired.network
+</span></span></code></pre></div><h3 id="static-ip">Static IP<a href="/wiki/arch/#static-ip" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>If your IP does not change, you can skip DHCP in the boot-process. You can configure a static IP as following
+in <code>/etc/systemd/network/20-wired.network</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">Match</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Name</span>=<span style="color:#a6e22e">eno1</span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Network</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Address</span>=<span style="color:#ae81ff">192.168</span>.<span style="color:#ae81ff">178.110</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Gateway</span>=<span style="color:#ae81ff">192.168</span>.<span style="color:#ae81ff">178.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">DNS</span>=<span style="color:#ae81ff">192.168</span>.<span style="color:#ae81ff">178.1</span>
+</span></span></code></pre></div><h3 id="dns">DNS<a href="/wiki/arch/#dns" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Der einfachste Weg um den DNS-Server einzustellen, ist über die <code>/etc/resolv.conf</code>.
+Wenn man <code>sytemd-resolved</code> nutzt kann man auch <code>/etc/systemd/resolv.conf</code> editieren.
+Zu beachten ist, dass <code>systemd-networkd</code> und <code>systemd-resolved</code> beide DNS-Konfiguration erlauben. Unter diesem Artikel mehr dazu: <a href="https://wiki.archlinux.de/title/Systemd/systemd-resolved#systemd-networkd_vs._systemd-resolved">https://wiki.archlinux.de/title/Systemd/systemd-resolved#systemd-networkd_vs._systemd-resolved</a></p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/authentik/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/apt/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System-Rescue on Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/categories/system-rescue/</link>
+    <description>Recent content in System-Rescue on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/categories/system-rescue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PhoenixPE</title>
+      <link>https://hmaier-dev.github.io/wiki/phoenixpe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/phoenixpe/</guid>
+      <description>&lt;p&gt;A nice tool which helped me dozens of times:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/PhoenixPE/PhoenixPE&#34;&gt;https://github.com/PhoenixPE/PhoenixPE&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.heise.de/ratgeber/c-t-Notfall-Windows-2024-9549286.html&#34;&gt;https://www.heise.de/ratgeber/c-t-Notfall-Windows-2024-9549286.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

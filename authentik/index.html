@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="An open source identity provider">
+<title>Authentik - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//apt" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Authentik</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#installation">Installation</a>
+      <ul>
+        <li><a href="#env-file"><code>.env</code>-file</a></li>
+      </ul>
+    </li>
+    <li><a href="#bootstraping">Bootstraping</a></li>
+    <li><a href="#sitzungs-dauer-einstellen">Sitzungs Dauer einstellen</a></li>
+    <li><a href="#forwardauth-in-traefik">ForwardAuth in Traefik</a></li>
+    <li><a href="#session-duration">Session Duration</a></li>
+    <li><a href="#ldap-source">LDAP Source</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#tokens">Tokens</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="installation">Installation<a href="/wiki/authentik/#installation" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Is kinda straight forward:</p>
+<ul>
+<li><a href="https://docs.goauthentik.io/docs/install-config/install/docker-compose">https://docs.goauthentik.io/docs/install-config/install/docker-compose</a></li>
+</ul>
+<h3 id="env-file"><code>.env</code>-file<a href="/wiki/authentik/#env-file" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># NOTE: this file needs to be called .env and not docker.env!</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       When named different PG_PASS cannot be set. I don&#39;t know why...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># --------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For automated install</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AUTHENTIK_BOOTSTRAP_PASSWORD<span style="color:#f92672">=</span>qwertz1234
+</span></span><span style="display:flex;"><span>AUTHENTIK_BOOTSTRAP_TOKEN<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>AUTHENTIK_BOOTSTRAP_EMAIL<span style="color:#f92672">=</span>mail@server.de
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## echo &#34;AUTHENTIK_SECRET_KEY=$(openssl rand -base64 60 | tr -d &#39;\n&#39;)&#34; &gt;&gt; .env</span>
+</span></span><span style="display:flex;"><span>AUTHENTIK_SECRET_KEY<span style="color:#f92672">=</span>&lt;key&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Postgres</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## echo &#34;PG_PASS=$(openssl rand -base64 36 | tr -d &#39;\n&#39;)&#34; &gt;&gt; .env</span>
+</span></span><span style="display:flex;"><span>PG_PASS<span style="color:#f92672">=</span>&lt;key&gt;
+</span></span><span style="display:flex;"><span>POSTGRES_USER<span style="color:#f92672">=</span>authentik
+</span></span><span style="display:flex;"><span>POSTGRES_DB<span style="color:#f92672">=</span>authentik
+</span></span></code></pre></div><h2 id="bootstraping">Bootstraping<a href="/wiki/authentik/#bootstraping" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>When deploying to public space you can use these variables at the <code>worker</code>-container to
+skip the OOB-experience:</p>
+<ul>
+<li><code>AUTHENTIK_BOOTSTRAP_PASSWORD</code></li>
+<li><code>AUTHENTIK_BOOTSTRAP_TOKEN</code></li>
+<li><code>AUTHENTIK_BOOTSTRAP_EMAIL</code></li>
+</ul>
+<p>By the way: The default user is call <code>akadmin</code>.</p>
+<p>Refernece: <a href="https://docs.goauthentik.io/docs/install-config/automated-install">https://docs.goauthentik.io/docs/install-config/automated-install</a></p>
+<h2 id="sitzungs-dauer-einstellen">Sitzungs Dauer einstellen<a href="/wiki/authentik/#sitzungs-dauer-einstellen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Einerseits kann man am Provider die Gültigkeit des Tokens einstellen,
+andererseits kann man in der Phase (User Login Stage) die Sessionsdauer einstellen:</p>
+<ul>
+<li><a href="https://www.reddit.com/r/Authentik/comments/1e6023h/noob_question_autologout_after_x_hours/">https://www.reddit.com/r/Authentik/comments/1e6023h/noob_question_autologout_after_x_hours/</a></li>
+<li><a href="https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/">https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/</a></li>
+</ul>
+<p>Wie genau diese beiden Parts zusammen hängen, muss ich noch verstehen.</p>
+<h2 id="forwardauth-in-traefik">ForwardAuth in Traefik<a href="/wiki/authentik/#forwardauth-in-traefik" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um vor jegliche Anwendung einen Authentifizierung zu setzen, kann man Authentik in Traefik als
+Middleware über ForwardAuth einbinden. Von Authentik selbst gibt es dazu eine passenden Anleitung.</p>
+<ul>
+<li><a href="https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik">https://docs.goauthentik.io/docs/add-secure-apps/providers/proxy/server_traefik</a></li>
+</ul>
+<p>Wichtig ist, dass <code>outpost.company:9000</code> mit dem Container-Namen des Authentik-Servers im <code>traefik-net</code> ersetzt wird.
+Zum Beispiel aus <code>outpost.company:9000</code> wird <code>authentik-server:9000</code>. Dies ist der gleiche Name dem man dem Loadbalancer übergibt.</p>
+<p>Im Authentik müssen zudem noch ein Provider und eine Application angelegt werden.
+Zuletzt fügt man den Provider noch dem <em>Embedded Outpost</em> hinzu.</p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://github.com/brokenscripts/authentik_traefik">https://github.com/brokenscripts/authentik_traefik</a></li>
+</ul>
+<h2 id="session-duration">Session Duration<a href="/wiki/authentik/#session-duration" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/">https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/stages/user_login/</a></li>
+</ul>
+<h2 id="ldap-source">LDAP Source<a href="/wiki/authentik/#ldap-source" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Fürs Einbinden vom Active Directory gibt es eine eigene Anleitung:</p>
+<ul>
+<li><a href="https://docs.goauthentik.io/docs/users-sources/sources/directory-sync/active-directory/">https://docs.goauthentik.io/docs/users-sources/sources/directory-sync/active-directory/</a></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/authentik/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="tokens">Tokens<a href="/wiki/authentik/#tokens" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>To see the tokens saved on the location machine, go in your browser to <code>Dev Tools &gt; Application &gt; Cookies</code>.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/bash/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/arch/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

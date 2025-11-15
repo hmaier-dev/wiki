@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Ansible - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//github" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Ansible</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mit-vagrant">Mit Vagrant</a></li>
+    <li><a href="#missing-sudo-password"><code>missing sudo password</code></a></li>
+    <li><a href="#setup-new-project">Setup new Project</a></li>
+    <li><a href="#secrets">Secrets</a>
+      <ul>
+        <li><a href="#vault-password-file">Vault Password File</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <ul>
+<li><code>ansible-playbook -i inventory.ini add_admin_user.yml</code></li>
+<li><code> ansible-playbook -i inventory.ini playbooks/deploy-traefik.yml</code></li>
+</ul>
+<h2 id="mit-vagrant">Mit Vagrant<a href="/wiki/ansible/#mit-vagrant" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Muss muss in der <code>inventory.ini</code> mit angeben, an welchem Ort sich der
+Private-Key befindet. Sonst kann Ansible sich nicht mit der VM
+verbinden.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[test_machine]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">192.168.56.10 ansible_ssh_user</span><span style="color:#f92672">=</span><span style="color:#e6db74">vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key</span>
+</span></span></code></pre></div><h2 id="missing-sudo-password"><code>missing sudo password</code><a href="/wiki/ansible/#missing-sudo-password" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Falls der Zieluser (<code>ansible_ssh_user</code>) auf dem System nicht root ist,
+muss dieser in der <code>sudo</code>-Gruppe sein, als auch sein Password mitgegeben
+werden. Dies tut man mit folgender Flag.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible-playbook -i inventory.ini basic_setup.yml --ask-become-pass
+</span></span></code></pre></div><h2 id="setup-new-project">Setup new Project<a href="/wiki/ansible/#setup-new-project" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Zur Vorbereitung auf ein neues Projekt sollte man als erstes den Zugang via <code>ansible_user</code> testen.
+Dafür deklariert man ein Inventory mit der IP-Adresse des Server sowie dem Namen des Users.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e">## inventory.ini</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[all]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">79.225.242.139 ansible_user</span><span style="color:#f92672">=</span><span style="color:#e6db74">deploy</span>
+</span></span></code></pre></div><p>Damit kann man dann ein AdHoc-Ping ausführen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible -i inventory.ini all -m ping
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## [ERROR]: Task failed: Failed to connect to the host via ssh: deploy@79.225.242.139: Permission denied (publickey,password).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Origin: &lt;adhoc &#39;ping&#39; task&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## {&#39;action&#39;: &#39;ping&#39;, &#39;args&#39;: {}, &#39;timeout&#39;: 0, &#39;async_val&#39;: 0, &#39;poll&#39;: 15}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 79.225.242.139 | UNREACHABLE! =&gt; {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;changed&#34;: false,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;msg&#34;: &#34;Task failed: Failed to connect to the host via ssh: deploy@79.225.242.139: Permission denied (publickey,password).&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;unreachable&#34;: true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## }</span>
+</span></span></code></pre></div><p>Ansible versucht via SSH-Keys auf den Server zuzugreifen und schlägt fehl. Dies kann verschiedene Gründe haben, die mit einander zusammenhängen.</p>
+<ul>
+<li>User <code>deploy</code> wurde noch nicht angelegt</li>
+<li>Der Public-Key der lokalen Maschine wurde noch nicht auf dem Server eingepflegt</li>
+</ul>
+<p>Dem kann man manuell (mit root-access) Abhilfe schaffen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd deploy
+</span></span><span style="display:flex;"><span>mkdir -p /home/deploy
+</span></span><span style="display:flex;"><span>chown deploy:deploy /home/deploy
+</span></span></code></pre></div><p>Zurück auf der lokalen Maschine kann man <code>ssh-copy-id</code> verwenden, was den lokalen Public-Key auf dem Server unter <code>/home/deploy/.ssh/authorized_keys</code> einpflegt.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id deploy@79.225.242.139
+</span></span></code></pre></div><p>Nun kann man nochmal ein AdHoc-Ping versuchen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible -i inventory.ini all -m ping
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## 79.225.242.139 | SUCCESS =&gt; {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;ansible_facts&#34;: {</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##         &#34;discovered_interpreter_python&#34;: &#34;/usr/bin/python3.11&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     },</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;changed&#34;: false,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##     &#34;ping&#34;: &#34;pong&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## }</span>
+</span></span></code></pre></div><h2 id="secrets">Secrets<a href="/wiki/ansible/#secrets" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Secrets werden kann man in der gleichen Art und Weise behandeln wie Variablen.
+Der einzige Unterschied ist, dass man sein <code>secrets.yml</code>-File per Ansible-Vault verschlüsseln kann.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible-vault encrypt group_vars/all/secrets.yml
+</span></span></code></pre></div><p>Man wird nun nach einem Vault-Passwort gefragt, welches als Schlüssel dient.
+Weitere Variablen kann man mit <code>edit</code> hinzufügen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible-vault encrypt group_vars/all/secrets.yml
+</span></span></code></pre></div><p>Die Datei kann wie folgt aussehen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">key1</span>: <span style="color:#ae81ff">secretkey</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">key2</span>: <span style="color:#ae81ff">secretkey2##1??</span>
+</span></span></code></pre></div><p>Über <code>vars_files</code> importiert man den Vault nun wie auch andere Variablen.</p>
+<h3 id="vault-password-file">Vault Password File<a href="/wiki/ansible/#vault-password-file" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Wenn man das Password nicht immer wieder eingeben möchte, kann man die Flag <code>--vault-password-file &lt;file&gt;</code> nutzen.
+Im File speichert man nur das Password ab und kann dann ein Playbook wie folgt ausführen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible-playbook -i inventory.ini playbooks/deploy-authentik.yml --vault-password-file vault-env
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/apt/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/android/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

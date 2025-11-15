@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Buildtool which merge Makefile and Dockerfile. Lets you run, your CI-jobs locally.">
+<title>Earthly - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//wordpress" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Earthly</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#save-artifact-locally"><code>SAVE ARTIFACT LOCALLY</code></a></li>
+    <li><a href="#save-artifact"><code>SAVE ARTIFACT</code></a></li>
+    <li><a href="#secrets"><code>.secrets</code></a></li>
+    <li><a href="#errors">Errors</a>
+      <ul>
+        <li><a href="#error-could-not-determine-buildkit-address---is-docker-or-podman-running">Error: could not determine buildkit address - is Docker or Podman running?</a></li>
+        <li><a href="#failed-to-stat-parent-stat-tmpearthlybuildkitrunc-overlayfssnapshotssnapshots2006fs-no-such-file-or-directory"><code>failed to stat parent: stat /tmp/earthly/buildkit/runc-overlayfs/snapshots/snapshots/2006/fs: no such file or directory</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Ist ein Buildtool welches Container nutzt, um die Toolchain bereit
+zustellen. Verschiedene Targets werden über ein sogennates <code>Earthfile</code>
+deklariert. Erinnern tut <code>earthly</code> dabei, an klassiche Makefiles.</p>
+<p>Der große Vorteil an <code>earthly</code> ist die Portabilität. Man kann seine
+CI-Pipeline lokal zusammenbauen und erhält bei Runs enau die gleichen
+Ergebnisse wie im Gitlab.</p>
+<p>Ein einziges Target, welches Python-Skripte auf ihre Richtigkeit testet,
+kann beispielsweise so aussehen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>syntax-python:<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    FROM python:3.12.3 <span style="color:#75715e"># pullt python-image</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    WORKDIR /src<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    COPY --dir my/project/path container/path<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    COPY some/other/dir/*.py container/path<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    RUN find ./path -name <span style="color:#e6db74">&#34;*.py&#34;</span> | xargs -t -P4 -n1 python3 -m py_compile<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>Zusammen mit anderen Targets, kann dieses verkettet werden.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>test-all:<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    BUILD +syntax-go<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    BUILD +syntax-python<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    BUILD +syntax-bash<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    BUILD +test-database<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h2 id="save-artifact-locally"><code>SAVE ARTIFACT LOCALLY</code><a href="/wiki/earthly/#save-artifact-locally" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Dieses Kommando wird nur Dateien ins Host-Filesystem ausgeben, wenn die
+<code>--ci</code>-Flag nicht mitgegeben wurde (<code>--help</code> um zu erfahren was sie
+impliziert).</p>
+<h2 id="save-artifact"><code>SAVE ARTIFACT</code><a href="/wiki/earthly/#save-artifact" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man Artifacts aus einem anderen Target importieren, kann man das wie folgt tun.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>target:<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  COPY +download-hugo/&lt;articfact&gt; /path/to/copy/to<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  COPY +download-hugo/hugo /usr/local/bin/hugo<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  COPY +download-tailwindcss/tailwindcss /usr/local/bin/tailwindcss<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h2 id="secrets"><code>.secrets</code><a href="/wiki/earthly/#secrets" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For deploying from your local machine, you need your secrets present in a <code>.secrets</code> file. That must be located in the same directory as the <code>Earthfile</code>.
+For multi-line secrets use <code>''</code> like in the following example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>host=192.168.13.12
+</span></span><span style="display:flex;"><span>port=1337
+</span></span><span style="display:flex;"><span>username=secret-username
+</span></span><span style="display:flex;"><span>key=&#39;-----BEGIN OPENSSH PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>SOMEVALIDCHARACTERSWHICHMAKEUP
+</span></span><span style="display:flex;"><span>AVERYGOODSECRETANDSAFEPRIVATEK
+</span></span><span style="display:flex;"><span>-----END OPENSSH PRIVATE KEY-----&#39;
+</span></span><span style="display:flex;"><span>known_hosts=&#39;content-of-the-known-hosts-file&#39;
+</span></span></code></pre></div><p>The <code>''</code> are needed because they keep the format (like newlines etc).</p>
+<h2 id="errors">Errors<a href="/wiki/earthly/#errors" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="error-could-not-determine-buildkit-address---is-docker-or-podman-running">Error: could not determine buildkit address - is Docker or Podman running?<a href="/wiki/earthly/#error-could-not-determine-buildkit-address---is-docker-or-podman-running" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>If you encounter this error, first look if the systemd-service is running.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl status docker.service
+</span></span></code></pre></div><p>If it is, you/Earthly probably don&rsquo;t have sufficient rights to call docker. You can test this, by manually calling docker without sudo/doas.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker ps -a
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get &#34;http://%2Fvar%2Frun%2Fdocker.sock/v1.46/containers/json?all=1&#34;: </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># dial unix /var/run/docker.sock: connect: permission denied</span>
+</span></span></code></pre></div><p>The solution to this problem, is to add your user-group to the docker group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG docker &lt;username&gt;
+</span></span></code></pre></div><h3 id="failed-to-stat-parent-stat-tmpearthlybuildkitrunc-overlayfssnapshotssnapshots2006fs-no-such-file-or-directory"><code>failed to stat parent: stat /tmp/earthly/buildkit/runc-overlayfs/snapshots/snapshots/2006/fs: no such file or directory</code><a href="/wiki/earthly/#failed-to-stat-parent-stat-tmpearthlybuildkitrunc-overlayfssnapshotssnapshots2006fs-no-such-file-or-directory" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Something with the cache was wrong. I resolved the issue with: <code>earthly prune -a</code> which cleared the cache.</p>
+<p>More on how to manage the cache:</p>
+<ul>
+<li><a href="https://docs.earthly.dev/docs/caching/managing-cache">https://docs.earthly.dev/docs/caching/managing-cache</a></li>
+</ul>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/ffmpeg/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/docker/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

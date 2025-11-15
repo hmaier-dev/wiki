@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Web-Application-Proxy for containers">
+<title>Traefik - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//winget" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Traefik</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#general-configuration">General Configuration</a></li>
+    <li><a href="#dynamic-configuration-types">Dynamic Configuration Types</a>
+      <ul>
+        <li><a href="#label-based-docker">Label based (Docker)</a></li>
+        <li><a href="#files-based">Files based</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-example">Project Example</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#api">API</a></li>
+    <li><a href="#templating">Templating</a></li>
+    <li><a href="#configuration-examples">Configuration Examples</a>
+      <ul>
+        <li><a href="#webserver-with-https">Webserver with HTTPS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="general-configuration">General Configuration<a href="/wiki/traefik/#general-configuration" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In Traefik the configuration is done in two different ways:</p>
+<ul>
+<li>static configuration</li>
+<li>dynamic configuration</li>
+</ul>
+<p>The static config can be though of as an startup config. It sets the connections to the different provides (file, docker, etc.) and
+sets the entrypoints (often just port 80 and 443). When something in this config changes, the traefik container needs to get restarted.
+Usally this <em>should not</em> happend often, because the values are mostly constant.
+You need to tell Traefik where it is when starting:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">traefik</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;--configFile=/etc/traefik/traefik.yaml&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;./traefik.yml:/etc/traefik/traefik.yml:ro&#34;</span>
+</span></span></code></pre></div><p>The dynamic config is the way, how the magic <em>can</em> happens. Traefik uses different provides to get its routes, services and rules.
+The least magically way is to use the <a href="https://doc.traefik.io/traefik/providers/file/">file-provider</a>.
+You need to tell Traefik the dir to look for it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">providers</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">file</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">directory</span>: <span style="color:#e6db74">&#34;/rules&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">watch</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>Make sure to mount it in the <code>docker-compose.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">traefik</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;./rules:/rules&#34;</span>
+</span></span></code></pre></div><h2 id="dynamic-configuration-types">Dynamic Configuration Types<a href="/wiki/traefik/#dynamic-configuration-types" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In traefik there are different approaches to declare your configuration.
+Configuration is always received through a so named provider. Right now I have experience with two of the four categories of providers.</p>
+<h3 id="label-based-docker">Label based (Docker)<a href="/wiki/traefik/#label-based-docker" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>The label based configuration on might be the easiest. Just add <code>traefik.</code>-labels to the service in your compose file and you are good to go.
+A basic configuration for a nginx-webserver with http and https enabled, looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">my-webserver</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;nginx:bookworm&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">container_name</span>: <span style="color:#e6db74">&#34;static-wiki&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">/opt/static-wiki/public/:/usr/share/nginx/html</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.enable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># http</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.http.routers.checklist.rule</span>: <span style="color:#ae81ff">PathPrefix(`/wiki`)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.http.routers.checklist.entrypoints</span>: <span style="color:#ae81ff">web</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># https</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.http.routers.checklist-secure.tls</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.http.routers.checklist-secure.rule</span>: <span style="color:#ae81ff">PathPrefix(`/wiki`)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">traefik.http.routers.checklist-secure.entrypoints</span>: <span style="color:#ae81ff">websecure</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">traefik-net</span>
+</span></span></code></pre></div><p>Traefik detects that port 80 of the container is open and therefore creates a service. The naming of the service can get a little ugly.
+Also, for me this kind of syntax isn&rsquo;t very clear.</p>
+<h3 id="files-based">Files based<a href="/wiki/traefik/#files-based" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>The same configuration can be declared through the file based provider: an entry in the dynamic-config-file. It looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">routers</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># http</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">my-webserver</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">entrypoints</span>: <span style="color:#ae81ff">web</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">rule</span>: <span style="color:#ae81ff">PathPrefix(`/my-unsafe-webserver`)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">service</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># https</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">my-webserver-secure</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">entrypoints</span>: <span style="color:#ae81ff">websecure</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">rule</span>: <span style="color:#ae81ff">PathPrefix(`/my-super-secured-webserver`)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">service</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">tls</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nginx</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">servers</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;http://my-webserver:80&#34;</span>
+</span></span></code></pre></div><p>Because this is declared in the dynamic-config-file, you won&rsquo;t need to restart the container to make it work.</p>
+<h2 id="project-example">Project Example<a href="/wiki/traefik/#project-example" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>I like to go for the file-based dynamic configuration. Meaning, I create a separate directory called <code>./rules</code>
+which I mount into the container. For every service I create a separate file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>├── apps            <span style="color:#75715e">## Services plus their config</span>
+</span></span><span style="display:flex;"><span>│   ├── authentik
+</span></span><span style="display:flex;"><span>│   │   └── compose.yml
+</span></span><span style="display:flex;"><span>│   └── outline
+</span></span><span style="display:flex;"><span>│       └── compose.yml
+</span></span><span style="display:flex;"><span>├── compose.yml     <span style="color:#75715e">## Traefik compose</span>
+</span></span><span style="display:flex;"><span>├── LICENSE
+</span></span><span style="display:flex;"><span>├── README.md
+</span></span><span style="display:flex;"><span>├── rules           <span style="color:#75715e">## Dynamic Config</span>
+</span></span><span style="display:flex;"><span>│   ├── authentik.yml
+</span></span><span style="display:flex;"><span>│   └── outline.yml
+</span></span><span style="display:flex;"><span>└── traefik.yml     <span style="color:#75715e">## Static Config</span>
+</span></span></code></pre></div><h2 id="certificates">Certificates<a href="/wiki/traefik/#certificates" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Self signed certs</p>
+<p><a href="https://doc.traefik.io/traefik/expose/docker/#create-a-self-signed-certificate">https://doc.traefik.io/traefik/expose/docker/#create-a-self-signed-certificate</a></p>
+<h2 id="resources">Resources<a href="/wiki/traefik/#resources" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/">https://doc.traefik.io/traefik/user-guides/docker-compose/basic-example/</a></li>
+<li><a href="https://doc.traefik.io/traefik/getting-started/quick-start/">https://doc.traefik.io/traefik/getting-started/quick-start/</a></li>
+</ul>
+<h2 id="api">API<a href="/wiki/traefik/#api" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>The API is reachable over port 8080. These are the available endpoint over GET:</p>
+<ul>
+<li><a href="https://doc.traefik.io/traefik/operations/api/#dashboard">https://doc.traefik.io/traefik/operations/api/#dashboard</a></li>
+</ul>
+<h2 id="templating">Templating<a href="/wiki/traefik/#templating" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>When you want deploy a lot of services but you don&rsquo;t want to type all of them out,
+you could use <em>Go Templating</em>.</p>
+<ul>
+<li><a href="https://doc.traefik.io/traefik/providers/file/#go-templating">https://doc.traefik.io/traefik/providers/file/#go-templating</a></li>
+</ul>
+<h2 id="configuration-examples">Configuration Examples<a href="/wiki/traefik/#configuration-examples" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="webserver-with-https">Webserver with HTTPS<a href="/wiki/traefik/#webserver-with-https" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">routers</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">website</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">entrypoints</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">web</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">websecure</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">rule</span>: <span style="color:#ae81ff">Host(`www.mysite.com`) || Host(`mysite.com`)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">service</span>: <span style="color:#ae81ff">website</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">tls</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">website</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">servers</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;http://website:8080&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">~</span>
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/vagrant/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/tmux/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

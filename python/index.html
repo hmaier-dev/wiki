@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="No about snakes, but about a nice scripting language.">
+<title>Python - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//postgres" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Python</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#virtual-environments">Virtual Environments</a></li>
+    <li><a href="#language-server-protocol">Language Server Protocol</a></li>
+    <li><a href="#i-want-to-see-the-traceback">I want to see the traceback</a></li>
+    <li><a href="#i-want-to-have-structs-like-in-go">I want to have structs like in Go</a></li>
+    <li><a href="#packaging-a-project">Packaging a project</a></li>
+    <li><a href="#magic-packet">Magic Packet</a></li>
+    <li><a href="#ldap-query">LDAP Query</a></li>
+    <li><a href="#pandas">Pandas</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Is a nice scripting language which enables you to easily <em>build everything</em>, with the trade-off of it being slow.</p>
+<h2 id="virtual-environments">Virtual Environments<a href="/wiki/python/#virtual-environments" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Create a virtual environment in your current directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m venv .
+</span></span></code></pre></div><p>You can install all kinds of packages with different version, without cluttering your host-system.</p>
+<h2 id="language-server-protocol">Language Server Protocol<a href="/wiki/python/#language-server-protocol" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For Python coding in neovim I recommend <strong>basedpyright</strong>. It was the easiest to run.</p>
+<p>Usually you would need npm to run pyright, but with basedpyright everything is compiled into on binaries you can execute.
+Here is their Github: <a href="https://github.com/DetachHead/basedpyright">https://github.com/DetachHead/basedpyright</a> and it is available over <code>:Mason</code>.</p>
+<p>The basic LSP configuration looks like this:</p>
+<pre tabindex="0"><code>require(&#34;lspconfig&#34;).basedpyright.setup({})
+</code></pre><h2 id="i-want-to-see-the-traceback">I want to see the traceback<a href="/wiki/python/#i-want-to-see-the-traceback" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> traceback
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    do_stuff()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>    print(traceback<span style="color:#f92672">.</span>format_exc())
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># or</span>
+</span></span><span style="display:flex;"><span>    print(sys<span style="color:#f92672">.</span>exc_info()[<span style="color:#ae81ff">2</span>])
+</span></span></code></pre></div><h2 id="i-want-to-have-structs-like-in-go">I want to have structs like in Go<a href="/wiki/python/#i-want-to-have-structs-like-in-go" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For this you can use dataclasses. These convert a class by annotation into a dataclass.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define a dataclass to hold the URIs and their expected status codes</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">URI</span>:
+</span></span><span style="display:flex;"><span>    uri: str
+</span></span><span style="display:flex;"><span>    want: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test <span style="color:#f92672">=</span> URI(uri<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.nonexistentwebsite.com&#34;</span>, want<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span>),
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>uri)
+</span></span><span style="display:flex;"><span>print(test<span style="color:#f92672">.</span>want)
+</span></span></code></pre></div><h2 id="packaging-a-project">Packaging a project<a href="/wiki/python/#packaging-a-project" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/</a></li>
+</ul>
+<h2 id="magic-packet">Magic Packet<a href="/wiki/python/#magic-packet" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>A magic packet is a frame which is send as broadcast into the network,
+meant to start-up a computer which has Wake-On-LAN activated.
+In most cases the WOL-option can be found in the BIOS.
+The following script shows a function which takes any format of MAC-Address and broadcasts it to the network.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> struct
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wake_on_lan</span>(mac_address):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove any separators from the MAC address and convert to bytes</span>
+</span></span><span style="display:flex;"><span>    mac_bytes <span style="color:#f92672">=</span> bytes<span style="color:#f92672">.</span>fromhex(mac_address<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;:&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;-&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Create the magic packet payload</span>
+</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xff</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">+</span> mac_bytes <span style="color:#f92672">*</span> <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Set up the UDP socket</span>
+</span></span><span style="display:flex;"><span>    sock <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_DGRAM)
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>setsockopt(socket<span style="color:#f92672">.</span>SOL_SOCKET, socket<span style="color:#f92672">.</span>SO_BROADCAST, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Send the magic packet to the broadcast address on port 9</span>
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>sendto(payload, (<span style="color:#e6db74">&#39;&lt;broadcast&gt;&#39;</span>, <span style="color:#ae81ff">9</span>))
+</span></span><span style="display:flex;"><span>    sock<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mac_address <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;F2:1F:AF:30:9F:10&#39;</span>  <span style="color:#75715e"># Replace with the target MAC address</span>
+</span></span><span style="display:flex;"><span>wake_on_lan(mac_address)
+</span></span></code></pre></div><h2 id="ldap-query">LDAP Query<a href="/wiki/python/#ldap-query" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>This examples uses the current Kerberos ticket to auth to the ldap server.
+In most cases this will just work in Windows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># pip install -r requirements.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ldap3==2.9.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pyasn1==0.6.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># winkerberos==0.12.2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> winkerberos <span style="color:#66d9ef">as</span> k
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> ldap3 <span style="color:#f92672">import</span> Server, Connection, SASL, GSSAPI, SUBTREE
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> dataclasses <span style="color:#f92672">import</span> dataclass
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Any, List
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use current users kerberos ticket.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># See all active tickets with `klist`.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">auth_kerberos</span>(service_principal):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Attempting Kerberos authentication for SPN: </span><span style="color:#e6db74">{</span>service_principal<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        status, ctx <span style="color:#f92672">=</span> k<span style="color:#f92672">.</span>authGSSClientInit(service_principal)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> status <span style="color:#f92672">!=</span> k<span style="color:#f92672">.</span>AUTH_GSS_COMPLETE <span style="color:#f92672">and</span> status <span style="color:#f92672">!=</span> k<span style="color:#f92672">.</span>AUTH_GSS_CONTINUE:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Failed to initialize GSSAPI context: </span><span style="color:#e6db74">{</span>status<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        client_token <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> status <span style="color:#f92672">==</span> k<span style="color:#f92672">.</span>AUTH_GSS_CONTINUE:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;Current GSSAPI status: AUTH_GSS_CONTINUE&#34;</span>)
+</span></span><span style="display:flex;"><span>            status <span style="color:#f92672">=</span> k<span style="color:#f92672">.</span>authGSSClientStep(ctx, client_token)
+</span></span><span style="display:flex;"><span>            response_token <span style="color:#f92672">=</span> k<span style="color:#f92672">.</span>authGSSClientResponse(ctx)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> response_token <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> status <span style="color:#f92672">==</span> k<span style="color:#f92672">.</span>AUTH_GSS_COMPLETE:
+</span></span><span style="display:flex;"><span>                    print(<span style="color:#e6db74">&#34;GSSAPI authentication complete, no more client response needed.&#34;</span>)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#34;GSSAPI step produced no response token.&#34;</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;GSSAPI authentication complete.&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, <span style="color:#e6db74">&#34;Authentication complete.&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> k<span style="color:#f92672">.</span>GSSError <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This catches errors during the GSSAPI negotiation</span>
+</span></span><span style="display:flex;"><span>        error_message <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Kerberos GSSAPI Error: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        print(error_message)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, error_message
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Catch other unexpected errors</span>
+</span></span><span style="display:flex;"><span>        error_message <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;An unexpected error occurred: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        print(error_message)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, error_message
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># End Kerberos Auth</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ATTRIBUTES <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;distinguishedName&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;mail&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;mailNickname&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">browse</span>(host, ous):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Connecting to LDAP server: </span><span style="color:#e6db74">{</span>host<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    server <span style="color:#f92672">=</span> Server(host, use_ssl<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)  <span style="color:#75715e"># Change use_ssl=True if needed</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># SASL GSSAPI = use current Kerberos ticket</span>
+</span></span><span style="display:flex;"><span>    conn <span style="color:#f92672">=</span> Connection(
+</span></span><span style="display:flex;"><span>        server,
+</span></span><span style="display:flex;"><span>        authentication<span style="color:#f92672">=</span>SASL,
+</span></span><span style="display:flex;"><span>        sasl_mechanism<span style="color:#f92672">=</span>GSSAPI,
+</span></span><span style="display:flex;"><span>        auto_bind<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>        read_only<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;LDAP bind successful.&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ou <span style="color:#f92672">in</span> ous:
+</span></span><span style="display:flex;"><span>        cookie <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            conn<span style="color:#f92672">.</span>search(
+</span></span><span style="display:flex;"><span>                search_base<span style="color:#f92672">=</span>ou,
+</span></span><span style="display:flex;"><span>                search_filter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;(objectClass=user)&#39;</span>,
+</span></span><span style="display:flex;"><span>                search_scope<span style="color:#f92672">=</span>SUBTREE,
+</span></span><span style="display:flex;"><span>                attributes<span style="color:#f92672">=</span>ATTRIBUTES,
+</span></span><span style="display:flex;"><span>                paged_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>,
+</span></span><span style="display:flex;"><span>                paged_cookie<span style="color:#f92672">=</span>cookie
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            read_page(conn)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">## If Cookie is set, pull another page</span>
+</span></span><span style="display:flex;"><span>            cookie <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>result[<span style="color:#e6db74">&#39;controls&#39;</span>][<span style="color:#e6db74">&#39;1.2.840.113556.1.4.319&#39;</span>][<span style="color:#e6db74">&#39;value&#39;</span>][<span style="color:#e6db74">&#39;cookie&#39;</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> cookie:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    conn<span style="color:#f92672">.</span>unbind()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## There is a restriction for the amount of entries returned by a ldap-request</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_page</span>(conn: Connection):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> entry <span style="color:#f92672">in</span> conn<span style="color:#f92672">.</span>entries:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> a <span style="color:#f92672">in</span> ATTRIBUTES:
+</span></span><span style="display:flex;"><span>            print(entry[a]<span style="color:#f92672">.</span>values)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MAIN</span>
+</span></span><span style="display:flex;"><span>SERVICE_SPN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>LDAP_HOST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>OUs <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;OU=IT,OU=Users,DC=company,DC=de&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>success, result <span style="color:#f92672">=</span> auth_kerberos(SERVICE_SPN)
+</span></span><span style="display:flex;"><span>print(success, result)
+</span></span><span style="display:flex;"><span>browse(LDAP_HOST, OUs)
+</span></span></code></pre></div><h2 id="pandas">Pandas<a href="/wiki/python/#pandas" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Pandas sind nicht nur toll, sondern helfen auch zur Datenanalyse. Folgendes Beispiel: Ich habe zwei csv-Dateien in den ich jeweils einen identischen Key habe.
+Nun möchte ich die Einträgen zusammenführen, in denen in beiden Dateien der Key gleich ist. Mithilfe des Pakets <code>pandas</code> kann ich dafür einen <em>Inner Join</em> verwenden.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bestellcenter_path <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;.\bestellcenter-sim-numbers.csv&#34;</span>
+</span></span><span style="display:flex;"><span>mdm_path <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;.\mdm-data.csv&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bc_df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(bestellcenter_path, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cp1252&#34;</span>, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;;&#34;</span>, dtype<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;SIM-Nummer&#34;</span>: str})
+</span></span><span style="display:flex;"><span>mdm_df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(mdm_path, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cp1252&#34;</span>, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>, dtype<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;SIM Karten Seriennummer&#34;</span>: str})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(bc_df)
+</span></span><span style="display:flex;"><span>print(mdm_df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mdm_df[<span style="color:#e6db74">&#34;SIM Karten Seriennummer&#34;</span>] <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>    mdm_df[<span style="color:#e6db74">&#34;SIM Karten Seriennummer&#34;</span>]<span style="color:#f92672">.</span>astype(str)<span style="color:#f92672">.</span>str[<span style="color:#ae81ff">6</span>:]
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Bestellcenter key</span>
+</span></span><span style="display:flex;"><span>col1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SIM-Nummer&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## MDM Key</span>
+</span></span><span style="display:flex;"><span>col2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SIM Karten Seriennummer&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ein Inner Join nimmt nur die Rows in denen der Key in beiden Datenframes gleich ist</span>
+</span></span><span style="display:flex;"><span>merged_df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>merge(bc_df, mdm_df, left_on<span style="color:#f92672">=</span>col1, right_on<span style="color:#f92672">=</span>col2, how<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inner&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#39;~&#39; is hier ein logischer NOT operator</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Hole mir alle MDM Einträge die nicht im Bestellcenter sind</span>
+</span></span><span style="display:flex;"><span>not_matched_df <span style="color:#f92672">=</span> mdm_df[<span style="color:#f92672">~</span>mdm_df[col2]<span style="color:#f92672">.</span>isin(bc_df[col1])]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;SIM Karten, die im MDM und im Bestellcenter sind&#34;</span>)
+</span></span><span style="display:flex;"><span>print(merged_df)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;SIM Karten, die nicht im Bestellcenter gefunden wurden: &#34;</span>)
+</span></span><span style="display:flex;"><span>print(not_matched_df)
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/raspberry_pi/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/powershell/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

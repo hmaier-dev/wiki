@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>oscdimg.exe - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//systemd" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>oscdimg.exe</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#installwim-in-iso-verpacken">install.wim in ISO verpacken</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#error-5">Error 5</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="installwim-in-iso-verpacken">install.wim in ISO verpacken<a href="/wiki/oscdimg/#installwim-in-iso-verpacken" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Dafür benötigt man <code>oscdimg.exe</code>, welches im <em>Windows Assessment and Deployment Kit</em> enthalten ist. Herunterladen kann man die ADK über folgenden Link</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install">https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install</a></li>
+</ul>
+<p>Der Standard-Installationpfad von <code>oscdimg.exe</code> ist folgender:</p>
+<ul>
+<li><code>%ProgramFiles(x86)%\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg</code></li>
+</ul>
+<p>Außerdem benötigt man eine funktionierende Standard Windows ISO. Nun müssen folgende Schritte gegangen werden.</p>
+<ul>
+<li>Per <code>7zip</code> die ISO entpacken und nach <code>sources</code> navigieren.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\Win10_22H2_German_x64v1\sources
+</span></span></code></pre></div><ul>
+<li>Dort die alte <code>install.wim</code> gegen die neue tauschen.</li>
+<li>Die ISO neu bauen.</li>
+</ul>
+<p>Da Oscdimg by default nicht in den Umgebungvariablen ist, sucht man nach <em>Umgebung für Bereitstellungs- und Imageerstellungstools</em> und start das Programm dann mit administrativen Rechten.
+Der Pfad in den man geworfen wird ist folgender: <code>C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools</code>. Dort kann man dann folgendes Kommando ausführen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>oscdimg -bC:\Win10_22H2_German_x64v1\boot\etfsboot.com -u2 -h -m -lCUSTOM_WIN C:\Win10_22H2_German_x64v1 C:\CustomWindows.iso
+</span></span></code></pre></div><p>Die Infos dieses Absatzes hab ich aus diesem Artikel: <a href="https://www.windowspro.de/wolfgang-sommergut/bootfaehige-iso-fuer-windows-image-wim-erstellendocx">https://www.windowspro.de/wolfgang-sommergut/bootfaehige-iso-fuer-windows-image-wim-erstellendocx</a></p>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/oscdimg/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="error-5">Error 5<a href="/wiki/oscdimg/#error-5" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Starte <em>Umgebung für Bereitstellungs- und Imageerstellungstools</em> mit administrativen Rechten.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/outline/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/nginx/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

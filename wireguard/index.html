@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="">
+<title>Wireguard - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//wordpress" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Wireguard</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#wireguard">Wireguard</a></li>
+    <li><a href="#wg-quick"><code>wg-quick</code></a>
+      <ul>
+        <li><a href="#indicator-für-gnome">Indicator für Gnome</a></li>
+      </ul>
+    </li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#wg0-interface-wird-nach-jedem-boot-neu-erstellt"><code>wg0</code>-Interface wird nach jedem boot neu erstellt</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Does VPN. The easy way.</p>
+<h2 id="tldr">TL;DR<a href="/wiki/wireguard/#tldr" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><code>wg show &lt;interface&gt;</code>:</li>
+<li><code>wg-quick down &lt;interface&gt;</code>: Wireguard ausschalten</li>
+<li><code>ip link delete &lt;interface&gt;</code>: Wireguard-Interface löschen</li>
+</ul>
+<h2 id="wireguard">Wireguard<a href="/wiki/wireguard/#wireguard" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Wie auch beim Tunneln mit anderen Protokollen, brauchen meine wg-Clients
+einen öffentlichen Ansprechpartner im Internet, den wg-Server.</p>
+<p>Mit diesen Script kann ein Großteil der gängigen Linux-Distros in einen solchen wg-Server umwandeln.</p>
+<ul>
+<li>Installer-Script für den Server: <a href="https://github.com/angrisnttan/wireguard-install">https://github.com/angrisnttan/wireguard-install</a></li>
+</ul>
+<p>Außerdem lassen sich nach erstmaliger Installation, weitere Clients erstellen.
+Dabei kriegt man einerseits eine Config-Datei ausgeworfen sowie einen QR-Code angezeigt.</p>
+<p>Ich kann mir also theoretisch Clients vorgenerieren lassen und die später an die jeweiligen Leute verteilen (cool!).</p>
+<h2 id="wg-quick"><code>wg-quick</code><a href="/wiki/wireguard/#wg-quick" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Mit <code>wg-quick</code> kann man sich viel manuelle Konfiguration abnehmen lassen
+und den Tunnel aus schnelle Weise an-/ausschalten. Es werden root-Rechte benötigt.
+Auf dem Default-Weg sucht <code>wg-quick</code> nach der Konfiguration für ein Interface unter
+<code>/etc/wirguard/&lt;interface&gt;.conf</code>. Liegt die Config dort nicht mehr und der Tunnel ist aktiv,
+kann man sich die derzeitige Config über <code>wg showconf &lt;interface&gt;</code> ausgeben lassen
+und neu in dorthin schreiben lassen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wg showconf &lt;interface&gt; &gt; /etc/wireguard/&lt;interface&gt;.conf
+</span></span></code></pre></div><h3 id="indicator-für-gnome">Indicator für Gnome<a href="/wiki/wireguard/#indicator-für-gnome" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Mit dem Indicator kann ich über die Gnome-Oberfläche (siehe Extenstion-Repo) die Verbindung per Mausklick an und aus schalten.</p>
+<ul>
+<li>Extension für den Indicator: <a href="https://github.com/atareao/wireguard-indicator">https://github.com/atareao/wireguard-indicator</a> (lässt sich am besten über den <code>gnome-shell-extension-manager</code> installieren)</li>
+</ul>
+<p>Das Config-File welches man vom Server bekommt, muss wie das zu erstellende Interface heißen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv my-laptop-wg0.conf wg0.conf
+</span></span></code></pre></div><p>Dann kann man es per <code>nmcli</code> hinzufügen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nmcli connection import type wireguard file wg0.conf
+</span></span></code></pre></div><p>Im Indicator sollte jetzt die Verbindung <code>wg0</code> angezeigt werden.</p>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/wireguard/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="wg0-interface-wird-nach-jedem-boot-neu-erstellt"><code>wg0</code>-Interface wird nach jedem boot neu erstellt<a href="/wiki/wireguard/#wg0-interface-wird-nach-jedem-boot-neu-erstellt" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Wenn man Wireguard-Verbindungen vom NetworkManager verwalten lässt, schreibt dieser ein Konfiguration für das <code>wg0</code>-Interface.
+Somit wird nach jedem Systemstart <code>wg0</code> neu erstellt, auch wenn Wireguard gar nicht mehr installiert ist. Um das Erstellen zu verhindern, muss
+man die Verbindung-Config entweder über das CLI-Frontend <code>nmcli</code> oder unter <code>/etc/NetworkManager/system-connections</code> löschen.</p>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/wordpress/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/winget/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

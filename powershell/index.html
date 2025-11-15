@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="If you need to do Windows; use this.">
+<title>Powershell - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//yt-dlp" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Powershell</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#history">History</a></li>
+    <li><a href="#prompt">Prompt</a></li>
+    <li><a href="#constructing-an-alias-with-arguments">Constructing an alias with arguments</a></li>
+    <li><a href="#aliases">Aliases</a></li>
+    <li><a href="#params">Params</a></li>
+    <li><a href="#task-scheduler">Task Scheduler</a></li>
+    <li><a href="#credentials-object">Credentials Object</a></li>
+    <li><a href="#powershell-data-file">Powershell Data File</a></li>
+    <li><a href="#prettify-script">Prettify Script</a></li>
+    <li><a href="#ldap-query">LDAP Query</a></li>
+    <li><a href="#csv-export">CSV Export</a></li>
+    <li><a href="#delete-userprofiles-via-wmi">Delete UserProfiles via Wmi</a></li>
+    <li><a href="#register-wmievent">Register-WmiEvent</a></li>
+    <li><a href="#tips-and-tricks">Tips and Tricks</a>
+      <ul>
+        <li><a href="#get-all-line-of-go">Get all line of go</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>A collection of some powershell-snippets I found useful, can be found under:</p>
+<ul>
+<li><a href="https://github.com/hmaier-dev/powershell-library/tree/main/src">https://github.com/hmaier-dev/powershell-library/tree/main/src</a></li>
+</ul>
+<h2 id="history">History<a href="/wiki/powershell/#history" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can get the history of your current powershell session with <code>Get-History</code>.
+To access older history, you can use the file stored under <code>(Get-PSReadLineOption).HistorySavePath</code>.
+In this file a maximum of <code>(Get-PSReadLineOption).MaximumHistoryCount</code> commands is stored.</p>
+<p>With <code>fzf</code> you can access this list comfortably:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> FuncFuzzySearchHistory(){
+</span></span><span style="display:flex;"><span>  $cmd =  $(Get-Content $((Get-PSReadLineOption).HistorySavePath) | fzf)
+</span></span><span style="display:flex;"><span>  $cmd
+</span></span><span style="display:flex;"><span>  Invoke-Expression $cmd
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="prompt">Prompt<a href="/wiki/powershell/#prompt" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>To change the behaviour of the powershell prompt before running the command, alter the <code>prompt</code>-function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">## This sets the window-title with the last three dir of the path</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> prompt(){
+</span></span><span style="display:flex;"><span>  $three = (Get-Location).Path -split <span style="color:#e6db74">&#39;\\&#39;</span> | Select-Object -Last <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  $path = $three[<span style="color:#ae81ff">0</span>] + <span style="color:#e6db74">&#34;\&#34;</span> + $three[<span style="color:#ae81ff">1</span>] + <span style="color:#e6db74">&#34;\&#34;</span> + $three[<span style="color:#ae81ff">2</span>] 
+</span></span><span style="display:flex;"><span>  $host.ui.RawUI.WindowTitle = $path
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;</span>$(Get-Location)<span style="color:#e6db74">&gt; &#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="constructing-an-alias-with-arguments">Constructing an alias with arguments<a href="/wiki/powershell/#constructing-an-alias-with-arguments" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You can use the builtin-args variable for that.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesRepo(){
+</span></span><span style="display:flex;"><span>	$base = <span style="color:#e6db74">&#34;git.exe --git-dir=</span>$env:USERPROFILE<span style="color:#e6db74">\repos\dotfiles\ --work-tree=</span>$env:USERPROFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	$cmd = <span style="color:#e6db74">&#34;</span>$base<span style="color:#e6db74"> </span>$args<span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># The $args-variable is builtin and gets all arguments. Discoverd by accident.</span>
+</span></span><span style="display:flex;"><span>	Invoke-Expression -Command $cmd
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> DotFilesReposStatus(){
+</span></span><span style="display:flex;"><span>    dfr status
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfr -Value DotFilesRepo
+</span></span><span style="display:flex;"><span>Set-Alias -Name dfrs -Value DotFilesReposStatus
+</span></span></code></pre></div><h2 id="aliases">Aliases<a href="/wiki/powershell/#aliases" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>When constructing an alias with the corresponding function, keep in mind that <code>powershell</code> is not case-sensitive.
+That means, <code>Set-Alias -Name wiki -Value Wiki</code> would set alias that overwrites the function.
+My approach to this is to add the appropriate verb to the function name, e.g. <code>Set-Alias -Name wiki -Value EnterWiki</code>.</p>
+<h2 id="params">Params<a href="/wiki/powershell/#params" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>If you want to use flags to activate a function, you can use a <code>[switch]</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">param</span>(
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">switch</span>]$SetTaskScheduler = $False,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Write-Host $SetTaskScheduler
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ($SetTaskScheduler){
+</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Setting the task&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="task-scheduler">Task Scheduler<a href="/wiki/powershell/#task-scheduler" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>nice article: <a href="https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html">https://www.sharepointdiary.com/2022/06/create-scheduled-task-in-powershell.html</a></li>
+</ul>
+<h2 id="credentials-object">Credentials Object<a href="/wiki/powershell/#credentials-object" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>If you want to safely pass username and password, you can create a Credentials object</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$username = <span style="color:#e6db74">&#34;admin1234&#34;</span>
+</span></span><span style="display:flex;"><span>$password = <span style="color:#e6db74">&#34;mysupersecurepassword&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">securestring</span>]$secStringPassword = ConvertTo-SecureString $password -AsPlainText -Force
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">pscredential</span>]$cred = New-Object System.Management.Automation.PSCredential ($username, $secStringPassword)
+</span></span></code></pre></div><h2 id="powershell-data-file">Powershell Data File<a href="/wiki/powershell/#powershell-data-file" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Instead of using <code>json</code>, <code>yaml</code> or another well-known config-file format for your script, you can go the native powershell way with <code>psd1</code>-file.</p>
+<p>A simple one-dimensional config (e.g. <code>config.psd1</code>) would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>@{
+</span></span><span style="display:flex;"><span>    Username = <span style="color:#e6db74">&#34;ftp-user&#34;</span>
+</span></span><span style="display:flex;"><span>    Password = <span style="color:#e6db74">&#34;supersecretftppassword&#34;</span>
+</span></span><span style="display:flex;"><span>    Exclude = @(<span style="color:#e6db74">&#34;PT*0730*.DAT&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">## Keep in mind that @() is for array and @{} is for hash table</span>
+</span></span><span style="display:flex;"><span>    Paths = @(
+</span></span><span style="display:flex;"><span>      @{
+</span></span><span style="display:flex;"><span>        Source = <span style="color:#e6db74">&#39;L:\FileServer\Project1&#39;</span>
+</span></span><span style="display:flex;"><span>        Destination = <span style="color:#e6db74">&#39;path/to/destination/on/server&#39;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      @{
+</span></span><span style="display:flex;"><span>        Source = <span style="color:#e6db74">&#39;L:\FileServer\Project2&#39;</span>
+</span></span><span style="display:flex;"><span>        Destination = <span style="color:#e6db74">&#39;path/to/destination/on/server&#39;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In your script you would import the config-file and access the variable like properties:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$config = Import-PowershellDataFile -Path <span style="color:#e6db74">&#34;.\config.psd1&#34;</span>
+</span></span><span style="display:flex;"><span>$config.Username
+</span></span><span style="display:flex;"><span>$config.Password
+</span></span><span style="display:flex;"><span>$config.Exclude
+</span></span></code></pre></div><h2 id="prettify-script">Prettify Script<a href="/wiki/powershell/#prettify-script" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For reformatting your scripts, you can use the following project: <a href="https://github.com/DTW-DanWard/PowerShell-Beautifier">https://github.com/DTW-DanWard/PowerShell-Beautifier</a></p>
+<p>Run it as following: <code>Edit-DTWBeautifyScript .\export.ps1</code> to update the code.</p>
+<p>It is available on <code>scoop</code> via <code>scoop install main/powershell-beautifier</code>.</p>
+<h2 id="ldap-query">LDAP Query<a href="/wiki/powershell/#ldap-query" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>When working with powershell, you most certainly are living in a Windows Domain. With this premise you obviously won&rsquo;t get along without doing some searching in the Active Directoy.
+With the following powershell-function you can make ldap-queries by using your current Kerberos Authentification. That means:</p>
+<ol>
+<li>Logon with your domain-user.</li>
+<li>Execute the script.</li>
+<li>Get data without inputting user+password.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> GetUser(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">param</span> (
+</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">string</span>]$username
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Get the current domain name in DN format</span>
+</span></span><span style="display:flex;"><span>  $domain = [<span style="color:#66d9ef">System.DirectoryServices.ActiveDirectory.Domain</span>]::GetCurrentDomain()
+</span></span><span style="display:flex;"><span>  $domainDN = ($domain.Name -split <span style="color:#e6db74">&#34;\.&#34;</span>) -join <span style="color:#e6db74">&#34;,DC=&#34;</span> 
+</span></span><span style="display:flex;"><span>  $domainDN = <span style="color:#e6db74">&#34;DC=</span>$domainDN<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Edit this to your needs</span>
+</span></span><span style="display:flex;"><span>  $userPaths = @(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU=Mitarbeiter,OU=IT,OU=Users&#34;</span>,
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">foreach</span> ($path <span style="color:#66d9ef">in</span> $userPaths) {
+</span></span><span style="display:flex;"><span>    $full = <span style="color:#e6db74">&#34;LDAP://</span>$path<span style="color:#e6db74">,</span>$domainDN<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    $searcher = New-Object DirectoryServices.DirectorySearcher
+</span></span><span style="display:flex;"><span>    $searcher.SearchRoot = New-Object DirectoryServices.DirectoryEntry($full)
+</span></span><span style="display:flex;"><span>    $searcher.<span style="color:#66d9ef">Filter</span> = <span style="color:#e6db74">&#34;(&amp;(objectClass=user)(sAMAccountName=*</span>$username<span style="color:#e6db74">*))&#34;</span>
+</span></span><span style="display:flex;"><span>    $searcher.PageSize = <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    $searcher.FindAll() | ? {
+</span></span><span style="display:flex;"><span>      $user = $_.GetDirectoryEntry()
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># If you want to know all properties of an entry</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># you can use this:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># $user.Properties.PropertyNames | ? { </span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">#   Write-Host &#34;$_ : $($user.Properties[$_])&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># } </span>
+</span></span><span style="display:flex;"><span>      $out = <span style="color:#e6db74">@&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">sAMAccountName:             </span>$($user.samaccountname.Value)<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">mail:                       </span>$($user.mail)<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">dn:                         </span>$($user.distinguishedName.Value)<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-----------------------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;@</span>
+</span></span><span style="display:flex;"><span>      Write-Host $out
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="csv-export">CSV Export<a href="/wiki/powershell/#csv-export" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>For exporting data into a csv, you can use custom powershell-objects and pipe it to the <code>Export-Csv</code> function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$results 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($user <span style="color:#66d9ef">in</span> $allUsers) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        $userObj = [<span style="color:#66d9ef">PSCustomObject</span>]@{
+</span></span><span style="display:flex;"><span>            sAMAccountName = $user.sAMAccountName.value
+</span></span><span style="display:flex;"><span>            name = $user.name.value
+</span></span><span style="display:flex;"><span>            mail = $user.mail.value
+</span></span><span style="display:flex;"><span>            dn = $user.distinguishedName.value
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        $results += $userObj
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export the results to a CSV file</span>
+</span></span><span style="display:flex;"><span>$results | Export-Csv -Path <span style="color:#e6db74">&#34;UserData.csv&#34;</span> -NoTypeInformation
+</span></span></code></pre></div><h2 id="delete-userprofiles-via-wmi">Delete UserProfiles via Wmi<a href="/wiki/powershell/#delete-userprofiles-via-wmi" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>If you don&rsquo;t have access via <code>WinRM</code>, you can use <code>WMI</code> (Windows Management Instrumentation) as an Alternative.</p>
+<p>Run this as Domain Administrator.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">## Show all profiles</span>
+</span></span><span style="display:flex;"><span>Get-WmiObject -Computername special_hostname -Class Win32_userprofile
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Show profile</span>
+</span></span><span style="display:flex;"><span>Get-WmiObject -Computername special_hostname -Class Win32_userprofile | Where { $_.LocalPath <span style="color:#f92672">-like</span> <span style="color:#e6db74">&#34;*domainusername*&#34;</span> }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Delete the profile</span>
+</span></span><span style="display:flex;"><span>Get-WmiObject -Computername special_hostname -Class Win32_userprofile | Where { $_.LocalPath <span style="color:#f92672">-like</span> <span style="color:#e6db74">&#34;*domainusername*&#34;</span> } | <span style="color:#66d9ef">Foreach</span> { $_.Delete() }
+</span></span></code></pre></div><p>You will notice that your user is still present in the LogonUI. Clear out the keys with your username in this Registry-Path:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>my-remote-machine\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI
+</span></span></code></pre></div><h2 id="register-wmievent">Register-WmiEvent<a href="/wiki/powershell/#register-wmievent" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p><code>Wmi</code> (Windows Management Instrumentation) bietet unter Windows ein Schnittstelle um Informationen über den Zustand des Systems zu erhalten.
+Mit Powershell kann <code>Register-WmiEvent</code> nutzen, um auf das Eintreten eines Zustands zu reagieren.
+Zum Abhören eines Zustands muss man per WQL eine passende Query bauen.</p>
+<ul>
+<li>MS Docs: <a href="https://learn.microsoft.com/en-us/windows/win32/wmisdk/wql-sql-for-wmi">https://learn.microsoft.com/en-us/windows/win32/wmisdk/wql-sql-for-wmi</a></li>
+<li>WMI Code Creator: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=8572">https://www.microsoft.com/en-us/download/details.aspx?id=8572</a></li>
+</ul>
+<h2 id="tips-and-tricks">Tips and Tricks<a href="/wiki/powershell/#tips-and-tricks" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="get-all-line-of-go">Get all line of go<a href="/wiki/powershell/#get-all-line-of-go" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ChildItem -Recurse -Include <span style="color:#e6db74">&#39;*.go&#39;</span> | Get-Content | Measure-Object -Line
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/python/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/postgres/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

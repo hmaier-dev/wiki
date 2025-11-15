@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Container engine. Run your application on different systems.">
+<title>Docker - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//ffmpeg" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Docker</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#docker-inspect"><code>docker inspect</code></a></li>
+    <li><a href="#entrypoint">Entrypoint</a></li>
+    <li><a href="#optimizing-image-size">Optimizing Image size</a></li>
+    <li><a href="#github-container-registry">Github Container Registry</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#container-stoppt-langsam--gibt-exit-code-137">Container stoppt langsam &amp; gibt Exit Code 137</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="tldr">TL;DR<a href="/wiki/docker/#tldr" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Dockerfile bauen:
+<ul>
+<li><code>docker build --tag 'username/my-custom-name' .</code></li>
+</ul>
+</li>
+<li>Alle Container; both running &amp; stopped:
+<ul>
+<li><code>docker ps -a</code></li>
+</ul>
+</li>
+<li>Alle Container die gerade laufen:
+<ul>
+<li><code>docker ps</code></li>
+</ul>
+</li>
+<li>IP-Adresses aller Container:
+<ul>
+<li><code>docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q)</code></li>
+</ul>
+</li>
+<li>Shell in Container öffnen
+<ul>
+<li><code>docker exec -it &lt;container_id_or_name&gt; /bin/bash</code></li>
+</ul>
+</li>
+<li>Directory in Container mounten:
+<ul>
+<li><code>docker run -v &lt;absolute-local-path&gt;:&lt;path-inside-container&gt; &lt;image&gt;</code></li>
+</ul>
+</li>
+<li>Einzelnen Container aus <code>docker-compose</code>-File neustarten
+<ul>
+<li><code>docker compose up --no-deps &lt;service-name&gt;</code></li>
+</ul>
+</li>
+<li>Herausfinden was sich in einem Volume alles befindet:
+<ul>
+<li><code> docker run -it -v deploy-wordpress_wordpress:/mnt ubuntu /bin/bash</code></li>
+</ul>
+</li>
+<li>Alle Container inklusive Volumen löschen:
+<ul>
+<li><code>docker rm -vf $(docker ps -aq)</code></li>
+</ul>
+</li>
+<li>Alle Images löschen
+<ul>
+<li><code>docker rmi -f $(docker images -aq)</code></li>
+</ul>
+</li>
+<li>Wie lade ich ein Image in meine Docker-Registry?
+<ul>
+<li>Erst einloggen mit <code>docker login</code>.</li>
+<li>Danach <code>docker push &lt;username&gt;/&lt;image-name&gt;:latest</code></li>
+</ul>
+</li>
+<li>Wie erstelle ich ein neues <code>:latest</code>-image?
+<ol>
+<li>Retag the old image: `docker tag &lt;image_id&gt; my-tool:previous``</li>
+<li>Remove old latest tag: <code>docker rmi my-tool:latest</code></li>
+<li>Build new image with latest: <code>docker build -t checklist-tool:latest .</code></li>
+</ol>
+</li>
+</ul>
+<h2 id="installation">Installation<a href="/wiki/docker/#installation" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Install via <code>apt</code>: <a href="https://docs.docker.com/engine/install/debian/#install-using-the-repository">https://docs.docker.com/engine/install/debian/#install-using-the-repository</a>
+Add user to Docker-Group: <a href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/</a></p>
+<h2 id="docker-inspect"><code>docker inspect</code><a href="/wiki/docker/#docker-inspect" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um Mehr Über das Image zu erfahren kann man mit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker inspect &lt;image:version&gt;
+</span></span></code></pre></div><p>jegliche Daten ausgegeben kriegen, die von vom Ersteller:in eingegeben
+wurden.</p>
+<h2 id="entrypoint">Entrypoint<a href="/wiki/docker/#entrypoint" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man das vorgegebene Verhalten, beim Starten des Containers,
+ändern, kann man den <code>--entrypoint</code> überschreiben. Dies kann hilfreich
+sein, wenn man sich bspw. nur das <em>innere</em> des Containers anschauen
+möchte ohne das irgendetwas gestartet wird.</p>
+<p>Überschreiben mit der Bash-Shell würde wie folgt funktionieren:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --entrypoint /bin/bash <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -it <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &lt;image:version&gt;
+</span></span></code></pre></div><p>Das <code>-it</code> ist nötig, um ein <code>Exit(0)</code> des Containers zu verhindern.
+<code>Exit(0)</code> würde passieren, wenn die Shell merkt, dass sich niemand
+verbindet.</p>
+<h2 id="optimizing-image-size">Optimizing Image size<a href="/wiki/docker/#optimizing-image-size" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Anstatt viele <code>RUN</code>-Kommandos zu verwenden, die jedes Mal einen neuen Layer aufmachen, bietet es sich an ein einziges <code>RUN</code> mit dem <code>&amp;&amp;</code>-Operator zu nehmen.
+Wenn du unschlüssige bist, warum der Container so riesige geworden ist, hilft ein</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker image history &lt;img&gt;
+</span></span></code></pre></div><p>Damit wird die Größe der einzelnen Layer angezeigt.</p>
+<h2 id="github-container-registry">Github Container Registry<a href="/wiki/docker/#github-container-registry" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>You need to give the <code>docker</code>-command the permissions to access the Github-Container-Registry (ghcr).
+You do this via a <em>Personal access token</em>. Find the option for this under <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>.
+The token needs the following permissions:</p>
+<ul>
+<li>write:packages</li>
+<li>delete:packages</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker login ghcr.io -u &lt;USER&gt; --password &lt;TOKEN&gt;
+</span></span><span style="display:flex;"><span>docker build . -t ghcr.io/user/repo:v0.1
+</span></span><span style="display:flex;"><span>docker push ghcr.io/user/repo:v0.1
+</span></span></code></pre></div><p>You can now pull the image with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker pull ghcr.io/user/repo:v0.1
+</span></span></code></pre></div><p>More on this topic: <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry</a></p>
+<h2 id="troubleshooting">Troubleshooting<a href="/wiki/docker/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="container-stoppt-langsam--gibt-exit-code-137">Container stoppt langsam &amp; gibt Exit Code 137<a href="/wiki/docker/#container-stoppt-langsam--gibt-exit-code-137" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Die Binary die im Container läuft hat das <code>SIGKILL</code> nicht erhalten und Docker wartet eine vordefinierte Zeit lang bis er den Container runterfährt.
+Dabei wird die Binary (bzw. das Programm) nicht ordentlich geschlossen. Die Binary erhält das <code>SIGKILL</code> nicht, da sie nicht <code>PID 1</code> ist.
+Das kann vorkommen, wenn man das Programm mit einem <code>bash -c</code> oder über <code>CMD</code> startet.</p>
+<p>Abhilfe schafft <code>ENTRYPOINT</code> im JSON-Format:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;./binary&#34;</span>, <span style="color:#e6db74">&#34;-db&#34;</span>, <span style="color:#e6db74">&#34;mysqlite.db&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Ob die Binary <code>PID 1</code> ist, kann man testen in dem man im Container nachschaut (lol).</p>
+<pre tabindex="0"><code>docker exec -it &lt;container&gt; ps aux
+</code></pre>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/earthly/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/dns/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

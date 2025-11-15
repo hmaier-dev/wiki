@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Deployment Image Servicing and Management. Clean out Windows from Dirt with this.">
+<title>dism.exe - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//ldap" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>dism.exe</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#capture-einer-installation">Capture einer Installation</a>
+      <ul>
+        <li><a href="#winpe">WinPE</a></li>
+      </ul>
+    </li>
+    <li><a href="#wim-file-mounten">Wim-File mounten</a></li>
+    <li><a href="#apply-einer-installation">Apply einer Installation</a></li>
+    <li><a href="#get-wiminfo">Get-WimInfo</a></li>
+    <li><a href="#features-offline-hinzufügen">Features Offline hinzufügen</a></li>
+    <li><a href="#export-einer-windows-version">Export einer Windows Version</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#error-1243">Error 1243</a></li>
+        <li><a href="#error-161">Error 161</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <p>Tool zur Imageverwaltung für die Bereitstellung</p>
+<h2 id="capture-einer-installation">Capture einer Installation<a href="/wiki/dism/#capture-einer-installation" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Nach dem man die Installation mit <code>sysprep.exe</code> vorbereitet hat, booten man in eine WinPE-Umgebung
+und kann von dort das ein <code>/capture-image</code> anstoßen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Dism /capture-image /imagefile:D:\install-win10.wim /CaptureDir:C:\ /Name:<span style="color:#e6db74">&#34;Custom Windows 10 Image&#34;</span>
+</span></span></code></pre></div><p>Der Speicherort des <code>/imagefile</code> solle nach dem Herunterfahren der WinPE weiterhin erreichbar sein. Man nehme beispielweise einen USB-Stick oder mountet ein Netzlaufwerk.</p>
+<h3 id="winpe">WinPE<a href="/wiki/dism/#winpe" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Zum Booten empfehle ich <a href="https://www.ventoy.net/en/index.html">Venoty</a> und als WinPE-Umgebung <a href="https://hmaier-dev.github.io/wiki/phoenixpe/">PhoenixPE</a>.</p>
+<h2 id="wim-file-mounten">Wim-File mounten<a href="/wiki/dism/#wim-file-mounten" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Um Dateien einer wim-Datei hinzuzufügen oder eine ISO daraus zu erstellen, ist es nötig diese zu mounten.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Mount-Wim /WimFile:<span style="color:#e6db74">&#34;C:\Werkstatt_Service_Rechner\install.wim&#34;</span> /index:1 /MountDir:C:\mount
+</span></span></code></pre></div><p>Die Windows-Installation ist nun unter C:\mount verfügbar.</p>
+<p>Nach Abschluss der Arbeiten am Image, kann man wie folgt unmounten:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Unmount-Wim /MountDir:C:\mount /Commit
+</span></span></code></pre></div><h2 id="apply-einer-installation">Apply einer Installation<a href="/wiki/dism/#apply-einer-installation" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Hat man mit <code>/Capture-Image</code> ein Abbild aufgenommen,
+kann man es mit <code>/Apply-Image</code> direkt (ohne Erstellen einer ISO) auf eine Partition anwenden.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Apply-Image /ImageFile:E:\imagefiles\W7.wim /Index:1 /ApplyDir:C:\
+</span></span></code></pre></div><p>Dafür bietet es sich an sich über eine WinPE auf das System aufzuschalten.
+Von dort aus kann man das Wim-File auf die C:-Partition anwenden.</p>
+<p>Gibt es hier die Meldung <code>Der angegebene Pfadname ist ungültig.</code> muss man ein <code>chkdsk</code> auf Quelle/Ziel anwenden.</p>
+<h2 id="get-wiminfo">Get-WimInfo<a href="/wiki/dism/#get-wiminfo" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In einem WimFile können mehrere Windows-Versionen sein. Z.B.: Home aber auch Pro.
+Diesen werden durch einen Index gekennzeichnet.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Get-WimInfo /WimFile:C:\Win7_Clean\install.wim
+</span></span></code></pre></div><p>Es werden nun die verschiedenen Windows-Versionen inklusive Größe und Index ausgegeben.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Tool zur Imageverwaltung für die Bereitstellung
+</span></span><span style="display:flex;"><span>Version: 10.0.26100.5074
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Details für Abbild: <span style="color:#e6db74">&#34;C:\Win7_Clean\install.wim&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Index: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>Name: <span style="color:#e6db74">&#34;Windows 7 Home Basic&#34;</span>
+</span></span><span style="display:flex;"><span>Beschreibung: <span style="color:#e6db74">&#34;Windows 7 Home Basic&#34;</span>
+</span></span><span style="display:flex;"><span>Größe: 11.623.452.494 Bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Index: <span style="color:#e6db74">&#34;2&#34;</span>
+</span></span><span style="display:flex;"><span>Name: <span style="color:#e6db74">&#34;Windows 7 Home Premium&#34;</span>
+</span></span><span style="display:flex;"><span>Beschreibung: <span style="color:#e6db74">&#34;Windows 7 Home Premium&#34;</span>
+</span></span><span style="display:flex;"><span>Größe: 12.136.659.100 Bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Index: <span style="color:#e6db74">&#34;3&#34;</span>
+</span></span><span style="display:flex;"><span>Name: <span style="color:#e6db74">&#34;Windows 7 Professional&#34;</span>
+</span></span><span style="display:flex;"><span>Beschreibung: <span style="color:#e6db74">&#34;Windows 7 Professional&#34;</span>
+</span></span><span style="display:flex;"><span>Größe: 12.037.929.390 Bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Index: <span style="color:#e6db74">&#34;4&#34;</span>
+</span></span><span style="display:flex;"><span>Name: <span style="color:#e6db74">&#34;Windows 7 Ultimate&#34;</span>
+</span></span><span style="display:flex;"><span>Beschreibung: <span style="color:#e6db74">&#34;Windows 7 Ultimate&#34;</span>
+</span></span><span style="display:flex;"><span>Größe: 12.200.638.813 Bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Der Vorgang wurde erfolgreich beendet.
+</span></span></code></pre></div><h2 id="features-offline-hinzufügen">Features Offline hinzufügen<a href="/wiki/dism/#features-offline-hinzufügen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Möchte man Features direkt nach der Installation verfügbar haben, kann man diese mit <code>dism.exe</code> vor der Installation dem Image hinzufügen.</p>
+<p>Dafür benötigt man die <code>install.wim</code> die man unter <code>\sources\install.wim</code> findet. Diese hängt man nun mit folgenden Kommando ein.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Mount-Wim /WimFile:<span style="color:#e6db74">&#34;C:\W10_WST_1\install.wim&#34;</span> /index:1 /MountDir:C:\mount
+</span></span></code></pre></div><p>Danach kann man sich erstmal alle Features anzeigen lassen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>DISM /Image:c:\mount /Get-Features /Format:Table
+</span></span></code></pre></div><p>Möchte man bspw. .NET 3.5 aktiviert haben, führt man nun folgendes Kommando aus.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Image:C:\mount /Enable-Feature /FeatureName:NetFx3 /All /Source:C:\Win10_22H2_German_x64v1\sources\sxs /LimitAccess
+</span></span></code></pre></div><p>Als Source braucht man die Installationsquellen. Diese findet man in einer Windows-ISO unter <code>\sources\sxs</code>.</p>
+<p>Nun kann man das Feature an sich nochmal abfragen, um sicherzugehen, dass es dem Image korrekt hinzugefügt worden ist.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Image:C:\mount /Get-FeatureInfo /FeatureName:NetFx3
+</span></span></code></pre></div><p>Zum Ende der Arbeiten an der <code>install.wim</code> muss man sie unmounten.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>dism /Unmount-Wim /MountDir:C:\mount /Commit
+</span></span></code></pre></div><p>Um nun eine bootfähige ISO zu erhalten, nutzt man <a href="https://hmaier-dev.github.io/wiki/oscdimg/">oscdimg.exe</a>.</p>
+<h2 id="export-einer-windows-version">Export einer Windows Version<a href="/wiki/dism/#export-einer-windows-version" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>In der ISO die man von Microsoft herunterlädt, sind zahlreiche verschiedene Windows Versionen enthalten. Um ein Wim-File mit der einzigen gewollten Version zu erhalten, kann man diese Exportieren.</p>
+<pre tabindex="0"><code>dism /Export-Image /SourceImageFile:&#34;D:\sources\install.wim&#34; /SourceIndex:2 /DestinationImageFile:&#34;D:\sources\install_clean.wim&#34; /Compress:max /CheckIntegrity
+</code></pre><h2 id="troubleshooting">Troubleshooting<a href="/wiki/dism/#troubleshooting" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="error-1243">Error 1243<a href="/wiki/dism/#error-1243" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Kann beim mounten einer <code>install.wim</code> auftreten. Mit diesen Registry-Einträgen kann man den Fehler lösen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Windows Registry Editor Version 5.00
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DebugFlags&#34;</span>=dword:00000000
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Description&#34;</span>=<span style="color:#e6db74">&#34;@</span>%SystemRoot%<span style="color:#e6db74">\\system32\\drivers\\wimmount.sys,-102&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DisplayName&#34;</span>=<span style="color:#e6db74">&#34;@</span>%SystemRoot%<span style="color:#e6db74">\\system32\\drivers\\wimmount.sys,-101&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ErrorControl&#34;</span>=dword:00000001
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Group&#34;</span>=<span style="color:#e6db74">&#34;FSFilter Infrastructure&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;ImagePath&#34;</span>=hex(2):73,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,64,00,\
+</span></span><span style="display:flex;"><span>72,00,69,00,76,00,65,00,72,00,73,00,5c,00,77,00,69,00,6d,00,6d,00,6f,00,75,\
+</span></span><span style="display:flex;"><span>00,6e,00,74,00,2e,00,73,00,79,00,73,00,00,00
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Start&#34;</span>=dword:00000003
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;SupportedFeatures&#34;</span>=dword:00000003
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Tag&#34;</span>=dword:00000001
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Type&#34;</span>=dword:00000002
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount\Instances]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;DefaultInstance&#34;</span>=<span style="color:#e6db74">&#34;WIMMount&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WIMMount\Instances\WIMMount]
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Altitude&#34;</span>=<span style="color:#e6db74">&#34;180700&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;Flags&#34;</span>=dword:00000000
+</span></span></code></pre></div><p>Quelle ist dieser Artikel: <a href="https://answers.microsoft.com/en-us/windows/forum/all/solved-dismexe-error-1243-the-specified-service/836b860c-6427-40f9-9ea8-21869cd1218d">https://answers.microsoft.com/en-us/windows/forum/all/solved-dismexe-error-1243-the-specified-service/836b860c-6427-40f9-9ea8-21869cd1218d</a></p>
+<p>Warum das funktioniert, ist mir nicht bekannt.</p>
+<h3 id="error-161">Error 161<a href="/wiki/dism/#error-161" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Die Meldung dazu ist: <code>Der angegebene Pfadname ist ungültig.</code>
+Nach einen <code>chdsk</code> auf Quelle und Ziel funktioniert <code>dism.exe</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>chkdsk E: /f
+</span></span><span style="display:flex;"><span>chkdsk G: /f
+</span></span><span style="display:flex;"><span>dism /capture-image /imagefile:E:\image_folder\image1.wim /capturedir:G:\ /Name:<span style="color:#e6db74">&#34;w7-important-image&#34;</span>
+</span></span></code></pre></div>
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/dns/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/cwebp/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

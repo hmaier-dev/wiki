@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/categories/windows/</link>
+    <description>Recent content in Windows on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovide</title>
+      <link>https://hmaier-dev.github.io/wiki/neovide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/neovide/</guid>
+      <description>&lt;p&gt;This is written in rust (important!) and can do pretty graphical things.&lt;/p&gt;&#xA;&lt;h2 id=&#34;font&#34;&gt;Font&lt;/h2&gt;&#xA;&lt;p&gt;When opening up Neovide at first, the font might be a little to big. You can change this in your &lt;code&gt;init.lua&lt;/code&gt; by adjusting &lt;code&gt;h12&lt;/code&gt;-part.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; v.g.neovide &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  v.o.guifont &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;CaskaydiaCove Nerd Font:h12&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The used font can be downloaded here: &lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip&#34;&gt;https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PhoenixPE</title>
+      <link>https://hmaier-dev.github.io/wiki/phoenixpe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/phoenixpe/</guid>
+      <description>&lt;p&gt;A nice tool which helped me dozens of times:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/PhoenixPE/PhoenixPE&#34;&gt;https://github.com/PhoenixPE/PhoenixPE&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.heise.de/ratgeber/c-t-Notfall-Windows-2024-9549286.html&#34;&gt;https://www.heise.de/ratgeber/c-t-Notfall-Windows-2024-9549286.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Powershell</title>
+      <link>https://hmaier-dev.github.io/wiki/powershell/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/powershell/</guid>
+      <description>&lt;p&gt;A collection of some powershell-snippets I found useful, can be found under:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/hmaier-dev/powershell-library/tree/main/src&#34;&gt;https://github.com/hmaier-dev/powershell-library/tree/main/src&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;history&#34;&gt;History&lt;/h2&gt;&#xA;&lt;p&gt;You can get the history of your current powershell session with &lt;code&gt;Get-History&lt;/code&gt;.&#xA;To access older history, you can use the file stored under &lt;code&gt;(Get-PSReadLineOption).HistorySavePath&lt;/code&gt;.&#xA;In this file a maximum of &lt;code&gt;(Get-PSReadLineOption).MaximumHistoryCount&lt;/code&gt; commands is stored.&lt;/p&gt;&#xA;&lt;p&gt;With &lt;code&gt;fzf&lt;/code&gt; you can access this list comfortably:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; FuncFuzzySearchHistory(){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  $cmd =  $(Get-Content $((Get-PSReadLineOption).HistorySavePath) | fzf)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  $cmd&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Invoke-Expression $cmd&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;prompt&#34;&gt;Prompt&lt;/h2&gt;&#xA;&lt;p&gt;To change the behaviour of the powershell prompt before running the command, alter the &lt;code&gt;prompt&lt;/code&gt;-function.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Windows_Terminal</title>
+      <link>https://hmaier-dev.github.io/wiki/windows_terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/windows_terminal/</guid>
+      <description>&lt;p&gt;Finally a usable terminal for windows with support for nerd-fonts and multiplexing (split-screen).&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;New Tab&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;CTRL+TAB+T&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Cycle through the tabs&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;CTRL+TAB&lt;/code&gt; (forwards)&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;CTRL+SHIFT-TAB&lt;/code&gt; (backwards)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Split Pane&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;lt;SHIFT&amp;gt;-&amp;lt;ALT&amp;gt;-&amp;lt;-&amp;gt;&lt;/code&gt; horizontal&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;&amp;lt;SHIFT&amp;gt;-&amp;lt;ALT&amp;gt;-&amp;lt;+&amp;gt;&lt;/code&gt; vertical&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Resize Pane&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;ALT-SHIFT-Arrow_Keys&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Where to find more on tiling the panes?&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://learn.microsoft.com/en-us/windows/terminal/panes&#34;&gt;https://learn.microsoft.com/en-us/windows/terminal/panes&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;nerd-fonts-fürs-windows-terminal&#34;&gt;Nerd-Fonts fürs Windows Terminal&lt;/h2&gt;&#xA;&lt;p&gt;Link herunterladen:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip&#34;&gt;https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Diesen Link findet man auch unter&#xA;&lt;a href=&#34;https://www.nerdfonts.com/font-downloads&#34;&gt;https://www.nerdfonts.com/font-downloads&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Den Ordner extrahieren und mit &lt;code&gt;CTRL+a&lt;/code&gt; alle Dateien auswählen. Mit&#xA;Rechtsklick kann man dann alle auf einmal installieren.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

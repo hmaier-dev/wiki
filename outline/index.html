@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Collaborative wiki using React and Node.js">
+<title>Outline - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//sqlite" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>Outline</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#authentik-as-provider-for-open-id-connect">Authentik as provider for Open ID Connect</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="install">Install<a href="/wiki/outline/#install" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>The recommended way to run Outline is through a <code>docker-compose.yml</code>. You can find the docu here:</p>
+<ul>
+<li><a href="https://docs.getoutline.com/s/hosting/doc/docker-7pfeLP5a8t">https://docs.getoutline.com/s/hosting/doc/docker-7pfeLP5a8t</a></li>
+</ul>
+<p>The <code>docker-compose.yml</code> uses a <code>docker.env</code> for its environment-variables.
+You can find in on their Github:</p>
+<ul>
+<li><a href="https://github.com/outline/outline/blob/main/.env.sample">https://github.com/outline/outline/blob/main/.env.sample</a> (also linked in the docu)</li>
+</ul>
+<p>Some variables are important for a functioning setup:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## Set postgres ssl to false, otherwise there will be an error when running yarn</span>
+</span></span><span style="display:flex;"><span>PGSSLMODE<span style="color:#f92672">=</span>disable
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## If your using traefik or another loadBalancer, turn off redirection</span>
+</span></span><span style="display:flex;"><span>FORCE_HTTPS<span style="color:#f92672">=</span>false
+</span></span></code></pre></div><p>Outline utilizes a postgres-database. Before the first startit needs to get initalized:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## Creation</span>
+</span></span><span style="display:flex;"><span>docker compose run --rm outline yarn db:create --env<span style="color:#f92672">=</span>production-ssl-disabled
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Migration</span>
+</span></span><span style="display:flex;"><span>docker compose run --rm outline yarn db:migrate --env<span style="color:#f92672">=</span>production-ssl-disabled
+</span></span></code></pre></div><p>Run both commands in order.</p>
+<p>When creating the database, this error can appear:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Sequelize CLI <span style="color:#f92672">[</span>Node: 20.19.1, CLI: 6.6.2, ORM: 6.37.3<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Loaded configuration file <span style="color:#e6db74">&#34;server/config/database.json&#34;</span>.
+</span></span><span style="display:flex;"><span>Using environment <span style="color:#e6db74">&#34;production-ssl-disabled&#34;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ERROR: getaddrinfo ENOTFOUND postgres
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>error Command failed with exit code 1.
+</span></span><span style="display:flex;"><span>info Visit https://yarnpkg.com/en/docs/cli/run <span style="color:#66d9ef">for</span> documentation about this command.
+</span></span></code></pre></div><p>The outline container cannot find the postgres-container. To fix that explicitly create a network and put <strong>all services</strong> in it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">outline-net</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">outline-net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">driver</span>: <span style="color:#ae81ff">bridge</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">outline</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">outline-net</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">postgres</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">postgres-outline </span> <span style="color:#75715e"># fixed hostname</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">outline-net</span>
+</span></span></code></pre></div><p>Also make sure to give the containers fixed names, so the variable in <code>docker.env</code> are right.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">## docker.env</span>
+</span></span><span style="display:flex;"><span>DATABASE_URL<span style="color:#f92672">=</span>postgres://user:pass@postgres-outline:5432/outline
+</span></span></code></pre></div><p>Also disable the metrics by setting</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ENABLE_UPDATES<span style="color:#f92672">=</span>false
+</span></span></code></pre></div><h2 id="authentik-as-provider-for-open-id-connect">Authentik as provider for Open ID Connect<a href="/wiki/outline/#authentik-as-provider-for-open-id-connect" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.goauthentik.io/integrations/services/outline/">https://docs.goauthentik.io/integrations/services/outline/</a></li>
+<li><a href="https://docs.getoutline.com/s/hosting/doc/oidc-8CPBm6uC0I">https://docs.getoutline.com/s/hosting/doc/oidc-8CPBm6uC0I</a></li>
+</ul>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/pdf/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/oscdimg/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

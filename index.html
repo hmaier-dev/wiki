@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+	<meta name="generator" content="Hugo 0.140.2">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Welcome to the published part of my private wiki!">
+<title>Home - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      my-6 min-h-[calc(100vh-6rem)]
+    ">
+      
+
+
+
+<div id="navigate" class="hidden absolute top-30 left-1/2 -translate-x-1/2
+                              bg-gray-700 text-white p-4 w-64 text-center">
+    Navigate to: <br>
+    <a id="query" class="text-nowrap overflow-x-hidden m-auto
+                         font-medium text-blue-300 underline dark:text-blue-500
+                         hover:no-underline hover:text-gray-800 cursor-pointer"></a>
+    ↵
+    <br>
+        
+    <div id="suggestions" 
+         class="w-full bg-gray-700 text-white rounded">
+    </div>
+</div>
+
+<script>
+let searchString = "";
+var navigate = document.getElementById("navigate");
+var suggestions = document.getElementById("suggestions");
+var query = document.getElementById("query");
+
+
+fetch('search.json')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(item => {
+      console.log(item); 
+    });
+  })
+  .catch(error => console.error('Error fetching search.json:', error));
+
+function toggle(){
+    navigate.classList.toggle("hidden");
+}
+
+
+function enterSearchString(e){
+  if(e.key === 'Meta'){return}
+  if(e.key === 'Alt'){return}
+  if(e.key === 'Shift'){return}
+  if(e.key === 'Control'){return}
+  if(e.key === 'Backspace'){
+    searchString = searchString.substring(0, searchString.length - 1);
+    query.innerHTML = searchString
+    query.href = searchString
+    return
+  }
+  if(e.key === 'Enter'){
+    let link = searchString
+    toggle()
+    window.location.href = link
+    return
+  }
+  if(e.key === 'Escape'){
+    document.body.removeEventListener("keydown", enterSearchString );
+    searchString = ""
+    query.innerHTML = searchString
+    toggle()
+    return  
+  }
+  
+  
+  
+  searchString = searchString + e.key
+  query.innerHTML = searchString
+  query.href = searchString
+}
+</script>
+
+
+
+
+<div class="max-w-md mx-auto my-8">
+  <input 
+    list="wikiPages"
+    id="wikiSearch"
+    name="search"
+    placeholder="Search wiki..."
+    class="w-full border rounded p-2"
+  >
+
+  <datalist id="wikiPages">
+    
+      <option value="Android"></option>
+    
+      <option value="Ansible"></option>
+    
+      <option value="apt"></option>
+    
+      <option value="Arch"></option>
+    
+      <option value="Authentik">An open source identity provider</option>
+    
+      <option value="bash"></option>
+    
+      <option value="crane"></option>
+    
+      <option value="css"></option>
+    
+      <option value="Custom Windows Images">How to make Windows more usable.</option>
+    
+      <option value="cwebp">Encodes and decodes WebP image files</option>
+    
+      <option value="dism.exe">Deployment Image Servicing and Management. Clean out Windows from Dirt with this.</option>
+    
+      <option value="DNS"></option>
+    
+      <option value="Docker">Container engine. Run your application on different systems.</option>
+    
+      <option value="Earthly">Buildtool which merge Makefile and Dockerfile. Lets you run, your CI-jobs locally.</option>
+    
+      <option value="ffmpeg">Convert any media into any media.</option>
+    
+      <option value="gh">use git over https.</option>
+    
+      <option value="git">Versionierungs Kontrolle</option>
+    
+      <option value="Github"></option>
+    
+      <option value="Gitlab"></option>
+    
+      <option value="Gnome"></option>
+    
+      <option value="GNU/Linux">some niche os.</option>
+    
+      <option value="Golang"></option>
+    
+      <option value="Goose">Not about birds, but about a tool for database-migrations.</option>
+    
+      <option value="Helix"></option>
+    
+      <option value="htmx">Import one file into you web-app and get rid of all your js.</option>
+    
+      <option value="HTTP">418 very important.</option>
+    
+      <option value="Hugo"></option>
+    
+      <option value="Kubernetes"></option>
+    
+      <option value="LaTex"></option>
+    
+      <option value="Light Directory Access Protocol"></option>
+    
+      <option value="lua"></option>
+    
+      <option value="Microsoft Excel"></option>
+    
+      <option value="Microsoft Outlook"></option>
+    
+      <option value="Neovide">A neovim-gui written in rust.</option>
+    
+      <option value="Neovim"></option>
+    
+      <option value="Nginx"></option>
+    
+      <option value="oscdimg.exe"></option>
+    
+      <option value="Outline">Collaborative wiki using React and Node.js</option>
+    
+      <option value="pdf">Stands for Portable Document Format</option>
+    
+      <option value="pgTAP"></option>
+    
+      <option value="PhoenixPE">WinPE Rescue ISO containing multiple helpful tools</option>
+    
+      <option value="Pihole">DNS Sinkhole to block annoying ads</option>
+    
+      <option value="Postgres"></option>
+    
+      <option value="Powershell">If you need to do Windows; use this.</option>
+    
+      <option value="Python">No about snakes, but about a nice scripting language.</option>
+    
+      <option value="Raspberry_Pi"></option>
+    
+      <option value="Schach"></option>
+    
+      <option value="sqlite"></option>
+    
+      <option value="ssh">tips about using Secure Shell.</option>
+    
+      <option value="SSL">SSL means Secure Sockets Layer</option>
+    
+      <option value="sudo">how to get root.</option>
+    
+      <option value="sysprep.exe"></option>
+    
+      <option value="systemd"></option>
+    
+      <option value="tmux"></option>
+    
+      <option value="Traefik">Web-Application-Proxy for containers</option>
+    
+      <option value="Vagrant"></option>
+    
+      <option value="Wayland">Communication protocol between the display server and its client. Often seen as modern alternative for Xorg on Linux.</option>
+    
+      <option value="WebAssembly">How to bring fast languages to the browser.</option>
+    
+      <option value="Windows">You make money with this.</option>
+    
+      <option value="Windows_Terminal"></option>
+    
+      <option value="winget"></option>
+    
+      <option value="Wireguard"></option>
+    
+      <option value="Wordpress"></option>
+    
+      <option value="yt-dlp">cli utility to download youtube videos</option>
+    
+      <option value="zsh"></option>
+    
+  </datalist>
+</div>
+
+<script>
+  const pageLinks = {
+    
+      "Android": "/wiki/android/",
+    
+      "Ansible": "/wiki/ansible/",
+    
+      "apt": "/wiki/apt/",
+    
+      "Arch": "/wiki/arch/",
+    
+      "Authentik": "/wiki/authentik/",
+    
+      "bash": "/wiki/bash/",
+    
+      "crane": "/wiki/crane/",
+    
+      "css": "/wiki/css/",
+    
+      "Custom Windows Images": "/wiki/custom_windows_images/",
+    
+      "cwebp": "/wiki/cwebp/",
+    
+      "dism.exe": "/wiki/dism/",
+    
+      "DNS": "/wiki/dns/",
+    
+      "Docker": "/wiki/docker/",
+    
+      "Earthly": "/wiki/earthly/",
+    
+      "ffmpeg": "/wiki/ffmpeg/",
+    
+      "gh": "/wiki/gh/",
+    
+      "git": "/wiki/git/",
+    
+      "Github": "/wiki/github/",
+    
+      "Gitlab": "/wiki/gitlab/",
+    
+      "Gnome": "/wiki/gnome/",
+    
+      "GNU/Linux": "/wiki/linux/",
+    
+      "Golang": "/wiki/golang/",
+    
+      "Goose": "/wiki/goose/",
+    
+      "Helix": "/wiki/helix/",
+    
+      "htmx": "/wiki/htmx/",
+    
+      "HTTP": "/wiki/http/",
+    
+      "Hugo": "/wiki/hugo/",
+    
+      "Kubernetes": "/wiki/kubernetes/",
+    
+      "LaTex": "/wiki/latex/",
+    
+      "Light Directory Access Protocol": "/wiki/ldap/",
+    
+      "lua": "/wiki/lua/",
+    
+      "Microsoft Excel": "/wiki/excel/",
+    
+      "Microsoft Outlook": "/wiki/outlook/",
+    
+      "Neovide": "/wiki/neovide/",
+    
+      "Neovim": "/wiki/neovim/",
+    
+      "Nginx": "/wiki/nginx/",
+    
+      "oscdimg.exe": "/wiki/oscdimg/",
+    
+      "Outline": "/wiki/outline/",
+    
+      "pdf": "/wiki/pdf/",
+    
+      "pgTAP": "/wiki/pgtap/",
+    
+      "PhoenixPE": "/wiki/phoenixpe/",
+    
+      "Pihole": "/wiki/pihole/",
+    
+      "Postgres": "/wiki/postgres/",
+    
+      "Powershell": "/wiki/powershell/",
+    
+      "Python": "/wiki/python/",
+    
+      "Raspberry_Pi": "/wiki/raspberry_pi/",
+    
+      "Schach": "/wiki/schach/",
+    
+      "sqlite": "/wiki/sqlite/",
+    
+      "ssh": "/wiki/ssh/",
+    
+      "SSL": "/wiki/ssl/",
+    
+      "sudo": "/wiki/sudo/",
+    
+      "sysprep.exe": "/wiki/sysprep/",
+    
+      "systemd": "/wiki/systemd/",
+    
+      "tmux": "/wiki/tmux/",
+    
+      "Traefik": "/wiki/traefik/",
+    
+      "Vagrant": "/wiki/vagrant/",
+    
+      "Wayland": "/wiki/wayland/",
+    
+      "WebAssembly": "/wiki/webassembly/",
+    
+      "Windows": "/wiki/windows/",
+    
+      "Windows_Terminal": "/wiki/windows_terminal/",
+    
+      "winget": "/wiki/winget/",
+    
+      "Wireguard": "/wiki/wireguard/",
+    
+      "Wordpress": "/wiki/wordpress/",
+    
+      "yt-dlp": "/wiki/yt-dlp/",
+    
+      "zsh": "/wiki/zsh/",
+    
+  };
+
+  const searchInput = document.getElementById("wikiSearch");
+
+  searchInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      const value = searchInput.value.trim();
+      if (pageLinks[value]) {
+        window.location.href = pageLinks[value];
+      }
+    }
+  });
+
+
+  document.addEventListener("keydown", (e) => {
+  if (e.key === "/" && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    const tag = e.target.tagName.toLowerCase();
+    if (tag === "input" || tag === "textarea") {
+      return;
+    }
+
+    e.preventDefault(); 
+
+    const searchInput = document.getElementById("wikiSearch");
+    if (searchInput) {
+      searchInput.focus();
+      searchInput.select(); 
+    }
+  }
+});
+ 
+</script>
+
+
+
+<footer class=index_footer>
+
+This wiki is generated from 4481 lines of markdown.
+
+</footer>
+
+
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

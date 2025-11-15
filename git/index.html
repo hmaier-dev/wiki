@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de-de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  
+  
+    
+      
+        <link rel="stylesheet" href="/wiki/css/base.310c3f33692bd45145a733205f51ddfbd54778b209899347b6bdb58722cc57d2.css" integrity="sha256-MQw/M2kr1FFFpzMgX1Hd&#43;9VHeLIJiZNHtr21hyLMV9I=" crossorigin="anonymous">
+      
+    
+  
+
+
+
+
+<meta name="description" content="Versionierungs Kontrolle">
+<title>git - hmaier-dev wiki</title>
+
+</head>
+<body class="bg-gray-800 w-100vw">
+
+  <div class="wrapper ml-[15%] max-w-[1200px]">
+
+    <header class="bg-gray-50">
+      
+
+
+  
+  
+  <div class="flex justify-between">
+  
+  
+    <div>
+      <a href="https://hmaier-dev.github.io/wiki/" class="mr-2">
+        home
+      </a>
+      
+      <a href="https://hmaier-dev.github.io/wiki//windows_terminal" class="mr-2"
+                    title="Because of Hugo's nature as a static site generator, this button isn't truly random.
+      It just gets newly generated with every build of the site.">
+        random article
+      </a>
+      <a href="https://github.com/hmaier-dev" class="mr-2">
+        github
+      </a>
+    </div>
+
+  
+    <div>
+    </div>
+
+  </div>
+
+
+
+
+
+    </header>
+
+    <main class="bg-gray-50 p-3
+    
+      mb-6 min-h-[calc(100vh-1rem)] max-sm:text-sm
+    ">
+      
+
+  <script>
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === 'Backspace'){
+    window.location.href = "https:\/\/hmaier-dev.github.io\/wiki\/ "
+  }
+});
+
+</script>
+ 
+  
+  <h1>git</h1>
+
+  
+<button onclick="toggleList()" class="px-4 py-1 bg-slate-700 text-slate-400 font-semibold hover:cursor-pointer">Table of contents</button>
+<div id="toc-list" class="bg-gray-300 max-w-min text-nowrap overflow-x-hidden">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#rebase">rebase</a></li>
+    <li><a href="#reset">reset</a></li>
+    <li><a href="#reflog">reflog</a></li>
+    <li><a href="#merge">merge</a></li>
+    <li><a href="#add---patch">add --patch</a></li>
+    <li><a href="#commit---fixup-commit">commit --fixup <!-- raw HTML omitted --></a></li>
+    <li><a href="#commits-spliten">commits spliten</a></li>
+    <li><a href="#update-refs">update-refs</a></li>
+    <li><a href="#einzelne-commits-für-mr-fertig-machen">Einzelne Commits für MR fertig machen</a>
+      <ul>
+        <li><a href="#variante-1-cherry-pick">Variante 1 (cherry-pick)</a></li>
+        <li><a href="#variante-2-update-refs">Variante 2 (update-refs)</a></li>
+      </ul>
+    </li>
+    <li><a href="#mrpr-löschen">MR/PR löschen</a></li>
+    <li><a href="#submodule-repositorys">Submodule Repositorys</a></li>
+    <li><a href="#--bare">--bare</a></li>
+    <li><a href="#config">config</a></li>
+    <li><a href="#plattformen">Plattformen</a></li>
+  </ul>
+</nav>
+</div>
+
+<script>
+  function toggleList() {
+      var list = document.getElementById("toc-list");
+      list.classList.toggle("hidden");
+  }
+</script>
+
+
+  
+      
+      <h2 id="tldr">TL;DR<a href="/wiki/git/#tldr" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><em>Ich möchte alles rückgängig machen was ich bisher gemacht habe</em>:
+<ul>
+<li><code>reset --hard</code></li>
+</ul>
+</li>
+<li><em>Ich habe ungewollte Commits in meinem Branch</em>:
+<ul>
+<li><code>rebase -i &lt;commit-hash&gt;^</code>
+<ul>
+<li>Das <em>Circumflex</em> macht den <code>rebase --interactive</code> inklusiv. Es gibt den Parent des Commits an, und nimmt den angegebenen Commit daher in den <code>rebase -i</code> mit hinein.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Ich muss nachträglich Änderungen zu einem Commit hinzufügen</em>:
+<ul>
+<li><code>commit --fixup &lt;commit&gt;</code> und <code>rebase -i --autosquash</code></li>
+</ul>
+</li>
+<li><em>Ich möchte Änderungen aus dem Hauptbranch (z.B. production) in
+meinem branch übernehmen</em>:
+<ul>
+<li><code>git pull &amp;&amp; git rebase production</code></li>
+</ul>
+</li>
+<li><em>Wie kann ich ein Commit zu mehreren umwandeln</em>:
+<ul>
+<li><code>rebase -i &amp;&amp; edit &lt;jeweiligen-commit&gt; &amp;&amp; add -p</code></li>
+</ul>
+</li>
+<li><em>Wie erstelle ich einen neuen Branch?</em>:
+<ul>
+<li><code>checkout &lt;main/prod&gt; &amp;&amp; switch -c &lt;new-branch&gt;</code></li>
+</ul>
+</li>
+<li><em>Ich ein <code>rebase -i</code> auf meinen kompletten Branch machen</em>:
+<ul>
+<li><code>git rebase -i HEAD~$( git rev-list --count --no-merges &lt;main&gt;..)</code></li>
+<li>Bezieht den allerste Commit mit ein: <code>git rebase -i --root</code></li>
+</ul>
+</li>
+<li><em>Wie übernehme ich einzelne Commits in meinen Branch</em>:
+<ul>
+<li><code>git switch &lt;mein-branch&gt; &amp;&amp; git cherry-pick &lt;commit-hash&gt;</code></li>
+</ul>
+</li>
+<li><em>Wie sehe ich alle Änderungen in einer Datei auf Zeit?</em>:
+<ul>
+<li><code>git log -p production.. -- &lt;file&gt;</code></li>
+</ul>
+</li>
+<li>Wie kann ich den letzten Commit, von meiner derzeitigen Position,
+auseinander-basteln?
+<ul>
+<li><code>git reset HEAD~</code>
+<ul>
+<li>Kann man mit nem <code>rebase -i</code> kombinieren, da dabei der
+<code>HEAD</code> ja durch die Commits wandert. Einfach im Editor mit
+<code>edit</code> am gewünschten Commit anhalten und dann <code>reset</code>en.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Wie kann ich ein gelöschtes File wiederherstellen.
+<ul>
+<li><code>git checkout &lt;commit-hash&gt;^ -- &lt;filename&gt;</code></li>
+<li><code>git add &lt;filename&gt;</code></li>
+</ul>
+</li>
+<li>This feature helps Git remember how you resolved conflicts
+previously, so if the same conflict arises again, Git can
+automatically apply the same resolution.
+<ul>
+<li><code>git config --global rerere.enabled true</code></li>
+</ul>
+</li>
+<li>Wie kriege ich mein lokales Repo auf den Stand des Remote-Repos?
+<ul>
+<li>Falls <code>origin</code> <code>main</code> ist: <code>git rebase origin/main</code></li>
+</ul>
+</li>
+<li>Welches ist Remote-Repo?
+<ul>
+<li><code>git branch -a</code> um alle Branches zu sehen.</li>
+<li>Um nur die Remote-Branches zu sehen ein <code>git branch -r</code></li>
+</ul>
+</li>
+<li>Wie arbeite ich mit meinem Remote-Branch lokal?
+<ul>
+<li>Zuerst, alle Remote-Branches anzeigen lasse: <code>git branch -r</code></li>
+<li>Dann, neuen lokalen Branch auf Remote-Branch als Startpunkt zeigen lassen: <code>git checkout -b &lt;branch&gt; origin/&lt;branch&gt;</code></li>
+</ul>
+</li>
+<li>Wie finde ich den Commit mit dem eine Änderung an einer Zeile gemacht wurde?
+<ul>
+<li><code>git blame -L &lt;begin&gt;,&lt;end&gt; -- &lt;path/to/file&gt;</code></li>
+<li>Für jede einzelne Zeile im Bereich (inklusiv) wird der kurze Commit angezeigt. Über ein <code>git show &lt;commit&gt;</code> findet man den den jeweiligen Commit.</li>
+</ul>
+</li>
+</ul>
+<h2 id="rebase">rebase<a href="/wiki/git/#rebase" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Mit einem <code>rebase &lt;main&gt;</code> bringt man den Branch auf die Höhe des
+Hauptbranches.</p>
+<p>Falls man eine Branch versaut hat und dieser schon als Merge-Request im
+Gitlab steht, kann man die ganze Sache mit nem <code>rebase -i</code> bereinigen.</p>
+<p>Dazu nehme man den letzten Commit in dem Branch bevor, die Sauerei
+angefangen hat und geben starte damit den rebase:
+<code>git rebase -i &lt;commit&gt;</code>.</p>
+<p>Man wird nun in ein Editor geworfen in dem man Commits ändern oder auch
+entfernen kann. Nach dem Schließen des Editors kann man dem versauten
+Zustand mit nem <code>git pull</code> wiederherstellen oder mit nem
+<code>git push origin &lt;versaubeutelter-branch&gt; --force</code> den Merge-Request
+aktualisieren.</p>
+<p>Was bei einem <code>rebase</code> wichtig zu beachten ist, dass sich die Commit-IDs
+ändern. Zwei unterschiedliche Commits mit den
+<strong>gleichen Änderungen</strong> gehören somit dann nicht
+mehr zusammen.</p>
+<h2 id="reset">reset<a href="/wiki/git/#reset" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Falls man schon getätigte Commits wieder rückgängig machen möchte, kann
+man dies mit <code>git reset --hard &lt;commit&gt;</code> machen. Der angegebene Commit
+ist dabei der, auf welchen man zurück möchte. Möchte man diesen
+inklusive löschen, gibt man einfach den Commit mit Circumflex
+(<code>&lt;commit&gt;^</code>) an.</p>
+<p>Allerdings ist dieses Kommando mit Vorsicht zu genießen, den alle
+neueren Commit werden gelöscht.</p>
+<h2 id="reflog">reflog<a href="/wiki/git/#reflog" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Vorherige Stände des Branch anziegn.</p>
+<h2 id="merge">merge<a href="/wiki/git/#merge" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Habe ich einen Hauptbranch (z.B. <code>main</code>) und möchte eine Nebenbranch (z.B. <code>wichtiges-feature1</code>)
+mergen, bietet es sich an <code>wichtiges-feature1</code> zu allererst mit einem rebase auf den Stand des
+Hauptbranches zu bringen.</p>
+<ul>
+<li><code>git checkout wichtiges-feature1</code></li>
+<li><code>git rebase main</code></li>
+</ul>
+<p>Wenn alle potenziellen Konflikte bereinigt sind, kann ich mergen.
+Dazu gehe ich in den Hautpbranch und merge dort.</p>
+<ul>
+<li><code>git checkout main</code></li>
+<li><code>git merge wichtiges-feature1</code></li>
+</ul>
+<p>Danach kann ich den Nebenbranch löschen.</p>
+<ul>
+<li><code>git branch -d wichtiges-feature1</code></li>
+</ul>
+<p>Beim mergen ist zu beachten, dass beide Branches lokal vorhanden sind.</p>
+<h2 id="add---patch">add --patch<a href="/wiki/git/#add---patch" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Falls ich in einem File Änderungen gemacht habe, die verschiedenen
+Commits zugehörig sind, kann ich dies mit einem <code>--patch</code> bzw. <code>-p</code>
+machen. Git teilt das File dann in Blöcke ein, die es für sinnig
+befindet. Das heißt nicht, dass die Einteilung immer sinnig ist.
+Allerdings kann man diese auch nachbearbeiten.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Alle Optionen beim git add -p</span>
+</span></span><span style="display:flex;"><span>Diesen Patch-Block der Staging-Area hinzufügen <span style="color:#f92672">[</span>y,n,q,a,d,j,J,g,/,e,?<span style="color:#f92672">]</span>?
+</span></span></code></pre></div><h2 id="commit---fixup-commit">commit --fixup <!-- raw HTML omitted --><a href="/wiki/git/#commit---fixup-commit" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Falls man im Nachhinein einem Commit Änderungen hinzufügen möchte und
+die Commit-ID parat hat, kann man dies mit eine <code>--fixup</code> machen. Danach
+ist ein <code>rebase -i --autosquash &lt;base-branch&gt;</code> nötig. Dabei werden dem
+<code>&lt;commit&gt;</code> die darunterliegenden Commits mit <code>squash</code> hinzugefügt.</p>
+<h2 id="commits-spliten">commits spliten<a href="/wiki/git/#commits-spliten" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Diese manpage ist ziemlich hilfreich dabei:
+<a href="https://manpages.debian.org/bookworm/git-man/git-rebase.1.en.html#SPLITTING_COMMITS">https://manpages.debian.org/bookworm/git-man/git-rebase.1.en.html#SPLITTING_COMMITS</a>.</p>
+<p>Während des <code>rebase</code> kann mit <code>add -p</code> verschiedene Code-Stücke in
+einzelne Commits übernehmen.</p>
+<h2 id="update-refs">update-refs<a href="/wiki/git/#update-refs" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>update-ref refs/heads/&lt;your-branch&gt;
+</span></span></code></pre></div><h2 id="einzelne-commits-für-mr-fertig-machen">Einzelne Commits für MR fertig machen<a href="/wiki/git/#einzelne-commits-für-mr-fertig-machen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<h3 id="variante-1-cherry-pick">Variante 1 (cherry-pick)<a href="/wiki/git/#variante-1-cherry-pick" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Da ein MR einfach nur ein Branch ist, erstellt man einen seperaten
+Branch in den man per <code>cherry-pick</code> die gewünschten Commits kopiert. Die
+gepickten Commits werden <em>kopiert</em> und nicht verschoben (sie existieren
+nun auf beiden Branches). Hier ist ein möglicher Ablauf mit
+<code>cherry-pick</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Beim Checkout neuen Branch anlegen</span>
+</span></span><span style="display:flex;"><span>git checkout -b &lt;neuer-branch&gt; origin/production
+</span></span><span style="display:flex;"><span>git cherry-pick &lt;commit-hash1&gt;
+</span></span><span style="display:flex;"><span>git cherry-pick &lt;commit-hash2&gt;
+</span></span><span style="display:flex;"><span>git push -u origin
+</span></span></code></pre></div><p>Beim <code>cherry-pick</code> kann es durchaus zu Merge-Konflikten kommen.
+Bespielweise wenn man verschiedene Commits von Änderungen an einen File
+pickt, die von einander abhängen.</p>
+<p>Man könnte natürlich auch den gesamten Branch kopieren und mit einem
+<code>rebase -i</code> alle Commits entfernen die nicht passend sind.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Nimmt derzeitigen Branch als base</span>
+</span></span><span style="display:flex;"><span>git checkout -b &lt;neuer-branch&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nimmt production als base-branch</span>
+</span></span><span style="display:flex;"><span>git checkout -B &lt;neuer-branch&gt; production
+</span></span></code></pre></div><h3 id="variante-2-update-refs">Variante 2 (update-refs)<a href="/wiki/git/#variante-2-update-refs" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h3>
+<p>Ab der Version 2.38, kann man in einem
+interactive rebase den Command <code>update-ref refs/heads/&lt;anderer-branch&gt;</code>
+angeben. Damit kann man entweder auf einen bestehenden Branch verweisen
+oder einen neuen Branch anlegen. Diese ist dann als Referenz zum
+<code>base</code>-Branch. Man zweigt also Commits in seperate Branches ab, kann man
+aber bei nem rebase vom <code>base</code>-Branch dessen Änderungen übernehmen.</p>
+<h2 id="mrpr-löschen">MR/PR löschen<a href="/wiki/git/#mrpr-löschen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Da ein Merge-/Pull-Request im Grunde nichts anderes als ein Branch ist,
+kann man ihn wie folgt löschen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Lösche den Remote-Branch (ersetze origin durch den Namen deines Remotes)</span>
+</span></span><span style="display:flex;"><span>git push origin --delete &lt;dein-branch&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Wechsle zu einem anderen Branch, um sicherzustellen, dass der zu löschende Branch nicht aktiv ist</span>
+</span></span><span style="display:flex;"><span>git checkout &lt;anderer-branch&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lösche den lokalen Branch</span>
+</span></span><span style="display:flex;"><span>git branch -d &lt;dein-branch&gt;
+</span></span></code></pre></div><h2 id="submodule-repositorys">Submodule Repositorys<a href="/wiki/git/#submodule-repositorys" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Bei manchen Repositorys werden anderer Repos mit eingebunden. Ab und an
+kann man ein solche Nachricht krigen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Auf Branch main
+</span></span><span style="display:flex;"><span>Ihr Branch ist auf demselben Stand wie <span style="color:#e6db74">&#39;origin/main&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Änderungen, die nicht zum Commit vorgemerkt sind:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>benutzen Sie <span style="color:#e6db74">&#34;git add &lt;Datei&gt;...&#34;</span>, um die Änderungen zum Commit vorzumerken<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>benutzen Sie <span style="color:#e6db74">&#34;git restore &lt;Datei&gt;...&#34;</span>, um die Änderungen im Arbeitsverzeichnis zu verwerfen<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        geändert:       file.mod/pkg/myfile <span style="color:#f92672">(</span>neue Commits<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Unversionierte Dateien:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>benutzen Sie <span style="color:#e6db74">&#34;git add &lt;Datei&gt;...&#34;</span>, um die Änderungen zum Commit vorzumerken<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Mit dem <code>(neue Commits)</code> wird darauf hingewiesen, das eingebettete Repo
+einmal mit <code>git submodule update</code> auf den neusten Stand zu bringen.</p>
+<h2 id="--bare">--bare<a href="/wiki/git/#--bare" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Mit einem bare-Repository kann man einen selbstgewählten <code>--work-tree</code> benutzen.
+Man kann beispielweise dafür sein <code>$HOME</code> nehmen, um damit Configs, Dotfiles, etc. zu
+verwalten. Dafür benutzt man dann diesen alias.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/bin/git --git-dir<span style="color:#f92672">=</span>$HOME/repos/dotfiles/ --work-tree<span style="color:#f92672">=</span>$HOME
+</span></span></code></pre></div><p>Die Einrichtung dieses Setups zum Verwalten von Dotfiles läuft wie folgt.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global init.defaultBranch main
+</span></span><span style="display:flex;"><span>mkdir -p $HOME/repos
+</span></span><span style="display:flex;"><span>git clone --bare https://github.com/hmaier-dev/dotfiles.git $HOME/repos/dotfiles
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># oder</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># git clone --bare git@github.com:hmaier-dev/dotfiles.git $HOME/repos/dotfiles</span>
+</span></span><span style="display:flex;"><span>git --git-dir<span style="color:#f92672">=</span>$HOME/repos/dotfiles/ --work-tree<span style="color:#f92672">=</span>$HOME config --local status.showUntrackedFiles no
+</span></span><span style="display:flex;"><span>git --git-dir<span style="color:#f92672">=</span>$HOME/repos/dotfiles/ --work-tree<span style="color:#f92672">=</span>$HOME checkout main
+</span></span><span style="display:flex;"><span>git --git-dir<span style="color:#f92672">=</span>$HOME/repos/dotfiles/ --work-tree<span style="color:#f92672">=</span>$HOME push --set-upstream origin main
+</span></span></code></pre></div><p>Vorher sollte <code>$HOME</code> am besten komplett blank sein (also auch ohne <code>.bashrc</code> etc.),
+damit es nicht zu Merge-Konflikten kommt.</p>
+<h2 id="config">config<a href="/wiki/git/#config" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<p>Diese Variable kann gesetzt werden, wenn git-diff immer sein eigenes vim nimmt.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global core.editor nvim
+</span></span></code></pre></div><h2 id="plattformen">Plattformen<a href="/wiki/git/#plattformen" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline hover:text-gray-800" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Github</li>
+<li>Gitlab</li>
+<li><a href="https://forgejo.org/">https://forgejo.org/</a></li>
+</ul>
+
+  
+
+
+    </main>
+   
+    <footer class="py-3 m-12 bg-gray-50 rounded">
+      
+
+  <div class="mb-3 flex justify-center">
+    
+    <a class="mx-3" href="/wiki/github/">Previous Page</a>
+    
+    <a class="mx-3" href="https://hmaier-dev.github.io/wiki/">Go to Home</a>
+    
+    <a class="mx-3" href="/wiki/gh/">Next Page</a>
+    
+  </div>
+
+
+
+<div class="font-mono text-xs">
+Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://tailwindcss.com/">Tailwind</a>. Hosted on Github-Pages by <a href="https://github.com/hmaier-dev/wiki">hmaier-dev/wiki</a>.
+</div>
+
+    <footer>
+
+  </div>
+
+
+</body>
+</html>

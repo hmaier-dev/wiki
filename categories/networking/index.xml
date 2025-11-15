@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Networking on Wiki</title>
+    <link>https://hmaier-dev.github.io/wiki/categories/networking/</link>
+    <description>Recent content in Networking on Wiki</description>
+    <generator>Hugo</generator>
+    <language>de-de</language>
+    <atom:link href="https://hmaier-dev.github.io/wiki/categories/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wireguard</title>
+      <link>https://hmaier-dev.github.io/wiki/wireguard/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://hmaier-dev.github.io/wiki/wireguard/</guid>
+      <description>&lt;p&gt;Does VPN. The easy way.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;wg show &amp;lt;interface&amp;gt;&lt;/code&gt;:&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;wg-quick down &amp;lt;interface&amp;gt;&lt;/code&gt;: Wireguard ausschalten&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;ip link delete &amp;lt;interface&amp;gt;&lt;/code&gt;: Wireguard-Interface löschen&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;wireguard&#34;&gt;Wireguard&lt;/h2&gt;&#xA;&lt;p&gt;Wie auch beim Tunneln mit anderen Protokollen, brauchen meine wg-Clients&#xA;einen öffentlichen Ansprechpartner im Internet, den wg-Server.&lt;/p&gt;&#xA;&lt;p&gt;Mit diesen Script kann ein Großteil der gängigen Linux-Distros in einen solchen wg-Server umwandeln.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Installer-Script für den Server: &lt;a href=&#34;https://github.com/angrisnttan/wireguard-install&#34;&gt;https://github.com/angrisnttan/wireguard-install&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Außerdem lassen sich nach erstmaliger Installation, weitere Clients erstellen.&#xA;Dabei kriegt man einerseits eine Config-Datei ausgeworfen sowie einen QR-Code angezeigt.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
