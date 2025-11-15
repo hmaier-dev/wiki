@@ -95,4 +95,11 @@ key2: secretkey2##1??
 ```
 Über `vars_files` importiert man den Vault nun wie auch andere Variablen.
 
+### Vault Password File
+Wenn man das Password nicht immer wieder eingeben möchte, kann man die Flag `--vault-password-file <file>` nutzen.
+Im File speichert man nur das Password ab und kann dann ein Playbook wie folgt ausführen:
+```bash
+ansible-playbook -i inventory.ini playbooks/deploy-authentik.yml --vault-password-file vault-env
+```
+
 
